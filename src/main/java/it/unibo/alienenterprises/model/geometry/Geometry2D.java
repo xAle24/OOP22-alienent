@@ -17,7 +17,25 @@ public class Geometry2D {
      * Vector2D
      */
     public record Vector2D(double angle, double module) {
+        public double getXComponent(){
+            return Math.cos(this.angle())*this.module();
+        }
+
+        public double getYComponent(){
+            return Math.sin(this.angle())*this.module();
+        }
     }
 
-    //TODO
+    /**
+     * @param point
+     * @param vector
+     * @return
+     */
+    public static Point2D traslate(final Point2D point, final Vector2D vector){
+        return new Point2D(point.x()+vector.getXComponent(), point.y()+vector.getYComponent());
+    }
+
+    public static double distance(final Point2D a, final Point2D b){
+        return Math.sqrt(Math.pow(a.x()-b.x(), 2)+Math.pow(a.y()-b.y(), 2));
+    }
 }
