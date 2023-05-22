@@ -1,4 +1,4 @@
-package it.unibo.alienenterprises.model.api;
+package it.unibo.alienenterprises.controller.api;
 
 public interface ShopController {
     
