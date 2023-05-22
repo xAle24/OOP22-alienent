@@ -4,12 +4,7 @@ package it.unibo.alienenterprises.model.api;
  * PowerUp 
  */
 public interface PowerUp {
-    enum Statistic {
-        HP,SPEED,DAMAGE,DEFENCE,
-        PROJECTILESPEED,COOLDOWN,RECOVERY;
-    }
-
-
+    
     /**
      * 
      * get the PWU corresponding Statistic
