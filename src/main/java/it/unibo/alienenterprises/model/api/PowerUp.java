@@ -5,6 +5,7 @@ package it.unibo.alienenterprises.model.api;
  */
 public interface PowerUp {
     
+    
     /**
      * 
      * get the PWU corresponding Statistic
@@ -18,7 +19,12 @@ public interface PowerUp {
      * get the PWU corresponding bonus modifier
      * 
      * @return the PWU corresponding bonus modifier 
-     */
-    Statistic getBonus();
+     mi sa che non serve
+    Statistic getBonus();*/
 
+    int getMaxLevel();
+
+    int getCost();
+
+    int getID();
 }

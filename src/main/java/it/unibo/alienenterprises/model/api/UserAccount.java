@@ -1,5 +1,7 @@
 package it.unibo.alienenterprises.model.api;
 
+import java.util.*;
+
 public interface UserAccount {
     
     /**
@@ -20,4 +22,28 @@ public interface UserAccount {
      * 
      */
     void save();
+
+    /**
+     * 
+     * Get the user money
+     * 
+     * @return the user money
+     * 
+     */
+    int getMoney();
+
+    void setMoney(int changeMoney);
+
+    /**
+     * 
+     * Get the current level of the ID corresponding PWU
+     * 
+     * @param ID the ID, corresponding to a PWU
+     * @return current level of the ID corresponding PWU
+     * 
+     */
+    int getCurrLevel(int ID);
+
+    Set<Integer> getInventoryID();
+
 }

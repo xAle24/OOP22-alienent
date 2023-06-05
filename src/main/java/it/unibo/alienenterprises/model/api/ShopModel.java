@@ -11,7 +11,7 @@ public interface ShopModel {
      * @return the negative amount of money the ID's correspondent PWU cost
      * 
      */
-    int check(int ID);
+    Optional<Integer> check(int ID);
 
     /**
      * 
@@ -23,8 +23,8 @@ public interface ShopModel {
      * @param ID the ID that represent the PWU the user want to buy
      * @return 
      * 
-     */
-    void updateShop(int newMoney, int ID);
+     lho diviso in update moneu e update iventory
+    void updateShop(int newMoney, int ID);*/
 
     /**
      * return the current user's money amount
@@ -41,6 +41,11 @@ public interface ShopModel {
      * 
     */
     Set<PowerUp> getInventory();
+
+
+    public void updateInventory(int ID);
+
+    public void updateMoney(int newMoney);
 
     /**
      * return the how many levels of the same PWU you have bought
