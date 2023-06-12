@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import it.unibo.alienenterprises.model.api.components.Component;
 import it.unibo.alienenterprises.model.geometry.Geometry2D;
+import it.unibo.alienenterprises.model.geometry.Geometry2D.Point2D;
+import it.unibo.alienenterprises.model.geometry.Geometry2D.Vector2D;
 
 /**
  * Models every object in the game map.
@@ -45,6 +47,16 @@ public interface GameObject {
      */
     Geometry2D.Vector2D getVelocity();
 
+    /**
+     * set the position of the object
+     */
+    void setPosition(Point2D point);
+
+    /**
+     * set the velocity of the object
+     */
+    void setVelocity(Vector2D vector);
+    
     /**
      * return the component of the given type or an empty optional if not present
      * 
