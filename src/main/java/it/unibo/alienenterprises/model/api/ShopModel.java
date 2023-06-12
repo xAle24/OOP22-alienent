@@ -1,6 +1,7 @@
 package it.unibo.alienenterprises.model.api;
 
-import java.util.*;
+import java.util.Optional;
+import java.util.Set;
 
 public interface ShopModel {
     /**
@@ -16,22 +17,23 @@ public interface ShopModel {
     /**
      * 
      * updates various fields of the shop: the user's money, their inventory
-     * and the PWUs still available. 
+     * and the PWUs still available.
      * 
      * @param newMoney the amount of money to subtract or add
-     * to the user's money
-     * @param ID the ID that represent the PWU the user want to buy
-     * @return 
+     *                 to the user's money
+     * @param ID       the ID that represent the PWU the user want to buy
+     * @return
      * 
-     lho diviso in update moneu e update iventory
-    void updateShop(int newMoney, int ID);*/
+     *         lho diviso in update moneu e update iventory
+     *         void updateShop(int newMoney, int ID);
+     */
 
     /**
      * return the current user's money amount
      * 
      * @return the current user's money amount
      * 
-    */
+     */
     int getMoney();
 
     /**
@@ -39,9 +41,8 @@ public interface ShopModel {
      * 
      * @return the current user's inventory
      * 
-    */
+     */
     Set<PowerUp> getInventory();
-
 
     public void updateInventory(int ID);
 
@@ -50,10 +51,10 @@ public interface ShopModel {
     /**
      * return the how many levels of the same PWU you have bought
      * 
-     * @param ID the ID that represent the PWU 
+     * @param ID the ID that represent the PWU
      * @return the ID corresponding PWU level
      * 
-    */
+     */
     int getLevel(int ID);
 
 }

@@ -1,7 +1,7 @@
 package it.unibo.alienenterprises.view.api;
 
 public interface ShopView {
-    
+
     /**
      * it shows the shop GUI
      * 
@@ -9,5 +9,7 @@ public interface ShopView {
      * 
      */
     void show();
+
+    void start(String[] args);
 
 }
