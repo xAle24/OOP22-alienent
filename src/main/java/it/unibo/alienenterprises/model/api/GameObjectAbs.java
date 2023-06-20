@@ -63,4 +63,10 @@ public abstract class GameObjectAbs implements GameObject {
         return component;
     }
 
+    @Override
+    public int getStatValue(Statistic stat) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getStatValue'");
+    }
+
 }

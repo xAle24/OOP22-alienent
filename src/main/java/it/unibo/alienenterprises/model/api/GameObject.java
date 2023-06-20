@@ -27,6 +27,12 @@ public interface GameObject {
     Type getType();
 
     /**
+     * 
+     * @return
+     */
+    int getStatValue(Statistic stat);
+
+    /**
      * return if the object is alive
      * 
      * @return
