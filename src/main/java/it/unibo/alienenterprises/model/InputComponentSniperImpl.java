@@ -20,19 +20,25 @@ public class InputComponentSniperImpl implements InputComponent {
     
     public void calculateMovement(GameObject enemy, GameObject player) {
         //movement on right/left direction
-        if (enemy.getPosition().x() > player.getPosition().x() && Math.abs(enemy.getPosition().x() - player.getPosition().x()) > 700
-            || enemy.getPosition().x() < player.getPosition().x() && Math.abs(enemy.getPosition().x() - player.getPosition().x()) > 700) {
+        if (enemy.getPosition().x() > player.getPosition().x() && Math.abs(enemy.getPosition().x() - player.getPosition().x()) > 700) {
+            right = false;
+        } else if(enemy.getPosition().x() > player.getPosition().x() && Math.abs(enemy.getPosition().x() - player.getPosition().x()) < 700){
+            right = true;
+        } else if(enemy.getPosition().x() < player.getPosition().x() && Math.abs(enemy.getPosition().x() - player.getPosition().x()) < 700) {
             right = false;
         } else {
             right = true;
         }
 
         //movement on up/down direction
-        if (enemy.getPosition().y() > player.getPosition().y() && Math.abs(enemy.getPosition().x() - player.getPosition().x()) > 700
-            || enemy.getPosition().y() < player.getPosition().y() && Math.abs(enemy.getPosition().x() - player.getPosition().x()) > 700) {
-            up = false;
+        if (enemy.getPosition().y() > player.getPosition().y() && Math.abs(enemy.getPosition().y() - player.getPosition().y()) > 700) {
+            right = false;
+        } else if(enemy.getPosition().y() > player.getPosition().y() && Math.abs(enemy.getPosition().y() - player.getPosition().y()) < 700){
+            right = true;
+        } else if(enemy.getPosition().y() < player.getPosition().y() && Math.abs(enemy.getPosition().y() - player.getPosition().y()) < 700) {
+            right = false;
         } else {
-            up = true;
+            right = true;
         }
 
         Random rnd = new Random(0);
