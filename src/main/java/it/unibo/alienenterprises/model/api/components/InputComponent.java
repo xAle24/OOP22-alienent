@@ -1,16 +1,16 @@
 package it.unibo.alienenterprises.model.api.components;
 
-import it.unibo.alienenterprises.model.api.Command;
+import it.unibo.alienenterprises.model.api.GameObject;
 
 /**
- * InputComponent
+ * InputComponent.
  */
 public interface InputComponent extends Component {
-
     /**
-     * Metodo non definitivo ancora da decidere
-     * 
-     * @param command
+     * Calculate the enemis movement in relation to player position. 
+     * @param player
+     * @param enemy
      */
-    void addInput(Command command);
+    void calculateMovement(GameObject player, GameObject enemy);
+
 }

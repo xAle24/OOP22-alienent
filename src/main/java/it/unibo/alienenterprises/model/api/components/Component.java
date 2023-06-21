@@ -7,7 +7,7 @@ import it.unibo.alienenterprises.model.api.GameObject;
  */
 public interface Component {
     /**
-     * Execute the component istruction on the given object
+     * Execute the component istruction on the given object.
      * 
      * @param object
      */
