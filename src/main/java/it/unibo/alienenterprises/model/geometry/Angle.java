@@ -18,7 +18,7 @@ public class Angle {
         this.angle = temp;
     }
 
-    public int getAngle() {
+    public int getValue() {
         return angle;
     }   
 }
