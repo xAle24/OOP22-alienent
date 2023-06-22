@@ -7,12 +7,12 @@ import it.unibo.alienenterprises.model.api.Statistic;
 
 public class PowerUpImpl implements PowerUp {
 
-    private int ID;
+    private String ID;
     private int cost;
     private int maxLevel;
     // private Map<Statistic,Integer> statModifiers = new HashMap<>();
 
-    public PowerUpImpl(int ID, int cost, int maxLevel) {
+    public PowerUpImpl(String ID, int cost, int maxLevel) {
         this.ID = ID;
         this.cost = cost;
         this.maxLevel = maxLevel;
@@ -34,7 +34,7 @@ public class PowerUpImpl implements PowerUp {
     }
 
     @Override
-    public int getID() {
+    public String getID() {
         return this.ID;
     }
 }

@@ -37,5 +37,5 @@ public interface PowerUp {
      * 
      * @return the PWU corresponding ID
      */
-    int getID();
+    String getID();
 }

@@ -51,7 +51,7 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
                 try {
                     Constructor constructor = new Constructor(UserAccountImpl.class, new LoaderOptions());
                     TypeDescription accountDescription = new TypeDescription(UserAccountImpl.class);
-                    accountDescription.addPropertyParameters("inventory", String.class, Object.class);
+                    accountDescription.addPropertyParameters("inventory", String.class, Integer.class);
                     constructor.addTypeDescription(accountDescription);
 
                     final Yaml yaml = new Yaml(constructor);
