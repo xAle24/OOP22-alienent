@@ -14,6 +14,12 @@ public class UserAccountImpl implements UserAccount {
     public UserAccountImpl() {
     }
 
+    public UserAccountImpl(String nickname) {
+        this.nickname = nickname;
+        this.money = 0;
+        this.highscore = 0;
+    }
+
     @Override
     public void setMoney(int changeMoney) {
         this.money += changeMoney;
