@@ -7,8 +7,8 @@ import java.util.Map;
 import it.unibo.alienenterprises.model.api.components.Component;
 import it.unibo.alienenterprises.model.api.components.HitboxComponent;
 import it.unibo.alienenterprises.model.api.components.InputComponent;
-import it.unibo.alienenterprises.model.geometry.Geometry2D.Point2D;
-import it.unibo.alienenterprises.model.geometry.Geometry2D.Vector2D;
+import it.unibo.alienenterprises.model.geometry.Point2D;
+import it.unibo.alienenterprises.model.geometry.Vector2D;
 
 /**
  * Implements methods common to all objects.

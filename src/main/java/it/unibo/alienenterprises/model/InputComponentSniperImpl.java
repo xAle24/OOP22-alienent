@@ -4,8 +4,7 @@ import java.util.Random;
 
 import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.components.InputComponent;
-import it.unibo.alienenterprises.model.geometry.Geometry2D;
-import it.unibo.alienenterprises.model.geometry.Geometry2D.Vector2D;
+import it.unibo.alienenterprises.model.geometry.Vector2D;
 
 /**
  * Sniper behaviour.
@@ -21,35 +20,35 @@ public class InputComponentSniperImpl implements InputComponent {
 
     @Override
     public void handle(final GameObject object) {
-        object.setPosition(Geometry2D.traslate(object.getPosition(), movement));
+        object.setPosition(movement.translate(object.getPosition()));
         object.setVelocity(movement);
     }
 
     @Override
     public void calculateMovement(final GameObject enemy, final GameObject player) {
         //movement on right/left direction
-        if (enemy.getPosition().x() > player.getPosition().x() 
-        && Math.abs(enemy.getPosition().x() - player.getPosition().x()) > DISTANCE) {
+        if (enemy.getPosition().getX() > player.getPosition().getX() 
+        && Math.abs(enemy.getPosition().getX() - player.getPosition().getX()) > DISTANCE) {
             right = false;
-        } else if (enemy.getPosition().x() > player.getPosition().x() 
-        && Math.abs(enemy.getPosition().x() - player.getPosition().x()) < DISTANCE) {
+        } else if (enemy.getPosition().getX() > player.getPosition().getX() 
+        && Math.abs(enemy.getPosition().getX() - player.getPosition().getX()) < DISTANCE) {
             right = true;
-        } else if (enemy.getPosition().x() < player.getPosition().x() 
-        && Math.abs(enemy.getPosition().x() - player.getPosition().x()) < DISTANCE) {
+        } else if (enemy.getPosition().getX() < player.getPosition().getX() 
+        && Math.abs(enemy.getPosition().getX() - player.getPosition().getX()) < DISTANCE) {
             right = false;
         } else {
             right = true;
         }
 
         //movement on up/down direction
-        if (enemy.getPosition().y() > player.getPosition().y() 
-        &&  Math.abs(enemy.getPosition().y() - player.getPosition().y()) > DISTANCE) {
+        if (enemy.getPosition().getY() > player.getPosition().getY() 
+        &&  Math.abs(enemy.getPosition().getY() - player.getPosition().getY()) > DISTANCE) {
             right = false;
-        } else if (enemy.getPosition().y() > player.getPosition().y() 
-        && Math.abs(enemy.getPosition().y() - player.getPosition().y()) < DISTANCE) {
+        } else if (enemy.getPosition().getY() > player.getPosition().getY() 
+        && Math.abs(enemy.getPosition().getY() - player.getPosition().getY()) < DISTANCE) {
             right = true;
-        } else if (enemy.getPosition().y() < player.getPosition().y() 
-        && Math.abs(enemy.getPosition().y() - player.getPosition().y()) < DISTANCE) {
+        } else if (enemy.getPosition().getY() < player.getPosition().getY() 
+        && Math.abs(enemy.getPosition().getY() - player.getPosition().getY()) < DISTANCE) {
             right = false;
         } else {
             right = true;

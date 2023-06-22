@@ -4,9 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import it.unibo.alienenterprises.model.api.components.Component;
-import it.unibo.alienenterprises.model.geometry.Geometry2D;
-import it.unibo.alienenterprises.model.geometry.Geometry2D.Point2D;
-import it.unibo.alienenterprises.model.geometry.Geometry2D.Vector2D;
+import it.unibo.alienenterprises.model.geometry.Point2D;
+import it.unibo.alienenterprises.model.geometry.Vector2D;
 
 /**
  * Models every object in the game map.
@@ -29,13 +28,13 @@ public interface GameObject {
      * return the position of the object.
      * @return the object position 
      */
-    Geometry2D.Point2D getPosition();
+    Point2D getPosition();
 
     /**
      * return the velocity vector.
      * @return the object velocity vector 
      */
-    Geometry2D.Vector2D getVelocity();
+    Vector2D getVelocity();
 
     /**
      * set the position of the object.
