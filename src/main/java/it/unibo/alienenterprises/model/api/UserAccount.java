@@ -3,25 +3,42 @@ package it.unibo.alienenterprises.model.api;
 import java.util.*;
 
 public interface UserAccount {
-    
-    /**
-     * 
-     * Add the ID, corresponding to a PWU, to the user's inventory
-     * 
-     * @param ID the ID, corresponding to a PWU
-     * @return
-     * 
-     */
-    void updateInventory(int ID);
 
     /**
      * 
-     * Saves all the user information in the saving file
+     * Set the user money
      * 
      * @return
      * 
      */
-    void save();
+    void setMoney(int changeMoney);
+
+    /**
+     * 
+     * Set the user nickname
+     * 
+     * @return
+     * 
+     */
+    void setNickname(String nickname);
+
+    /**
+     * 
+     * Set the user highscore
+     * 
+     * @return
+     * 
+     */
+    void setHighscore(int highscore);
+
+    /**
+     * 
+     * Set the user inventory
+     * 
+     * @return
+     * 
+     */
+    void setInventory(Map<Integer, Integer> newInventory);
 
     /**
      * 
@@ -32,7 +49,32 @@ public interface UserAccount {
      */
     int getMoney();
 
-    void setMoney(int changeMoney);
+    /**
+     * 
+     * Get the user nickname
+     * 
+     * @return the user nickname
+     * 
+     */
+    String getNickname();
+
+    /**
+     * 
+     * Get the user highscore
+     * 
+     * @return the user highscore
+     * 
+     */
+    int getHighscore();
+
+    /**
+     * 
+     * Get the user inventory
+     * 
+     * @return the user inventory
+     * 
+     */
+    Map<String, Integer> getInventory();
 
     /**
      * 
@@ -42,8 +84,25 @@ public interface UserAccount {
      * @return current level of the ID corresponding PWU
      * 
      */
-    int getCurrLevel(int ID);
+    int getCurrLevel(String ID);
 
-    Set<Integer> getInventoryID();
+    /**
+     * 
+     * Get the????
+     * 
+     * @return current level of the ID corresponding PWU
+     * 
+     */
+    Set<String> getInventoryID();
+
+    /**
+     * 
+     * Add the ID, corresponding to a PWU, to the user's inventory
+     * 
+     * @param ID the ID, corresponding to a PWU
+     * @return
+     * 
+     */
+    void updateInventory(String ID);
 
 }
