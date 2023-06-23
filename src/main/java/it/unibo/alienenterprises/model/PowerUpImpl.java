@@ -13,10 +13,7 @@ public class PowerUpImpl implements PowerUp {
     private int maxLevel;
     private Map<Statistic, Integer> statModifiers = new HashMap<>();
 
-    public PowerUpImpl(String ID, int cost, int maxLevel) {
-        this.ID = ID;
-        this.cost = cost;
-        this.maxLevel = maxLevel;
+    public PowerUpImpl() {
     }
 
     @Override
