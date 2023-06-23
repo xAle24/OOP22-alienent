@@ -1,0 +1,36 @@
+---
+ID: "Health"
+cost: 300
+maxLevel: 5
+statModifiers:
+  HP: 5
+  SPEED: 0
+  DAMAGE: 0
+  DEFENCE: 0
+  PROJECTILESPEED: 0
+  COOLDOWN: 0
+  RECOVERY: 0
+---
+ID: "Speed"
+cost: 200
+maxLevel: 3
+statModifiers:
+  HP: 0
+  SPEED: 5
+  DAMAGE: 0
+  DEFENCE: 0
+  PROJECTILESPEED: 0
+  COOLDOWN: 0
+  RECOVERY: 0
+---
+ID: "Damage"
+cost: 500
+maxLevel: 2
+statModifiers:
+  HP: 0
+  SPEED: 0
+  DAMAGE: 5
+  DEFENCE: 0
+  PROJECTILESPEED: 0
+  COOLDOWN: 0
+  RECOVERY: 0
