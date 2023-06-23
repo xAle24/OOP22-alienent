@@ -1,29 +1,41 @@
 package it.unibo.alienenterprises.model;
 
+import java.io.File;
+import java.io.FileInputStream;
 //import java.io.File;
 import java.util.*;
+
+import org.yaml.snakeyaml.LoaderOptions;
+import org.yaml.snakeyaml.TypeDescription;
+import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.constructor.Constructor;
 
 import it.unibo.alienenterprises.model.api.PowerUp;
 import it.unibo.alienenterprises.model.api.ShopModel;
 //import javafx.application.Application;
+import it.unibo.alienenterprises.model.api.Statistic;
+import it.unibo.alienenterprises.view.ShopViewImpl;
 
 public class ShopModelImpl implements ShopModel {
 
+    private static final String SEPARATOR = File.separator;
+    private static final String GAME_PATH = System.getProperty("user.home") + SEPARATOR + ".Alien Enterprises";
+
     private Collection<PowerUp> powerUps = new HashSet<>();
-    private UserAccountImpl user = new UserAccountImpl(5000);
+
+    public ShopModelImpl() {
+        loadPWU();
+    }
 
     @Override
-    public Optional<Integer> check(int ID) {
+    public Optional<Integer> check(String ID, UserAccountImpl user) {
 
-        populate();
         var PWUiterator = powerUps.iterator();
         while (PWUiterator.hasNext()) {
             PowerUp currPWU = PWUiterator.next();
 
-            System.out.println(currPWU.getCost());
-
             if (currPWU.getID() == ID) {
-                return (this.user.getMoney() - currPWU.getCost() > 0) ? Optional.of(-currPWU.getCost())
+                return (user.getMoney() - currPWU.getCost() > 0) ? Optional.of(-currPWU.getCost())
                         : Optional.empty();
             }
             // se returna i soldi al negativo io posso toglierli con updateMoney
@@ -33,39 +45,25 @@ public class ShopModelImpl implements ShopModel {
         return Optional.empty();
     }
 
-    private void populate() {
-        /*
-         * File file = new File("src/main/resources/examplemvc/PowerUps.yml");
-         * ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory()
-         * ApplicationConfig config = objectMapper.readValue(file,
-         * ApplicationConfig.class);
-         * System.out.println(config.toString);
-         */
-        for (int i = 1; i < 6; i++) {
-            this.powerUps.add(new PowerUpImpl(i, (int) Math.pow(i, 3), 5));
-        }
-        this.powerUps.add(new PowerUpImpl(6, 5000, 5));
+    @Override
+    public void updateInventory(String ID, UserAccountImpl user) {
+        user.updateInventory(ID);
+    }
+
+    public void updateMoney(int changeMoney, UserAccountImpl user) {
+        user.setMoney(changeMoney);
     }
 
     @Override
-    public void updateInventory(int ID) {
-        this.user.updateInventory(ID);
-    }
-
-    public void updateMoney(int changeMoney) {
-        this.user.setMoney(changeMoney);
+    public int getMoney(UserAccountImpl user) {
+        return user.getMoney();
     }
 
     @Override
-    public int getMoney() {
-        return this.user.getMoney();
-    }
-
-    @Override
-    public Set<PowerUp> getInventory /* Stats */() {
+    public Set<PowerUp> getInventory /* Stats */(UserAccountImpl user) {
         Set<PowerUp> copyInventory = new HashSet<>();
-        var iterator = this.user.getInventoryID().iterator();
-        System.out.println(this.user.getInventoryID());
+        var iterator = user.getInventoryID().iterator();
+        System.out.println(user.getInventoryID());
 
         while (iterator.hasNext()) {
             var currentInv = iterator.next();
@@ -87,8 +85,26 @@ public class ShopModelImpl implements ShopModel {
     }
 
     @Override
-    public int getLevel(int ID) {
-        return this.user.getCurrLevel(ID);
+    public int getLevel(String ID, UserAccountImpl user) {
+        return user.getCurrLevel(ID);
+    }
+
+    @Override
+    public void loadPWU() {
+        try {
+            Constructor constructor = new Constructor(PowerUpImpl.class, new LoaderOptions());
+            TypeDescription accountDescription = new TypeDescription(PowerUpImpl.class);
+            accountDescription.addPropertyParameters("StatModifier", Statistic.class, Integer.class);
+            constructor.addTypeDescription(accountDescription);
+
+            final Yaml yaml = new Yaml(constructor);
+            FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + ".PowerUps.yml");
+            powerUps = (Collection<PowerUpImpl>) yaml.loadAll(inputStream); // ???
+            inputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 }
