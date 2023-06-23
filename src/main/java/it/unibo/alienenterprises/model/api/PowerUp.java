@@ -1,5 +1,7 @@
 package it.unibo.alienenterprises.model.api;
 
+import java.util.Map;
+
 /**
  * PowerUp
  */
@@ -7,29 +9,35 @@ public interface PowerUp {
 
     /**
      * 
-     * get the PWU corresponding Statistic.
+     * set the PWU corresponding ID.
      * 
-     * @return the PWU corresponding Statistic
+     * @return
      */
-    Statistic getStat();
+    void setID(String ID);
 
     /**
      * 
-     * get the PWU corresponding bonus modifier.
+     * set the PWU cost.
      * 
-     * @return the PWU corresponding bonus modifier
-     *         mi sa che non serve
-     *         Statistic getBonus();
+     * @return
      */
-    int getMaxLevel();
+    void setCost(int cost);
 
     /**
      * 
-     * get the PWU corresponding cost.
+     * set the PWU maximum level.
      * 
-     * @return the PWU corresponding cost
+     * @return
      */
-    int getCost();
+    void setMaxLevel(int maxLevel);
+
+    /**
+     * 
+     * set the PWU map of statistics.
+     * 
+     * @return
+     */
+    void setStatModifiers(Map<Statistic, Integer> statModifiers);
 
     /**
      * 
@@ -38,4 +46,28 @@ public interface PowerUp {
      * @return the PWU corresponding ID
      */
     String getID();
+
+    /**
+     * 
+     * get the PWU cost.
+     * 
+     * @return the PWU cost
+     */
+    int getCost();
+
+    /**
+     * 
+     * get the PWU maximum levl.
+     * 
+     * @return the PWU maximum level
+     */
+    int getMaxLevel();
+
+    /**
+     * 
+     * get the PWU map of statistics.
+     * 
+     * @return the PWU map of statistics
+     */
+    Map<Statistic, Integer> getStatModifiers();
 }
