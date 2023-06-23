@@ -1,6 +1,6 @@
 package it.unibo.alienenterprises.model.api.components;
 
-import it.unibo.alienenterprises.model.geometry.Geometry2D.Circle2D;
+import it.unibo.alienenterprises.model.geometry.Circle2D;
 
 /**
  * Hitbox component interface.
