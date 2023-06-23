@@ -1,6 +1,7 @@
 package it.unibo.alienenterprises.model.geometry;
+
 /**
- * Describe the functionalities of a Vector
+ * Describe the functionalities of a Vector.
  */
 public class Vector2D {
 

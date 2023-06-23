@@ -1,7 +1,7 @@
 package it.unibo.alienenterprises.model.geometry;
 
 /**
- * Describe the functionalities of a point in a 2D space
+ * Describe the functionalities of a point in a 2D space.
  */
 public class Point2D {
 

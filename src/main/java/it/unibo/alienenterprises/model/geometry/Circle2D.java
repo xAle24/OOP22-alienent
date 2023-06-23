@@ -1,7 +1,7 @@
 package it.unibo.alienenterprises.model.geometry;
 
 /**
- * Describe a circle in a 2D space
+ * Describe a circle in a 2D space.
  */
 public class Circle2D {
 

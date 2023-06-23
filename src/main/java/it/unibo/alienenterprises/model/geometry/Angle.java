@@ -1,12 +1,12 @@
 package it.unibo.alienenterprises.model.geometry;
 
 /**
- * A simple Class to define limits of an angle
+ * A simple Class to define limits of an angle.
  */
 public class Angle {
 
     /**
-     * Define the maximum value that an angle can obtain
+     * Define the maximum value that an angle can obtain.
      */
     private static final int MAX_ANGLE = 360;
 
