@@ -3,6 +3,8 @@ package it.unibo.alienenterprises.model.api;
 import java.util.Optional;
 import java.util.Set;
 
+import it.unibo.alienenterprises.model.UserAccountImpl;
+
 public interface ShopModel {
     /**
      * return the amount of money the ID corrsponding PWU cost,
@@ -12,7 +14,7 @@ public interface ShopModel {
      * @return the negative amount of money the ID's correspondent PWU cost
      * 
      */
-    Optional<Integer> check(int ID);
+    Optional<Integer> check(String ID, UserAccountImpl user);
 
     /**
      * 
@@ -34,7 +36,7 @@ public interface ShopModel {
      * @return the current user's money amount
      * 
      */
-    int getMoney();
+    int getMoney(UserAccountImpl user);
 
     /**
      * return the current user's inventory
@@ -42,11 +44,11 @@ public interface ShopModel {
      * @return the current user's inventory
      * 
      */
-    Set<PowerUp> getInventory();
+    Set<PowerUp> getInventory(UserAccountImpl user);
 
-    public void updateInventory(int ID);
+    public void updateInventory(String ID, UserAccountImpl user);
 
-    public void updateMoney(int newMoney);
+    public void updateMoney(int newMoney, UserAccountImpl user);
 
     /**
      * return the how many levels of the same PWU you have bought
@@ -55,6 +57,15 @@ public interface ShopModel {
      * @return the ID corresponding PWU level
      * 
      */
-    int getLevel(int ID);
+    int getLevel(String ID, UserAccountImpl user);
+
+    /**
+     * Load the yaml file with all the PowerUp's implementations and saves them in a
+     * collection.
+     * 
+     * @return
+     * 
+     */
+    void loadPWU();
 
 }

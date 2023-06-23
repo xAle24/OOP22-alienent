@@ -2,7 +2,6 @@ package it.unibo.alienenterprises.model;
 
 import java.io.File;
 import java.io.FileInputStream;
-//import java.io.File;
 import java.util.*;
 
 import org.yaml.snakeyaml.LoaderOptions;
@@ -12,14 +11,13 @@ import org.yaml.snakeyaml.constructor.Constructor;
 
 import it.unibo.alienenterprises.model.api.PowerUp;
 import it.unibo.alienenterprises.model.api.ShopModel;
-//import javafx.application.Application;
 import it.unibo.alienenterprises.model.api.Statistic;
-import it.unibo.alienenterprises.view.ShopViewImpl;
 
 public class ShopModelImpl implements ShopModel {
 
     private static final String SEPARATOR = File.separator;
-    private static final String GAME_PATH = System.getProperty("user.home") + SEPARATOR + ".Alien Enterprises";
+    private static final String GAME_PATH = "src/main/resources/examplemvc";
+    // System.getProperty("user.home") + SEPARATOR + ".Alien Enterprises";
 
     private Collection<PowerUp> powerUps = new HashSet<>();
 
@@ -34,7 +32,7 @@ public class ShopModelImpl implements ShopModel {
         while (PWUiterator.hasNext()) {
             PowerUp currPWU = PWUiterator.next();
 
-            if (currPWU.getID() == ID) {
+            if (currPWU.getID().equals(ID)) {
                 return (user.getMoney() - currPWU.getCost() > 0) ? Optional.of(-currPWU.getCost())
                         : Optional.empty();
             }
@@ -94,12 +92,21 @@ public class ShopModelImpl implements ShopModel {
         try {
             Constructor constructor = new Constructor(PowerUpImpl.class, new LoaderOptions());
             TypeDescription accountDescription = new TypeDescription(PowerUpImpl.class);
-            accountDescription.addPropertyParameters("StatModifier", Statistic.class, Integer.class);
+            accountDescription.addPropertyParameters("ID", String.class);
+            accountDescription.addPropertyParameters("cost", Integer.class);
+            accountDescription.addPropertyParameters("maxLevel", Integer.class);
+            accountDescription.addPropertyParameters("statModifiers", Statistic.class, Integer.class);
             constructor.addTypeDescription(accountDescription);
 
             final Yaml yaml = new Yaml(constructor);
-            FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + ".PowerUps.yml");
-            powerUps = (Collection<PowerUpImpl>) yaml.loadAll(inputStream); // ???
+            FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + "PowerUps.yml");
+            Iterable<Object> documents = yaml.loadAll(inputStream);
+            System.out.println(documents.toString());
+            for (Object object : documents) {
+                System.out.println(object.toString());
+                powerUps.add((PowerUp) object);
+            }
+
             inputStream.close();
         } catch (Exception e) {
             e.printStackTrace();

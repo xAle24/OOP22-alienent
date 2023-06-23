@@ -23,10 +23,14 @@ import it.unibo.alienenterprises.model.api.UserAccountHandler;
 public class UserAccountHandlerImpl implements UserAccountHandler {
 
     private static final String SEPARATOR = File.separator;
-    private static final String GAME_PATH = System.getProperty("user.home") + SEPARATOR + ".Alien Enterprises";
+    private static final String GAME_PATH = "src/main/resources/examplemvc";
+    // System.getProperty("user.home") + SEPARATOR + ".Alien Enterprises";
+
+    public UserAccountHandlerImpl() {
+    }
 
     private boolean existingAccount(String nickname) {
-        return Files.exists(Paths.get(GAME_PATH + SEPARATOR + nickname));
+        return Files.exists(Paths.get(GAME_PATH + SEPARATOR + nickname + ".yml"));
     }
 
     private boolean correctPassword(String nickname, String password) {
@@ -55,7 +59,7 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
                     constructor.addTypeDescription(accountDescription);
 
                     final Yaml yaml = new Yaml(constructor);
-                    FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + nickname);
+                    FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + nickname + ".yml");
                     UserAccountImpl userAccount = (UserAccountImpl) yaml.load(inputStream);
 
                     inputStream.close();
@@ -69,8 +73,9 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
             }
             throw new IOException("Password does not match the nickanme");
         } else {
-            final File accountFile = new File(GAME_PATH + SEPARATOR + nickname);
+            final File accountFile = new File(GAME_PATH + SEPARATOR + nickname + ".yml");
             try {
+                System.out.println(accountFile.getAbsolutePath());
                 accountFile.createNewFile();
                 FileWriter writer = new FileWriter(GAME_PATH + SEPARATOR + "passwords.yaml", StandardCharsets.UTF_8,
                         true);
@@ -93,7 +98,7 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
 
     @Override
     public void save(UserAccountImpl account) {
-        final File accountFile = new File(GAME_PATH + SEPARATOR + account.getNickname());
+        final String accountFile = GAME_PATH + SEPARATOR + account.getNickname() + ".yml";
         try (FileWriter writer = new FileWriter(accountFile, StandardCharsets.UTF_8, false)) {
             Representer representer = new Representer(new DumperOptions());
             representer.addClassTag(UserAccountImpl.class, new Tag("!UserAccountImpl"));
