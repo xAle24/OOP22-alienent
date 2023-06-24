@@ -33,9 +33,9 @@ public class Circle2D {
 
     /**
      * @param c
-     * @return true if the two cicle are intersecated, false otherwise
+     * @return true if the two cicle intersect with eachother, false otherwise
      */
-    public boolean intersecateWhith(final Circle2D c) {
+    public boolean intersectWhith(final Circle2D c) {
         return this.getRay() + c.getRay() < this.center.distanceFrom(c.getCenter());
     }
 
