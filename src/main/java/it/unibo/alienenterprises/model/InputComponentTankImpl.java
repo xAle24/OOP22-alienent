@@ -15,7 +15,7 @@ public class InputComponentTankImpl implements InputComponent {
     private static final int RANDOMANGLE = 91;
     private static final Random rnd = new Random();
 
-    private Vector2D movement = new Vector2D(0, 0);
+    private Vector2D movement = Vector2D.NULL_VECTOR;
     private boolean right, up = false;
 
     @Override
@@ -55,13 +55,13 @@ public class InputComponentTankImpl implements InputComponent {
         }
 
         if (right && up) {
-            movement = new Vector2D(rnd.nextInt(RANDOMANGLE), 0);
+            movement = Vector2D.fromAngleAndModule(rnd.nextInt(RANDOMANGLE), 0);
         } else if (!right && up) {
-            movement = new Vector2D(rnd.nextInt(RANDOMANGLE) + RIGHTANGLE, 0);
+            movement = Vector2D.fromAngleAndModule(rnd.nextInt(RANDOMANGLE) + RIGHTANGLE, 0);
         } else if (!right && !up) {
-            movement = new Vector2D(rnd.nextInt(RANDOMANGLE) + RIGHTANGLE * 2, 0);
+            movement = Vector2D.fromAngleAndModule(rnd.nextInt(RANDOMANGLE) + RIGHTANGLE * 2, 0);
         } else {
-            movement = new Vector2D(rnd.nextInt(RANDOMANGLE) + RIGHTANGLE * 3, 0);
+            movement = Vector2D.fromAngleAndModule(rnd.nextInt(RANDOMANGLE) + RIGHTANGLE * 3, 0);
         }
     }
 }

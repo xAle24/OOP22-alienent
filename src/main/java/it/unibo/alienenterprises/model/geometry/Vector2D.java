@@ -5,73 +5,86 @@ package it.unibo.alienenterprises.model.geometry;
  */
 public class Vector2D {
 
-    private final Angle angle;
-    private final double module;
+    public static final Vector2D NULL_VECTOR = new Vector2D(0, 0);
+
+    private final double xComp;
+    private final double yComp;
 
     /**
-     * @param angle
+     * @param xComponent
+     * @param yComponent
+     */
+    public Vector2D(final double xComponent, final double yComponent) {
+        this.xComp = xComponent;
+        this.yComp = yComponent;
+    }
+
+    /**
+     * @param angle  in degrees
      * @param module
+     * @return The vecttor with that angle and module
      */
-    public Vector2D(final int angle, final double module) {
-        this.angle = new Angle(angle);
-        this.module = module;
-    }
-
-    public static Vector2D getFromComponents(final int x, final int y) {
-        final double module = Math.sqrt(x * x + y * y);
-        final int angle = (int) Math.acos(x / module);
-        return new Vector2D(angle, module);
+    public static Vector2D fromAngleAndModule(final double angle, final double module) {
+        var r = Math.toRadians(angle);
+        return new Vector2D(module * Math.cos(r), module * Math.sin(r));
     }
 
     /**
-     * @return the angle value
+     * @return xComponent
      */
-    public int getAngle() {
-        return angle.getValue();
+    public double getxComp() {
+        return xComp;
     }
 
     /**
-     * @return module of the vector
+     * @return yComponent
+     */
+    public double getyComp() {
+        return yComp;
+    }
+
+    /**
+     * @return vector angle in degrees
+     */
+    public double getAngle() {
+        if(xComp==0){
+            if(yComp==0){
+                return 0;
+            }
+            return yComp<0 ? 270 : 90; 
+        }
+        return Math.toDegrees(Math.tan(yComp / xComp));
+    }
+
+    /**
+     * @return vector module
      */
     public double getModule() {
-        return module;
+        return Math.sqrt(xComp * xComp + yComp * yComp);
     }
 
     /**
-     * @return the x component of the vector
-     */
-    public double getXComponent() {
-        return Math.cos(this.getAngle()) * this.getModule();
-    }
-
-    /**
-     * @return the y component of the vector
-     */
-    public double getYComponent() {
-        return Math.sin(this.getAngle()) * this.getModule();
-    }
-
-    /**
-     * @param p a Point2D
-     * @return a new point derived from the translation of p
+     * @param p
+     * @return the point resulting form the translation
      */
     public Point2D translate(final Point2D p) {
-        return new Point2D(p.getX() + this.getXComponent(), p.getY() + this.getYComponent());
+        return new Point2D(p.getX() + xComp, p.getY() + yComp);
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((angle == null) ? 0 : angle.hashCode());
         long temp;
-        temp = Double.doubleToLongBits(module);
+        temp = Double.doubleToLongBits(xComp);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(yComp);
         result = prime * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
 
     @Override
-    public boolean equals(final Object obj) {
+    public boolean equals(Object obj) {
         if (this == obj)
             return true;
         if (obj == null)
@@ -79,12 +92,9 @@ public class Vector2D {
         if (getClass() != obj.getClass())
             return false;
         Vector2D other = (Vector2D) obj;
-        if (angle == null) {
-            if (other.angle != null)
-                return false;
-        } else if (!angle.equals(other.angle))
+        if (Double.doubleToLongBits(xComp) != Double.doubleToLongBits(other.xComp))
             return false;
-        if (Double.doubleToLongBits(module) != Double.doubleToLongBits(other.module))
+        if (Double.doubleToLongBits(yComp) != Double.doubleToLongBits(other.yComp))
             return false;
         return true;
     }
