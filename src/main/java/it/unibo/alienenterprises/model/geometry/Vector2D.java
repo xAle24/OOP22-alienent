@@ -17,6 +17,12 @@ public class Vector2D {
         this.module = module;
     }
 
+    public static Vector2D getFromComponents(final int x, final int y){
+        final double module = Math.sqrt(x*x + y*y);
+        final int angle = (int) Math.acos(x/module);
+        return new Vector2D(angle, module);
+    }
+
     /**
      * @return the angle value
      */
@@ -52,5 +58,6 @@ public class Vector2D {
     public Point2D translate(final Point2D p) {
         return new Point2D(p.getX() + this.getXComponent(), p.getY() + this.getYComponent());
     }
+    
 
 }
