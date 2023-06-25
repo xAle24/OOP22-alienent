@@ -47,11 +47,11 @@ public class Vector2D {
      * @return vector angle in degrees
      */
     public double getAngle() {
-        if(xComp==0){
-            if(yComp==0){
+        if (xComp == 0) {
+            if (yComp == 0) {
                 return 0;
             }
-            return yComp<0 ? 270 : 90; 
+            return yComp < 0 ? 270 : 90;
         }
         return Math.toDegrees(Math.tan(yComp / xComp));
     }
@@ -69,6 +69,14 @@ public class Vector2D {
      */
     public Point2D translate(final Point2D p) {
         return new Point2D(p.getX() + xComp, p.getY() + yComp);
+    }
+
+    /**
+     * @param vec
+     * @return return the vector obtainded adding vec
+     */
+    public Vector2D add(final Vector2D vec) {
+        return new Vector2D(xComp + vec.getxComp(), yComp + vec.getyComp());
     }
 
     @Override

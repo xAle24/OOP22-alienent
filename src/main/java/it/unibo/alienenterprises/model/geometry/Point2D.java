@@ -5,6 +5,8 @@ package it.unibo.alienenterprises.model.geometry;
  */
 public class Point2D {
 
+    public static final Point2D ORIGIN = new Point2D(0, 0);
+
     private final double x;
     private final double y;
 
