@@ -36,7 +36,37 @@ public class Circle2D {
      * @return true if the two cicle intersect with eachother, false otherwise
      */
     public boolean intersectWhith(final Circle2D c) {
-        return this.getRay() + c.getRay() < this.center.distanceFrom(c.getCenter());
+        return (this.getRay() + c.getRay()) > this.center.distanceFrom(c.getCenter());
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((center == null) ? 0 : center.hashCode());
+        long temp;
+        temp = Double.doubleToLongBits(r);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Circle2D other = (Circle2D) obj;
+        if (center == null) {
+            if (other.center != null)
+                return false;
+        } else if (!center.equals(other.center))
+            return false;
+        if (Double.doubleToLongBits(r) != Double.doubleToLongBits(other.r))
+            return false;
+        return true;
     }
 
 }

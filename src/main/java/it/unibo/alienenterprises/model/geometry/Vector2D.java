@@ -17,9 +17,9 @@ public class Vector2D {
         this.module = module;
     }
 
-    public static Vector2D getFromComponents(final int x, final int y){
-        final double module = Math.sqrt(x*x + y*y);
-        final int angle = (int) Math.acos(x/module);
+    public static Vector2D getFromComponents(final int x, final int y) {
+        final double module = Math.sqrt(x * x + y * y);
+        final int angle = (int) Math.acos(x / module);
         return new Vector2D(angle, module);
     }
 
@@ -58,6 +58,35 @@ public class Vector2D {
     public Point2D translate(final Point2D p) {
         return new Point2D(p.getX() + this.getXComponent(), p.getY() + this.getYComponent());
     }
-    
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((angle == null) ? 0 : angle.hashCode());
+        long temp;
+        temp = Double.doubleToLongBits(module);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Vector2D other = (Vector2D) obj;
+        if (angle == null) {
+            if (other.angle != null)
+                return false;
+        } else if (!angle.equals(other.angle))
+            return false;
+        if (Double.doubleToLongBits(module) != Double.doubleToLongBits(other.module))
+            return false;
+        return true;
+    }
 
 }
