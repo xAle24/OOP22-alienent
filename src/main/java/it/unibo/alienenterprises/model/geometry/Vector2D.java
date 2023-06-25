@@ -26,6 +26,12 @@ public class Vector2D {
      */
     public static Vector2D fromAngleAndModule(final double angle, final double module) {
         var r = Math.toRadians(angle);
+        var angTr = Math.toDegrees(r);
+        if (angTr == 270 || angTr == 90) {
+            return angTr == 270 ? new Vector2D(0, -module) : new Vector2D(0, module);
+        } else if (angTr == 0 || angTr == 180) {
+            return angTr == 0 ? new Vector2D(module, 0) : new Vector2D(-module, 0);
+        }
         return new Vector2D(module * Math.cos(r), module * Math.sin(r));
     }
 
@@ -53,7 +59,7 @@ public class Vector2D {
             }
             return yComp < 0 ? 270 : 90;
         }
-        return Math.toDegrees(Math.tan(yComp / xComp));
+        return Math.toDegrees(Math.atan(yComp / xComp));
     }
 
     /**
