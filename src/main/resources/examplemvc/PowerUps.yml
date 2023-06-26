@@ -1,5 +1,5 @@
 ---
-ID: "Health"
+id: "Health"
 cost: 300
 maxLevel: 5
 statModifiers:
@@ -11,7 +11,7 @@ statModifiers:
   COOLDOWN: 0
   RECOVERY: 0
 ---
-ID: "Speed"
+id: "Speed"
 cost: 200
 maxLevel: 3
 statModifiers:
@@ -23,7 +23,7 @@ statModifiers:
   COOLDOWN: 0
   RECOVERY: 0
 ---
-ID: "Damage"
+id: "Damage"
 cost: 500
 maxLevel: 2
 statModifiers:

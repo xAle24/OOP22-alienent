@@ -12,12 +12,17 @@ import org.junit.jupiter.api.Test;
 import it.unibo.alienenterprises.model.ShopModelImpl;
 import it.unibo.alienenterprises.model.UserAccountHandlerImpl;
 import it.unibo.alienenterprises.model.UserAccountImpl;
+import it.unibo.alienenterprises.model.api.Statistic;
 
+/**
+ * UserAccountTest.
+ */
 public class UserAccountTest {
 
     private static final int MONEY = 5000;
     private static final int HIGHSCORE = 80000;
     private static final int HEALTH_COST = -300;
+    private static final int SPEED_COST = -200;
 
     private UserAccountImpl account = new UserAccountImpl();
     private UserAccountHandlerImpl accountHandler = new UserAccountHandlerImpl();
@@ -62,13 +67,28 @@ public class UserAccountTest {
         assertEquals(HIGHSCORE, account.getHighscore());
 
         assertEquals(Optional.of(HEALTH_COST), shop.check("Health", account));
-        shop.updateInventory("Health", account);
+        assertEquals(Optional.of(SPEED_COST), shop.check("Speed", account));
+        assertEquals(Optional.of(SPEED_COST), shop.check("Speed", account));
+        shop.updateShop("Health", account, HEALTH_COST);
+        shop.updateShop("Speed", account, SPEED_COST);
+        shop.updateShop("Speed", account, SPEED_COST);
+
         Map<String, Integer> map = new HashMap<>();
         map.put("Health", 1);
+        map.put("Speed", 2);
         assertEquals(map, account.getInventory());
 
-        shop.updateMoney(HEALTH_COST, account);
-        assertEquals(5000 + HEALTH_COST, account.getMoney());
+        assertEquals(MONEY + HEALTH_COST + SPEED_COST + SPEED_COST, account.getMoney());
 
+        System.out.println(account.getToAddPwu());
+        Map<Statistic, Integer> map2 = new HashMap<>();
+        map2.put((Statistic.HP), 5);
+        map2.put((Statistic.DAMAGE), 0);
+        map2.put((Statistic.SPEED), 10);
+        map2.put((Statistic.DEFENCE), 0);
+        map2.put((Statistic.PROJECTILESPEED), 0);
+        map2.put((Statistic.COOLDOWN), 0);
+        map2.put((Statistic.RECOVERY), 0);
+        assertEquals(map2, account.getToAddPwu());
     }
 }
