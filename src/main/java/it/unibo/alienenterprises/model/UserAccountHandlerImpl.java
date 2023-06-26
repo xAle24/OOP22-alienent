@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.LoaderOptions;
@@ -20,14 +21,14 @@ import org.yaml.snakeyaml.representer.Representer;
 
 import it.unibo.alienenterprises.model.api.UserAccountHandler;
 
+/**
+ * Implementation of UserAccountHandler.
+ */
 public class UserAccountHandlerImpl implements UserAccountHandler {
 
     private static final String SEPARATOR = File.separator;
     private static final String GAME_PATH = "src/main/resources/examplemvc";
     // System.getProperty("user.home") + SEPARATOR + ".Alien Enterprises";
-
-    public UserAccountHandlerImpl() {
-    }
 
     private boolean existingAccount(String nickname) {
         return Files.exists(Paths.get(GAME_PATH + SEPARATOR + nickname + ".yml"));
@@ -38,6 +39,7 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
             final Yaml yaml = new Yaml();
             FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + "passwords.yaml");
             Map<String, String> passwordMap = yaml.load(inputStream);
+            inputStream.close();
 
             return passwordMap.get(nickname).equals(password) ? true : false;
 
@@ -49,7 +51,7 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
     }
 
     @Override
-    public UserAccountImpl load(String nickname, String password) throws IOException {
+    public Optional<UserAccountImpl> login(String nickname, String password) {
         if (existingAccount(nickname)) {
             if (correctPassword(nickname, password)) {
                 try {
@@ -64,36 +66,42 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
 
                     inputStream.close();
 
-                    return userAccount;
+                    return Optional.of(userAccount);
 
                 } catch (Exception e) {
                     e.printStackTrace();
                     System.out.println("Couldn't open account yaml file");
                 }
             }
-            throw new IOException("Password does not match the nickanme");
-        } else {
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<UserAccountImpl> registration(String nickname, String password) {
+        if (!existingAccount(nickname)) {
             final File accountFile = new File(GAME_PATH + SEPARATOR + nickname + ".yml");
             try {
-                System.out.println(accountFile.getAbsolutePath());
                 accountFile.createNewFile();
-                FileWriter writer = new FileWriter(GAME_PATH + SEPARATOR + "passwords.yaml", StandardCharsets.UTF_8,
-                        true);
-                Representer representer = new Representer(new DumperOptions());
-                representer.addClassTag(Map.class, new Tag("!Password"));
-                Yaml yaml = new Yaml(representer);
-                Map<String, String> map = new HashMap<>();
-                map.put(nickname, password);
-                String output = yaml.dump(map);
-                writer.append(output);
-                writer.close();
+                if (!correctPassword(nickname, password)) {
+                    FileWriter writer = new FileWriter(GAME_PATH + SEPARATOR + "passwords.yaml", StandardCharsets.UTF_8,
+                            true);
+                    Representer representer = new Representer(new DumperOptions());
+                    representer.addClassTag(Map.class, new Tag("!Password"));
+                    Yaml yaml = new Yaml(representer);
+                    Map<String, String> map = new HashMap<>();
+                    map.put(nickname, password);
+                    String output = yaml.dump(map);
+                    writer.append(output);
+                    writer.close();
+                }
+                return Optional.of(new UserAccountImpl(nickname));
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("Couldn't create account yaml file");
             }
         }
-        return new UserAccountImpl(nickname);
-        // gestisci eccezioni ecc.
+        return Optional.empty();
     }
 
     @Override
@@ -110,5 +118,4 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
             e.printStackTrace();
         }
     }
-
 }
