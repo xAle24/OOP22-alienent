@@ -2,7 +2,10 @@ package it.unibo.alienenterprises.model;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.*;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Optional;
 
 import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.TypeDescription;
@@ -13,27 +16,30 @@ import it.unibo.alienenterprises.model.api.PowerUp;
 import it.unibo.alienenterprises.model.api.ShopModel;
 import it.unibo.alienenterprises.model.api.Statistic;
 
+/**
+ * ShopModelImpl.
+ */
 public class ShopModelImpl implements ShopModel {
 
     private static final String SEPARATOR = File.separator;
     private static final String GAME_PATH = "src/main/resources/examplemvc";
     // System.getProperty("user.home") + SEPARATOR + ".Alien Enterprises";
 
-    private Collection<PowerUp> powerUps = new HashSet<>();
+    private Set<PowerUp> powerUps = new HashSet<>();
 
     public ShopModelImpl() {
-        loadPWU();
+        loadPwu();
     }
 
     @Override
-    public Optional<Integer> check(String ID, UserAccountImpl user) {
+    public Optional<Integer> check(String id, UserAccountImpl user) {
 
-        var PWUiterator = powerUps.iterator();
-        while (PWUiterator.hasNext()) {
-            PowerUp currPWU = PWUiterator.next();
+        var pwuIterator = powerUps.iterator();
+        while (pwuIterator.hasNext()) {
+            PowerUp currPwu = pwuIterator.next();
 
-            if (currPWU.getID().equals(ID)) {
-                return (user.getMoney() - currPWU.getCost() > 0) ? Optional.of(-currPWU.getCost())
+            if (currPwu.getId().equals(id)) {
+                return (user.getMoney() - currPwu.getCost() > 0) ? Optional.of(-currPwu.getCost())
                         : Optional.empty();
             }
             // se returna i soldi al negativo io posso toglierli con updateMoney
@@ -44,55 +50,18 @@ public class ShopModelImpl implements ShopModel {
     }
 
     @Override
-    public void updateInventory(String ID, UserAccountImpl user) {
-        user.updateInventory(ID);
-    }
-
-    public void updateMoney(int changeMoney, UserAccountImpl user) {
+    public void updateShop(String id, UserAccountImpl user, int changeMoney) {
+        user.updateInventory(id);
         user.setMoney(changeMoney);
+        user.equals(updateToAddPwu(id, user));
     }
 
     @Override
-    public int getMoney(UserAccountImpl user) {
-        return user.getMoney();
-    }
-
-    @Override
-    public Set<PowerUp> getInventory /* Stats */(UserAccountImpl user) {
-        Set<PowerUp> copyInventory = new HashSet<>();
-        var iterator = user.getInventoryID().iterator();
-        System.out.println(user.getInventoryID());
-
-        while (iterator.hasNext()) {
-            var currentInv = iterator.next();
-            System.out.println(currentInv);
-            var iter = this.powerUps.iterator();
-
-            while (iter.hasNext()) {
-                var currentPWU = iter.next();
-                System.out.println(currentPWU);
-
-                if (currentInv == currentPWU.getID()) {
-                    copyInventory.add(currentPWU);
-                    break;
-                }
-            }
-        }
-
-        return copyInventory;
-    }
-
-    @Override
-    public int getLevel(String ID, UserAccountImpl user) {
-        return user.getCurrLevel(ID);
-    }
-
-    @Override
-    public void loadPWU() {
+    public void loadPwu() {
         try {
             Constructor constructor = new Constructor(PowerUpImpl.class, new LoaderOptions());
             TypeDescription accountDescription = new TypeDescription(PowerUpImpl.class);
-            accountDescription.addPropertyParameters("ID", String.class);
+            accountDescription.addPropertyParameters("id", String.class);
             accountDescription.addPropertyParameters("cost", Integer.class);
             accountDescription.addPropertyParameters("maxLevel", Integer.class);
             accountDescription.addPropertyParameters("statModifiers", Statistic.class, Integer.class);
@@ -111,7 +80,19 @@ public class ShopModelImpl implements ShopModel {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    private UserAccountImpl updateToAddPwu(String id, UserAccountImpl user) {
+        var iterator = powerUps.iterator();
+        while (iterator.hasNext()) {
+            var curr = iterator.next();
+
+            if (curr.getId().equals(id)) {
+                Map<Statistic, Integer> map = curr.getStatModifiers();
+                user.updateToAddPwu(map);
+            }
+        }
+        return user;
     }
 
 }

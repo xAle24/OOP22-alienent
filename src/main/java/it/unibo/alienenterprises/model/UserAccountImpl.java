@@ -2,6 +2,7 @@ package it.unibo.alienenterprises.model;
 
 import java.util.*;
 
+import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.model.api.UserAccount;
 
 public class UserAccountImpl implements UserAccount {
@@ -9,7 +10,8 @@ public class UserAccountImpl implements UserAccount {
     private int money;
     private String nickname;
     private int highscore;
-    private Map<String, Integer> inventory = new HashMap<>(); // contiene l'ID e il corrispondente livello di acquisto
+    private Map<String, Integer> inventory = new HashMap<>(); // contiene l'id e il corrispondente livello di acquisto
+    private Map<Statistic, Integer> toAddPwu = new HashMap<>();
 
     public UserAccountImpl() {
     }
@@ -61,23 +63,38 @@ public class UserAccountImpl implements UserAccount {
     }
 
     @Override
-    public int getCurrLevel(String ID) {
-        return (inventory.containsKey(ID)) ? this.inventory.get(ID) : 0;
+    public int getCurrLevel(String id) {
+        return (inventory.containsKey(id)) ? this.inventory.get(id) : 0;
     }
 
     @Override
-    public Set<String> getInventoryID() {
-        return this.inventory.keySet();
-    }
-
-    @Override
-    public void updateInventory(String ID) {
-        if (!inventory.containsKey(ID)) {
-            inventory.put(ID, 1);
+    public void updateInventory(String id) {
+        if (!inventory.containsKey(id)) {
+            inventory.put(id, 1);
         } else {
-            this.inventory.computeIfPresent(ID, (k, v) -> v + 1);
+            this.inventory.computeIfPresent(id, (k, v) -> v + 1);
         }
         System.out.print(this.inventory.size());
+    }
+
+    @Override
+    public Map<Statistic, Integer> getToAddPwu() {
+        return this.toAddPwu;
+    }
+
+    @Override
+    public void updateToAddPwu(Map<Statistic, Integer> mapToAdd) {
+        if (toAddPwu.isEmpty()) {
+            toAddPwu.putAll(mapToAdd);
+        } else {
+            mapToAdd.forEach((s, i) -> {
+                if (toAddPwu.get(s) == 0) {
+                    toAddPwu.replace(s, i);
+                } else {
+                    toAddPwu.replace(s, toAddPwu.get(s) + i);
+                }
+            });
+        }
     }
 
 }

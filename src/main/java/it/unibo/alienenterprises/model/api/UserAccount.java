@@ -1,13 +1,17 @@
 package it.unibo.alienenterprises.model.api;
 
-import java.util.*;
+import java.util.Map;
 
+/**
+ * UserAccount.
+ */
 public interface UserAccount {
 
     /**
      * 
-     * Set the user money
+     * Set the user money.
      * 
+     * @param changeMoney the money positive or negative to be added
      * @return
      * 
      */
@@ -15,8 +19,9 @@ public interface UserAccount {
 
     /**
      * 
-     * Set the user nickname
+     * Set the user nickname.
      * 
+     * @param nickname
      * @return
      * 
      */
@@ -24,8 +29,9 @@ public interface UserAccount {
 
     /**
      * 
-     * Set the user highscore
+     * Set the user highscore.
      * 
+     * @param highscore
      * @return
      * 
      */
@@ -33,8 +39,9 @@ public interface UserAccount {
 
     /**
      * 
-     * Set the user inventory
+     * Set the user inventory.
      * 
+     * @param newInventory
      * @return
      * 
      */
@@ -42,7 +49,7 @@ public interface UserAccount {
 
     /**
      * 
-     * Get the user money
+     * Get the user money.
      * 
      * @return the user money
      * 
@@ -51,7 +58,7 @@ public interface UserAccount {
 
     /**
      * 
-     * Get the user nickname
+     * Get the user nickname.
      * 
      * @return the user nickname
      * 
@@ -60,7 +67,7 @@ public interface UserAccount {
 
     /**
      * 
-     * Get the user highscore
+     * Get the user highscore.
      * 
      * @return the user highscore
      * 
@@ -69,7 +76,7 @@ public interface UserAccount {
 
     /**
      * 
-     * Get the user inventory
+     * Get the user inventory.
      * 
      * @return the user inventory
      * 
@@ -78,31 +85,40 @@ public interface UserAccount {
 
     /**
      * 
-     * Get the current level of the ID corresponding PWU
+     * Get the current level of the id corresponding PWU.
      * 
-     * @param ID the ID, corresponding to a PWU
-     * @return current level of the ID corresponding PWU
+     * @param id the id, corresponding to a PWU
+     * @return current level of the id corresponding PWU
      * 
      */
-    int getCurrLevel(String ID);
+    int getCurrLevel(String id);
 
     /**
      * 
-     * Get the????
+     * Add the id, corresponding to a PWU, to the user's inventory.
      * 
-     * @return current level of the ID corresponding PWU
-     * 
-     */
-    Set<String> getInventoryID();
-
-    /**
-     * 
-     * Add the ID, corresponding to a PWU, to the user's inventory
-     * 
-     * @param ID the ID, corresponding to a PWU
+     * @param id the id, corresponding to a PWU
      * @return
      * 
      */
-    void updateInventory(String ID);
+    void updateInventory(String id);
+
+    /**
+     * Return the toAddPwu map, which is a map filled with the statistic percentage
+     * to add at the start of each game
+     * 
+     * @return
+     */
+    Map<Statistic, Integer> getToAddPwu();
+
+    /**
+     * Update the map toAddPwu with the new statistic, after buying a new pwu.
+     * If the map is empty, it fills with just the statistic modifiers of the buoght
+     * pwu,
+     * otherwise it update each statistic, adding the new percentage to the old.
+     * 
+     * @param mapToAdd the map of statisics of the bought pwu
+     */
+    void updateToAddPwu(Map<Statistic, Integer> mapToAdd);
 
 }
