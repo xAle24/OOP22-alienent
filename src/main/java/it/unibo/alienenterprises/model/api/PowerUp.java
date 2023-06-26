@@ -3,22 +3,24 @@ package it.unibo.alienenterprises.model.api;
 import java.util.Map;
 
 /**
- * PowerUp
+ * PowerUp.
  */
 public interface PowerUp {
 
     /**
      * 
-     * set the PWU corresponding ID.
+     * set the PWU corresponding id.
      * 
+     * @param id the id of the PWU
      * @return
      */
-    void setID(String ID);
+    void setId(String id);
 
     /**
      * 
      * set the PWU cost.
      * 
+     * @param cost the PWU cost
      * @return
      */
     void setCost(int cost);
@@ -27,6 +29,7 @@ public interface PowerUp {
      * 
      * set the PWU maximum level.
      * 
+     * @param maxLevel the PWU maximum level
      * @return
      */
     void setMaxLevel(int maxLevel);
@@ -35,17 +38,18 @@ public interface PowerUp {
      * 
      * set the PWU map of statistics.
      * 
+     * @param statModifiers the PWU map of statistics
      * @return
      */
     void setStatModifiers(Map<Statistic, Integer> statModifiers);
 
     /**
      * 
-     * get the PWU corresponding ID.
+     * get the PWU corresponding id.
      * 
-     * @return the PWU corresponding ID
+     * @return the PWU corresponding id
      */
-    String getID();
+    String getId();
 
     /**
      * 
@@ -57,7 +61,7 @@ public interface PowerUp {
 
     /**
      * 
-     * get the PWU maximum levl.
+     * get the PWU maximum level.
      * 
      * @return the PWU maximum level
      */

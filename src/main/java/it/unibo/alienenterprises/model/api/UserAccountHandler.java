@@ -1,6 +1,5 @@
 package it.unibo.alienenterprises.model.api;
 
-import java.io.IOException;
 import java.util.Optional;
 
 import it.unibo.alienenterprises.model.UserAccountImpl;

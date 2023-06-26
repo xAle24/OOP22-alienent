@@ -1,29 +1,18 @@
 package it.unibo.alienenterprises.controller.api;
 
+/**
+ * Controller Shop.
+ */
 public interface ShopController {
-    
+
     /**
-     * Calling ShopModel methods it checks if the user can buy the ID
+     * Calling ShopModel methods it checks if the user can buy the id
      * corresponding PWU and if so it procedes to update the user's money
-     * and inventory
+     * and inventory.
      * 
+     * @param id the id of the PWU
      * @return
      */
-    void buy (int ID);
+    void buy(String id);
 
-    /**
-     * Calling ShopModel methods it gets the ID corresponding PWU level
-     * 
-     * @param  ID the ID that represent the PWU 
-     * @return the ID corresponding PWU level
-     */
-    int setLevel (int ID);
-
-    /**
-     * return the current user's money amount
-     * 
-     * @return the current user's money amount
-     * 
-    */
-    int setMoney ();
 }

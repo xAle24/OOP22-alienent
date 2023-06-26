@@ -105,9 +105,10 @@ public interface UserAccount {
 
     /**
      * Return the toAddPwu map, which is a map filled with the statistic percentage
-     * to add at the start of each game
+     * to add at the start of each game.
      * 
-     * @return
+     * @return a map filled with the statistic percentage
+     *         to add at the start of each game.
      */
     Map<Statistic, Integer> getToAddPwu();
 

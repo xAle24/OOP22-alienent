@@ -1,15 +1,24 @@
 package it.unibo.alienenterprises.view.api;
 
+/**
+ * ShopView.
+ */
 public interface ShopView {
 
     /**
-     * it shows the shop GUI
+     * it shows the shop GUI.
      * 
      * @return
      * 
      */
     void show();
 
-    void start(String[] args);
+    /**
+     * it start the shop GUI.
+     * 
+     * @return
+     * 
+     */
+    void start();
 
 }

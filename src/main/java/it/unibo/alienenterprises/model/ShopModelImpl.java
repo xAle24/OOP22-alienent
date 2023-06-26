@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Optional;
 
@@ -25,21 +26,27 @@ public class ShopModelImpl implements ShopModel {
     private static final String GAME_PATH = "src/main/resources/examplemvc";
     // System.getProperty("user.home") + SEPARATOR + ".Alien Enterprises";
 
-    private Set<PowerUp> powerUps = new HashSet<>();
+    private final Set<PowerUp> powerUps = new HashSet<>();
 
+    /**
+     * Costructor.
+     */
     public ShopModelImpl() {
         loadPwu();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Optional<Integer> check(String id, UserAccountImpl user) {
+    public Optional<Integer> check(final String id, final UserAccountImpl user) {
 
-        var pwuIterator = powerUps.iterator();
+        final Iterator<PowerUp> pwuIterator = powerUps.iterator();
         while (pwuIterator.hasNext()) {
-            PowerUp currPwu = pwuIterator.next();
+            final PowerUp currPwu = pwuIterator.next();
 
             if (currPwu.getId().equals(id)) {
-                return (user.getMoney() - currPwu.getCost() > 0) ? Optional.of(-currPwu.getCost())
+                return user.getMoney() - currPwu.getCost() > 0 ? Optional.of(-currPwu.getCost())
                         : Optional.empty();
             }
             // se returna i soldi al negativo io posso toglierli con updateMoney
@@ -49,18 +56,24 @@ public class ShopModelImpl implements ShopModel {
         return Optional.empty();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void updateShop(String id, UserAccountImpl user, int changeMoney) {
+    public void updateShop(final String id, final UserAccountImpl user, final int changeMoney) {
         user.updateInventory(id);
         user.setMoney(changeMoney);
         user.equals(updateToAddPwu(id, user));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void loadPwu() {
         try {
-            Constructor constructor = new Constructor(PowerUpImpl.class, new LoaderOptions());
-            TypeDescription accountDescription = new TypeDescription(PowerUpImpl.class);
+            final Constructor constructor = new Constructor(PowerUpImpl.class, new LoaderOptions());
+            final TypeDescription accountDescription = new TypeDescription(PowerUpImpl.class);
             accountDescription.addPropertyParameters("id", String.class);
             accountDescription.addPropertyParameters("cost", Integer.class);
             accountDescription.addPropertyParameters("maxLevel", Integer.class);
@@ -68,11 +81,10 @@ public class ShopModelImpl implements ShopModel {
             constructor.addTypeDescription(accountDescription);
 
             final Yaml yaml = new Yaml(constructor);
-            FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + "PowerUps.yml");
-            Iterable<Object> documents = yaml.loadAll(inputStream);
-            System.out.println(documents.toString());
-            for (Object object : documents) {
-                System.out.println(object.toString());
+            final FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + "PowerUps.yml");
+            final Iterable<Object> documents = yaml.loadAll(inputStream);
+
+            for (final Object object : documents) {
                 powerUps.add((PowerUp) object);
             }
 
@@ -82,13 +94,13 @@ public class ShopModelImpl implements ShopModel {
         }
     }
 
-    private UserAccountImpl updateToAddPwu(String id, UserAccountImpl user) {
-        var iterator = powerUps.iterator();
+    private UserAccountImpl updateToAddPwu(final String id, final UserAccountImpl user) {
+        final Iterator<PowerUp> iterator = powerUps.iterator();
         while (iterator.hasNext()) {
-            var curr = iterator.next();
+            final PowerUp curr = iterator.next();
 
             if (curr.getId().equals(id)) {
-                Map<Statistic, Integer> map = curr.getStatModifiers();
+                final Map<Statistic, Integer> map = curr.getStatModifiers();
                 user.updateToAddPwu(map);
             }
         }

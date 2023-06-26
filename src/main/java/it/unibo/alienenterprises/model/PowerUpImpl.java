@@ -6,51 +6,75 @@ import java.util.HashMap;
 import it.unibo.alienenterprises.model.api.PowerUp;
 import it.unibo.alienenterprises.model.api.Statistic;
 
+/**
+ * PowerUpImpl.
+ */
 public class PowerUpImpl implements PowerUp {
 
-    private String ID;
+    private String id;
     private int cost;
     private int maxLevel;
-    private Map<Statistic, Integer> statModifiers = new HashMap<>();
+    private final Map<Statistic, Integer> statModifiers = new HashMap<>();
 
-    public PowerUpImpl() {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setId(final String id) {
+        this.id = id;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setID(String ID) {
-        this.ID = ID;
-    }
-
-    @Override
-    public void setCost(int cost) {
+    public void setCost(final int cost) {
         this.cost = cost;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setMaxLevel(int maxLevel) {
+    public void setMaxLevel(final int maxLevel) {
         this.maxLevel = maxLevel;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setStatModifiers(Map<Statistic, Integer> statModifiers) {
+    public void setStatModifiers(final Map<Statistic, Integer> statModifiers) {
         this.statModifiers.putAll(statModifiers);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public String getID() {
-        return ID;
+    public String getId() {
+        return id;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getCost() {
         return cost;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getMaxLevel() {
         return maxLevel;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Map<Statistic, Integer> getStatModifiers() {
         return statModifiers;

@@ -1,63 +1,33 @@
 package it.unibo.alienenterprises.model.api;
 
 import java.util.Optional;
-import java.util.Set;
 
 import it.unibo.alienenterprises.model.UserAccountImpl;
 
+/**
+ * Model of the shop.
+ */
 public interface ShopModel {
     /**
-     * return the amount of money the ID corrsponding PWU cost,
-     * if you have enough money to buy it, else it throws an exception
+     * return the amount of money the id corrsponding PWU cost,
+     * if you have enough money to buy it, else it throws an exception.
      * 
-     * @param ID the ID that represent the PWU the user want to buy
-     * @return the negative amount of money the ID's correspondent PWU cost
+     * @param id   the id that represent the PWU the user want to buy
+     * @param user the user to be checked
+     * @return the negative amount of money the id's correspondent PWU cost
      * 
      */
-    Optional<Integer> check(String ID, UserAccountImpl user);
+    Optional<Integer> check(String id, UserAccountImpl user);
 
     /**
+     * The method updates the user money and their inventory.
      * 
-     * updates various fields of the shop: the user's money, their inventory
-     * and the PWUs still available.
-     * 
-     * @param newMoney the amount of money to subtract or add
-     *                 to the user's money
-     * @param ID       the ID that represent the PWU the user want to buy
+     * @param id          the id of the powerup to be added to the inventory
+     * @param user        the user which inventory and money are to be changed
+     * @param changeMoney the money to add or subtract to the current user money
      * @return
-     * 
-     *         lho diviso in update moneu e update iventory
-     *         void updateShop(int newMoney, int ID);
      */
-
-    /**
-     * return the current user's money amount
-     * 
-     * @return the current user's money amount
-     * 
-     */
-    int getMoney(UserAccountImpl user);
-
-    /**
-     * return the current user's inventory
-     * 
-     * @return the current user's inventory
-     * 
-     */
-    Set<PowerUp> getInventory(UserAccountImpl user);
-
-    public void updateInventory(String ID, UserAccountImpl user);
-
-    public void updateMoney(int newMoney, UserAccountImpl user);
-
-    /**
-     * return the how many levels of the same PWU you have bought
-     * 
-     * @param ID the ID that represent the PWU
-     * @return the ID corresponding PWU level
-     * 
-     */
-    int getLevel(String ID, UserAccountImpl user);
+    void updateShop(String id, UserAccountImpl user, int changeMoney);
 
     /**
      * Load the yaml file with all the PowerUp's implementations and saves them in a
@@ -66,6 +36,6 @@ public interface ShopModel {
      * @return
      * 
      */
-    void loadPWU();
+    void loadPwu();
 
 }
