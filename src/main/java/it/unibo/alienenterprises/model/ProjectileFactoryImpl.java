@@ -1,17 +1,17 @@
 package it.unibo.alienenterprises.model;
 
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 import it.unibo.alienenterprises.model.api.GameObjectAbs;
 import it.unibo.alienenterprises.model.api.Projectile;
 import it.unibo.alienenterprises.model.api.ProjectileFactory;
 import it.unibo.alienenterprises.model.api.Statistic;
-import it.unibo.alienenterprises.model.api.components.Component;
 import it.unibo.alienenterprises.model.api.components.HitboxComponent;
 import it.unibo.alienenterprises.model.api.components.InputComponent;
 import it.unibo.alienenterprises.model.geometry.Point2D;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
+import it.unibo.alienenterprises.model.impl.components.StraightForwardInputComponent;
 
 public class ProjectileFactoryImpl implements ProjectileFactory {
 
@@ -19,17 +19,20 @@ public class ProjectileFactoryImpl implements ProjectileFactory {
 
         private boolean isAlive = true;
 
-        public ProjectileBaseImpl(Point2D pos, Vector2D vector, HitboxComponent hitbox, InputComponent input,
-                Map<Statistic, Integer> stat) {
+        public ProjectileBaseImpl(final Point2D pos, final Vector2D vector, final HitboxComponent hitbox,
+                final InputComponent input,
+                final Map<Statistic, Integer> stat) {
             super(pos, vector, hitbox, input, stat);
         }
 
         @Override
-        public Projectile spawn(int damage, int maxSpeed, Point2D position, double angle) {
+        public Projectile spawn(final Point2D position, final double angle, final int damage, final int speed) {
             var vel = Vector2D.fromAngleAndModule(angle, getVelocity().getModule());
             var input = this.getComponent(InputComponent.class);
             var hitbox = this.getComponent(HitboxComponent.class);
             var stat = this.getStats();
+            stat.put(Statistic.DAMAGE, damage);
+            stat.put(Statistic.SPEED,speed);
             return new ProjectileBaseImpl(position, vel, hitbox.orElseThrow(), input.orElseThrow(), stat);
         }
 
@@ -42,8 +45,11 @@ public class ProjectileFactoryImpl implements ProjectileFactory {
 
     @Override
     public Projectile getBasicProjectile() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getBasicProjectile'");
+        final InputComponent input = new StraightForwardInputComponent();
+        final HitboxComponent hitbox = null;
+        final Map<Statistic, Integer> stat = new HashMap<>();
+        stat.put(Statistic.HP, 1);
+        return new ProjectileBaseImpl(Point2D.ORIGIN, Vector2D.NULL_VECTOR, hitbox, input, stat);
     }
 
 }

@@ -91,4 +91,9 @@ public abstract class GameObjectAbs implements GameObject {
     public int getStatValue(final Statistic stat) {
         return stats.get(stat);
     }
+
+    // da non pushare
+    protected Map<Statistic,Integer> getStats(){
+        return stats;
+    }
 }
