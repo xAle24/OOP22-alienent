@@ -11,7 +11,7 @@ import it.unibo.alienenterprises.model.api.components.HitboxComponent;
 import it.unibo.alienenterprises.model.api.components.InputComponent;
 import it.unibo.alienenterprises.model.geometry.Point2D;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
-import it.unibo.alienenterprises.model.impl.components.StraightForwardInputComponent;
+import it.unibo.alienenterprises.model.impl.components.StraightInputComponent;
 
 public class ProjectileFactoryImpl implements ProjectileFactory {
 
@@ -32,7 +32,7 @@ public class ProjectileFactoryImpl implements ProjectileFactory {
             var hitbox = this.getComponent(HitboxComponent.class);
             var stat = this.getStats();
             stat.put(Statistic.DAMAGE, damage);
-            stat.put(Statistic.SPEED,speed);
+            stat.put(Statistic.SPEED, speed);
             return new ProjectileBaseImpl(position, vel, hitbox.orElseThrow(), input.orElseThrow(), stat);
         }
 
@@ -45,7 +45,7 @@ public class ProjectileFactoryImpl implements ProjectileFactory {
 
     @Override
     public Projectile getBasicProjectile() {
-        final InputComponent input = new StraightForwardInputComponent();
+        final InputComponent input = new StraightInputComponent();
         final HitboxComponent hitbox = null;
         final Map<Statistic, Integer> stat = new HashMap<>();
         stat.put(Statistic.HP, 1);
