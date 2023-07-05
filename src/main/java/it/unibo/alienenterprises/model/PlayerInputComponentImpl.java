@@ -7,11 +7,21 @@ import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.model.api.components.PlayerInputComponent;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
-
+/**
+ * PlayerInputComponent
+ * Handle the movements of the player.
+ */
 public class PlayerInputComponentImpl implements PlayerInputComponent {
 
+    /**
+     * Represent the acceleration of the palyer
+     */
     private static final double ACC = 1; // valori da definire
-    private static final double ANG_ACC = 1; 
+    
+    /**
+     * Represent the angular velocity of the player
+     */
+    private static final double ANG_VEL = 1; 
 
     private final Set<Input> inputList = new HashSet<>();
 
@@ -39,10 +49,10 @@ public class PlayerInputComponentImpl implements PlayerInputComponent {
                     }
                     break;
                 case TURN_LEFT:
-                    vel = Vector2D.fromAngleAndModule(vel.getAngle() + ANG_ACC, module);
+                    vel = Vector2D.fromAngleAndModule(vel.getAngle() + ANG_VEL, module);
                     break;
                 case TURN_RIGHT:
-                    vel = Vector2D.fromAngleAndModule(vel.getAngle() - ANG_ACC, module);
+                    vel = Vector2D.fromAngleAndModule(vel.getAngle() - ANG_VEL, module);
                     break;
                 default:
                     break;
