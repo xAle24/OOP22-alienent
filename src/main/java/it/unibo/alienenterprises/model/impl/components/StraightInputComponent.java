@@ -3,7 +3,7 @@ package it.unibo.alienenterprises.model.impl.components;
 import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.components.InputComponent;
 
-public class StraightForwardInputComponent implements InputComponent {
+public class StraightInputComponent implements InputComponent {
 
     @Override
     public void handle(final GameObject object) {
