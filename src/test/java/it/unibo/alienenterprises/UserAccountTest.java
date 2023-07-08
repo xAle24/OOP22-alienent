@@ -3,14 +3,20 @@ package it.unibo.alienenterprises;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import it.unibo.alienenterprises.controller.ShopControllerImpl;
+import it.unibo.alienenterprises.controller.api.ShopController;
 import it.unibo.alienenterprises.model.ShopModelImpl;
 import it.unibo.alienenterprises.model.UserAccountHandlerImpl;
 import it.unibo.alienenterprises.model.UserAccountImpl;
+import it.unibo.alienenterprises.model.api.PowerUp;
+import it.unibo.alienenterprises.model.api.PowerUpRenderer;
 import it.unibo.alienenterprises.model.api.Statistic;
 
 /**
@@ -32,6 +38,7 @@ public class UserAccountTest {
     private final UserAccountHandlerImpl accountHandler = new UserAccountHandlerImpl();
 
     private final ShopModelImpl shop = new ShopModelImpl();
+    private final ShopController controller = new ShopControllerImpl();
 
     @Test
     void checkLoadandBuy() {
@@ -85,5 +92,27 @@ public class UserAccountTest {
         map2.put(Statistic.COOLDOWN, 0);
         map2.put(Statistic.RECOVERY, 0);
         assertEquals(map2, account.getToAddPwu());
+    }
+
+    @Test
+    void checkLoadPwu() {
+        controller.loadShopModel();
+        Set<PowerUp> pwu = controller.getModelPwu();
+        Iterator<PowerUp> iter = pwu.iterator();
+        while (iter.hasNext()) {
+            PowerUp curr = iter.next();
+            System.out.println(curr.getId());
+        }
+    }
+
+    @Test
+    void checkLoadInfo() {
+        controller.loadShopView();
+        Set<PowerUpRenderer> pwuInfo = controller.getViewInfo();
+        Iterator<PowerUpRenderer> iter = pwuInfo.iterator();
+        while (iter.hasNext()) {
+            PowerUpRenderer curr = iter.next();
+            System.out.println(curr.getName());
+        }
     }
 }

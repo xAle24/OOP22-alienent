@@ -1,6 +1,7 @@
 package it.unibo.alienenterprises.model.api;
 
 import java.util.Optional;
+import java.util.Set;
 
 import it.unibo.alienenterprises.model.UserAccountImpl;
 
@@ -30,12 +31,13 @@ public interface ShopModel {
     void updateShop(String id, UserAccountImpl user, int changeMoney);
 
     /**
-     * Load the yaml file with all the PowerUp's implementations and saves them in a
-     * collection.
+     * Given a Set of Pwu, it add all of them to a collection.
      * 
      * @return
      * 
      */
-    void loadPwu();
+    void loadPwu(Set<PowerUp> pwu);
+
+    Set<PowerUp> getPwu();
 
 }
