@@ -1,9 +1,5 @@
 package it.unibo.alienenterprises.view.api;
 
-import java.util.Set;
-
-import it.unibo.alienenterprises.model.api.PowerUpRenderer;
-
 /**
  * ShopView.
  */
@@ -25,7 +21,4 @@ public interface ShopView {
      */
     void start();
 
-    void loadPwuInfo(Set<PowerUpRenderer> pwuInfo);
-
-    Set<PowerUpRenderer> getInfo();
 }
