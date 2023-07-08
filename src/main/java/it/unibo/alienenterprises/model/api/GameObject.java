@@ -1,6 +1,7 @@
 package it.unibo.alienenterprises.model.api;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import it.unibo.alienenterprises.model.api.components.Component;
@@ -64,4 +65,26 @@ public interface GameObject {
      * @return a list with all the objects component
      */
     List<Component> getAllComponent();
+
+    /**
+     * return the stats map.
+     * @return a map with value of all stats
+     */
+    Map<Statistic, Integer> getAllStats();
+
+    /**
+     * Set the value of the given stat.
+     * @param stat
+     * @param value
+     */
+    void setStatValue(Statistic stat, int value);
+    /**
+     * Insert a new component.
+     * @param component
+     */
+    void addComponent(Component component);
+    /**
+     * Update the game object.
+     */
+    void update();
 }
