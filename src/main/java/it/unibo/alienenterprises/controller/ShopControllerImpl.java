@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.yaml.snakeyaml.LoaderOptions;
@@ -93,9 +94,8 @@ public class ShopControllerImpl implements ShopController {
         Iterator<PowerUpRenderer> iterator = pwuInfo.iterator();
         while (iterator.hasNext()) {
             PowerUpRenderer curr = iterator.next();
-            PowerUp pwu = powerUps.stream().filter(p -> p.getId() == curr.getId()).findFirst()
-                    .orElse(null);
-            curr.setPwu(pwu);
+            List<PowerUp> pwu = powerUps.stream().filter(p -> p.getId().equals(curr.getId())).toList();
+            curr.setPwu(pwu.get(0));
         }
         this.view.loadPwuInfo(pwuInfo);
     }
