@@ -1,15 +1,23 @@
 package it.unibo.alienenterprises.view;
 
+//import java.io.File;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 
 import it.unibo.alienenterprises.model.api.PowerUpRenderer;
 import it.unibo.alienenterprises.view.api.ShopView;
-import javafx.scene.Group;
-//import javafx.scene.Scene;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-//import javafx.scene.control.ScrollPane;
-//import javafx.scene.layout.GridPane;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -20,16 +28,23 @@ import javafx.scene.text.Text;
  */
 public class ShopViewImpl implements ShopView {
 
-    // private GridPane grid = new GridPane();
+    // private static final int MAXLENGHT = 4;
+    // private static final String SEPARATOR = File.separator;
+    // private static final String GAME_PATH = "src/main/resources/examplemvc";
+    // System.getProperty("user.home") + SEPARATOR + ".Alien Enterprises";
+
     private Set<PowerUpRenderer> pwuInfo = new HashSet<>();
+    private Map<Button, String> buttons = new HashMap<>();
+    private VBox box = new VBox();
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void show() {
+    public VBox show() {
 
-        Group root = new Group(); // creiamo una radice per arrangiare i components/nodi
+        // Group root = new Group(); // creiamo una radice per arrangiare i
+        // components/nodi
         // Scene scene = new Scene(root, Color.BLUE);
 
         /*
@@ -51,15 +66,44 @@ public class ShopViewImpl implements ShopView {
         text.setX(50);
         text.setY(50);
         text.setFont(Font.font("Helvetica", FontWeight.EXTRA_BOLD, 60));
-        text.setFill(Color.YELLOW);
+        text.setFill(Color.RED);
 
-        Button button = new Button("Buy");
-        button.setFont(Font.font("Comic Sans", 34));
+        GridPane grid = new GridPane();
 
-        root.getChildren().add(text);
-        root.getChildren().add(button);
+        Iterator<PowerUpRenderer> iter = pwuInfo.iterator();
+
+        int j = 0;
+
+        while (iter.hasNext()) {
+            PowerUpRenderer curr = iter.next();
+            VBox pwuBox = new VBox();
+            Image image = new Image(
+                    "C:/Users/ginni/Desktop/ProgettoOOP/OOP22-alienent/src/main/resources/examplemvc/"
+                            + curr.getImage());
+            // GAME_PATH + SEPARATOR + curr.getImage());
+            Button button = new Button();
+            button.setGraphic(new ImageView(image));
+            buttons.put(button, curr.getId());
+            Label name = new Label(curr.getName());
+            Label desc = new Label(curr.getDescription());
+            GridPane checkGrid = new GridPane();
+            for (int i = 0; i < curr.getPwu().getMaxLevel(); i++) {
+                CheckBox check = new CheckBox();
+                check.setDisable(true);
+                checkGrid.add(check, i, 0);
+            }
+            pwuBox.getChildren().addAll(button, name, desc, checkGrid);
+            grid.add(pwuBox, j, 0);
+            j++;
+        }
+
+        ScrollPane scroll = new ScrollPane(grid);
+
+        box.getChildren().addAll(text, scroll);
+        box.setAlignment(Pos.TOP_CENTER);
 
         // ScrollPane scroll = new ScrollPane(grid);
+        return this.box;
 
     }
 
