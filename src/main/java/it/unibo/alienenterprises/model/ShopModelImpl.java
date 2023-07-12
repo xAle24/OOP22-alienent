@@ -40,11 +40,9 @@ public class ShopModelImpl implements ShopModel {
      */
     @Override
     public Optional<Integer> check(final String id, final UserAccountImpl user) {
-
         final Iterator<PowerUp> pwuIterator = powerUps.iterator();
         while (pwuIterator.hasNext()) {
             final PowerUp currPwu = pwuIterator.next();
-
             if (currPwu.getId().equals(id)) {
                 return user.getMoney() - currPwu.getCost() > 0 ? Optional.of(-currPwu.getCost())
                         : Optional.empty();
@@ -98,7 +96,6 @@ public class ShopModelImpl implements ShopModel {
         final Iterator<PowerUp> iterator = powerUps.iterator();
         while (iterator.hasNext()) {
             final PowerUp curr = iterator.next();
-
             if (curr.getId().equals(id)) {
                 final Map<Statistic, Integer> map = curr.getStatModifiers();
                 user.updateToAddPwu(map);
@@ -106,5 +103,4 @@ public class ShopModelImpl implements ShopModel {
         }
         return user;
     }
-
 }
