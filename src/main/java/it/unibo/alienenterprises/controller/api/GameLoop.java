@@ -1,17 +1,29 @@
 package it.unibo.alienenterprises.controller.api;
 
-/* Starts when a new game session is started, updates the game periodically. */
+/**
+ * Starts when a new game session is started, updates the game periodically.
+ */
 public interface GameLoop {
 
-    /* Periodically updates the gameworld */
-    void update();
+    /**
+     * Updates the gameworld.
+     * 
+     * @param deltaTime time elapsed since last update.
+     */
+    void updateGame(double deltaTime);
 
-    /* Temporarily pause the gameloop */
-    void pause();
+    /**
+     * Temporarily pause the gameloop.
+     */
+    void pauseLoop();
 
-    /* Resume the gameloop after it has been paused */
-    void resume();
+    /**
+     * Resume the gameloop after it has been paused.
+     */
+    void resumeLoop();
 
-    /* Stop the gameloop */
-    void stop();
+    /**
+     * Stop the gameloop.
+     */
+    void stopLoop();
 }
