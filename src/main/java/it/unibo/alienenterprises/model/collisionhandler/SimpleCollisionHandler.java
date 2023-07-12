@@ -31,8 +31,8 @@ public final class SimpleCollisionHandler extends CollisionHandlerAbs {
         HitboxComponent hitboxB = b.getComponent(HitboxComponent.class).get();
         if (hitboxA.canCollide(hitboxB.getType()) && a.isAlive() && b.isAlive()) {
             if (hitboxA.getCircle2D().intersectWhith(hitboxB.getCircle2D())) {
-                hitboxA.handle(a);
-                hitboxB.handle(b);
+                hitboxA.Update(a);
+                hitboxB.Update(b);
             }
         }
     }

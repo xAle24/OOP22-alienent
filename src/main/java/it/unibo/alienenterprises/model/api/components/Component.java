@@ -1,15 +1,34 @@
 package it.unibo.alienenterprises.model.api.components;
 
-import it.unibo.alienenterprises.model.api.GameObject;
-
 /**
  * Models a component for a game object.
  */
 public interface Component {
+    
+
     /**
-     * Execute the component istruction on the given object.
-     * 
-     * @param object
+     * @param deltatime
      */
-    void handle(GameObject object);
+    void Update(double deltatime);
+
+    /**
+     * 
+     */
+    void start();
+
+    /**
+     * 
+     */
+    void enable();
+
+    /**
+     * 
+     */
+    void disable();
+
+    /**
+     * @return
+     */
+    boolean isEnabled();
+    
 }

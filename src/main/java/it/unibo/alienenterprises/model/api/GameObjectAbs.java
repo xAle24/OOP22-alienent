@@ -111,6 +111,6 @@ public abstract class GameObjectAbs implements GameObject {
      */
     @Override
     public void update() {
-        getAllComponent().stream().filter(e -> !e.getClass().equals(HitboxComponent.class)).forEach(e -> e.handle(this));
+        getAllComponent().stream().filter(e -> !e.getClass().equals(HitboxComponent.class)).forEach(e -> e.Update(this));
     }
 }

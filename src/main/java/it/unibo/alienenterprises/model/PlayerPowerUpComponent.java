@@ -13,7 +13,7 @@ public class PlayerPowerUpComponent implements PowerUpComponent{
     private final Set<PowerUp> powerUps = new HashSet<>();
 
     @Override
-    public void handle(final GameObject object) {
+    public void Update(final GameObject object) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'handle'");
     }

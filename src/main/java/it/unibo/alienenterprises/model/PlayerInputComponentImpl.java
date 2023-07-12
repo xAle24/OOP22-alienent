@@ -26,7 +26,7 @@ public class PlayerInputComponentImpl implements PlayerInputComponent {
     private final Set<Input> inputList = new HashSet<>();
 
     @Override
-    public void handle(final GameObject object) {
+    public void Update(final GameObject object) {
         var vel = object.getVelocity();
         final var maxSpeed = object.getStatValue(Statistic.SPEED);
         for (Input in : inputList) {
@@ -49,10 +49,10 @@ public class PlayerInputComponentImpl implements PlayerInputComponent {
                     }
                     break;
                 case TURN_LEFT:
-                    vel = Vector2D.fromAngleAndModule(vel.getAngle() + ANG_VEL, module);
+                    vel = Vector2D.fromAngleAndModule(vel.getAngle() + (ANG_VEL), module);
                     break;
                 case TURN_RIGHT:
-                    vel = Vector2D.fromAngleAndModule(vel.getAngle() - ANG_VEL, module);
+                    vel = Vector2D.fromAngleAndModule(vel.getAngle() - (ANG_VEL), module);
                     break;
                 default:
                     break;

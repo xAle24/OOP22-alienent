@@ -18,7 +18,7 @@ public class InputComponentBomberImpl implements InputComponent {
     private boolean right, up = false;
 
     @Override
-    public void handle(final GameObject object) {
+    public void Update(final GameObject object) {
         object.setPosition(movement.translate(object.getPosition()));
         object.setVelocity(movement);
     }
