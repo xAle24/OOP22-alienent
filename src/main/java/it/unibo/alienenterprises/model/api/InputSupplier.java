@@ -1,6 +1,8 @@
-package it.unibo.alienenterprises.model.api.components;
+package it.unibo.alienenterprises.model.api;
 
-public interface PlayerInputComponent extends Component {
+import java.util.List;
+
+public interface InputSupplier {
 
     enum Input{
         /**
@@ -24,6 +26,11 @@ public interface PlayerInputComponent extends Component {
          */
         STOP_TURN;
     }
-    
-    void addInput (final Input input);
+
+    List<Input> getInputList();
+
+    void addInput();
+
+    void clearInputList();
+
 }

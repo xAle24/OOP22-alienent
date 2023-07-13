@@ -13,7 +13,7 @@ public abstract class ComponentAbs implements Component{
     }
 
     @Override
-    public void Update(double deltatime) {
+    public void update(double deltatime) {
         //vuoto
     }
 

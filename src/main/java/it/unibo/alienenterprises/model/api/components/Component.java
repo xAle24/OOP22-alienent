@@ -9,7 +9,7 @@ public interface Component {
     /**
      * @param deltatime
      */
-    void Update(double deltatime);
+    void update(double deltatime);
 
     /**
      * 
