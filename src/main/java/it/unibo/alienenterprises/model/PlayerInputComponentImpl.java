@@ -63,9 +63,7 @@ public class PlayerInputComponentImpl extends ComponentAbs implements InputCompo
 
         input.clearInputList();
 
-        var tran = new Vector2D(vel.getxComp()*deltatime, vel.getxComp()*deltatime);
-
-        getGameObject().setPosition(tran.translate(getGameObject().getPosition()));
+        getGameObject().setPosition(vel.mul(deltatime).translate(getGameObject().getPosition()));
         getGameObject().setVelocity(vel);
     }
 
