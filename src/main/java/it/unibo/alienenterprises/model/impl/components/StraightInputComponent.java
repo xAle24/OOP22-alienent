@@ -1,20 +1,18 @@
 package it.unibo.alienenterprises.model.impl.components;
 
 import it.unibo.alienenterprises.model.api.GameObject;
+import it.unibo.alienenterprises.model.api.components.ComponentAbs;
 import it.unibo.alienenterprises.model.api.components.InputComponent;
 
-public class StraightInputComponent implements InputComponent {
+public class StraightInputComponent extends ComponentAbs implements InputComponent {
 
-    @Override
-    public void handle(final GameObject object) {
-        object.setPosition(object.getVelocity().translate(object.getPosition()));
+    public StraightInputComponent(final GameObject object, final boolean enabled) {
+        super(object, enabled);
     }
 
     @Override
-    public void calculateMovement(GameObject player, GameObject enemy) {
-        // TODO Auto-generated method stub
-        // da rimuovere
-        throw new UnsupportedOperationException("Unimplemented method 'calculateMovement'");
+    public void update(final double deltaTime) {
+        getGameObject().setPosition(getGameObject().getVelocity().mul(deltaTime).translate(getGameObject().getPosition()));
     }
     
 }
