@@ -21,7 +21,8 @@ public class ProjectileSupplierFactoryImpl implements ProjectileSupplierFactory 
 
         private boolean isAlive = true;
 
-        public ProjectileBaseImpl(final Point2D pos, final Vector2D vector, final Map<Statistic, Integer> stat, final Component... components) {
+        public ProjectileBaseImpl(final Point2D pos, final Vector2D vector, final Map<Statistic, Integer> stat,
+                final Component... components) {
             super(pos, vector, stat, components);
         }
 
@@ -33,15 +34,22 @@ public class ProjectileSupplierFactoryImpl implements ProjectileSupplierFactory 
     }
 
     @Override
-    public Supplier<Projectile>  getBasicProjectileSupplier() {
-        final Map<Statistic, Integer> stat = new HashMap<>();
-        stat.put(Statistic.HP, 1);
-        final Projectile basicProjectile = new ProjectileBaseImpl(Point2D.ORIGIN, Vector2D.NULL_VECTOR, stat);
-        final InputComponent input = new StraightInputComponent(basicProjectile,true);
-        final HitboxComponent hitbox = null;
-        basicProjectile.addComponent(input);
-        basicProjectile.addComponent(hitbox);
-        return basicProjectile;
+    public Supplier<Projectile> getBasicProjectileSupplier() {
+        return new Supplier<Projectile>() {
+
+            @Override
+            public Projectile get() {
+                final Map<Statistic, Integer> stat = new HashMap<>();
+                stat.put(Statistic.HP, 1);
+                final Projectile basicProjectile = new ProjectileBaseImpl(Point2D.ORIGIN, Vector2D.NULL_VECTOR, stat);
+                final InputComponent input = new StraightInputComponent(basicProjectile, true);
+                final HitboxComponent hitbox = null;
+                basicProjectile.addComponent(input);
+                basicProjectile.addComponent(hitbox);
+                return basicProjectile;
+            }
+
+        };
     }
 
 }
