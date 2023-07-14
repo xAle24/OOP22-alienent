@@ -2,10 +2,11 @@ package it.unibo.alienenterprises.model;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 
 import it.unibo.alienenterprises.model.api.GameObjectAbs;
 import it.unibo.alienenterprises.model.api.Projectile;
-import it.unibo.alienenterprises.model.api.ProjectileFactory;
+import it.unibo.alienenterprises.model.api.ProjectileSupplierFactory;
 import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.model.api.components.Component;
 import it.unibo.alienenterprises.model.api.components.HitboxComponent;
@@ -14,7 +15,7 @@ import it.unibo.alienenterprises.model.geometry.Point2D;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
 import it.unibo.alienenterprises.model.impl.components.StraightInputComponent;
 
-public class ProjectileFactoryImpl implements ProjectileFactory {
+public class ProjectileSupplierFactoryImpl implements ProjectileSupplierFactory {
 
     private class ProjectileBaseImpl extends GameObjectAbs implements Projectile {
 
@@ -32,7 +33,7 @@ public class ProjectileFactoryImpl implements ProjectileFactory {
     }
 
     @Override
-    public Projectile getBasicProjectilePrototype() {
+    public Supplier<Projectile>  getBasicProjectileSupplier() {
         final Map<Statistic, Integer> stat = new HashMap<>();
         stat.put(Statistic.HP, 1);
         final Projectile basicProjectile = new ProjectileBaseImpl(Point2D.ORIGIN, Vector2D.NULL_VECTOR, stat);
