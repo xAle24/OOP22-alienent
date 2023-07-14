@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Set;
 
 import it.unibo.alienenterprises.model.api.components.Component;
-import it.unibo.alienenterprises.model.api.components.HitboxComponent;
 import it.unibo.alienenterprises.model.geometry.Point2D;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
 
