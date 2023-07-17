@@ -14,6 +14,7 @@ import it.unibo.alienenterprises.model.geometry.Vector2D;
 public interface GameObject {
     /**
      * Return the input stat value.
+     * 
      * @param stat
      * @return int of the input stat value
      */
@@ -21,30 +22,35 @@ public interface GameObject {
 
     /**
      * return if the object is alive.
+     * 
      * @return true if the object is alive, false otherwise
      */
     boolean isAlive();
 
     /**
      * return the position of the object.
-     * @return the object position 
+     * 
+     * @return the object position
      */
     Point2D getPosition();
 
     /**
      * return the velocity vector.
-     * @return the object velocity vector 
+     * 
+     * @return the object velocity vector
      */
     Vector2D getVelocity();
 
     /**
      * set the position of the object.
+     * 
      * @param point
      */
     void setPosition(Point2D point);
 
     /**
      * set the velocity of the object.
+     * 
      * @param vector
      */
     void setVelocity(Vector2D vector);
@@ -62,27 +68,33 @@ public interface GameObject {
 
     /**
      * return a list of all components.
+     * 
      * @return a list with all the objects component
      */
     List<Component> getAllComponent();
 
     /**
      * return the stats map.
+     * 
      * @return a map with value of all stats
      */
     Map<Statistic, Integer> getAllStats();
 
     /**
      * Set the value of the given stat.
+     * 
      * @param stat
      * @param value
      */
     void setStatValue(Statistic stat, int value);
+
     /**
      * Insert a new component.
+     * 
      * @param component
      */
     void addComponent(Component component);
+
     /**
      * Update the game object.
      */

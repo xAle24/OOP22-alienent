@@ -2,7 +2,11 @@ package it.unibo.alienenterprises.model.api.components;
 
 import it.unibo.alienenterprises.model.api.GameObject;
 
-public abstract class ComponentAbs implements Component{
+/**
+ * ComponentAbs.
+ * Basic implementation of Component
+ */
+public abstract class ComponentAbs implements Component {
 
     private final GameObject gameObject;
     private boolean enabled;
@@ -14,12 +18,12 @@ public abstract class ComponentAbs implements Component{
 
     @Override
     public void update(double deltatime) {
-        //vuoto
+        // vuoto
     }
 
     @Override
     public void start() {
-        //vuoto
+        // vuoto
     }
 
     @Override
@@ -37,8 +41,8 @@ public abstract class ComponentAbs implements Component{
         return this.enabled;
     }
 
-    protected GameObject getGameObject(){
+    protected GameObject getGameObject() {
         return this.gameObject;
     }
-    
+
 }

@@ -2,9 +2,12 @@ package it.unibo.alienenterprises.model.api;
 
 import java.util.List;
 
+/**
+ * InputSupplier
+ */
 public interface InputSupplier {
 
-    enum Input{
+    enum Input {
         /**
          * Called when the player must accelerate.
          */
@@ -27,10 +30,19 @@ public interface InputSupplier {
         STOP_TURN;
     }
 
+    /**
+     * @return the list of all the inputs given
+     */
     List<Input> getInputList();
 
-    void addInput();
+    /**
+     * Add the given input to the input list
+     */
+    void addInput(Input input);
 
+    /**
+     * Remove all the previous inputs from the input list
+     */
     void clearInputList();
 
 }

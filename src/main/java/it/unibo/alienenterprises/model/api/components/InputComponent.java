@@ -1,6 +1,5 @@
 package it.unibo.alienenterprises.model.api.components;
 
-
 /**
  * InputComponent.
  */

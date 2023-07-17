@@ -1,4 +1,4 @@
-package it.unibo.alienenterprises.model;
+package it.unibo.alienenterprises.model.impl.components;
 
 import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.InputSupplier;
@@ -7,12 +7,12 @@ import it.unibo.alienenterprises.model.api.components.ComponentAbs;
 import it.unibo.alienenterprises.model.api.components.InputComponent;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
 import it.unibo.alienenterprises.model.api.InputSupplier.Input;
+
 /**
  * PlayerInputComponent
  * Handle the movements of the player.
  */
 public class PlayerInputComponentImpl extends ComponentAbs implements InputComponent {
-
 
     private static final double ANG_VEL = 1;
 
@@ -21,6 +21,10 @@ public class PlayerInputComponentImpl extends ComponentAbs implements InputCompo
     private int maxSpeed;
     private double acc;
 
+    /**
+     * @param object the referenced object
+     * @param input
+     */
     public PlayerInputComponentImpl(final GameObject object, final InputSupplier input) {
         super(object, true);
         this.input = input;
@@ -34,7 +38,7 @@ public class PlayerInputComponentImpl extends ComponentAbs implements InputCompo
             switch (in) {
                 case ACCELERATE:
                     if (module < maxSpeed) {
-                        final double accTime = acc*deltatime;
+                        final double accTime = acc * deltatime;
                         if (module + accTime > maxSpeed) {
                             vel = Vector2D.fromAngleAndModule(vel.getAngle(), maxSpeed);
                         }
@@ -43,7 +47,7 @@ public class PlayerInputComponentImpl extends ComponentAbs implements InputCompo
                     break;
                 case STOP_ACCELERATE:
                     if (module > 0) {
-                        final double accTime = acc*deltatime;
+                        final double accTime = acc * deltatime;
                         if (module - accTime < 0) {
                             vel = Vector2D.fromAngleAndModule(vel.getAngle(), 0);
                         }
@@ -51,10 +55,10 @@ public class PlayerInputComponentImpl extends ComponentAbs implements InputCompo
                     }
                     break;
                 case TURN_LEFT:
-                    vel = Vector2D.fromAngleAndModule(vel.getAngle() + (ANG_VEL*deltatime), module);
+                    vel = Vector2D.fromAngleAndModule(vel.getAngle() + (ANG_VEL * deltatime), module);
                     break;
                 case TURN_RIGHT:
-                    vel = Vector2D.fromAngleAndModule(vel.getAngle() - (ANG_VEL*deltatime), module);
+                    vel = Vector2D.fromAngleAndModule(vel.getAngle() - (ANG_VEL * deltatime), module);
                     break;
                 default:
                     break;
@@ -68,9 +72,9 @@ public class PlayerInputComponentImpl extends ComponentAbs implements InputCompo
     }
 
     @Override
-    public void start(){
+    public void start() {
         this.maxSpeed = getGameObject().getStatValue(Statistic.SPEED);
-        this.acc = this.maxSpeed/30;
+        this.acc = this.maxSpeed / 30;
     }
 
 }
