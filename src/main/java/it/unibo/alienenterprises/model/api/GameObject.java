@@ -98,5 +98,5 @@ public interface GameObject {
     /**
      * Update the game object.
      */
-    void update();
+    void update(double deltatime);
 }

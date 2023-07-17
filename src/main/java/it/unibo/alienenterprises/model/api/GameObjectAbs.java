@@ -109,8 +109,7 @@ public abstract class GameObjectAbs implements GameObject {
      * Update the game object.
      */
     @Override
-    public void update() {
-        //TODO
-        //getAllComponent().stream().filter(e -> !e.getClass().equals(HitboxComponent.class)).forEach(e -> e.Update(this));
+    public void update(final double deltatime) {
+        getAllComponent().stream().forEach(e -> e.update(deltatime));
     }
 }
