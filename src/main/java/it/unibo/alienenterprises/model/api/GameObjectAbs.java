@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Set;
 
 import it.unibo.alienenterprises.model.api.components.Component;
-import it.unibo.alienenterprises.model.api.components.HitboxComponent;
 import it.unibo.alienenterprises.model.geometry.Point2D;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
 
@@ -110,7 +109,7 @@ public abstract class GameObjectAbs implements GameObject {
      * Update the game object.
      */
     @Override
-    public void update() {
-        getAllComponent().stream().filter(e -> !e.getClass().equals(HitboxComponent.class)).forEach(e -> e.handle(this));
+    public void update(final double deltatime) {
+        getAllComponent().stream().forEach(e -> e.update(deltatime));
     }
 }

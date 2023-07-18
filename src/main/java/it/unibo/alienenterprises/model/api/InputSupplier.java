@@ -1,8 +1,13 @@
-package it.unibo.alienenterprises.model.api.components;
+package it.unibo.alienenterprises.model.api;
 
-public interface PlayerInputComponent extends Component {
+import java.util.List;
 
-    enum Input{
+/**
+ * InputSupplier
+ */
+public interface InputSupplier {
+
+    enum Input {
         /**
          * Called when the player must accelerate.
          */
@@ -24,6 +29,20 @@ public interface PlayerInputComponent extends Component {
          */
         STOP_TURN;
     }
-    
-    void addInput (final Input input);
+
+    /**
+     * @return the list of all the inputs given
+     */
+    List<Input> getInputList();
+
+    /**
+     * Add the given input to the input list
+     */
+    void addInput(Input input);
+
+    /**
+     * Remove all the previous inputs from the input list
+     */
+    void clearInputList();
+
 }
