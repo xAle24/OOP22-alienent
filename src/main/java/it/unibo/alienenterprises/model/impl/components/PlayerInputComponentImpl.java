@@ -5,6 +5,7 @@ import it.unibo.alienenterprises.model.api.InputSupplier;
 import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.model.api.components.ComponentAbs;
 import it.unibo.alienenterprises.model.api.components.InputComponent;
+import it.unibo.alienenterprises.model.api.components.ShooterComponent;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
 import it.unibo.alienenterprises.model.api.InputSupplier.Input;
 
@@ -17,6 +18,7 @@ public class PlayerInputComponentImpl extends ComponentAbs implements InputCompo
     private static final double ANG_VEL = 1;
 
     private final InputSupplier input;
+    private final ShooterComponent shooter;
 
     private int maxSpeed;
     private double acc;
@@ -25,9 +27,10 @@ public class PlayerInputComponentImpl extends ComponentAbs implements InputCompo
      * @param object the referenced object
      * @param input
      */
-    public PlayerInputComponentImpl(final GameObject object, final InputSupplier input) {
+    public PlayerInputComponentImpl(final GameObject object, final InputSupplier input, final ShooterComponent shooter) {
         super(object, true);
         this.input = input;
+        this.shooter = shooter;
     }
 
     @Override
@@ -59,6 +62,9 @@ public class PlayerInputComponentImpl extends ComponentAbs implements InputCompo
                     break;
                 case TURN_RIGHT:
                     vel = Vector2D.fromAngleAndModule(vel.getAngle() - (ANG_VEL * deltatime), module);
+                    break;
+                case SHOOT:
+                    shooter.shoot();
                     break;
                 default:
                     break;

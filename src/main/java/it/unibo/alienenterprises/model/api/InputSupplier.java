@@ -25,9 +25,9 @@ public interface InputSupplier {
          */
         TURN_RIGHT,
         /**
-         * Called when player stops turning.
+         * Called when player must shoot.
          */
-        STOP_TURN;
+        SHOOT;
     }
 
     /**

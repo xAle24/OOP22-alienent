@@ -11,7 +11,7 @@ import it.unibo.alienenterprises.model.geometry.Vector2D;
 
 public class BasicShooterComponent extends ComponentAbs implements ShooterComponent {
 
-    private Supplier<Projectile> shoot;
+    private Supplier<Projectile> shot;
     private double delay;
     private double counter=0;
 
@@ -20,9 +20,9 @@ public class BasicShooterComponent extends ComponentAbs implements ShooterCompon
     
     private boolean trigger = false;
 
-    public BasicShooterComponent(GameObject object, boolean enabled, final Supplier<Projectile> shoot, final double delay) {
+    public BasicShooterComponent(GameObject object, boolean enabled, final Supplier<Projectile> shot, final double delay) {
         super(object, enabled);
-        this.shoot=shoot;
+        this.shot=shot;
         this.delay=delay;
     }
 
@@ -31,12 +31,12 @@ public class BasicShooterComponent extends ComponentAbs implements ShooterCompon
         if(!isEnabled()){
             return;
         }
-        if(counter<delay){
-            counter = counter + deltatime;
+        if(this.counter<this.delay){
+            this.counter = this.counter + deltatime;
         }
-        if(this.trigger && counter>=delay){
+        if(this.trigger && this.counter>=delay){
             var obj = getGameObject();
-            var p = shoot.get();
+            var p = shot.get();
             p.setStatValue(Statistic.DAMAGE, damage);
             p.setStatValue(Statistic.SPEED, speed);
             p.setVelocity(Vector2D.fromAngleAndModule(obj.getVelocity().getAngle(), deltatime));
@@ -57,7 +57,7 @@ public class BasicShooterComponent extends ComponentAbs implements ShooterCompon
 
     @Override
     public void setProjectileSupplier(final Supplier<Projectile> pSupplier) {
-        this.shoot=pSupplier;
+        this.shot=pSupplier;
     }
 
 
