@@ -1,0 +1,14 @@
+!it.unibo.alienenterprises.controller.PlayerProp
+name: Standard
+stats:
+  HP: 30
+  SPEED: 10
+  DAMAGE: 10
+  DEFENCE: 10
+  PROJECTILESPEED: 20
+  COOLDOWN: 2
+  RECOVERY: 2
+input: player
+hitboxID: player
+hitboxr: 20
+shooter: basic
