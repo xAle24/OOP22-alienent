@@ -33,7 +33,7 @@ public class PlayerInputComponentImpl extends ComponentAbs implements InputCompo
     @Override
     public void update(final double deltatime) {
         var vel = getGameObject().getVelocity();
-        for (Input in : input.getInputList()) {
+        for (Input in : input.getInputSet()) {
             final var module = vel.getModule();
             switch (in) {
                 case ACCELERATE:
@@ -65,7 +65,7 @@ public class PlayerInputComponentImpl extends ComponentAbs implements InputCompo
             }
         }
 
-        input.clearInputList();
+        input.clearInputSet();
 
         getGameObject().setPosition(vel.mul(deltatime).translate(getGameObject().getPosition()));
         getGameObject().setVelocity(vel);
