@@ -61,6 +61,11 @@ public class Line2D {
     }
 
     @Override
+    public String toString() {
+        return getA() + "x" + (getB() > 0 ? "+" : "") + getB() + "y" + (getC() > 0 ? "+" : "") + getC();
+    }
+
+    @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;

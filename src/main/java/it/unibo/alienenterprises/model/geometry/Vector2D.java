@@ -90,6 +90,11 @@ public class Vector2D {
     }
 
     @Override
+    public String toString() {
+        return "Vector2D [xComp=" + getxComp() + ", yComp=" + getyComp() + "]";
+    }
+
+    @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
