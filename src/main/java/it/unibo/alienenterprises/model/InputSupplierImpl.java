@@ -1,12 +1,14 @@
-package it.unibo.alienenterprises.model.api;
+package it.unibo.alienenterprises.model;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import it.unibo.alienenterprises.model.api.InputSupplier;
+
 /**
  * InputSupplier standard
  */
-public class InputSupplierImpl implements InputSupplier{
+public class InputSupplierImpl implements InputSupplier {
 
     private final Set<Input> inputSet = new HashSet<>();
 
@@ -30,5 +32,5 @@ public class InputSupplierImpl implements InputSupplier{
     public void clearInputSet() {
         this.inputSet.clear();
     }
-    
+
 }
