@@ -3,7 +3,7 @@ package it.unibo.alienenterprises.controller;
 import java.util.Map;
 
 
-public class PlayerProp {
+public class ShipProp {
     private String name;
     private Map<String, Integer> stats;
     private String input;
@@ -11,7 +11,7 @@ public class PlayerProp {
     private int hitboxr;
     private String shooter;
 
-    public PlayerProp(){
+    public ShipProp(){
 
     }
 
@@ -62,5 +62,13 @@ public class PlayerProp {
     public void setShooter(String shooter) {
         this.shooter = shooter;
     }
+
+    @Override
+    public String toString() {
+        return "ShipProp [name=" + name + ", stats=" + stats + ", input=" + input + ", hitboxID=" + hitboxID
+                + ", hitboxr=" + hitboxr + ", shooter=" + shooter + "]";
+    }
+
+    
 
 }

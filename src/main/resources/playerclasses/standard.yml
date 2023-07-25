@@ -1,5 +1,5 @@
-!it.unibo.alienenterprises.controller.PlayerProp
-name: Standard
+!it.unibo.alienenterprises.controller.ShipProp
+name: 1
 stats:
   HP: 30
   SPEED: 10
