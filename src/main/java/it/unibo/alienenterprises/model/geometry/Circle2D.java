@@ -60,24 +60,24 @@ public class Circle2D {
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj){
+        if (this == obj) {
             return true;
         }
-        if (obj == null){
+        if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()){
+        if (getClass() != obj.getClass()) {
             return false;
         }
         Circle2D other = (Circle2D) obj;
         if (center == null) {
-            if (other.center != null){
+            if (other.center != null) {
                 return false;
             }
-        } else if (!center.equals(other.center)){
+        } else if (!center.equals(other.center)) {
             return false;
         }
-        if (Double.doubleToLongBits(r) != Double.doubleToLongBits(other.r)){
+        if (Double.doubleToLongBits(r) != Double.doubleToLongBits(other.r)) {
             return false;
         }
         return true;

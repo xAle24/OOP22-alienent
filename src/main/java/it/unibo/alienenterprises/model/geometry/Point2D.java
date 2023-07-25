@@ -55,20 +55,20 @@ public class Point2D {
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj){
+        if (this == obj) {
             return true;
         }
-        if (obj == null){
+        if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()){
+        if (getClass() != obj.getClass()) {
             return false;
         }
         Point2D other = (Point2D) obj;
-        if (Double.doubleToLongBits(x) != Double.doubleToLongBits(other.x)){
+        if (Double.doubleToLongBits(x) != Double.doubleToLongBits(other.x)) {
             return false;
         }
-        if (Double.doubleToLongBits(y) != Double.doubleToLongBits(other.y)){
+        if (Double.doubleToLongBits(y) != Double.doubleToLongBits(other.y)) {
             return false;
         }
         return true;
