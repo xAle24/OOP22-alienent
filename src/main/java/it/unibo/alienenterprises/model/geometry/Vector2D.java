@@ -85,8 +85,13 @@ public class Vector2D {
         return new Vector2D(xComp + vec.getxComp(), yComp + vec.getyComp());
     }
 
-    public Vector2D mul(final double a){
-        return new Vector2D(this.xComp*a, this.yComp*a);
+    public Vector2D mul(final double a) {
+        return new Vector2D(this.xComp * a, this.yComp * a);
+    }
+
+    @Override
+    public String toString() {
+        return "Vector2D [xComp=" + getxComp() + ", yComp=" + getyComp() + "]";
     }
 
     @Override
@@ -103,20 +108,20 @@ public class Vector2D {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj){
+        if (this == obj) {
             return true;
         }
-        if (obj == null){
+        if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()){
+        if (getClass() != obj.getClass()) {
             return false;
         }
         Vector2D other = (Vector2D) obj;
-        if (Double.doubleToLongBits(xComp) != Double.doubleToLongBits(other.xComp)){
+        if (Double.doubleToLongBits(xComp) != Double.doubleToLongBits(other.xComp)) {
             return false;
         }
-        if (Double.doubleToLongBits(yComp) != Double.doubleToLongBits(other.yComp)){
+        if (Double.doubleToLongBits(yComp) != Double.doubleToLongBits(other.yComp)) {
             return false;
         }
         return true;
