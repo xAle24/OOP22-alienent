@@ -1,5 +1,7 @@
 package it.unibo.alienenterprises.model.impl.components;
 
+import java.util.Optional;
+
 import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.InputSupplier;
 import it.unibo.alienenterprises.model.api.Statistic;
@@ -16,7 +18,7 @@ public class PlayerInputComponentImpl extends ComponentAbs implements InputCompo
 
     private static final double ANG_VEL = 1;
 
-    private final InputSupplier input;
+    private InputSupplier input;
 
     private int maxSpeed;
     private double acc;
@@ -75,6 +77,16 @@ public class PlayerInputComponentImpl extends ComponentAbs implements InputCompo
     public void start() {
         this.maxSpeed = getGameObject().getStatValue(Statistic.SPEED);
         this.acc = this.maxSpeed / 30;
+    }
+
+    @Override
+    public Optional<InputSupplier> getInputSupplier() {
+        return Optional.of(input);
+    }
+
+    @Override
+    public void setInputSupplier(InputSupplier inputSupplier) {
+        this.input = inputSupplier;
     }
 
 }
