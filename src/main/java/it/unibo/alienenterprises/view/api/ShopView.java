@@ -1,9 +1,9 @@
 package it.unibo.alienenterprises.view.api;
 
-import java.util.Set;
+import java.util.List;
 
 import it.unibo.alienenterprises.model.api.PowerUpRenderer;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.BorderPane;
 
 /**
  * ShopView.
@@ -16,17 +16,11 @@ public interface ShopView {
      * @return
      * 
      */
-    VBox show();
+    void show();
 
-    /**
-     * it start the shop GUI.
-     * 
-     * @return
-     * 
-     */
-    void start();
+    BorderPane setUpShopView();
 
-    void loadPwuInfo(Set<PowerUpRenderer> pwuInfo);
+    void loadPwuInfo(List<PowerUpRenderer> pwuInfo);
 
-    Set<PowerUpRenderer> getInfo();
+    List<PowerUpRenderer> getInfo();
 }
