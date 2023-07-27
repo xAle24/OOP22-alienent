@@ -36,11 +36,14 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
     }
 
     private boolean correctPassword(final String nickname, final String password) {
-        try {
+        try (final FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + "passwords.yml")) {
             final Yaml yaml = new Yaml();
-            final FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + "passwords.yml");
-            final Map<String, String> passwordMap = yaml.load(inputStream);
-            inputStream.close();
+            final Iterable<Object> document = yaml.loadAll(inputStream);
+            Map<String, String> passwordMap = new HashMap<>();
+
+            for (Object obj : document) {
+                passwordMap.putAll((Map<? extends String, ? extends String>) obj);
+            }
 
             return passwordMap.get(nickname).equals(password);
 
@@ -91,9 +94,13 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
                 final FileWriter writer = new FileWriter(GAME_PATH + SEPARATOR + "passwords.yml",
                         StandardCharsets.UTF_8,
                         true);
-                final Representer representer = new Representer(new DumperOptions());
-                representer.addClassTag(Map.class, new Tag("!Password"));
-                final Yaml yaml = new Yaml(representer);
+                final DumperOptions option = new DumperOptions();
+                option.setExplicitStart(true);
+                /*
+                 * final Representer representer = new Representer(option);
+                 * representer.addClassTag(Map.class, new Tag("!Password"));
+                 */
+                final Yaml yaml = new Yaml(option);
                 final Map<String, String> map = new HashMap<>();
                 map.put(nickname, password);
                 final String output = yaml.dump(map);
@@ -119,6 +126,7 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
             representer.addClassTag(UserAccountImpl.class, new Tag("!UserAccountImpl"));
             final Yaml yaml = new Yaml(representer);
             final String output = yaml.dump(account);
+            System.out.println(output);
             writer.append(output);
             writer.close();
         } catch (IOException e) {

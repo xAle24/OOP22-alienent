@@ -45,7 +45,7 @@ public interface UserAccount {
      * @return
      * 
      */
-    void setInventory(Map<Integer, Integer> newInventory);
+    void setInventory(Map<String, Integer> newInventory);
 
     /**
      * 

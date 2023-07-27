@@ -64,8 +64,8 @@ public class UserAccountImpl implements UserAccount {
      * {@inheritDoc}
      */
     @Override
-    public void setInventory(final Map<Integer, Integer> newInventory) {
-        this.inventory.putAll(inventory);
+    public void setInventory(final Map<String, Integer> newInventory) {
+        this.inventory.putAll(newInventory);
     }
 
     /**
@@ -144,6 +144,9 @@ public class UserAccountImpl implements UserAccount {
                 }
             });
         }
+
     }
+
+    
 
 }
