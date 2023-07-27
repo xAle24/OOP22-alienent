@@ -1,4 +1,4 @@
-package it.unibo.alienenterprises.model;
+package it.unibo.alienenterprises.model.impl;
 
 import java.util.HashSet;
 import java.util.Set;

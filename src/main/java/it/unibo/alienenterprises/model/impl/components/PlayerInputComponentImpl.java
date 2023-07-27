@@ -6,7 +6,7 @@ import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.InputSupplier;
 import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.model.api.components.ComponentAbs;
-import it.unibo.alienenterprises.model.api.components.InputComponent;
+import it.unibo.alienenterprises.model.api.components.PlayerInputComponent;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
 import it.unibo.alienenterprises.model.api.InputSupplier.Input;
 
@@ -14,7 +14,7 @@ import it.unibo.alienenterprises.model.api.InputSupplier.Input;
  * PlayerInputComponent
  * Handle the movements of the player.
  */
-public class PlayerInputComponentImpl extends ComponentAbs implements InputComponent {
+public class PlayerInputComponentImpl extends ComponentAbs implements PlayerInputComponent {
 
     private static final double ANG_VEL = 1;
 
