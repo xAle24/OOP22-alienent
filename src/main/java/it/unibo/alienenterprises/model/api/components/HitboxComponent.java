@@ -40,4 +40,9 @@ public interface HitboxComponent extends Component {
      * @return true if can collide, false otherwise
      */
     Boolean canCollide(Type type);
+    /**
+     * Check what happens once the two objects have collided.
+     * @return
+     */
+    Void isColliding();
 }
