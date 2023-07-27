@@ -20,6 +20,10 @@ public class BasicShooterComponent extends ComponentAbs implements ShooterCompon
     
     private boolean trigger = false;
 
+    public BasicShooterComponent(final GameObject object){
+        super(object,true);
+    }
+
     public BasicShooterComponent(GameObject object, boolean enabled, final Supplier<Projectile> shoot, final double delay) {
         super(object, enabled);
         this.shoot=shoot;
@@ -56,8 +60,23 @@ public class BasicShooterComponent extends ComponentAbs implements ShooterCompon
     }
 
     @Override
+    public Supplier<Projectile> getProjectileSupplier() {
+        return shoot;
+    }
+
+    @Override
     public void setProjectileSupplier(final Supplier<Projectile> pSupplier) {
         this.shoot=pSupplier;
+    }
+
+    @Override
+    public double getDelay() {
+        return delay;
+    }
+
+    @Override
+    public void setDelay(final double delay) {
+        this.delay = delay;
     }
 
 

@@ -14,10 +14,26 @@ public interface ShooterComponent extends Component {
      */
     void shoot();
 
+    
+    /**
+     * @return the projectileSupplier
+     */
+    Supplier<Projectile> getProjectileSupplier();
+
     /**
      * Change the projectile Supplier
      * 
      * @param pSupplier new supplier
      */
     void setProjectileSupplier(Supplier<Projectile> pSupplier);
+
+    /**
+     * @return the delay between two shots
+     */
+    double getDelay();
+
+    /**
+     * Set a new value for the delay between two shots
+     */
+    void setDelay(double delay);
 }
