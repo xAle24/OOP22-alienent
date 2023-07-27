@@ -1,9 +1,7 @@
 package it.unibo.alienenterprises.model.api;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-
-import it.unibo.alienenterprises.model.UserAccountImpl;
 
 /**
  * Model of the shop.
@@ -18,7 +16,7 @@ public interface ShopModel {
      * @return the negative amount of money the id's correspondent PWU cost
      * 
      */
-    Optional<Integer> check(String id, UserAccountImpl user);
+    Optional<Integer> check(String id);
 
     /**
      * The method updates the user money and their inventory.
@@ -28,7 +26,7 @@ public interface ShopModel {
      * @param changeMoney the money to add or subtract to the current user money
      * @return
      */
-    void updateShop(String id, UserAccountImpl user, int changeMoney);
+    void updateShop(String id, int changeMoney);
 
     /**
      * Given a Set of Pwu, it add all of them to a collection.
@@ -36,8 +34,8 @@ public interface ShopModel {
      * @return
      * 
      */
-    void loadPwu(Set<PowerUp> pwu);
+    void loadPwu(List<PowerUp> pwu);
 
-    Set<PowerUp> getPwu();
+    List<PowerUp> getPwu();
 
 }

@@ -1,11 +1,12 @@
 package it.unibo.alienenterprises.model;
 
-import java.util.Set;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import it.unibo.alienenterprises.controller.api.ShopController;
 import it.unibo.alienenterprises.model.api.PowerUp;
 import it.unibo.alienenterprises.model.api.ShopModel;
 import it.unibo.alienenterprises.model.api.Statistic;
@@ -15,20 +16,27 @@ import it.unibo.alienenterprises.model.api.Statistic;
  */
 public class ShopModelImpl implements ShopModel {
 
-    private final Set<PowerUp> powerUps = new HashSet<>();
+    private ShopController controller;
+    private final List<PowerUp> powerUps = new LinkedList<>();
+
+    public ShopModelImpl(ShopController controller) {
+        this.controller = controller;
+    }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Optional<Integer> check(final String id, final UserAccountImpl user) {
+    public Optional<Integer> check(final String id) {
+
+        UserAccountImpl user = controller.getUserAccount();
 
         final Iterator<PowerUp> pwuIterator = powerUps.iterator();
         while (pwuIterator.hasNext()) {
             final PowerUp currPwu = pwuIterator.next();
 
             if (currPwu.getId().equals(id)) {
-                return user.getMoney() - currPwu.getCost() > 0 ? Optional.of(-currPwu.getCost())
+                return user.getMoney() - currPwu.getCost() >= 0 ? Optional.of(-currPwu.getCost())
                         : Optional.empty();
             }
             // se returna i soldi al negativo io posso toglierli con updateMoney
@@ -42,17 +50,18 @@ public class ShopModelImpl implements ShopModel {
      * {@inheritDoc}
      */
     @Override
-    public void updateShop(final String id, final UserAccountImpl user, final int changeMoney) {
+    public void updateShop(final String id, final int changeMoney) {
+        UserAccountImpl user = controller.getUserAccount();
         user.updateInventory(id);
         user.setMoney(changeMoney);
-        user.equals(updateToAddPwu(id, user));
+        updateToAddPwu(id, user);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void loadPwu(Set<PowerUp> pwu) {
+    public void loadPwu(List<PowerUp> pwu) {
         this.powerUps.addAll(pwu);
     }
 
@@ -66,11 +75,13 @@ public class ShopModelImpl implements ShopModel {
                 user.updateToAddPwu(map);
             }
         }
+        System.out.println(user.getInventory());
+        System.out.println(user.getToAddPwu());
         return user;
     }
 
     @Override
-    public Set<PowerUp> getPwu() {
+    public List<PowerUp> getPwu() {
         return this.powerUps;
     }
 
