@@ -2,10 +2,11 @@ package it.unibo.alienenterprises.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.HashSet;
+
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 
 import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.TypeDescription;
@@ -15,14 +16,11 @@ import org.yaml.snakeyaml.constructor.Constructor;
 import it.unibo.alienenterprises.controller.api.ShopController;
 import it.unibo.alienenterprises.model.PowerUpImpl;
 import it.unibo.alienenterprises.model.PowerUpRendererImpl;
-import it.unibo.alienenterprises.model.ShopModelImpl;
+import it.unibo.alienenterprises.model.UserAccountImpl;
 import it.unibo.alienenterprises.model.api.PowerUp;
 import it.unibo.alienenterprises.model.api.PowerUpRenderer;
 import it.unibo.alienenterprises.model.api.ShopModel;
 import it.unibo.alienenterprises.model.api.Statistic;
-import it.unibo.alienenterprises.model.api.UserAccount;
-import it.unibo.alienenterprises.view.ShopViewImpl;
-import it.unibo.alienenterprises.view.api.ShopView;
 
 public class ShopControllerImpl implements ShopController {
 
@@ -30,15 +28,33 @@ public class ShopControllerImpl implements ShopController {
     private static final String GAME_PATH = "src/main/resources/examplemvc";
     // System.getProperty("user.home") + SEPARATOR + ".Alien Enterprises";
 
-    private ShopView view = new ShopViewImpl();
-    private ShopModel model = new ShopModelImpl();
-    private Set<PowerUp> powerUps = new HashSet<>();
-    private Set<PowerUpRenderer> pwuInfo = new HashSet<>();
+    private UserAccountImpl account;
+    private ShopModel model;
+    private List<PowerUp> powerUps = new LinkedList<>();
+    private List<PowerUpRenderer> pwuInfo = new LinkedList<>();
+
+    public ShopControllerImpl() {
+    }
+
+    public ShopControllerImpl(UserAccountImpl account) {
+        this.account = account;
+    }
 
     @Override
-    public void buy(String id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buy'");
+    public void setModel(ShopModel model) {
+        this.model = model;
+    }
+
+    @Override
+    public boolean buy(String id) {
+        Optional<Integer> changeMoney = this.model.check(id);
+        if (!changeMoney.isEmpty()) {
+            this.model.updateShop(id, changeMoney.get());
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     @Override
@@ -64,7 +80,6 @@ public class ShopControllerImpl implements ShopController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        this.model.loadPwu(powerUps);
     }
 
     @Override
@@ -97,23 +112,21 @@ public class ShopControllerImpl implements ShopController {
             List<PowerUp> pwu = powerUps.stream().filter(p -> p.getId().equals(curr.getId())).toList();
             curr.setPwu(pwu.get(0));
         }
-        this.view.loadPwuInfo(pwuInfo);
     }
 
     @Override
-    public void showShop(UserAccount user) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'showShop'");
+    public List<PowerUpRenderer> getPwuInfo() {
+        return this.pwuInfo;
     }
 
     @Override
-    public Set<PowerUp> getModelPwu() {
-        return this.model.getPwu();
+    public List<PowerUp> getPwu() {
+        return this.powerUps;
     }
 
     @Override
-    public Set<PowerUpRenderer> getViewInfo() {
-        return this.view.getInfo();
+    public UserAccountImpl getUserAccount() {
+        return this.account;
     }
 
 }
