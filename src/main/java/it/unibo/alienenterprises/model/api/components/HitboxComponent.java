@@ -1,5 +1,6 @@
 package it.unibo.alienenterprises.model.api.components;
 
+import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.geometry.Circle2D;
 
 /**
@@ -44,5 +45,5 @@ public interface HitboxComponent extends Component {
      * Check what happens once the two objects have collided.
      * @return
      */
-    Void isColliding();
+    void isColliding(GameObject object);
 }
