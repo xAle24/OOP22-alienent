@@ -52,33 +52,61 @@ public class ShopViewImpl extends BorderPane implements ShopView {
 
     private Map<String, GridPane> checkBoxesMap = new HashMap<>();
 
-    public ShopViewImpl(ShopController controller) {
+    /**
+     * This constructor ensures that the view has always a controller to reference.
+     * 
+     * @param controller
+     */
+    public ShopViewImpl(final ShopController controller) {
         this.controller = controller;
     }
 
     /**
      * {@inheritDoc}
      */
+    @Override
+    public void loadPwuInfo(final List<PowerUpRenderer> pwuInfo) {
+        this.pwuInfo.addAll(pwuInfo);
+    }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<PowerUpRenderer> getInfo() {
+        return this.pwuInfo;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public BorderPane setUpShopView() {
-        /* Setta titolo */
-        Label text = new Label("SHOP");
-        text.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
-        text.setTextFill(Color.RED);
 
+        box.setId("box");
+
+        /*
+         * box.getStylesheets().add(getClass().getResource(
+         * "css/ShopGui.css")
+         * .toExternalForm());
+         */
+
+        /* Setta titolo */
+        Label title = new Label("SHOP");
+        title.setId("title");
+
+        shownScore.setId("shownscore");
         shownScore.setText(String.valueOf(controller.getUserAccount().getMoney()));
-        shownScore.setFont(Font.font("Helvetica", FontWeight.BOLD, 30));
-        shownScore.setTextFill(Color.BLACK);
 
         /* Setta l'exitButton */
+        exitButton.setId("exitButton");
         setExitButton();
 
         /* Setta GridPane */
         setScroll();
 
         /* Infila tutto nella box */
-        box.setTop(text);
+        box.setTop(title);
         box.setCenter(scroll);
         box.setBottom(bottom);
 
@@ -88,14 +116,15 @@ public class ShopViewImpl extends BorderPane implements ShopView {
 
         setPopUpWindow();
 
-        box.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
-
         this.box.setVisible(false);
 
         return this.box;
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void show() {
 
@@ -216,16 +245,6 @@ public class ShopViewImpl extends BorderPane implements ShopView {
 
     }
 
-    @Override
-    public void loadPwuInfo(List<PowerUpRenderer> pwuInfo) {
-        this.pwuInfo.addAll(pwuInfo);
-    }
-
-    @Override
-    public List<PowerUpRenderer> getInfo() {
-        return this.pwuInfo;
-    }
-
     private void buyEvent(PowerUpRenderer curr) {
         if (!controller.buy(curr.getId())) {
             Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
@@ -267,11 +286,11 @@ public class ShopViewImpl extends BorderPane implements ShopView {
     }
 
     private void setExitButton() {
-        Image image = new Image(
-                "C:/Users/ginni/Desktop/ProgettoOOP/OOP22-alienent/src/main/resources/examplemvc/cross.png");
+        // Image image = new Image(
+        // "C:/Users/ginni/Desktop/ProgettoOOP/OOP22-alienent/src/main/resources/examplemvc/cross.png");
         // GAME_PATH + SEPARATOR + curr.getImage());
 
-        exitButton.setGraphic(new ImageView(image));
+        // exitButton.setGraphic(new ImageView(image));
         exitButton.setOnAction(closeShop -> {
             this.box.setVisible(false);
         });
@@ -291,4 +310,5 @@ public class ShopViewImpl extends BorderPane implements ShopView {
             }
         });
     }
+
 }

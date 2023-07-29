@@ -22,6 +22,9 @@ import it.unibo.alienenterprises.model.api.PowerUpRenderer;
 import it.unibo.alienenterprises.model.api.ShopModel;
 import it.unibo.alienenterprises.model.api.Statistic;
 
+/**
+ * Shop Controller implementation.
+ */
 public class ShopControllerImpl implements ShopController {
 
     private static final String SEPARATOR = File.separator;
@@ -33,33 +36,60 @@ public class ShopControllerImpl implements ShopController {
     private List<PowerUp> powerUps = new LinkedList<>();
     private List<PowerUpRenderer> pwuInfo = new LinkedList<>();
 
+    /**
+     * Contructor without arguments.
+     */
     public ShopControllerImpl() {
-    }
+    } // is this necessary??
 
-    public ShopControllerImpl(UserAccountImpl account) {
+    /**
+     * Contructor with arguments.
+     * 
+     * @param account
+     */
+    public ShopControllerImpl(final UserAccountImpl account) {
         this.account = account;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setModel(ShopModel model) {
+    public void setModel(final ShopModel model) {
         this.model = model;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean buy(String id) {
-        Optional<Integer> changeMoney = this.model.check(id);
-        if (!changeMoney.isEmpty()) {
-            this.model.updateShop(id, changeMoney.get());
-            return true;
-        } else {
-            return false;
-        }
-
+    public UserAccountImpl getUserAccount() {
+        return this.account;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void loadShopModel() {
-        try {
+    public List<PowerUp> getPwu() {
+        return this.powerUps;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<PowerUpRenderer> getPwuInfo() {
+        return this.pwuInfo;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void loadPwuYaml() {
+        try (FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + "PowerUps.yml")) {
+
             final Constructor constructor = new Constructor(PowerUpImpl.class, new LoaderOptions());
             final TypeDescription accountDescription = new TypeDescription(PowerUpImpl.class);
             accountDescription.addPropertyParameters("id", String.class);
@@ -69,22 +99,23 @@ public class ShopControllerImpl implements ShopController {
             constructor.addTypeDescription(accountDescription);
 
             final Yaml yaml = new Yaml(constructor);
-            final FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + "PowerUps.yml");
             final Iterable<Object> documents = yaml.loadAll(inputStream);
 
             for (final Object object : documents) {
                 powerUps.add((PowerUp) object);
             }
 
-            inputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void loadShopView() {
-        try {
+    public void loadPwuInfoYaml() {
+        try (FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + "PowerUpsInfo.yml")) {
             final Constructor constructor = new Constructor(PowerUpRendererImpl.class, new LoaderOptions());
             final TypeDescription accountDescription = new TypeDescription(PowerUpRendererImpl.class);
             accountDescription.addPropertyParameters("name", String.class);
@@ -94,14 +125,13 @@ public class ShopControllerImpl implements ShopController {
             constructor.addTypeDescription(accountDescription);
 
             final Yaml yaml = new Yaml(constructor);
-            final FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + "PowerUpsInfo.yml");
+
             final Iterable<Object> documents = yaml.loadAll(inputStream);
 
             for (final Object object : documents) {
                 pwuInfo.add((PowerUpRenderer) object);
             }
 
-            inputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -114,19 +144,19 @@ public class ShopControllerImpl implements ShopController {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public List<PowerUpRenderer> getPwuInfo() {
-        return this.pwuInfo;
-    }
+    public boolean buy(final String id) {
+        Optional<Integer> changeMoney = this.model.check(id);
+        if (!changeMoney.isEmpty()) {
+            this.model.updateShop(id, changeMoney.get());
+            return true;
+        } else {
+            return false;
+        }
 
-    @Override
-    public List<PowerUp> getPwu() {
-        return this.powerUps;
-    }
-
-    @Override
-    public UserAccountImpl getUserAccount() {
-        return this.account;
     }
 
 }

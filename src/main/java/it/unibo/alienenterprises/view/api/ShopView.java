@@ -11,6 +11,27 @@ import javafx.scene.layout.BorderPane;
 public interface ShopView {
 
     /**
+     * It saves the list containing the pwu info inside a collection.
+     * 
+     * @param pwuInfo
+     */
+    void loadPwuInfo(List<PowerUpRenderer> pwuInfo);
+
+    /**
+     * It returns a list of PowerUpEenderer
+     * 
+     * @return
+     */
+    List<PowerUpRenderer> getInfo();
+
+    /**
+     * It setUps all the elements inside the GUI and returns
+     * 
+     * @return
+     */
+    BorderPane setUpShopView();
+
+    /**
      * it shows the shop GUI.
      * 
      * @return
@@ -18,9 +39,4 @@ public interface ShopView {
      */
     void show();
 
-    BorderPane setUpShopView();
-
-    void loadPwuInfo(List<PowerUpRenderer> pwuInfo);
-
-    List<PowerUpRenderer> getInfo();
 }

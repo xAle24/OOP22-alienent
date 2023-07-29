@@ -2,13 +2,13 @@ package it.unibo.alienenterprises.model.api;
 
 /*
  * PowerUpRenderer.
- */
+*/
 public interface PowerUpRenderer {
 
     /**
      * set the corresponding PWU.
      * 
-     * @param name the PWU
+     * @param pwu the PWU
      * @return
      */
     void setPwu(PowerUp pwu);
@@ -52,7 +52,7 @@ public interface PowerUpRenderer {
     /**
      * get the corresponding PWU.
      * 
-     * @return
+     * @return the corresponding PwU
      */
     PowerUp getPwu();
 

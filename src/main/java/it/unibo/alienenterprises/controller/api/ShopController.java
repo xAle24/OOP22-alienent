@@ -8,30 +8,63 @@ import it.unibo.alienenterprises.model.api.PowerUpRenderer;
 import it.unibo.alienenterprises.model.api.ShopModel;
 
 /**
- * Controller Shop.
+ * This is the Shop's Controller. It is the way the model and the view will
+ * communicate.
+ * Its methods also ensure that every information the model and the view will
+ * need are loaded.
  */
 public interface ShopController {
 
-    void loadShopModel();
+    /**
+     * It sets the implementation of shopModel the ShopController will be
+     * referencing.
+     * 
+     * @param shopModel
+     */
+    void setModel(ShopModel shopModel);
 
-    void loadShopView();
+    /**
+     * It returns the UserAccountImpl that the ShopController is referencing.
+     * 
+     * @return the UserAccountImpl that the ShopController is referencing
+     */
+    UserAccountImpl getUserAccount();
 
-    List<PowerUpRenderer> getPwuInfo();
-
+    /**
+     * It returns the List of PowerUp, that is created by loading the yaml file with
+     * the loadPwuYaml method.
+     * 
+     * @return a List of PowerUp
+     */
     List<PowerUp> getPwu();
 
     /**
-     * Calling ShopModel methods it checks if the user can buy the id
-     * corresponding PWU and if so it procedes to update the user's money
+     * It returns the List of PowerUpInfo, that is created by loading the yaml file
+     * with the loadPwuInfoYaml method.
+     * 
+     * @return a List of PowerUpInfo
+     */
+    List<PowerUpRenderer> getPwuInfo();
+
+    /**
+     * It loads the yaml file that contains all the pwu that are used in the game.
+     */
+    void loadPwuYaml();
+
+    /**
+     * It loads the yaml file that contains all the pwu information that are used to
+     * set the Shop view.
+     */
+    void loadPwuInfoYaml();
+
+    /**
+     * Calling ShopModel's methods it checks if the user can buy the id
+     * corresponding PWU and, if so, it procedes to update the user's money
      * and inventory.
      * 
      * @param id the id of the PWU
-     * @return
+     * @return true if the buying action was successful, false otherwise
      */
     boolean buy(String id);
-
-    UserAccountImpl getUserAccount();
-
-    void setModel(ShopModel shopModel);
 
 }
