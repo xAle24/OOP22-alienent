@@ -8,7 +8,12 @@ stats:
   PROJECTILESPEED: 20
   COOLDOWN: 2
   RECOVERY: 2
-input: player
-hitboxID: player
-hitboxr: 20
-shooter: basic
+components:
+  PlayerInputComponentImpl:
+    -
+      type: CLASS
+      value: it.unibo.alienenterprises.model.impl.InputSupplierImpl
+  BasicShooterComponent:
+  -
+    type: METHOD
+    value: it.unibo.alienenterprises.model.impl.ProjectileSupplierFactoryImpl.getBasicProjectileSupplier

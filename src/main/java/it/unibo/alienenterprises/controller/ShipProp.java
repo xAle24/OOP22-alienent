@@ -1,17 +1,14 @@
 package it.unibo.alienenterprises.controller;
 
+import java.util.List;
 import java.util.Map;
-
 
 public class ShipProp {
     private String name;
     private Map<String, Integer> stats;
-    private String input;
-    private String hitboxID;
-    private int hitboxr;
-    private String shooter;
+    private Map<String, List<Map<String,String>>> components;
 
-    public ShipProp(){
+    public ShipProp() {
 
     }
 
@@ -31,44 +28,17 @@ public class ShipProp {
         this.stats = stats;
     }
 
-    public String getInput() {
-        return input;
+    public Map<String, List<Map<String, String>>> getComponents() {
+        return components;
     }
 
-    public void setInput(String input) {
-        this.input = input;
-    }
-
-    public String getHitboxID() {
-        return hitboxID;
-    }
-
-    public void setHitboxID(String hitboxID) {
-        this.hitboxID = hitboxID;
-    }
-
-    public int getHitboxr() {
-        return hitboxr;
-    }
-
-    public void setHitboxr(int hitboxr) {
-        this.hitboxr = hitboxr;
-    }
-
-    public String getShooter() {
-        return shooter;
-    }
-
-    public void setShooter(String shooter) {
-        this.shooter = shooter;
+    public void setComponents(Map<String, List<Map<String, String>>> components) {
+        this.components = components;
     }
 
     @Override
     public String toString() {
-        return "ShipProp [name=" + name + ", stats=" + stats + ", input=" + input + ", hitboxID=" + hitboxID
-                + ", hitboxr=" + hitboxr + ", shooter=" + shooter + "]";
+        return "ShipProp [name=" + name + ", stats=" + stats + ", components=" + components + "]";
     }
-
     
-
 }

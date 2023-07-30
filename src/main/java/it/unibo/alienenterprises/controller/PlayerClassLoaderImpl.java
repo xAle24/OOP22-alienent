@@ -3,57 +3,142 @@ package it.unibo.alienenterprises.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.HashMap;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import org.yaml.snakeyaml.Yaml;
-import it.unibo.alienenterprises.model.api.ProjectileSupplierFactory;
-import it.unibo.alienenterprises.model.api.Ship;
+import it.unibo.alienenterprises.model.api.GameObject;
+import it.unibo.alienenterprises.model.api.GameObjectAbs;
 import it.unibo.alienenterprises.model.api.Statistic;
-import it.unibo.alienenterprises.model.api.components.HitboxComponent;
-import it.unibo.alienenterprises.model.api.components.InputComponent;
-import it.unibo.alienenterprises.model.api.components.ShooterComponent;
-import it.unibo.alienenterprises.model.impl.InputSupplierImpl;
-import it.unibo.alienenterprises.model.impl.ProjectileSupplierFactoryImpl;
-import it.unibo.alienenterprises.model.impl.components.BasicShooterComponent;
-import it.unibo.alienenterprises.model.impl.components.PlayerInputComponentImpl;
+import it.unibo.alienenterprises.model.api.components.Component;
+import it.unibo.alienenterprises.model.geometry.Point2D;
+import it.unibo.alienenterprises.model.geometry.Vector2D;
 
 public class PlayerClassLoaderImpl {
 
     private static final String SEPARATOR = File.separator;
     private static final String GAME_PATH = "src" + SEPARATOR + "main" + SEPARATOR + "resources" + SEPARATOR
             + "playerclasses";
+    private static final String COMPONENT_PAKAGE = "it.unibo.alienenterprises.model.impl.components.";
+    private static final String YAML = ".yaml";
+    private static final String TYPE = "type";
+    private static final String VALUE = "value";
+    private static final String DELIMITER_EX = "\\.";
+    private static final String DELIMITER = ".";
 
-    private final ProjectileSupplierFactory pFactory = new ProjectileSupplierFactoryImpl();
+    //TODO Da eliminare
+    private class Go extends GameObjectAbs {
 
-    public Optional<Ship> loadStandardPlayer() {
+        public Go(Point2D pos, Vector2D vector, Map<Statistic, Integer> stat, Component... components) {
+            super(pos, vector, stat, components);
+        }
+
+        @Override
+        public boolean isAlive() {
+            return false;
+        }
+
+    }
+
+    private enum ParameterTypes {
+        CLASS,
+        METHOD,
+        INT,
+        DOUBLE,
+        STRING;
+    }
+
+    public Optional<GameObject> loadStandardPlayer() {
         try (InputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + "standard.yml")) {
             final Yaml yaml = new Yaml();
-            final var obj = yaml.loadAs(inputStream, ShipProp.class);
-            System.out.println(obj);
-            Ship playerClass = translate(obj);
-            return Optional.ofNullable(playerClass);
+            final ShipProp obj = yaml.loadAs(inputStream, ShipProp.class);
+            GameObject temp = new Go(Point2D.ORIGIN, Vector2D.NULL_VECTOR, null);
+            //TODO Da modificare con l'addAllComponents
+            fetchComponents(obj.getComponents(), temp).stream().forEach((c)->temp.addComponent(c));
+            return Optional.of(temp);
         } catch (Exception e) {
             e.printStackTrace();
             return Optional.empty();
         }
     }
 
-    private Ship translate(final ShipProp prop) {
-        final Map<Statistic, Integer> stats = new HashMap<>();
-        for (final var s : Statistic.values()) {
-            stats.put(s, prop.getStats().get(s.toString()));
+    private List<Component> fetchComponents(final Map<String, List<Map<String, String>>> componentMap,
+            final GameObject obj) {
+        final List<Component> out = new ArrayList<>();
+        for (var name : componentMap.keySet()) {
+            final var parameters = componentMap.get(name);
+            final var fetchedParameters = parameters.stream()
+                    .map((p) -> fetchParameter(p))
+                    .filter(Optional::isPresent)
+                    .map(Optional::get)
+                    .toList();
+            final var constructorParameters = new ArrayList<>(fetchedParameters.size() + 1);
+            constructorParameters.add(obj);
+            constructorParameters.addAll(fetchedParameters);
+            final Class<?>[] parameterClasses = constructorParameters.stream()
+                    .map(Object::getClass)
+                    .map(Class::getInterfaces)
+                    .flatMap(Arrays::stream)
+                    .toArray(Class[]::new);
+            System.out.println();
+            try {
+                final Class<?> componentClass = Class.forName(COMPONENT_PAKAGE + name);
+                final Constructor<?>[] c = componentClass.getConstructors();
+                if(c.length!=1){
+                    throw new IllegalArgumentException("Incompatible Component: "+name);
+                }
+                final Component component = (Component)c[0].newInstance(constructorParameters.toArray());
+                out.add(component);
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
-        final InputComponent input = new PlayerInputComponentImpl(null, new InputSupplierImpl());
-        // TODO InputComponentFactory.get(prop.getInput());
-        final HitboxComponent hitbox = null;
-        // TODO HitboxFactory.get(prop.getHitboxID(),prop.getHitboxr());
-        final ShooterComponent shooter = new BasicShooterComponent(null, true,
-                pFactory.getBasicProjectileSupplier(),
-                stats.get(Statistic.COOLDOWN));
-        // TODO ShooterComponentFactory.get(prop.getShooter());
-        return null;
+        return out;
     }
 
+    private Optional<Object> fetchParameter(final Map<String, String> parameter) {
+        final ParameterTypes type = ParameterTypes.valueOf(parameter.get(TYPE));
+        switch (type) {
+            case CLASS:
+                try {
+                    Class<?> parameterClass = Class.forName(parameter.get(VALUE));
+                    Object obj = parameterClass.getConstructor().newInstance();
+                    return Optional.ofNullable(obj);
+                } catch (final Exception e) {
+                    // TODO
+                    e.printStackTrace();
+                }
+                break;
+            case DOUBLE:
+                return Optional.ofNullable(Double.parseDouble(parameter.get(VALUE)));
+            case INT:
+                return Optional.ofNullable(Integer.parseInt(parameter.get(VALUE)));
+            case METHOD:
+                String[] root = parameter.get(VALUE).split(DELIMITER_EX);
+                String methodClassName = List.of(root).stream()
+                        .limit(root.length - 1)
+                        .reduce((s1, s2) -> s1 + DELIMITER + s2)
+                        .get();
+                String methodName = root[root.length - 1];
+                try {
+                    Class<?> methodClass = Class.forName(methodClassName);
+                    Method method = methodClass.getMethod(methodName);
+                    Object obj = method.invoke(methodClass.getConstructor().newInstance());
+                    return Optional.ofNullable(obj);
+                } catch (final Exception e) {
+                    //TODO
+                    e.printStackTrace();
+                }
+                break;
+            case STRING:
+                return Optional.ofNullable(parameter.get(VALUE));
+        }
+        return Optional.empty();
+    }
 }

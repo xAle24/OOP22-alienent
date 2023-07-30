@@ -14,7 +14,6 @@ public interface ShooterComponent extends Component {
      */
     void shoot();
 
-    
     /**
      * @return the projectileSupplier
      */
