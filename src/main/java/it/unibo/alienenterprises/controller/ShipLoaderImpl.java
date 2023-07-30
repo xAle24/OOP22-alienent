@@ -142,11 +142,13 @@ public class ShipLoaderImpl implements ShipLoader {
         final List<Component> out = new ArrayList<>();
         for (var name : componentMap.keySet()) {
             final var parameters = componentMap.get(name);
-            final var fetchedParameters = parameters.stream()
-                    .map((p) -> fetchParameter(p))
-                    .filter(Optional::isPresent)
-                    .map(Optional::get)
-                    .toList();
+            final List<Object> fetchedParameters = parameters == null 
+                    ? List.of()
+                    : parameters.stream()
+                            .map((p) -> fetchParameter(p))
+                            .filter(Optional::isPresent)
+                            .map(Optional::get)
+                            .toList();
             final var constructorParameters = new ArrayList<>(fetchedParameters.size() + 1);
             constructorParameters.add(obj);
             constructorParameters.addAll(fetchedParameters);
