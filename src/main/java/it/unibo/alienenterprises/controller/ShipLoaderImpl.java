@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -19,19 +19,21 @@ import it.unibo.alienenterprises.model.api.components.Component;
 import it.unibo.alienenterprises.model.geometry.Point2D;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
 
-public class PlayerClassLoaderImpl {
+public class ShipLoaderImpl {
 
     private static final String SEPARATOR = File.separator;
-    private static final String GAME_PATH = "src" + SEPARATOR + "main" + SEPARATOR + "resources" + SEPARATOR
-            + "playerclasses";
+    private static final String GAME_PATH = "src" + SEPARATOR + "main" + SEPARATOR + "resources" + SEPARATOR + "ships";
+    private static final String SHIPLIST_FILE = "shipList";
+    private static final String PLAYER_FOLDER = "playerclasses";
+    private static final String ENEMY_FOLDER = "enemyclasses";
     private static final String COMPONENT_PAKAGE = "it.unibo.alienenterprises.model.impl.components.";
-    private static final String YAML = ".yaml";
+    private static final String YAML = ".yml";
     private static final String TYPE = "type";
     private static final String VALUE = "value";
     private static final String DELIMITER_EX = "\\.";
     private static final String DELIMITER = ".";
 
-    //TODO Da eliminare
+    // TODO Da eliminare
     private class Go extends GameObjectAbs {
 
         public Go(Point2D pos, Vector2D vector, Map<Statistic, Integer> stat, Component... components) {
@@ -45,6 +47,9 @@ public class PlayerClassLoaderImpl {
 
     }
 
+    private List<String> playerList;
+    private List<String> enemyList;
+
     private enum ParameterTypes {
         CLASS,
         METHOD,
@@ -54,13 +59,56 @@ public class PlayerClassLoaderImpl {
         STRING;
     }
 
-    public Optional<GameObject> loadStandardPlayer() {
-        try (InputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + "standard.yml")) {
+    public ShipLoaderImpl() {
+        try (final InputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + SHIPLIST_FILE + YAML)) {
+            final Yaml yaml = new Yaml();
+            final Map<String, List<String>> map = yaml.load(inputStream);
+            if (map.get(PLAYER_FOLDER) != null) {
+                playerList = map.get(PLAYER_FOLDER);
+            } else {
+                playerList = List.of();
+            }
+            if (map.get(ENEMY_FOLDER) != null) {
+                enemyList = map.get(ENEMY_FOLDER);
+            } else {
+                enemyList = List.of();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Map<String, GameObject> loadPlayerClasses() {
+        final var path = GAME_PATH + SEPARATOR + PLAYER_FOLDER + SEPARATOR;
+        final Map<String, GameObject> playerMap = new HashMap<>();
+        for (var name : playerList) {
+            var obj = loadShip(path + name + YAML);
+            if (obj.isPresent()) {
+                playerMap.put(name, obj.get());
+            }
+        }
+        return playerMap;
+    }
+
+    public Map<String, GameObject> loadEnemyClasses() {
+        final var path = GAME_PATH + SEPARATOR + ENEMY_FOLDER + SEPARATOR;
+        final Map<String, GameObject> enemyMap = new HashMap<>();
+        for (var name : enemyList) {
+            var obj = loadShip(path + name + YAML);
+            if (obj.isPresent()) {
+                enemyMap.put(name, obj.get());
+            }
+        }
+        return enemyMap;
+    }
+
+    public Optional<GameObject> loadShip(final String shipFileName) {
+        try (final InputStream inputStream = new FileInputStream(shipFileName)) {
             final Yaml yaml = new Yaml();
             final ShipProp obj = yaml.loadAs(inputStream, ShipProp.class);
             GameObject temp = new Go(Point2D.ORIGIN, Vector2D.NULL_VECTOR, null);
-            //TODO Da modificare con l'addAllComponents
-            fetchComponents(obj.getComponents(), temp).stream().forEach((c)->temp.addComponent(c));
+            // TODO Da modificare con l'addAllComponents
+            fetchComponents(obj.getComponents(), temp).stream().forEach((c) -> temp.addComponent(c));
             return Optional.of(temp);
         } catch (Exception e) {
             e.printStackTrace();
@@ -81,21 +129,13 @@ public class PlayerClassLoaderImpl {
             final var constructorParameters = new ArrayList<>(fetchedParameters.size() + 1);
             constructorParameters.add(obj);
             constructorParameters.addAll(fetchedParameters);
-            final Class<?>[] parameterClasses = constructorParameters.stream()
-                    .map(Object::getClass)
-                    .map(Class::getInterfaces)
-                    .flatMap(Arrays::stream)
-                    .toArray(Class[]::new);
-            System.out.println();
             try {
                 final Class<?> componentClass = Class.forName(COMPONENT_PAKAGE + name);
                 final Constructor<?>[] c = componentClass.getConstructors();
-                if(c.length!=1){
-                    throw new IllegalArgumentException("Incompatible Component: "+name);
+                if (c.length != 1) {
+                    throw new IllegalArgumentException("Incompatible Component: " + name);
                 }
-                System.out.println(Arrays.stream(c[0].getParameterTypes()).map(Class::getName).toList());
-                System.out.println(constructorParameters);
-                final Component component = (Component)c[0].newInstance(constructorParameters.toArray());
+                final Component component = (Component) c[0].newInstance(constructorParameters.toArray());
                 out.add(component);
             } catch (Exception e) {
                 // TODO Auto-generated catch block
@@ -135,7 +175,7 @@ public class PlayerClassLoaderImpl {
                     Object obj = method.invoke(methodClass.getConstructor().newInstance());
                     return Optional.ofNullable(obj);
                 } catch (final Exception e) {
-                    //TODO
+                    // TODO
                     e.printStackTrace();
                 }
                 break;

@@ -1,17 +1,18 @@
 package it.unibo.alienenterprises.model.player;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.junit.jupiter.api.Test;
 
-import it.unibo.alienenterprises.controller.PlayerClassLoaderImpl;
+import it.unibo.alienenterprises.controller.ShipLoaderImpl;
 
 public class PlayerLoaderTest {
 
     @Test
     public void loadingTest(){
-        var p = new PlayerClassLoaderImpl().loadStandardPlayer();
+        final ShipLoaderImpl shipLoader = new ShipLoaderImpl();
+        var p = shipLoader.loadPlayerClasses();
+        System.out.println(p);
+        p = shipLoader.loadEnemyClasses();
+        System.out.println(p);
     }
     
 }
