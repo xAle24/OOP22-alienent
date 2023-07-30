@@ -20,7 +20,7 @@ public class PlayerInputComponentImpl extends ComponentAbs implements PlayerInpu
     private static final double ANG_VEL = 1;
 
     private InputSupplier input;
-    private final ShooterComponent shooter;
+    private Optional<ShooterComponent> shooter;
 
     private int maxSpeed;
     private double acc;
@@ -29,10 +29,10 @@ public class PlayerInputComponentImpl extends ComponentAbs implements PlayerInpu
      * @param object the referenced object
      * @param input
      */
-    public PlayerInputComponentImpl(final GameObject object, final InputSupplier input, final ShooterComponent shooter) {
+    public PlayerInputComponentImpl(final GameObject object, final InputSupplier input) {
         super(object, true);
         this.input = input;
-        this.shooter = shooter;
+        this.shooter = Optional.empty();
     }
 
     @Override
@@ -66,7 +66,9 @@ public class PlayerInputComponentImpl extends ComponentAbs implements PlayerInpu
                     vel = Vector2D.fromAngleAndModule(vel.getAngle() - (ANG_VEL * deltatime), module);
                     break;
                 case SHOOT:
-                    shooter.shoot();
+                    if(shooter.isPresent()){
+                        shooter.get().shoot();
+                    }
                     break;
                 default:
                     break;
@@ -83,6 +85,7 @@ public class PlayerInputComponentImpl extends ComponentAbs implements PlayerInpu
     public void start() {
         this.maxSpeed = getGameObject().getStatValue(Statistic.SPEED);
         this.acc = this.maxSpeed / 30;
+        this.shooter = getGameObject().getComponent(ShooterComponent.class);
     }
 
     @Override
@@ -95,4 +98,7 @@ public class PlayerInputComponentImpl extends ComponentAbs implements PlayerInpu
         this.input = inputSupplier;
     }
 
+    public Optional<ShooterComponent> getShooterComponent(){
+        return this.shooter;
+    }
 }
