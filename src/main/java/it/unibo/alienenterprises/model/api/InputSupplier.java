@@ -1,6 +1,6 @@
 package it.unibo.alienenterprises.model.api;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * InputSupplier
@@ -25,15 +25,15 @@ public interface InputSupplier {
          */
         TURN_RIGHT,
         /**
-         * Called when player stops turning.
+         * Called when player must shoot.
          */
-        STOP_TURN;
+        SHOOT;
     }
 
     /**
      * @return the list of all the inputs given
      */
-    List<Input> getInputList();
+    Set<Input> getInputSet();
 
     /**
      * Add the given input to the input list
@@ -43,6 +43,6 @@ public interface InputSupplier {
     /**
      * Remove all the previous inputs from the input list
      */
-    void clearInputList();
+    void clearInputSet();
 
 }
