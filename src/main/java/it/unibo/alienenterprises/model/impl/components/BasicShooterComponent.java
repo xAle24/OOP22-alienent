@@ -20,10 +20,11 @@ public class BasicShooterComponent extends ComponentAbs implements ShooterCompon
 
     private boolean trigger = false;
 
-    public BasicShooterComponent(GameObject object, boolean enabled, final Supplier<Projectile> shot, final double delay) {
+    public BasicShooterComponent(final GameObject object, final boolean enabled, final Supplier<Projectile> shot,
+            final double delay) {
         super(object, enabled);
-        this.shoot=shot;
-        this.delay=delay;
+        this.shoot = shot;
+        this.delay = delay;
     }
 
     @Override
@@ -31,10 +32,10 @@ public class BasicShooterComponent extends ComponentAbs implements ShooterCompon
         if (!isEnabled()) {
             return;
         }
-        if(this.counter<this.delay){
+        if (this.counter < this.delay) {
             this.counter = this.counter + deltatime;
         }
-        if(this.trigger && this.counter>=delay){
+        if (this.trigger && this.counter >= delay) {
             var obj = getGameObject();
             var p = shoot.get();
             p.setStatValue(Statistic.DAMAGE, damage);
