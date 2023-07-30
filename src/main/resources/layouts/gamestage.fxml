@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.Button?>
+
+<StackPane 
+    xmlns="http://javafx.com/javafx/11.0.1" 
+    xmlns:fx="http://javafx.com/fxml/1" 
+    maxHeight="500" maxWidth="500"
+    prefHeight="500" prefWidth="500"
+    StackPane.alignment="CENTER"
+    fx:controller="it.unibo.alienenterprises.view.controllers.GameStageController">
+
+    <fx:define>
+        <StackPane fx:id="canvasContainer"/>
+    </fx:define>
+    
+</StackPane>  
