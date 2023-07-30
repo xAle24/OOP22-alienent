@@ -11,24 +11,24 @@ import it.unibo.alienenterprises.model.geometry.Vector2D;
 
 public class BasicShooterComponent extends ComponentAbs implements ShooterComponent {
 
-    private Supplier<Projectile> shot;
+    private Supplier<Projectile> shoot;
     private double delay;
-    private double counter=0;
+    private double counter = 0;
 
     private int damage;
     private int speed;
-    
+
     private boolean trigger = false;
 
     public BasicShooterComponent(GameObject object, boolean enabled, final Supplier<Projectile> shot, final double delay) {
         super(object, enabled);
-        this.shot=shot;
+        this.shoot=shot;
         this.delay=delay;
     }
 
     @Override
     public void update(double deltatime) {
-        if(!isEnabled()){
+        if (!isEnabled()) {
             return;
         }
         if(this.counter<this.delay){
@@ -36,7 +36,7 @@ public class BasicShooterComponent extends ComponentAbs implements ShooterCompon
         }
         if(this.trigger && this.counter>=delay){
             var obj = getGameObject();
-            var p = shot.get();
+            var p = shoot.get();
             p.setStatValue(Statistic.DAMAGE, damage);
             p.setStatValue(Statistic.SPEED, speed);
             p.setVelocity(Vector2D.fromAngleAndModule(obj.getVelocity().getAngle(), deltatime));
@@ -45,21 +45,34 @@ public class BasicShooterComponent extends ComponentAbs implements ShooterCompon
     }
 
     @Override
-    public void start(){
-        this.damage=getGameObject().getStatValue(Statistic.DAMAGE);
-        this.speed=getGameObject().getStatValue(Statistic.PROJECTILESPEED);
+    public void start() {
+        this.damage = getGameObject().getStatValue(Statistic.DAMAGE);
+        this.speed = getGameObject().getStatValue(Statistic.PROJECTILESPEED);
     }
 
     @Override
     public void shoot() {
-        this.trigger=true;
+        this.trigger = true;
+    }
+
+    @Override
+    public Supplier<Projectile> getProjectileSupplier() {
+        return shoot;
     }
 
     @Override
     public void setProjectileSupplier(final Supplier<Projectile> pSupplier) {
-        this.shot=pSupplier;
+        this.shoot = pSupplier;
     }
 
+    @Override
+    public double getDelay() {
+        return delay;
+    }
 
+    @Override
+    public void setDelay(final double delay) {
+        this.delay = delay;
+    }
 
 }

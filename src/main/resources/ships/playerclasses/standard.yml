@@ -1,0 +1,24 @@
+!it.unibo.alienenterprises.controller.ShipProp
+stats:
+  HP: 30
+  SPEED: 10
+  DAMAGE: 10
+  DEFENCE: 10
+  PROJECTILESPEED: 20
+  COOLDOWN: 2
+  RECOVERY: 2
+components:
+  PlayerInputComponentImpl:
+    -
+      type: CLASS
+      value: it.unibo.alienenterprises.model.impl.InputSupplierImpl
+  BasicShooterComponent:
+    -
+      type: BOOLEAN
+      value: "TRUE"
+    -
+      type: METHOD
+      value: it.unibo.alienenterprises.model.impl.ProjectileSupplierFactoryImpl.getBasicProjectileSupplier
+    -
+      type: DOUBLE
+      value: "10"

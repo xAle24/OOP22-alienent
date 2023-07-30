@@ -1,10 +1,12 @@
 package it.unibo.alienenterprises.model.impl.components;
 
+import java.util.Optional;
+
 import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.InputSupplier;
 import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.model.api.components.ComponentAbs;
-import it.unibo.alienenterprises.model.api.components.InputComponent;
+import it.unibo.alienenterprises.model.api.components.PlayerInputComponent;
 import it.unibo.alienenterprises.model.api.components.ShooterComponent;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
 import it.unibo.alienenterprises.model.api.InputSupplier.Input;
@@ -13,11 +15,11 @@ import it.unibo.alienenterprises.model.api.InputSupplier.Input;
  * PlayerInputComponent
  * Handle the movements of the player.
  */
-public class PlayerInputComponentImpl extends ComponentAbs implements InputComponent {
+public class PlayerInputComponentImpl extends ComponentAbs implements PlayerInputComponent {
 
     private static final double ANG_VEL = 1;
 
-    private final InputSupplier input;
+    private InputSupplier input;
     private final ShooterComponent shooter;
 
     private int maxSpeed;
@@ -36,7 +38,7 @@ public class PlayerInputComponentImpl extends ComponentAbs implements InputCompo
     @Override
     public void update(final double deltatime) {
         var vel = getGameObject().getVelocity();
-        for (Input in : input.getInputList()) {
+        for (Input in : input.getInputSet()) {
             final var module = vel.getModule();
             switch (in) {
                 case ACCELERATE:
@@ -71,7 +73,7 @@ public class PlayerInputComponentImpl extends ComponentAbs implements InputCompo
             }
         }
 
-        input.clearInputList();
+        input.clearInputSet();
 
         getGameObject().setPosition(vel.mul(deltatime).translate(getGameObject().getPosition()));
         getGameObject().setVelocity(vel);
@@ -81,6 +83,16 @@ public class PlayerInputComponentImpl extends ComponentAbs implements InputCompo
     public void start() {
         this.maxSpeed = getGameObject().getStatValue(Statistic.SPEED);
         this.acc = this.maxSpeed / 30;
+    }
+
+    @Override
+    public Optional<InputSupplier> getInputSupplier() {
+        return Optional.of(input);
+    }
+
+    @Override
+    public void setInputSupplier(InputSupplier inputSupplier) {
+        this.input = inputSupplier;
     }
 
 }
