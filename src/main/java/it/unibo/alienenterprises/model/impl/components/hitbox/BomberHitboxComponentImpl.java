@@ -22,6 +22,9 @@ public class BomberHitboxComponentImpl extends HitboxComponentAbs{
         if (object.getComponent(HitboxComponent.class).get().getType() == Type.PLAYER) {
             object.hit(BOMBERDAMAGE);
         }
+        if (object.getComponent(HitboxComponent.class).get().getType() == Type.PROJECTILE) {
+            object.hit(1);
+        }
     }
     
 }
