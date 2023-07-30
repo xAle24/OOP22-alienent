@@ -123,7 +123,11 @@ public class ShipLoaderImpl implements ShipLoader {
         try (final InputStream inputStream = new FileInputStream(shipFileName)) {
             final Yaml yaml = new Yaml();
             final ShipProp obj = yaml.loadAs(inputStream, ShipProp.class);
-            GameObject temp = new Go(Point2D.ORIGIN, Vector2D.NULL_VECTOR, null);
+            final Map<Statistic, Integer> stats = new HashMap<>();
+            for (var s : obj.getStats().keySet()) {
+                stats.put(Statistic.valueOf(s), obj.getStats().get(s));
+            }
+            GameObject temp = new Go(Point2D.ORIGIN, Vector2D.NULL_VECTOR, stats);
             // TODO Da modificare con l'addAllComponents
             fetchComponents(obj.getComponents(), temp).stream().forEach((c) -> temp.addComponent(c));
             return Optional.of(temp);
