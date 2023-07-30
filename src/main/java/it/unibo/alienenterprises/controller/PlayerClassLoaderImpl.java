@@ -50,6 +50,7 @@ public class PlayerClassLoaderImpl {
         METHOD,
         INT,
         DOUBLE,
+        BOOLEAN,
         STRING;
     }
 
@@ -92,6 +93,8 @@ public class PlayerClassLoaderImpl {
                 if(c.length!=1){
                     throw new IllegalArgumentException("Incompatible Component: "+name);
                 }
+                System.out.println(Arrays.stream(c[0].getParameterTypes()).map(Class::getName).toList());
+                System.out.println(constructorParameters);
                 final Component component = (Component)c[0].newInstance(constructorParameters.toArray());
                 out.add(component);
             } catch (Exception e) {
@@ -138,6 +141,10 @@ public class PlayerClassLoaderImpl {
                 break;
             case STRING:
                 return Optional.ofNullable(parameter.get(VALUE));
+            case BOOLEAN:
+                return Optional.ofNullable(Boolean.parseBoolean(parameter.get(VALUE)));
+            default:
+                break;
         }
         return Optional.empty();
     }

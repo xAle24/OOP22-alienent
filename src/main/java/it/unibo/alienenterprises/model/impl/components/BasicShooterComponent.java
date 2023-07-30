@@ -20,10 +20,6 @@ public class BasicShooterComponent extends ComponentAbs implements ShooterCompon
 
     private boolean trigger = false;
 
-    public BasicShooterComponent(final GameObject object) {
-        super(object, true);
-    }
-
     public BasicShooterComponent(GameObject object, boolean enabled, final Supplier<Projectile> shoot,
             final double delay) {
         super(object, enabled);

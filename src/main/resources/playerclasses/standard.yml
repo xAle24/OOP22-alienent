@@ -14,6 +14,12 @@ components:
       type: CLASS
       value: it.unibo.alienenterprises.model.impl.InputSupplierImpl
   BasicShooterComponent:
-  -
-    type: METHOD
-    value: it.unibo.alienenterprises.model.impl.ProjectileSupplierFactoryImpl.getBasicProjectileSupplier
+    -
+      type: BOOLEAN
+      value: "TRUE"
+    -
+      type: METHOD
+      value: it.unibo.alienenterprises.model.impl.ProjectileSupplierFactoryImpl.getBasicProjectileSupplier
+    -
+      type: DOUBLE
+      value: "10"
