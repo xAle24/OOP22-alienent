@@ -12,6 +12,8 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.yaml.snakeyaml.Yaml;
+
+import it.unibo.alienenterprises.controller.api.ShipLoader;
 import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.GameObjectAbs;
 import it.unibo.alienenterprises.model.api.Statistic;
@@ -19,7 +21,10 @@ import it.unibo.alienenterprises.model.api.components.Component;
 import it.unibo.alienenterprises.model.geometry.Point2D;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
 
-public class ShipLoaderImpl {
+/**
+ * ShipLoaderImpl
+ */
+public class ShipLoaderImpl implements ShipLoader {
 
     private static final String SEPARATOR = File.separator;
     private static final String GAME_PATH = "src" + SEPARATOR + "main" + SEPARATOR + "resources" + SEPARATOR + "ships";
@@ -78,6 +83,7 @@ public class ShipLoaderImpl {
         }
     }
 
+    @Override
     public Map<String, GameObject> loadPlayerClasses() {
         final var path = GAME_PATH + SEPARATOR + PLAYER_FOLDER + SEPARATOR;
         final Map<String, GameObject> playerMap = new HashMap<>();
@@ -90,6 +96,7 @@ public class ShipLoaderImpl {
         return playerMap;
     }
 
+    @Override
     public Map<String, GameObject> loadEnemyClasses() {
         final var path = GAME_PATH + SEPARATOR + ENEMY_FOLDER + SEPARATOR;
         final Map<String, GameObject> enemyMap = new HashMap<>();
@@ -102,6 +109,16 @@ public class ShipLoaderImpl {
         return enemyMap;
     }
 
+    /**
+     * {@inhritdoc}
+     * To work needs that all the Components specified by the file have one and only
+     * one Constructor, the Constructor have to require at least a GameObject as a
+     * parameter.
+     * 
+     * @param shipFileName
+     * @return
+     */
+    @Override
     public Optional<GameObject> loadShip(final String shipFileName) {
         try (final InputStream inputStream = new FileInputStream(shipFileName)) {
             final Yaml yaml = new Yaml();

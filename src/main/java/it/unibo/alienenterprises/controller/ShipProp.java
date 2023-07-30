@@ -4,20 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 public class ShipProp {
-    private String name;
     private Map<String, Integer> stats;
-    private Map<String, List<Map<String,String>>> components;
+    private Map<String, List<Map<String, String>>> components;
 
     public ShipProp() {
 
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Map<String, Integer> getStats() {
@@ -38,7 +29,7 @@ public class ShipProp {
 
     @Override
     public String toString() {
-        return "ShipProp [name=" + name + ", stats=" + stats + ", components=" + components + "]";
+        return "ShipProp [stats=" + stats + ", components=" + components + "]";
     }
-    
+
 }
