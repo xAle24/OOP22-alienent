@@ -6,7 +6,7 @@ import java.util.function.Supplier;
  * ProjectileSupplierFactory.
  * Creates suppliers for various tipes of prjectiles
  */
-public interface ProjectileSupplierFactory {
+public interface ProjectileSupplierFactory extends ObjectFactory {
 
     /**
      * @return a supplier of basicProjectile

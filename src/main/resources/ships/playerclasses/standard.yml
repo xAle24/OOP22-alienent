@@ -17,8 +17,9 @@ components:
       type: BOOLEAN
       value: "TRUE"
     -
-      type: METHOD
-      value: it.unibo.alienenterprises.model.impl.ProjectileSupplierFactoryImpl.getBasicProjectileSupplier
+      type: FACTORYMETHOD
+      callingClass: it.unibo.alienenterprises.model.impl.ProjectileSupplierFactoryImpl
+      value: getBasicProjectileSupplier
     -
       type: DOUBLE
       value: "10"

@@ -6,12 +6,13 @@ import it.unibo.alienenterprises.controller.ShipLoaderImpl;
 import it.unibo.alienenterprises.controller.api.ShipLoader;
 import it.unibo.alienenterprises.model.api.components.Component;
 import it.unibo.alienenterprises.model.api.components.HitboxComponent;
+import it.unibo.alienenterprises.model.impl.ProjectileSupplierFactoryImpl;
 
 public class ShipLoaderTest {
 
     @Test
     public void loadingTest() {
-        final ShipLoader shipLoader = new ShipLoaderImpl();
+        final ShipLoader shipLoader = new ShipLoaderImpl(new ProjectileSupplierFactoryImpl());
         var p = shipLoader.loadPlayerClasses();
         System.out.println(p);
 

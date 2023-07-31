@@ -16,6 +16,7 @@ import org.yaml.snakeyaml.Yaml;
 import it.unibo.alienenterprises.controller.api.ShipLoader;
 import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.GameObjectAbs;
+import it.unibo.alienenterprises.model.api.ObjectFactory;
 import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.model.api.components.Component;
 import it.unibo.alienenterprises.model.api.components.HitboxComponent;
@@ -32,19 +33,23 @@ public class ShipLoaderImpl implements ShipLoader {
     private static final String SHIPLIST_FILE = "shipList";
     private static final String PLAYER_FOLDER = "playerclasses";
     private static final String ENEMY_FOLDER = "enemyclasses";
+
     private static final String COMPONENT_PAKAGE = "it.unibo.alienenterprises.model.impl.components.";
     private static final String YAML = ".yml";
+
     private static final String TYPE = "type";
     private static final String VALUE = "value";
-    private static final String DELIMITER_EX = "\\.";
-    private static final String DELIMITER = ".";
+    private static final String CALLING_CLASS = "callingClass";
 
     private List<String> playerList;
     private List<String> enemyList;
 
+    private final List<ObjectFactory> factories;
+
     private enum ParameterTypes {
         CLASS,
         METHOD,
+        FACTORYMETHOD,
         INT,
         DOUBLE,
         BOOLEAN,
@@ -52,7 +57,7 @@ public class ShipLoaderImpl implements ShipLoader {
         HITBOXTYPE;
     }
 
-    public ShipLoaderImpl() {
+    public ShipLoaderImpl(final ObjectFactory... factories) {
         try (final InputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + SHIPLIST_FILE + YAML)) {
             final Yaml yaml = new Yaml();
             final Map<String, List<String>> map = yaml.load(inputStream);
@@ -69,6 +74,7 @@ public class ShipLoaderImpl implements ShipLoader {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        this.factories = List.of(factories);
     }
 
     @Override
@@ -130,7 +136,7 @@ public class ShipLoaderImpl implements ShipLoader {
         final List<Component> out = new ArrayList<>();
         for (var name : componentMap.keySet()) {
             final var parameters = componentMap.get(name);
-            final List<Object> fetchedParameters = parameters == null 
+            final List<Object> fetchedParameters = parameters == null
                     ? List.of()
                     : parameters.stream()
                             .map((p) -> fetchParameter(p))
@@ -174,19 +180,29 @@ public class ShipLoaderImpl implements ShipLoader {
             case INT:
                 return Optional.ofNullable(Integer.parseInt(parameter.get(VALUE)));
             case METHOD:
-                String[] root = parameter.get(VALUE).split(DELIMITER_EX);
-                String methodClassName = List.of(root).stream()
-                        .limit(root.length - 1)
-                        .reduce((s1, s2) -> s1 + DELIMITER + s2)
-                        .get();
-                String methodName = root[root.length - 1];
                 try {
-                    Class<?> methodClass = Class.forName(methodClassName);
-                    Method method = methodClass.getMethod(methodName);
-                    Object obj = method.invoke(methodClass.getConstructor().newInstance());
+                    final Class<?> methodClass = Class.forName(parameter.get(CALLING_CLASS));
+                    final Method method = methodClass.getMethod(parameter.get(VALUE));
+                    final Object obj = method.invoke(methodClass.getConstructor().newInstance());
                     return Optional.ofNullable(obj);
                 } catch (final Exception e) {
                     // TODO
+                    e.printStackTrace();
+                }
+                break;
+            case FACTORYMETHOD:
+                try {
+                    final Class<?> factoryClass = Class.forName(parameter.get(CALLING_CLASS));
+                    final Optional<ObjectFactory> factory = factories.stream()
+                            .filter((p) -> p.getClass().equals(factoryClass))
+                            .findFirst();
+                    if(factory.isPresent()){
+                        final Method factoryMethod = factoryClass.getMethod(parameter.get(VALUE));
+                        return Optional.of(factoryMethod.invoke(factory.get()));
+                    }else{
+                        throw new IllegalStateException();
+                    }
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
@@ -198,7 +214,6 @@ public class ShipLoaderImpl implements ShipLoader {
                 return Optional.of(HitboxComponent.Type.valueOf(parameter.get(VALUE)));
             default:
                 break;
-
         }
         return Optional.empty();
     }

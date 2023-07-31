@@ -3,7 +3,6 @@ package it.unibo.alienenterprises.model.impl.components;
 import java.util.function.Supplier;
 
 import it.unibo.alienenterprises.model.api.GameObject;
-import it.unibo.alienenterprises.model.api.Projectile;
 import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.model.api.components.ComponentAbs;
 import it.unibo.alienenterprises.model.api.components.ShooterComponent;
@@ -11,7 +10,7 @@ import it.unibo.alienenterprises.model.geometry.Vector2D;
 
 public class BasicShooterComponent extends ComponentAbs implements ShooterComponent {
 
-    private Supplier<Projectile> shoot;
+    private Supplier<GameObject> shoot;
     private double delay;
     private double counter = 0;
 
@@ -20,7 +19,7 @@ public class BasicShooterComponent extends ComponentAbs implements ShooterCompon
 
     private boolean trigger = false;
 
-    public BasicShooterComponent(final GameObject object, final boolean enabled, final Supplier<Projectile> shot,
+    public BasicShooterComponent(final GameObject object, final boolean enabled, final Supplier<GameObject> shot,
             final double delay) {
         super(object, enabled);
         this.shoot = shot;
@@ -57,12 +56,12 @@ public class BasicShooterComponent extends ComponentAbs implements ShooterCompon
     }
 
     @Override
-    public Supplier<Projectile> getProjectileSupplier() {
+    public Supplier<GameObject> getProjectileSupplier() {
         return shoot;
     }
 
     @Override
-    public void setProjectileSupplier(final Supplier<Projectile> pSupplier) {
+    public void setProjectileSupplier(final Supplier<GameObject> pSupplier) {
         this.shoot = pSupplier;
     }
 
