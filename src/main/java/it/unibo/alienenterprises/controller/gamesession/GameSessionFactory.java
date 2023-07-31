@@ -1,7 +1,9 @@
 package it.unibo.alienenterprises.controller.gamesession;
 
+import it.unibo.alienenterprises.controller.renderers.RendererManager;
 import it.unibo.alienenterprises.model.api.World;
 import it.unibo.alienenterprises.view.View;
+import it.unibo.alienenterprises.view.javafx.CanvasPainter;
 
 /**
  * {@link GameSession} factory.
@@ -13,7 +15,7 @@ public interface GameSessionFactory {
      * 
      * @return a single player game session.
      */
-    public GameSession singleplayerGameSession();
+    public GameSession singleplayerGameSession(CanvasPainter canvasPaint, World world, RendererManager rendererManager);
 
     /**
      * Builds a multiplayer game session.

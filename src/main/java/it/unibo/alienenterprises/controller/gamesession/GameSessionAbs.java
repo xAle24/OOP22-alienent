@@ -5,21 +5,21 @@ import java.util.Set;
 
 import it.unibo.alienenterprises.controller.GameLoopThread;
 import it.unibo.alienenterprises.controller.api.GameLoop;
+import it.unibo.alienenterprises.controller.renderers.RendererManager;
 import it.unibo.alienenterprises.model.GameWorld;
 import it.unibo.alienenterprises.model.api.GameObject;
-import it.unibo.alienenterprises.model.api.Model;
 import it.unibo.alienenterprises.model.api.World;
 import it.unibo.alienenterprises.view.View;
+import it.unibo.alienenterprises.view.javafx.CanvasPainter;
 
 /**
  * Generic GameSession.
  */
 public abstract class GameSessionAbs implements GameSession {
     private int score;
-    private Set<GameObject> gameObjects;
-    private GameLoop gameLoop;
-    private final View view;
-    private final Model model;
+    private GameLoopThread gameLoop;
+    private final CanvasPainter canvasPaint;
+    private final World model;
 
     /**
      * Create an instance of the GameSessionAbs class.
@@ -27,12 +27,12 @@ public abstract class GameSessionAbs implements GameSession {
      * @param view
      * @param world
      */
-    public GameSessionAbs(final View view, final Model model) {
+    public GameSessionAbs(final CanvasPainter canvasPaint, final World model, RendererManager rendererManager) {
         this.score = 0;
-        this.view = view;
+        this.canvasPaint = canvasPaint;
         this.model = model;
-        this.gameObjects = new HashSet<>();
-        this.gameLoop = new GameLoopThread(view);
+        this.gameLoop = new GameLoopThread(rendererManager, model);
+        this.gameLoop.start();
     }
 
     protected synchronized void addScore(int score) {

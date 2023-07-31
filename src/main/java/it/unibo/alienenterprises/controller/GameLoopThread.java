@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 import it.unibo.alienenterprises.controller.api.GameLoop;
+import it.unibo.alienenterprises.controller.renderers.RendererManager;
 import it.unibo.alienenterprises.model.GameWorld;
 import it.unibo.alienenterprises.model.api.World;
 import it.unibo.alienenterprises.view.View;
@@ -13,11 +14,10 @@ import it.unibo.alienenterprises.view.View;
  * Implementation of the GameLoop interface.
  */
 public final class GameLoopThread extends Thread implements GameLoop {
-    private static final long MS_PER_FRAME = 20;
+    private static final long MS_PER_FRAME = 1000;
     private static final int MAX_INPUT = 5;
-
-    private final View view;
     private final World world;
+    private final RendererManager rendererManager;
     private Map<UserTag, String> inputQueue;
     private boolean stopped;
     private boolean paused;
@@ -28,15 +28,22 @@ public final class GameLoopThread extends Thread implements GameLoop {
      * @param view
      * @param world
      */
-    public GameLoopThread(final View view) {
-        this.view = view;
-        this.world = new GameWorld();
+    public GameLoopThread(RendererManager rendererManager, final World world) {
+        this.world = world;
+        this.rendererManager = rendererManager;
         this.stopped = false;
         this.paused = false;
     }
 
     @Override
     public void run() {
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
         long previousStart = System.currentTimeMillis();
         while (!this.stopped) {
             if (this.paused) {
@@ -50,14 +57,15 @@ public final class GameLoopThread extends Thread implements GameLoop {
                     }
                 }
             }
+            long currentStart = System.currentTimeMillis();
+            System.out.println("Ciao" + currentStart);
+            long elapsed = currentStart - previousStart;
+            this.processInput();
+            this.updateGame(elapsed / 1000.0);
+            this.render();
+            this.waitForNextFrame(System.currentTimeMillis() - currentStart);
+            previousStart = currentStart;
         }
-        long currentStart = System.currentTimeMillis();
-        long elapsed = currentStart - previousStart;
-        this.processInput();
-        this.updateGame(elapsed);
-        this.render();
-        this.waitForNextFrame(System.currentTimeMillis() - currentStart);
-        previousStart = currentStart;
     }
 
     private void waitForNextFrame(final long delta) {
@@ -70,9 +78,9 @@ public final class GameLoopThread extends Thread implements GameLoop {
     }
 
     private void processInput() {
-        this.inputQueue.forEach(i -> {
+        // this.inputQueue.forEach(i -> {
 
-        });
+        // });
     }
 
     @Override
@@ -98,10 +106,10 @@ public final class GameLoopThread extends Thread implements GameLoop {
     }
 
     private void render() {
-        this.view.render();
+        this.rendererManager.render();
     }
 
-    private synchronized void addInput(Input input) {
-        this.inputQueue.add(input);
-    }
+    // private synchronized void addInput(Input input) {
+    // this.inputQueue.add(input);
+    // }
 }
