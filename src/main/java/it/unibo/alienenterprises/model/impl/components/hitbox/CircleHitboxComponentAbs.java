@@ -8,13 +8,17 @@ import it.unibo.alienenterprises.model.geometry.Circle2D;
 public abstract class CircleHitboxComponentAbs extends ComponentAbs implements HitboxComponent {
 
     private Type objectType; 
+    private Circle2D hitbox;
 
-    public CircleHitboxComponentAbs(GameObject object, boolean enabled, Type objectType) {
+    public CircleHitboxComponentAbs(GameObject object, boolean enabled, Type objectType, int radius) {
         super(object, enabled);
         this.objectType = objectType;
+        this.hitbox = new Circle2D(object.getPosition(), radius);
     }
 
-    public abstract Circle2D getCircle2D();
+    public Circle2D getHitbox(){
+        return hitbox;
+    }
 
     @Override
     public Type getType() {

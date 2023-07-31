@@ -8,14 +8,18 @@ import it.unibo.alienenterprises.model.geometry.Point2D;
 
 public abstract class LineHitboxComponentAbs extends ComponentAbs implements HitboxComponent {
 
-    private Type objectType; 
+    private Type objectType;
+    private Line2D hitbox;
 
-    public LineHitboxComponentAbs(GameObject object, boolean enabled, Type objectType) {
+    public LineHitboxComponentAbs(GameObject object, boolean enabled, Type objectType, Point2D p1, Point2D p2) {
         super(object, enabled);
         this.objectType = objectType;
+        this.hitbox = new Line2D(p1, p2);
     }
 
-    public abstract Line2D getLine(Point2D p1, Point2D p2);
+    public Line2D getHitbox(Point2D p1, Point2D p2){
+        return hitbox;
+    }
 
     @Override
     public Type getType() {

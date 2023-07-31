@@ -10,13 +10,8 @@ public class UpperBoundaryHitboxComponent extends LineHitboxComponentAbs{
 
     private static final int DESTROY = 999;
 
-    public UpperBoundaryHitboxComponent(GameObject object, boolean enabled, Type objectType) {
-        super(object, enabled, objectType);
-    }
-
-    @Override
-    public Line2D getLine(Point2D p1, Point2D p2) {
-        return new Line2D(p1, p2);
+    public UpperBoundaryHitboxComponent(GameObject object, boolean enabled, Type objectType, Point2D p1, Point2D p2) {
+        super(object, enabled, objectType, p1, p2);
     }
 
     @Override

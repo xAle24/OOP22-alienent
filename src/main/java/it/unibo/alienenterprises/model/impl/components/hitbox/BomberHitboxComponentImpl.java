@@ -2,19 +2,13 @@ package it.unibo.alienenterprises.model.impl.components.hitbox;
 
 import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.components.HitboxComponent;
-import it.unibo.alienenterprises.model.geometry.Circle2D;
 
 public class BomberHitboxComponentImpl extends CircleHitboxComponentAbs{
 
     private static final int BOMBERDAMAGE = 999;
 
-    public BomberHitboxComponentImpl(GameObject object, boolean enabled, Type objectType) {
-        super(object, enabled, objectType);
-    }
-
-    @Override
-    public Circle2D getCircle2D() {
-        return new Circle2D(super.getGameObject().getPosition(), 10);
+    public BomberHitboxComponentImpl(GameObject object, boolean enabled, Type objectType, int radius) {
+        super(object, enabled, objectType, radius);
     }
 
     @Override
