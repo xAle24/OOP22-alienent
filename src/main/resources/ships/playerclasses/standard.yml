@@ -23,3 +23,13 @@ components:
       type: DOUBLE
       value: "10"
   PlayerPowerUpComponent:
+  hitbox.BomberHitboxComponentImpl:
+    -
+      type: BOOLEAN
+      value: "TRUE"
+    -
+      type: HITBOXTYPE
+      value: PLAYER
+    -
+      type: INT
+      value: "20"

@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import it.unibo.alienenterprises.controller.ShipLoaderImpl;
 import it.unibo.alienenterprises.controller.api.ShipLoader;
 import it.unibo.alienenterprises.model.api.components.Component;
-import it.unibo.alienenterprises.model.impl.components.PlayerInputComponentImpl;
+import it.unibo.alienenterprises.model.api.components.HitboxComponent;
 
 public class ShipLoaderTest {
 
@@ -17,7 +17,7 @@ public class ShipLoaderTest {
 
         var standard = p.get("standard");
         standard.getAllComponent().stream().forEach(Component::start);
-        System.out.println(standard.getComponent(PlayerInputComponentImpl.class).get().getShooterComponent());
+        System.out.println(standard.getComponent(HitboxComponent.class));
     }
 
 }

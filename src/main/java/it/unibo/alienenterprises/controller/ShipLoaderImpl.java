@@ -18,6 +18,7 @@ import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.GameObjectAbs;
 import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.model.api.components.Component;
+import it.unibo.alienenterprises.model.api.components.HitboxComponent;
 import it.unibo.alienenterprises.model.geometry.Point2D;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
 
@@ -47,7 +48,8 @@ public class ShipLoaderImpl implements ShipLoader {
         INT,
         DOUBLE,
         BOOLEAN,
-        STRING;
+        STRING,
+        HITBOXTYPE;
     }
 
     public ShipLoaderImpl() {
@@ -192,8 +194,11 @@ public class ShipLoaderImpl implements ShipLoader {
                 return Optional.ofNullable(parameter.get(VALUE));
             case BOOLEAN:
                 return Optional.ofNullable(Boolean.parseBoolean(parameter.get(VALUE)));
+            case HITBOXTYPE:
+                return Optional.of(HitboxComponent.Type.valueOf(parameter.get(VALUE)));
             default:
                 break;
+
         }
         return Optional.empty();
     }
