@@ -18,6 +18,9 @@ import it.unibo.alienenterprises.model.geometry.Vector2D;
 import it.unibo.alienenterprises.model.impl.components.hitbox.BomberHitboxComponentImpl;
 import it.unibo.alienenterprises.model.impl.components.hitbox.SimpleProjectileHitboxComponentImpl;
 import it.unibo.alienenterprises.model.impl.components.hitbox.SimpleShipHitboxComponentImpl;
+import it.unibo.alienenterprises.model.impl.components.hitbox.BoundaryHitbox.LeftBoundaryHitboxComponent;
+import it.unibo.alienenterprises.model.impl.components.hitbox.BoundaryHitbox.LowerBoundaryHitboxComponent;
+import it.unibo.alienenterprises.model.impl.components.hitbox.BoundaryHitbox.RightBoundaryHitboxComponent;
 import it.unibo.alienenterprises.model.impl.components.hitbox.BoundaryHitbox.UpperBoundaryHitboxComponent;
 
 public class HitboxTest {
@@ -134,9 +137,9 @@ public class HitboxTest {
         var hitbox2 = new SimpleProjectileHitboxComponentImpl(obj2, true, Type.PROJECTILE, 2);
         var hitbox3 = new SimpleShipHitboxComponentImpl(obj3, true, Type.PLAYER, 2);
         var hitboxUp = new UpperBoundaryHitboxComponent(wallUp, true, Type.BOUNDARY, new Point2D(0, 0), new Point2D(1, 1));
-        var hitboxRight = new UpperBoundaryHitboxComponent(wallRight, true, Type.BOUNDARY, new Point2D(0, 0), new Point2D(1, 1));
-        var hitboxDown = new UpperBoundaryHitboxComponent(wallDown, true, Type.BOUNDARY, new Point2D(0, 0), new Point2D(1, 1));
-        var hitboxLeft = new UpperBoundaryHitboxComponent(wallLeft, true, Type.BOUNDARY, new Point2D(0, 0), new Point2D(1, 1));
+        var hitboxRight = new RightBoundaryHitboxComponent(wallRight, true, Type.BOUNDARY, new Point2D(0, 0), new Point2D(1, 1));
+        var hitboxDown = new LowerBoundaryHitboxComponent(wallDown, true, Type.BOUNDARY, new Point2D(0, 0), new Point2D(1, 1));
+        var hitboxLeft = new LeftBoundaryHitboxComponent(wallLeft, true, Type.BOUNDARY, new Point2D(0, 0), new Point2D(1, 1));
         obj1.addComponent(hitbox1);
         obj2.addComponent(hitbox2);
         obj3.addComponent(hitbox3);
@@ -161,27 +164,27 @@ public class HitboxTest {
         hitboxUp.isColliding(obj1);
         assertEquals(0.0, obj1.getVelocity().getyComp());
         hitboxUp.isColliding(obj3);
-        assertEquals(0.0, obj1.getVelocity().getyComp());
+        assertEquals(0.0, obj3.getVelocity().getyComp());
         //lower boundary
         obj1.setVelocity(new Vector2D(1, 1));
         obj3.setVelocity(new Vector2D(1, 1));
         hitboxDown.isColliding(obj1);
         assertEquals(0.0, obj1.getVelocity().getyComp());
         hitboxDown.isColliding(obj3);
-        assertEquals(0.0, obj1.getVelocity().getyComp());
+        assertEquals(0.0, obj3.getVelocity().getyComp());
         //left boundary
         obj1.setVelocity(new Vector2D(1, 1));
         obj3.setVelocity(new Vector2D(1, 1));
         hitboxLeft.isColliding(obj1);
         assertEquals(0.0, obj1.getVelocity().getxComp());
         hitboxLeft.isColliding(obj3);
-        assertEquals(0.0, obj1.getVelocity().getxComp());
+        assertEquals(0.0, obj3.getVelocity().getxComp());
         //right boundary
         obj1.setVelocity(new Vector2D(1, 1));
         obj3.setVelocity(new Vector2D(1, 1));
         hitboxRight.isColliding(obj1);
         assertEquals(0.0, obj1.getVelocity().getxComp());
         hitboxRight.isColliding(obj3);
-        assertEquals(0.0, obj1.getVelocity().getxComp());
+        assertEquals(0.0, obj3.getVelocity().getxComp());
     }
 }
