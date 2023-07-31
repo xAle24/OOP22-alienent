@@ -38,20 +38,6 @@ public class ShipLoaderImpl implements ShipLoader {
     private static final String DELIMITER_EX = "\\.";
     private static final String DELIMITER = ".";
 
-    // TODO Da eliminare
-    private class Go extends GameObjectAbs {
-
-        public Go(Point2D pos, Vector2D vector, Map<Statistic, Integer> stat, Component... components) {
-            super(pos, vector, stat, components);
-        }
-
-        @Override
-        public boolean isAlive() {
-            return false;
-        }
-
-    }
-
     private List<String> playerList;
     private List<String> enemyList;
 
@@ -127,7 +113,7 @@ public class ShipLoaderImpl implements ShipLoader {
             for (var s : obj.getStats().keySet()) {
                 stats.put(Statistic.valueOf(s), obj.getStats().get(s));
             }
-            GameObject temp = new Go(Point2D.ORIGIN, Vector2D.NULL_VECTOR, stats);
+            GameObject temp = new GameObjectAbs(Point2D.ORIGIN, Vector2D.NULL_VECTOR, stats);
             // TODO Da modificare con l'addAllComponents
             fetchComponents(obj.getComponents(), temp).stream().forEach((c) -> temp.addComponent(c));
             return Optional.of(temp);

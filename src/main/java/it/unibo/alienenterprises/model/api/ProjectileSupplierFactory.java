@@ -11,6 +11,6 @@ public interface ProjectileSupplierFactory {
     /**
      * @return a supplier of basicProjectile
      */
-    Supplier<Projectile> getBasicProjectileSupplier();
+    Supplier<GameObject> getBasicProjectileSupplier();
 
 }
