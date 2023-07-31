@@ -1,5 +1,6 @@
 package it.unibo.alienenterprises.model.api;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -95,6 +96,13 @@ public interface GameObject {
      */
     void addComponent(Component component);
 
+    void hit(int dmg);
+
+    void heal(int heal);
+
+    void addAllComponent(Collection<Component> components);
+
+    int gethealth();
     /**
      * Update the game object.
      */
