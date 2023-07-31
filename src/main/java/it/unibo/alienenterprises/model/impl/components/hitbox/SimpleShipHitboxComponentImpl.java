@@ -4,7 +4,7 @@ import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.components.HitboxComponent;
 import it.unibo.alienenterprises.model.geometry.Circle2D;
 
-public class SimpleShipHitboxComponentImpl extends HitboxComponentAbs{
+public class SimpleShipHitboxComponentImpl extends CircleHitboxComponentAbs{
 
     public SimpleShipHitboxComponentImpl(GameObject object, boolean enabled, Type objectType) {
         super(object, enabled, objectType);

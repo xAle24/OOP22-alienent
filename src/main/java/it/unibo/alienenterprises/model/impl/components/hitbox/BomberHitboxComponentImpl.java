@@ -4,7 +4,7 @@ import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.components.HitboxComponent;
 import it.unibo.alienenterprises.model.geometry.Circle2D;
 
-public class BomberHitboxComponentImpl extends HitboxComponentAbs{
+public class BomberHitboxComponentImpl extends CircleHitboxComponentAbs{
 
     private static final int BOMBERDAMAGE = 999;
 

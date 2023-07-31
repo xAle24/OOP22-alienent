@@ -4,17 +4,18 @@ import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.components.ComponentAbs;
 import it.unibo.alienenterprises.model.api.components.HitboxComponent;
 import it.unibo.alienenterprises.model.geometry.Circle2D;
+import it.unibo.alienenterprises.model.geometry.Point2D;
 
-public abstract class HitboxComponentAbs extends ComponentAbs implements HitboxComponent {
+public abstract class LineHitboxComponentAbs extends ComponentAbs implements HitboxComponent {
 
     private Type objectType; 
 
-    public HitboxComponentAbs(GameObject object, boolean enabled, Type objectType) {
+    public LineHitboxComponentAbs(GameObject object, boolean enabled, Type objectType) {
         super(object, enabled);
         this.objectType = objectType;
     }
 
-    public abstract Circle2D getCircle2D();
+    public abstract Line2D getLine(Point2D p1, Point2D p2);
 
     @Override
     public Type getType() {

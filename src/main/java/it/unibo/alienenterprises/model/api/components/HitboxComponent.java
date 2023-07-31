@@ -1,7 +1,6 @@
 package it.unibo.alienenterprises.model.api.components;
 
 import it.unibo.alienenterprises.model.api.GameObject;
-import it.unibo.alienenterprises.model.geometry.Circle2D;
 
 /**
  * Hitbox component interface.
@@ -23,13 +22,12 @@ public interface HitboxComponent extends Component {
         /**
          * Identify the projectiles of the game.
          */
-        PROJECTILE;
+        PROJECTILE,
+        /**
+         * Identify the map's limits.
+         */
+        BOUNDARY;
     }
-    /**
-     * Return the hitbox circle.
-     * @return hitbox circle
-     */
-    Circle2D getCircle2D();
     /**
      * Return the object type. 
      * @return object type
