@@ -19,6 +19,8 @@ public class PlayerInputComponentImpl extends ComponentAbs implements PlayerInpu
 
     private static final double ANG_VEL = 1;
 
+    private static final int ACC_RATE = 30;
+
     private InputSupplier input;
     private Optional<ShooterComponent> shooter;
 
@@ -84,7 +86,7 @@ public class PlayerInputComponentImpl extends ComponentAbs implements PlayerInpu
     @Override
     public void start() {
         this.maxSpeed = getGameObject().getStatValue(Statistic.SPEED);
-        this.acc = this.maxSpeed / 30;
+        this.acc = this.maxSpeed / ACC_RATE;
         this.shooter = getGameObject().getComponent(ShooterComponent.class);
     }
 
