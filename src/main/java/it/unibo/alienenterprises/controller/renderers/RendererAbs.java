@@ -20,7 +20,7 @@ public abstract class RendererAbs implements Renderer {
      */
     public RendererAbs(GameObject obj, CanvasPainter canvasPaint) {
         this.obj = obj;
-        this.sprite = new Sprite(findSprite(), this.obj.getPosition(), this.obj.getVelocity());
+        this.sprite = new Sprite(findImage(), this.obj.getPosition(), this.obj.getVelocity());
         canvasPaint.addAll(this);
     }
 
@@ -39,7 +39,8 @@ public abstract class RendererAbs implements Renderer {
         return this.sprite;
     }
 
-    protected Image findSprite() {
-        return null;
+    protected Image findImage() {
+        return new Image(getClass().getResourceAsStream("resources/sprites_test/cat-g5485248ce_640.png"),
+                50.0, 50.0, false, false);
     }
 }

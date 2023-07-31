@@ -31,6 +31,7 @@ public final class CanvasPainter {
         this.canvas = new Canvas(maxWidth, maxHeight);
         this.gc = canvas.getGraphicsContext2D();
         this.renderers = new HashSet<>();
+        this.toBeRemoved = new HashSet<>();
     }
 
     /**
@@ -40,10 +41,6 @@ public final class CanvasPainter {
      */
     public void addAll(Renderer... renderers) {
         this.renderers.addAll(Set.of(renderers));
-        this.renderers.forEach(r -> {
-            ImageView image = r.getSprite().getImageView();
-            this.gc.drawImage(image.getImage(), image.getX(), image.getY());
-        });
     }
 
     /**
@@ -66,6 +63,8 @@ public final class CanvasPainter {
         this.renderers.forEach(r -> {
             if (r.isShown()) {
                 r.render();
+                ImageView image = r.getSprite().getImageView();
+                this.gc.drawImage(image.getImage(), image.getX(), image.getY());
             } else {
                 this.toBeRemoved.add(r);
             }
