@@ -39,8 +39,5 @@ public abstract class RendererAbs implements Renderer {
         return this.sprite;
     }
 
-    protected Image findImage() {
-        return new Image(getClass().getResourceAsStream("resources/sprites_test/cat-g5485248ce_640.png"),
-                50.0, 50.0, false, false);
-    }
+    protected abstract Image findImage();
 }
