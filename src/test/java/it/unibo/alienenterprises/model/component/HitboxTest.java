@@ -1,10 +1,7 @@
 package it.unibo.alienenterprises.model.component;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,23 +32,30 @@ public class HitboxTest {
         statmap3.put(Statistic.HP, 100);
         statmap3.put(Statistic.DAMAGE, 1);
         var obj1 = new GameObjectAbs(new Point2D(2, 0), null, statmap1);
-        var obj2 = new GameObjectAbs(new Point2D(5, 0), null, statmap2);
+        var obj2 = new GameObjectAbs(new Point2D(2, 0), null, statmap2);
         var obj3 = new GameObjectAbs(new Point2D(10, 0), null, statmap3);
+        var obj4 = new GameObjectAbs(new Point2D(10, 10), null, statmap2);
         var hitbox1 = new BomberHitboxComponentImpl(obj1, true, Type.ENEMY, 2);
         var hitbox2 = new SimpleProjectileHitboxComponentImpl(obj2, true, Type.PROJECTILE, 2);
-        var hitbox3 = new SimpleShipHitboxComponentImpl(obj3, true, Type.PLAYER, 2);
+        hitbox2.setShooter(Type.PLAYER);
+        var hitbox3 = new BoundaryHitboxComponentImpl(obj3, true, Type.BOUNDARY, new Point2D(0, 1), new Point2D(1, 1));
+        hitbox3.setLocations(Locations.DOWN);
+        var hitbox4 = new SimpleProjectileHitboxComponentImpl(obj4, true, Type.PROJECTILE, 2);
+        hitbox4.setShooter(Type.ENEMY);
         obj1.addComponent(hitbox1);
         obj2.addComponent(hitbox2);
         obj3.addComponent(hitbox3);
-        assertTrue(hitbox1.canCollide(Type.PROJECTILE));
-        assertTrue(hitbox1.canCollide(Type.PLAYER));
-        assertFalse(hitbox1.canCollide(Type.ENEMY));
-        assertTrue(hitbox2.canCollide(Type.ENEMY));
-        assertTrue(hitbox2.canCollide(Type.PLAYER));
-        assertFalse(hitbox2.canCollide(Type.PROJECTILE));
-        assertTrue(hitbox3.canCollide(Type.PROJECTILE));
-        assertTrue(hitbox3.canCollide(Type.ENEMY));
-        assertFalse(hitbox3.canCollide(Type.PLAYER));
+        obj4.addComponent(hitbox4);
+        hitbox1.canCollide(hitbox2);
+        assertEquals(0, hitbox2.getGameObject().gethealth());
+        assertEquals(85, hitbox1.getGameObject().gethealth());
+        hitbox4.canCollide(hitbox3);
+        assertEquals(100, hitbox3.getGameObject().gethealth());
+        hitbox2.canCollide(hitbox3);
+        assertEquals(-999, hitbox2.getGameObject().gethealth());
+        hitbox1.canCollide(hitbox4);
+        assertEquals(85, hitbox1.getGameObject().gethealth());
+        assertEquals(1, hitbox4.getGameObject().gethealth());
     }
 
     @Test
@@ -96,9 +100,9 @@ public class HitboxTest {
         Map<Statistic, Integer> statmap3 = new HashMap<>();
         statmap3.put(Statistic.HP, 100);
         statmap3.put(Statistic.DAMAGE, 1);
-        var obj1 = new GameObjectAbs(new Point2D(2, 0), null, statmap1);
-        var obj2 = new GameObjectAbs(new Point2D(5, 0), null, statmap2);
-        var obj3 = new GameObjectAbs(new Point2D(10, 0), null, statmap3);
+        var obj1 = new GameObjectAbs(new Point2D(0, 0), null, statmap1);
+        var obj2 = new GameObjectAbs(new Point2D(0, 0), null, statmap2);
+        var obj3 = new GameObjectAbs(new Point2D(0, 0), null, statmap3);
         var obj4 = new GameObjectAbs(new Point2D(0, 0), null, statmap2);
         var hitbox1 = new BomberHitboxComponentImpl(obj1, true, Type.ENEMY, 2);
         var hitbox2 = new SimpleProjectileHitboxComponentImpl(obj2, true, Type.PROJECTILE, 2);
