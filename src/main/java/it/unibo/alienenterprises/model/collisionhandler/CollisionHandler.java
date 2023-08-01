@@ -1,6 +1,8 @@
 package it.unibo.alienenterprises.model.collisionhandler;
 
-import it.unibo.alienenterprises.model.api.GameObject;
+import java.util.Optional;
+
+import it.unibo.alienenterprises.model.api.components.HitboxComponent;
 
 /**
  * Handles collisions during the game session.
@@ -13,16 +15,18 @@ public interface CollisionHandler {
     void checkCollisions();
 
     /**
-     * Adds one {@link Gameobject} to the collidable list.
+     * Adds one {@link HitboxComponent} to the collidable list if the
+     * {@link Optional} isn't empty.
      * 
      * @param toAdd the gameobject that is to be added.
      */
-    void addGameObject(GameObject toAdd);
+    void addHitbox(Optional<HitboxComponent> toAdd);
 
     /**
-     * Removes one {@link Gameobject} from the collidable list.
+     * Removes one {@link HitboxComponent} from the collidable list if it is
+     * present.
      * 
      * @param toRemove the gameobject that is to be removed.
      */
-    void removeGameObject(GameObject toRemove);
+    void removeHitbox(Optional<HitboxComponent> toRemove);
 }

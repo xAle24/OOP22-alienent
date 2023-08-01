@@ -4,6 +4,7 @@ import java.util.List;
 
 import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.components.HitboxComponent;
+import it.unibo.alienenterprises.model.geometry.Circle2D;
 
 /**
  * Checks collisions among {@link GameObject} instances where
@@ -16,24 +17,15 @@ public final class SimpleCollisionHandler extends CollisionHandlerAbs {
      * 
      * @param collidables the list of collidables to be checked.
      */
-    public SimpleCollisionHandler(List<GameObject> collidables) {
-        super(collidables);
+    public SimpleCollisionHandler() {
+        super();
     }
 
-    /**
-     * Checks if the two {@link GameObject} instances are colliding.
-     * 
-     * @param a the first object.
-     * @param b the second object.
-     */
-    protected void checkPair(GameObject a, GameObject b) {
-        HitboxComponent hitboxA = a.getComponent(HitboxComponent.class).get();
-        HitboxComponent hitboxB = b.getComponent(HitboxComponent.class).get();
-        if (hitboxA.canCollide(hitboxB.getType()) && a.isAlive() && b.isAlive()) {
-            if (hitboxA.getCircle2D().intersectWhith(hitboxB.getCircle2D())) {
-                hitboxA.update(a);
-                hitboxB.update(b);
-            }
+    @Override
+    protected void checkPair(HitboxComponent a, HitboxComponent b) {
+        if (a.canCollide(b.getType())) {
+            // a.isColliding(b);
+            System.out.println("AAAAAAAAAa");
         }
     }
 }
