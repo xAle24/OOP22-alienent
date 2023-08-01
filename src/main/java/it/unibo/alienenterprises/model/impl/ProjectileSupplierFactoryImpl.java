@@ -8,6 +8,7 @@ import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.GameObjectAbs;
 import it.unibo.alienenterprises.model.api.ProjectileSupplierFactory;
 import it.unibo.alienenterprises.model.api.Statistic;
+import it.unibo.alienenterprises.model.api.World;
 import it.unibo.alienenterprises.model.api.components.HitboxComponent;
 import it.unibo.alienenterprises.model.api.components.InputComponent;
 import it.unibo.alienenterprises.model.geometry.Point2D;
@@ -18,9 +19,9 @@ import it.unibo.alienenterprises.model.impl.components.hitbox.SimpleProjectileHi
 public class ProjectileSupplierFactoryImpl implements ProjectileSupplierFactory {
 
     // TODO subsitute with World
-    private final Object world;
+    private final World world;
 
-    public ProjectileSupplierFactoryImpl(final Object world) {
+    public ProjectileSupplierFactoryImpl(final World world) {
         this.world = world;
     }
 
@@ -38,6 +39,7 @@ public class ProjectileSupplierFactoryImpl implements ProjectileSupplierFactory 
                         HitboxComponent.Type.PROJECTILE, 5);
                 basicProjectile.addComponent(input);
                 basicProjectile.addComponent(hitbox);
+                world.addGameObject(basicProjectile);
                 return basicProjectile;
             }
 
