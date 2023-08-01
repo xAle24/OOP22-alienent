@@ -2,6 +2,7 @@ package it.unibo.alienenterprises.model.impl.components.hitbox;
 
 import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.components.HitboxComponent;
+import it.unibo.alienenterprises.model.api.components.ProjectileHitboxComponent;
 
 public class SimpleShipHitboxComponentImpl extends CircleHitboxComponentAbs{
 
@@ -10,9 +11,9 @@ public class SimpleShipHitboxComponentImpl extends CircleHitboxComponentAbs{
     }
 
     @Override
-    public void isColliding(GameObject object) {
-        if (object.getComponent(HitboxComponent.class).get().getType() == Type.PROJECTILE) {
-            object.hit(1);
+    public void isColliding(HitboxComponent hitbox) {
+        if (hitbox instanceof ProjectileHitboxComponent && ((ProjectileHitboxComponent)hitbox).getShooter() != this.getType()) {
+            hitbox.getGameObject().hit(1);
         }
     }
     

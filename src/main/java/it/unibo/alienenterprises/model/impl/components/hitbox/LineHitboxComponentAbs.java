@@ -37,5 +37,5 @@ public abstract class LineHitboxComponentAbs extends ComponentAbs implements Hit
         this.line = Line2D.fromTwoPoints(p1, p2);
     }
     @Override
-    public abstract void isColliding(GameObject object);
+    public abstract void isColliding(HitboxComponent hitbox);
 }

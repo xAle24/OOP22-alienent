@@ -38,5 +38,5 @@ public abstract class CircleHitboxComponentAbs extends ComponentAbs implements H
         return this.objectType == type ? false : true;
     }
     @Override
-    public abstract void isColliding(GameObject object);
+    public abstract void isColliding(HitboxComponent hitbox);
 }

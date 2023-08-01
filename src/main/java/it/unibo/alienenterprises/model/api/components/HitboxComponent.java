@@ -1,7 +1,5 @@
 package it.unibo.alienenterprises.model.api.components;
 
-import it.unibo.alienenterprises.model.api.GameObject;
-
 /**
  * Hitbox component interface.
  */
@@ -49,5 +47,5 @@ public interface HitboxComponent extends Component {
      * 
      * @return
      */
-    void isColliding(GameObject object);
+    void isColliding(HitboxComponent hitbox);
 }
