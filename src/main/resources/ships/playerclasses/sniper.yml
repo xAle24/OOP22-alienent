@@ -1,12 +1,12 @@
 !it.unibo.alienenterprises.controller.ShipProp
 stats:
-  HP: 200
-  SPEED: 10
-  DAMAGE: 15
-  DEFENCE: 5
-  PROJECTILESPEED: 20 # Deve essere più bassa di quella standard
-  COOLDOWN: 2
-  RECOVERY: 2
+  HP: 60
+  SPEED: 20
+  DAMAGE: 30
+  DEFENCE: 0
+  PROJECTILESPEED: 40 # Deve essere più veloce del normale
+  COOLDOWN: 1
+  RECOVERY: 1
 components:
   PlayerInputComponentImpl:
     -

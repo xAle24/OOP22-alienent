@@ -4,21 +4,28 @@ import org.junit.jupiter.api.Test;
 
 import it.unibo.alienenterprises.controller.ShipLoaderImpl;
 import it.unibo.alienenterprises.controller.api.ShipLoader;
-import it.unibo.alienenterprises.model.api.components.Component;
-import it.unibo.alienenterprises.model.api.components.HitboxComponent;
+import it.unibo.alienenterprises.model.GameWorld;
 import it.unibo.alienenterprises.model.impl.ProjectileSupplierFactoryImpl;
 
 public class ShipLoaderTest {
 
-    @Test
-    public void loadingTest() {
-        final ShipLoader shipLoader = new ShipLoaderImpl(new ProjectileSupplierFactoryImpl(null));
-        var p = shipLoader.loadPlayerClasses();
-        System.out.println(p);
+    private final ShipLoader shipLoader;
 
-        var standard = p.get("standard");
-        standard.getAllComponent().stream().forEach(Component::start);
-        System.out.println(standard.getComponent(HitboxComponent.class));
+    public ShipLoaderTest() {
+        this.shipLoader = new ShipLoaderImpl(new ProjectileSupplierFactoryImpl(new GameWorld()));
+    }
+
+    @Test
+    public void LoadPlayersTest(){
+        var playerMap = shipLoader.loadPlayerClasses();
+        var standard = playerMap.get("standard");
+        System.out.println(standard.getAllStats());
+
+        var tank = playerMap.get("tank");
+        System.out.println(tank.getAllStats());
+
+        var sniper = playerMap.get("sniper");
+        System.out.println(sniper.getAllStats());
     }
 
 }
