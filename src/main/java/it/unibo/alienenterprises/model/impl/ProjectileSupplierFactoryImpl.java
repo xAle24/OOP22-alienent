@@ -13,8 +13,16 @@ import it.unibo.alienenterprises.model.api.components.InputComponent;
 import it.unibo.alienenterprises.model.geometry.Point2D;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
 import it.unibo.alienenterprises.model.impl.components.StraightInputComponent;
+import it.unibo.alienenterprises.model.impl.components.hitbox.SimpleProjectileHitboxComponentImpl;
 
 public class ProjectileSupplierFactoryImpl implements ProjectileSupplierFactory {
+
+    //TODO subsitute with World
+    private final Object world;
+
+    public ProjectileSupplierFactoryImpl(final Object world) {
+        this.world = world;
+    }
 
     @Override
     public Supplier<GameObject> getBasicProjectileSupplier() {
@@ -26,7 +34,7 @@ public class ProjectileSupplierFactoryImpl implements ProjectileSupplierFactory 
                 stat.put(Statistic.HP, 1);
                 final GameObject basicProjectile = new GameObjectAbs(Point2D.ORIGIN, Vector2D.NULL_VECTOR, stat);
                 final InputComponent input = new StraightInputComponent(basicProjectile, true);
-                final HitboxComponent hitbox = null;
+                final HitboxComponent hitbox = new SimpleProjectileHitboxComponentImpl(basicProjectile, true, HitboxComponent.Type.PROJECTILE, 5);
                 basicProjectile.addComponent(input);
                 basicProjectile.addComponent(hitbox);
                 return basicProjectile;

@@ -12,7 +12,7 @@ public class ShipLoaderTest {
 
     @Test
     public void loadingTest() {
-        final ShipLoader shipLoader = new ShipLoaderImpl(new ProjectileSupplierFactoryImpl());
+        final ShipLoader shipLoader = new ShipLoaderImpl(new ProjectileSupplierFactoryImpl(null));
         var p = shipLoader.loadPlayerClasses();
         System.out.println(p);
 
