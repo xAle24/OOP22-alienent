@@ -40,8 +40,9 @@ public abstract class ComponentAbs implements Component {
     public boolean isEnabled() {
         return this.enabled;
     }
-
-    protected GameObject getGameObject() {
+    
+    @Override
+    public GameObject getGameObject() {
         return this.gameObject;
     }
 

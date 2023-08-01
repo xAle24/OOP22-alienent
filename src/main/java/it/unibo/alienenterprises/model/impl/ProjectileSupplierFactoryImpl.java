@@ -18,7 +18,6 @@ import it.unibo.alienenterprises.model.impl.components.hitbox.SimpleProjectileHi
 
 public class ProjectileSupplierFactoryImpl implements ProjectileSupplierFactory {
 
-    // TODO subsitute with World
     private final World world;
 
     public ProjectileSupplierFactoryImpl(final World world) {
