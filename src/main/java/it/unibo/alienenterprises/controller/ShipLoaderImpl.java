@@ -16,7 +16,6 @@ import org.yaml.snakeyaml.Yaml;
 import it.unibo.alienenterprises.controller.api.ShipLoader;
 import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.GameObjectAbs;
-import it.unibo.alienenterprises.model.api.ObjectFactory;
 import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.model.api.components.Component;
 import it.unibo.alienenterprises.model.api.components.HitboxComponent;
@@ -44,7 +43,7 @@ public class ShipLoaderImpl implements ShipLoader {
     private List<String> playerList;
     private List<String> enemyList;
 
-    private final List<ObjectFactory> factories;
+    private final List<Object> factories;
 
     private enum ParameterTypes {
         CLASS,
@@ -57,7 +56,7 @@ public class ShipLoaderImpl implements ShipLoader {
         HITBOXTYPE;
     }
 
-    public ShipLoaderImpl(final ObjectFactory... factories) {
+    public ShipLoaderImpl(final Object... factories) {
         try (final InputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + SHIPLIST_FILE + YAML)) {
             final Yaml yaml = new Yaml();
             final Map<String, List<String>> map = yaml.load(inputStream);
@@ -193,7 +192,7 @@ public class ShipLoaderImpl implements ShipLoader {
             case FACTORYMETHOD:
                 try {
                     final Class<?> factoryClass = Class.forName(parameter.get(CALLING_CLASS));
-                    final Optional<ObjectFactory> factory = factories.stream()
+                    final Optional<Object> factory = factories.stream()
                             .filter((p) -> p.getClass().equals(factoryClass))
                             .findFirst();
                     if(factory.isPresent()){
