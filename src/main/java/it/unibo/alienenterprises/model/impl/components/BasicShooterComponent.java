@@ -1,9 +1,11 @@
 package it.unibo.alienenterprises.model.impl.components;
 
+import java.util.Optional;
 import java.util.function.Supplier;
 
 import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.Statistic;
+import it.unibo.alienenterprises.model.api.components.Component;
 import it.unibo.alienenterprises.model.api.components.ComponentAbs;
 import it.unibo.alienenterprises.model.api.components.ShooterComponent;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
@@ -27,7 +29,7 @@ public class BasicShooterComponent extends ComponentAbs implements ShooterCompon
     }
 
     @Override
-    public void update(double deltatime) {
+    public void update(final double deltatime) {
         if (!isEnabled()) {
             return;
         }
@@ -73,6 +75,11 @@ public class BasicShooterComponent extends ComponentAbs implements ShooterCompon
     @Override
     public void setDelay(final double delay) {
         this.delay = delay;
+    }
+
+    @Override
+    public Optional<Component> duplicate(final GameObject obj) {
+        return Optional.of(new BasicShooterComponent(obj, true, shoot, obj.getStatValue(Statistic.COOLDOWN)));
     }
 
 }

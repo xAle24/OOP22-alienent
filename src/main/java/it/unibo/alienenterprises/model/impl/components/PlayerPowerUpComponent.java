@@ -3,11 +3,13 @@ package it.unibo.alienenterprises.model.impl.components;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.PowerUp;
 import it.unibo.alienenterprises.model.api.Statistic;
+import it.unibo.alienenterprises.model.api.components.Component;
 import it.unibo.alienenterprises.model.api.components.ComponentAbs;
 import it.unibo.alienenterprises.model.api.components.PowerUpComponent;
 
@@ -55,5 +57,13 @@ public class PlayerPowerUpComponent extends ComponentAbs implements PowerUpCompo
         for (var s : map.keySet()) {
             getGameObject().setStatValue(s, (getGameObject().getStatValue(s) * map.get(s)) / 100);
         }
+    }
+
+    @Override
+    public Optional<Component> duplicate(final GameObject obj) {
+        var ret = new PlayerPowerUpComponent(obj);
+        ret.addAllPowerUp(powerUps.stream().toList());
+        return Optional.of(ret);
+
     }
 }

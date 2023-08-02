@@ -1,10 +1,12 @@
 package it.unibo.alienenterprises.model.impl.components;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 
 import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.InputSupplier;
 import it.unibo.alienenterprises.model.api.Statistic;
+import it.unibo.alienenterprises.model.api.components.Component;
 import it.unibo.alienenterprises.model.api.components.ComponentAbs;
 import it.unibo.alienenterprises.model.api.components.PlayerInputComponent;
 import it.unibo.alienenterprises.model.api.components.ShooterComponent;
@@ -68,7 +70,7 @@ public class PlayerInputComponentImpl extends ComponentAbs implements PlayerInpu
                     vel = Vector2D.fromAngleAndModule(vel.getAngle() - (ANG_VEL * deltatime), module);
                     break;
                 case SHOOT:
-                    if(shooter.isPresent()){
+                    if (shooter.isPresent()) {
                         shooter.get().shoot();
                     }
                     break;
@@ -91,16 +93,29 @@ public class PlayerInputComponentImpl extends ComponentAbs implements PlayerInpu
     }
 
     @Override
-    public Optional<InputSupplier> getInputSupplier() {
-        return Optional.of(input);
+    public InputSupplier getInputSupplier() {
+        return this.input;
     }
 
     @Override
-    public void setInputSupplier(InputSupplier inputSupplier) {
+    public void setInputSupplier(final InputSupplier inputSupplier) {
         this.input = inputSupplier;
     }
 
-    public Optional<ShooterComponent> getShooterComponent(){
+    @Override
+    public Optional<ShooterComponent> getShooterComponent() {
         return this.shooter;
+    }
+
+    @Override
+    public Optional<Component> duplicate(final GameObject obj) {
+        try {
+            var retInput = input.getClass().getConstructor().newInstance();
+            return Optional.of(new PlayerInputComponentImpl(obj, retInput));
+        } catch (final Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return Optional.empty();
     }
 }
