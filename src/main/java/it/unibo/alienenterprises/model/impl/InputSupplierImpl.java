@@ -1,6 +1,8 @@
 package it.unibo.alienenterprises.model.impl;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import it.unibo.alienenterprises.model.api.InputSupplier;
@@ -10,7 +12,7 @@ import it.unibo.alienenterprises.model.api.InputSupplier;
  */
 public class InputSupplierImpl implements InputSupplier {
 
-    private final Set<Input> inputSet = new HashSet<>();
+    private final List<Input> inputList = new ArrayList<>();
 
     /**
      * 
@@ -19,18 +21,18 @@ public class InputSupplierImpl implements InputSupplier {
     }
 
     @Override
-    public Set<Input> getInputSet() {
-        return Set.copyOf(inputSet);
+    public List<Input> getInputSet() {
+        return List.copyOf(inputList);
     }
 
     @Override
     public void addInput(final Input input) {
-        this.inputSet.add(input);
+        this.inputList.add(input);
     }
 
     @Override
     public void clearInputSet() {
-        this.inputSet.clear();
+        this.inputList.clear();
     }
 
 }

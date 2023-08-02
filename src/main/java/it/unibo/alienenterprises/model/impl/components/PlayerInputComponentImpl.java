@@ -88,7 +88,7 @@ public class PlayerInputComponentImpl extends ComponentAbs implements PlayerInpu
     @Override
     public void start() {
         this.maxSpeed = getGameObject().getStatValue(Statistic.SPEED);
-        this.acc = this.maxSpeed / ACC_RATE;
+        this.acc = this.maxSpeed / (double) ACC_RATE;
         this.shooter = getGameObject().getComponent(ShooterComponent.class);
     }
 
