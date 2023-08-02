@@ -28,5 +28,10 @@ public enum SceneType {
     /**
      * Shop for powerups.
      */
-    SHOP
+    SHOP,
+
+    /**
+     * Pause the game during a game session.
+     */
+    PAUSE
 }
