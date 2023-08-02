@@ -34,26 +34,27 @@ public final class ViewImpl extends Application implements View {
         var gameSessionFac = new GameSessionFactoryImpl();
         var statMap1 = new HashMap<Statistic, Integer>();
         statMap1.put(Statistic.HP, 2);
+        statMap1.put(Statistic.DAMAGE, 1);
         var statMap2 = new HashMap<Statistic, Integer>();
         statMap2.put(Statistic.HP, 1);
+        statMap2.put(Statistic.DAMAGE, 2);
         World world = new GameWorld();
-        var giulia1 = new GameObjectAbs(new Point2D(50, 50),
-                new Vector2D(0, 0),
+        var enemy = new GameObjectAbs(new Point2D(100, 100),
+                new Vector2D(5, 5),
                 statMap1);
-        var giulia2 = new GameObjectAbs(new Point2D(250, 250), new Vector2D(5, 5),
+        var player = new GameObjectAbs(new Point2D(250, 250),
+                new Vector2D(0, 0),
                 statMap2);
-        giulia1.addComponent(new InputComponentSniperImpl(giulia1, true, giulia2));
-        giulia1.addComponent(new BomberHitboxComponentImpl(giulia1, true, Type.ENEMY, 50));
-        giulia2.addComponent(new SimpleShipHitboxComponentImpl(giulia2, true, Type.PLAYER, 50));
-        giulia2.addComponent(new StraightInputComponent(giulia2, true));
-        world.addGameObject(giulia1);
-        world.addGameObject(giulia2);
-        giulia1.setVelocity(new Vector2D(2, 0));
-        giulia1.setPosition(new Point2D(100, 100));
+        player.addComponent(new InputComponentSniperImpl(player, true, player));
+        enemy.addComponent(new BomberHitboxComponentImpl(enemy, true, Type.ENEMY, 50));
+        player.addComponent(new SimpleShipHitboxComponentImpl(player, true, Type.PLAYER, 50));
+        enemy.addComponent(new StraightInputComponent(enemy, true));
+        world.addGameObject(enemy);
+        world.addGameObject(player);
         CanvasPainter canvasPaint = new CanvasPainter(500, 500);
         var renderMan = new RendererManager(canvasPaint);
-        renderMan.addRenderer(giulia1);
-        renderMan.addRenderer(giulia2);
+        renderMan.addRenderer(enemy);
+        renderMan.addRenderer(player);
         var gameSession = gameSessionFac.singleplayerGameSession(canvasPaint, world,
                 renderMan);
 

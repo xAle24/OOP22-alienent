@@ -58,7 +58,6 @@ public final class GameLoopThread extends Thread implements GameLoop {
                 }
             }
             long currentStart = System.currentTimeMillis();
-            System.out.println("Ciao" + currentStart);
             long elapsed = currentStart - previousStart;
             this.processInput();
             this.updateGame(elapsed / 1000.0);
