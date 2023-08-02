@@ -10,7 +10,7 @@ public class JFXSceneController implements SceneController {
 
     private Scene currentScene;
 
-    JFXSceneController() {
+    public JFXSceneController() {
         this.setCurrentScene(SceneType.MAINMENU);
     }
 

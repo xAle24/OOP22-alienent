@@ -1,16 +1,23 @@
 package it.unibo.alienenterprises.view;
 
-import javafx.scene.Node;
-import javafx.scene.shape.Circle;
+import it.unibo.alienenterprises.controller.Controller;
+import javafx.scene.Scene;
 
 /**
  * View interface.
  */
 public interface View {
     /**
-     * start of application.
+     * Initializes the View.
      * 
-     * @param args
+     * @param controller the main {@link Controller} of the game
      */
-    void start(String[] args);
+    void start(Controller controller);
+
+    /**
+     * Sets the scene that has to be shown.
+     * 
+     * @param scene
+     */
+    void setScene();
 }
