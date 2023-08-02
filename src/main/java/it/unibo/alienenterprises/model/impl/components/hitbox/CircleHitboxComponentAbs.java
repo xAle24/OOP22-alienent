@@ -34,8 +34,15 @@ public abstract class CircleHitboxComponentAbs extends ComponentAbs implements H
         return this.objectType;
     }
     @Override
-    public Boolean canCollide(Type type) {
-        return this.objectType == type ? false : true;
+    public void canCollide(HitboxComponent hitbox) {
+        if(this.objectType != hitbox.getType()) {
+            if (hitbox instanceof CircleHitboxComponentAbs && this.hitbox.intersectWhith(((CircleHitboxComponentAbs)hitbox).getHitbox())) {
+                this.isColliding(hitbox);
+                hitbox.isColliding(this);
+            } else if (hitbox instanceof BoundaryHitboxComponentImpl && this.hitbox.intersectWhith(((BoundaryHitboxComponentImpl)hitbox).getLine())) {
+                hitbox.isColliding(this);
+            }
+        }
     }
     @Override
     public abstract void isColliding(HitboxComponent hitbox);

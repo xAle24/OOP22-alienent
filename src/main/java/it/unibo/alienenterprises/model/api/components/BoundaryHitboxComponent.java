@@ -1,6 +1,8 @@
 package it.unibo.alienenterprises.model.api.components;
 
-public interface BoundaryHitboxComponent {
+import it.unibo.alienenterprises.model.geometry.Line2D;
+
+public interface BoundaryHitboxComponent extends HitboxComponent {
     
     /**
      * Identify the position of the boundary.
@@ -25,4 +27,6 @@ public interface BoundaryHitboxComponent {
     }
 
     void setLocations(Locations location);
+
+    Line2D getLine();
 }

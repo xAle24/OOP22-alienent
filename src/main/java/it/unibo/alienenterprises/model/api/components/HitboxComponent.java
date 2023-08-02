@@ -40,7 +40,7 @@ public interface HitboxComponent extends Component {
      * @param type
      * @return true if can collide, false otherwise
      */
-    Boolean canCollide(Type type);
+    void canCollide(HitboxComponent hitbox);
 
     /**
      * Check what happens once the two objects have collided.
