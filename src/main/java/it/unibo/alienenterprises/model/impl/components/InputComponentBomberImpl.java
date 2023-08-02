@@ -1,8 +1,10 @@
 package it.unibo.alienenterprises.model.impl.components;
 
+import java.util.Optional;
 import java.util.Random;
 
 import it.unibo.alienenterprises.model.api.GameObject;
+import it.unibo.alienenterprises.model.api.components.Component;
 import it.unibo.alienenterprises.model.api.components.ComponentAbs;
 import it.unibo.alienenterprises.model.api.components.InputComponent;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
@@ -55,5 +57,10 @@ public class InputComponentBomberImpl extends ComponentAbs implements InputCompo
         } else {
             return Vector2D.fromAngleAndModule(rnd.nextInt(RANDOMANGLE) + RIGHTANGLE * 3, 0);
         }
+    }
+
+    @Override
+    public Optional<Component> duplicate(GameObject obj) {
+        return Optional.of(new InputComponentBomberImpl(obj, isEnabled(), target));
     }
 }
