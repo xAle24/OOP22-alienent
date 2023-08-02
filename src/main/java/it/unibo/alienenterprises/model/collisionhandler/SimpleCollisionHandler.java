@@ -23,9 +23,6 @@ public final class SimpleCollisionHandler extends CollisionHandlerAbs {
 
     @Override
     protected void checkPair(HitboxComponent a, HitboxComponent b) {
-        if (a.canCollide(b.getType())) {
-            // a.isColliding(b);
-            System.out.println("AAAAAAAAAa");
-        }
+        a.canCollide(b);
     }
 }
