@@ -1,7 +1,10 @@
 package it.unibo.alienenterprises.model.impl.components.hitbox;
 
+import java.util.Optional;
+
 import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.components.BoundaryHitboxComponent;
+import it.unibo.alienenterprises.model.api.components.Component;
 import it.unibo.alienenterprises.model.api.components.ComponentAbs;
 import it.unibo.alienenterprises.model.api.components.HitboxComponent;
 import it.unibo.alienenterprises.model.geometry.Line2D;
@@ -54,5 +57,10 @@ public class BoundaryHitboxComponentImpl extends ComponentAbs implements Boundar
     @Override
     public Line2D getLine() {
         return this.line;
+    }
+
+    @Override
+    public Optional<Component> duplicate(GameObject obj) {
+        return Optional.empty();
     }
 }
