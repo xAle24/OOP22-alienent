@@ -18,7 +18,7 @@ import it.unibo.alienenterprises.model.api.InputSupplier.Input;
  */
 public class PlayerInputComponentImpl extends ComponentAbs implements PlayerInputComponent {
 
-    private static final double ANG_VEL = 100;
+    private static final double ANG_VEL = 150;
 
     private static final double ACC_RATE = 2;
 
@@ -63,10 +63,10 @@ public class PlayerInputComponentImpl extends ComponentAbs implements PlayerInpu
                     }
                     break;
                 case TURN_LEFT:
-                    vel = Vector2D.fromAngleAndModule(vel.getAngle() + (ANG_VEL * deltatime), module);
+                    vel = Vector2D.fromAngleAndModule(vel.getAngle() - (ANG_VEL * deltatime), module);
                     break;
                 case TURN_RIGHT:
-                    vel = Vector2D.fromAngleAndModule(vel.getAngle() - (ANG_VEL * deltatime), module);
+                    vel = Vector2D.fromAngleAndModule(vel.getAngle() + (ANG_VEL * deltatime), module);
                     break;
                 case SHOOT:
                     if (shooter.isPresent()) {
