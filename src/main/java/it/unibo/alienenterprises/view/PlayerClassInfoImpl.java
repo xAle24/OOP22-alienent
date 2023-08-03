@@ -36,4 +36,10 @@ public class PlayerClassInfoImpl implements PlayerClassInfo {
         this.spriteFilePath = spriteFilePath;
     }
 
+    @Override
+    public String toString() {
+        return "PlayerClassInfoImpl [name=" + name + ", description=" + description + ", spriteFilePath="
+                + spriteFilePath + "]";
+    }
+
 }

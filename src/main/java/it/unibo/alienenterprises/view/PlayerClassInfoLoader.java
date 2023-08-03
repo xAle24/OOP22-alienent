@@ -1,5 +1,7 @@
 package it.unibo.alienenterprises.view;
 
+import java.util.Optional;
+
 /**
  * PlayerClassInfoLoader
  * The class that have the job to load the information needed fot the
@@ -8,9 +10,14 @@ package it.unibo.alienenterprises.view;
 public interface PlayerClassInfoLoader {
 
     /**
-     * @param name
+     * Load in memory the Informations
+     */
+    void load();
+
+    /**
+     * @param name of the class
      * @return
      */
-    PlayerClassInfo getPlayerClassInfo(String name);
+    Optional<PlayerClassInfo> getPlayerClassInfo(String name);
 
 }
