@@ -1,4 +1,4 @@
-package it.unibo.alienenterprises.controller.renderers;
+package it.unibo.alienenterprises.view.renderers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,6 @@ public class RendererManager {
     }
 
     public void render() {
-        this.canvasPaint.clearCanvas();
         this.canvasPaint.render();
     }
 }

@@ -1,8 +1,8 @@
-package it.unibo.alienenterprises.controller;
+package it.unibo.alienenterprises.view.javafx;
 
 import it.unibo.alienenterprises.controller.api.SceneController;
 import it.unibo.alienenterprises.view.SceneType;
-import it.unibo.alienenterprises.view.javafx.SceneLoader;
+import it.unibo.alienenterprises.view.controllers.InitController;
 import javafx.scene.Scene;
 
 public class JFXSceneController implements SceneController {
@@ -31,6 +31,11 @@ public class JFXSceneController implements SceneController {
     @Override
     public Scene getCurrentScene() {
         return this.currentScene;
+    }
+
+    @Override
+    public InitController getCurrentController() {
+        return this.loader.getCurrentController();
     }
 
 }

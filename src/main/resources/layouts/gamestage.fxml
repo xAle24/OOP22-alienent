@@ -1,18 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.control.Button?>
 
 <StackPane 
     xmlns="http://javafx.com/javafx/11.0.1" 
     xmlns:fx="http://javafx.com/fxml/1" 
     maxHeight="500" maxWidth="500"
+    minHeight="500" minWidth="500"
     prefHeight="500" prefWidth="500"
     StackPane.alignment="CENTER"
-    fx:controller="it.unibo.alienenterprises.view.controllers.GameStageController">
+    fx:controller="it.unibo.alienenterprises.view.controllers.GameStageController"
+    onCloseRequest="#handleQuit">
 
-    <fx:define>
-        <StackPane fx:id="canvasContainer"/>
-    </fx:define>
+    <BorderPane fx:id="canvasContainer" 
+        prefHeight="500" prefWidth="500">
+        <top>
+            <Label text="SCORE:" textAlignment="RIGHT"/>
+            <Label fx:id="currScore" text="0000" alignment="TOP_RIGHT"/>
+        </top>
+        <bottom>
+            <Label text="HEALTH:" textAlignment="LEFT"/>
+            <Label fx:id="healthDisplay" alignment="BOTTOM_LEFT"/>
+        </bottom>
+    </BorderPane>
     
 </StackPane>  

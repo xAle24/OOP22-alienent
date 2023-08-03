@@ -1,4 +1,4 @@
-package it.unibo.alienenterprises.controller.renderers;
+package it.unibo.alienenterprises.view.renderers;
 
 import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.view.javafx.CanvasPainter;

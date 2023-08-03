@@ -3,7 +3,7 @@ package it.unibo.alienenterprises.view.javafx;
 import java.util.HashSet;
 import java.util.Set;
 
-import it.unibo.alienenterprises.controller.renderers.Renderer;
+import it.unibo.alienenterprises.view.renderers.Renderer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
@@ -52,7 +52,7 @@ public final class CanvasPainter {
         return this.canvas;
     }
 
-    public void clearCanvas() {
+    private void clearCanvas() {
         this.gc.clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
     }
 
@@ -60,6 +60,7 @@ public final class CanvasPainter {
      * Use each {@link Renderer} to draw its {@link Sprite} on the gamestage.
      */
     public void render() {
+        this.clearCanvas();
         this.renderers.forEach(r -> {
             if (r.isShown()) {
                 r.render();
