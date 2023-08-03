@@ -15,6 +15,9 @@ public interface PlayerClassInfo {
      */
     String getDescription();
 
-    // TODO getImage/getSprite();
+    /**
+     * @return
+     */
+    String getSpriteFilePath();
 
 }

@@ -1,0 +1,6 @@
+!it.unibo.alienenterprises.view.PlayerClassInfoImpl
+name: "Navetta della Federazione"
+description: |
+  Navetta standard fornita dalla federazione. 
+  Dotata ci capacità equilibrate
+spriteFilePath: "Da mettere"
