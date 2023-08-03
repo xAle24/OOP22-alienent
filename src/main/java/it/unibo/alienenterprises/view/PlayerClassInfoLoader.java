@@ -1,5 +1,6 @@
 package it.unibo.alienenterprises.view;
 
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -19,5 +20,10 @@ public interface PlayerClassInfoLoader {
      * @return
      */
     Optional<PlayerClassInfo> getPlayerClassInfo(String name);
+
+    /**
+     * @return
+     */
+    Map<String, PlayerClassInfo> getPlayerClassInfos();
 
 }

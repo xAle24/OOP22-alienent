@@ -58,4 +58,9 @@ public class PlayerClassInfoLoaderImpl implements PlayerClassInfoLoader {
         return Optional.ofNullable(infoMap.get(name));
     }
 
+    @Override
+    public Map<String, PlayerClassInfo> getPlayerClassInfos() {
+        return this.infoMap;
+    }
+
 }
