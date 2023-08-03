@@ -26,12 +26,12 @@ public class Vector2D {
      */
     public static Vector2D fromAngleAndModule(final double angle, final double module) {
         var r = Math.toRadians(angle);
-        var angTr = Math.toDegrees(r);
-        if (angTr == 270 || angTr == 90) {
-            return angTr == 270 ? new Vector2D(0, -module) : new Vector2D(0, module);
-        } else if (angTr == 0 || angTr == 180) {
-            return angTr == 0 ? new Vector2D(module, 0) : new Vector2D(-module, 0);
-        }
+        // var angTr = Math.toDegrees(r);
+        // if (angTr == 270 || angTr == 90) {
+        //     return angTr == 270 ? new Vector2D(0, -module) : new Vector2D(0, module);
+        // } else if (angTr == 0 || angTr == 180) {
+        //     return angTr == 0 ? new Vector2D(module, 0) : new Vector2D(-module, 0);
+        // }
         return new Vector2D(module * Math.cos(r), module * Math.sin(r));
     }
 
@@ -59,7 +59,17 @@ public class Vector2D {
             }
             return yComp < 0 ? 270 : 90;
         }
-        return Math.toDegrees(Math.atan(yComp / xComp));
+        final var absAtan = Math.abs(Math.toDegrees(Math.atan(yComp / xComp)));
+        if(xComp>0 && yComp>0){
+            return absAtan;
+        }
+        if(xComp<0 && yComp>0){
+            return 180 - absAtan;
+        }
+        if(xComp<0 && yComp<0){
+            return absAtan + 180;
+        }
+        return 360 - absAtan;
     }
 
     /**
@@ -85,6 +95,11 @@ public class Vector2D {
         return new Vector2D(xComp + vec.getxComp(), yComp + vec.getyComp());
     }
 
+    /**
+     * Multipy the vector for the given number
+     * @param a
+     * @return A new vector equal to the multiplication
+     */
     public Vector2D mul(final double a) {
         return new Vector2D(this.xComp * a, this.yComp * a);
     }

@@ -1,6 +1,5 @@
 package it.unibo.alienenterprises.model.impl.components;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 
 import it.unibo.alienenterprises.model.api.GameObject;
@@ -19,9 +18,9 @@ import it.unibo.alienenterprises.model.api.InputSupplier.Input;
  */
 public class PlayerInputComponentImpl extends ComponentAbs implements PlayerInputComponent {
 
-    private static final double ANG_VEL = 1;
+    private static final double ANG_VEL = 100;
 
-    private static final int ACC_RATE = 30;
+    private static final double ACC_RATE = 2;
 
     private InputSupplier input;
     private Optional<ShooterComponent> shooter;
@@ -88,7 +87,7 @@ public class PlayerInputComponentImpl extends ComponentAbs implements PlayerInpu
     @Override
     public void start() {
         this.maxSpeed = getGameObject().getStatValue(Statistic.SPEED);
-        this.acc = this.maxSpeed / (double) ACC_RATE;
+        this.acc =this.maxSpeed * ACC_RATE;
         this.shooter = getGameObject().getComponent(ShooterComponent.class);
     }
 
