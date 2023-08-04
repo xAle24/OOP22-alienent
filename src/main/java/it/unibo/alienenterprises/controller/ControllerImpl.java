@@ -2,6 +2,7 @@ package it.unibo.alienenterprises.controller;
 
 import java.util.Map;
 
+import it.unibo.alienenterprises.controller.api.SceneController;
 import it.unibo.alienenterprises.controller.gamesession.GameSession;
 import it.unibo.alienenterprises.controller.gamesession.GameSessionFactory;
 import it.unibo.alienenterprises.controller.gamesession.GameSessionFactoryImpl;
@@ -29,6 +30,11 @@ public final class ControllerImpl implements Controller {
         // this.currGameSession = (multiplayer) ?
         // this.sessionFactory.multiplayerGameSession()
         // : this.sessionFactory.singleplayerGameSession(null, null);
+    }
+
+    @Override
+    public SceneController getSceneController() {
+        return null;
     }
 
 }

@@ -5,10 +5,10 @@ import java.util.Map;
 import java.util.Set;
 
 import it.unibo.alienenterprises.controller.api.GameLoop;
-import it.unibo.alienenterprises.controller.renderers.RendererManager;
 import it.unibo.alienenterprises.model.GameWorld;
 import it.unibo.alienenterprises.model.api.World;
 import it.unibo.alienenterprises.view.View;
+import it.unibo.alienenterprises.view.renderers.RendererManager;
 
 /**
  * Implementation of the GameLoop interface.

@@ -1,8 +1,8 @@
 package it.unibo.alienenterprises.view;
 
 import it.unibo.alienenterprises.controller.Controller;
-import it.unibo.alienenterprises.controller.JFXSceneController;
 import it.unibo.alienenterprises.controller.api.SceneController;
+import it.unibo.alienenterprises.view.javafx.JFXSceneController;
 import javafx.stage.Stage;
 
 /**

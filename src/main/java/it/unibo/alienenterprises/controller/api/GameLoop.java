@@ -1,6 +1,6 @@
 package it.unibo.alienenterprises.controller.api;
 
-import it.unibo.alienenterprises.controller.renderers.RendererManager;
+import it.unibo.alienenterprises.view.renderers.RendererManager;
 
 /**
  * Starts when a new game session is started, updates the game periodically.
@@ -25,7 +25,7 @@ public interface GameLoop {
     void resumeLoop();
 
     /**
-     * Stop the gameloop.
+     * Permanently stop the gameloop.
      */
     void stopLoop();
 }
