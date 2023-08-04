@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import org.yaml.snakeyaml.Yaml;
 
@@ -20,21 +21,21 @@ public class PlayerClassInfoLoaderImpl implements PlayerClassInfoLoader {
     private static final String FILE_SUFFIX = "Info.yml";
     private static final String PLAYERS = "playerClasses";
 
-    private List<String> playerList;
+    private Set<String> playerList;
     private final Map<String, PlayerClassInfo> infoMap = new HashMap<>();
 
     public PlayerClassInfoLoaderImpl() {
         try (final InputStream inputStream = new FileInputStream(SHIP_LIST_FILE_PATH)) {
             final Yaml yaml = new Yaml();
             final Map<String, List<String>> map = yaml.load(inputStream);
-            this.playerList = map.get(PLAYERS);
+            this.playerList = Set.copyOf(map.get(PLAYERS));
         } catch (final Exception e) {
             // TODO: handle exception
             e.printStackTrace();
         }
     }
 
-    public PlayerClassInfoLoaderImpl(final List<String> list) {
+    public PlayerClassInfoLoaderImpl(final Set<String> list) {
         this.playerList = list;
     }
 

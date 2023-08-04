@@ -1,6 +1,16 @@
 package it.unibo.alienenterprises.view;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import it.unibo.alienenterprises.controller.PlayerSpawnerControllerImpl;
+import it.unibo.alienenterprises.model.GameWorld;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -11,27 +21,50 @@ public class PlayerClassMenu extends BorderPane {
 
     private static final String QUESTION = "Choose your class";
 
-    private BorderPane box = new BorderPane();
+    //TODO linea temporanea
+    private final PlayerSpawnerControllerImpl controller = new PlayerSpawnerControllerImpl(new GameWorld());
+
+    private final VBox left = new VBox();
+    private final GridPane center = new GridPane();
+    private final VBox bottom = new VBox();
+
+    private TextArea leftTextArea  = new TextArea("Qui ci vanno le statistiche");
+    private TextArea bottomTextArea =  new TextArea("Qui ci va la descrizione e l'immagine");
+
+    private final Map<String,Button> buttons = new HashMap<>();
 
     public BorderPane setUpPlayerClassMenu() {
 
         final VBox up = new VBox();
         up.getChildren().add(new Text(QUESTION));
         up.setAlignment(Pos.CENTER);
-        box.setTop(up);
+        this.setTop(up);
 
-        final VBox left = new VBox();
-        left.getChildren().add(new TextArea("Qui ci vanno le statistiche"));
-        box.setLeft(left);
+        this.leftTextArea.setMaxWidth(200);
+        this.left.getChildren().add(leftTextArea);
+        this.setLeft(this.left);
 
-        final GridPane center = new GridPane();
-        center.add(new TextArea("Qui ci vanno i pulsanti per la selezione"), 0, 0);
-        box.setCenter(center);
+        this.setCentralPane();
+        this.setCenter(this.center);
 
-        final VBox bottom = new VBox();
-        bottom.getChildren().add(new TextArea("Qui ci va la descrizione e l'immagine"));
-        box.setBottom(bottom);
+        this.bottom.getChildren().add(this.bottomTextArea);
+        this.setBottom(this.bottom);
 
-        return this.box;
+        return this;
+    }
+
+    private void setCentralPane(){
+        final List<String> ids  = new ArrayList<>(controller.getIdSet());
+        System.out.println(ids);
+        final var numRaws = ids.size()/(double)3;
+        for(int i = 0; i<numRaws; i++){
+            for(int t = i*3; t<ids.size() && t<i*3+3; t++){
+                final var id = ids.get(t); 
+                final var info = controller.getInfoOf(id).get();
+                final Button button = new Button(info.getName());
+                this.buttons.put(id, button);
+                this.center.add(button, t-i*3, i);
+            }
+        }
     }
 }
