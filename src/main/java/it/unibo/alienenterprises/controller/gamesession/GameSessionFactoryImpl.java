@@ -11,10 +11,15 @@ import it.unibo.alienenterprises.view.renderers.RendererManager;
 public class GameSessionFactoryImpl implements GameSessionFactory {
 
     @Override
-    public GameSession singleplayerGameSession(CanvasPainter canvasPaint, World world,
+    public GameSession singleplayerGameSession(World world,
             RendererManager rendererManager) {
-        return new GameSessionAbs(canvasPaint, world, rendererManager) {
+        return new GameSessionAbs(rendererManager) {
 
+            @Override
+            protected void setUpSession() {
+
+                this.model.addAllGameObjects();
+            }
         };
     }
 

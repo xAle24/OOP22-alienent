@@ -17,7 +17,6 @@ public class GameWorld implements World {
     public GameWorld() {
         this.collisionHandler = new SimpleCollisionHandler();
         this.gameObjects = new HashSet<>();
-        // this.collisionHandler.addAll();
     }
 
     @Override

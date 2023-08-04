@@ -18,8 +18,7 @@ import it.unibo.alienenterprises.view.renderers.RendererManager;
 public abstract class GameSessionAbs implements GameSession {
     private int score;
     private GameLoopThread gameLoop;
-    private final CanvasPainter canvasPaint;
-    private final World model;
+    protected final World model;
 
     /**
      * Create an instance of the GameSessionAbs class.
@@ -27,10 +26,10 @@ public abstract class GameSessionAbs implements GameSession {
      * @param view
      * @param world
      */
-    public GameSessionAbs(final CanvasPainter canvasPaint, final World model, RendererManager rendererManager) {
+    public GameSessionAbs(RendererManager rendererManager) {
         this.score = 0;
-        this.canvasPaint = canvasPaint;
-        this.model = model;
+        this.model = new GameWorld();
+        this.setUpSession();
         this.gameLoop = new GameLoopThread(rendererManager, model);
         this.gameLoop.start();
     }
@@ -38,6 +37,8 @@ public abstract class GameSessionAbs implements GameSession {
     protected synchronized void addScore(int score) {
         this.score += score;
     }
+
+    protected abstract void setUpSession();
 
     @Override
     public int getScore() {

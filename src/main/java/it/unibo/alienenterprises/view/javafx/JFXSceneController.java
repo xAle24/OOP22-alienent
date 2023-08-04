@@ -1,7 +1,7 @@
 package it.unibo.alienenterprises.view.javafx;
 
-import it.unibo.alienenterprises.controller.api.SceneController;
 import it.unibo.alienenterprises.view.SceneType;
+import it.unibo.alienenterprises.view.api.SceneController;
 import it.unibo.alienenterprises.view.controllers.InitController;
 import javafx.scene.Scene;
 

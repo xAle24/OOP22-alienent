@@ -1,7 +1,7 @@
 package it.unibo.alienenterprises.view;
 
 import it.unibo.alienenterprises.controller.Controller;
-import it.unibo.alienenterprises.controller.api.SceneController;
+import it.unibo.alienenterprises.view.api.SceneController;
 import it.unibo.alienenterprises.view.javafx.JFXSceneController;
 import javafx.stage.Stage;
 
@@ -26,11 +26,13 @@ public final class ViewImpl implements View {
     @Override
     public void start(Controller controller) {
         this.controller = controller;
+        this.primaryStage.show();
     }
 
     @Override
     public void setScene() {
         this.primaryStage.setScene(this.sceneController.getCurrentScene());
+        this.primaryStage.show();
     }
 
 }

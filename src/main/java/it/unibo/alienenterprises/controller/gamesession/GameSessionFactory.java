@@ -15,7 +15,7 @@ public interface GameSessionFactory {
      * 
      * @return a single player game session.
      */
-    public GameSession singleplayerGameSession(CanvasPainter canvasPaint, World world, RendererManager rendererManager);
+    public GameSession singleplayerGameSession(World world, RendererManager rendererManager);
 
     /**
      * Builds a multiplayer game session.

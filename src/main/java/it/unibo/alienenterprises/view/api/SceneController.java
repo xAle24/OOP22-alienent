@@ -1,4 +1,4 @@
-package it.unibo.alienenterprises.controller.api;
+package it.unibo.alienenterprises.view.api;
 
 import it.unibo.alienenterprises.view.SceneType;
 import it.unibo.alienenterprises.view.controllers.InitController;

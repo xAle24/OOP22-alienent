@@ -16,9 +16,9 @@ public final class Sprite {
 
     public Sprite(Image image, Point2D pos, Vector2D angle) {
         this.image = new ImageView(image);
-        this.image.setVisible(true);
         this.image.setFitHeight(50);
         this.image.setFitWidth(50);
+        this.image.setVisible(true);
         this.render(pos, angle);
     }
 

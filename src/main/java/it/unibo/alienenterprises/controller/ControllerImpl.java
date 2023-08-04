@@ -2,12 +2,12 @@ package it.unibo.alienenterprises.controller;
 
 import java.util.Map;
 
-import it.unibo.alienenterprises.controller.api.SceneController;
 import it.unibo.alienenterprises.controller.gamesession.GameSession;
 import it.unibo.alienenterprises.controller.gamesession.GameSessionFactory;
 import it.unibo.alienenterprises.controller.gamesession.GameSessionFactoryImpl;
 import it.unibo.alienenterprises.model.ModelImpl;
 import it.unibo.alienenterprises.model.api.Model;
+import it.unibo.alienenterprises.view.api.SceneController;
 
 public final class ControllerImpl implements Controller {
     private final Model model;

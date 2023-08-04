@@ -1,7 +1,7 @@
 package it.unibo.alienenterprises.controller;
 
-import it.unibo.alienenterprises.controller.api.SceneController;
 import it.unibo.alienenterprises.controller.gamesession.GameSession;
+import it.unibo.alienenterprises.view.api.SceneController;
 
 /**
  * Main controller of the game.
