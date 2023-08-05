@@ -3,7 +3,7 @@ package it.unibo.alienenterprises.model.api;
 import java.util.HashMap;
 
 /**
- * Spawn enemis in the game,
+ * Spawn enemis in the game.
  */
 public interface EnemySpawner {
     /**
@@ -18,6 +18,7 @@ public interface EnemySpawner {
     HashMap<Statistic, Integer> getStats();
     /**
      * Create a new enemy if the specified time has passed.
+     * @param deltaTime
      */
     void update(double deltaTime);
 }

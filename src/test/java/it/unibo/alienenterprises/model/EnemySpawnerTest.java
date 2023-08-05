@@ -12,7 +12,9 @@ import it.unibo.alienenterprises.model.api.components.InputComponent;
 import it.unibo.alienenterprises.model.geometry.Point2D;
 
 public class EnemySpawnerTest {
-    
+    /**
+     * Test to check if the map creation happens correctly.
+     */
     @Test
     public void checkMap() {
         var world = new GameWorld();
@@ -29,7 +31,9 @@ public class EnemySpawnerTest {
         assertEquals(30, map.get(Statistic.DEFENCE));
         assertEquals(30, map.get(Statistic.DAMAGE));
     }
-
+    /**
+     * Test to check if Game Object creation happens correctly.
+     */
     @Test
     public void checkGameObject() {
         var world = new GameWorld();
