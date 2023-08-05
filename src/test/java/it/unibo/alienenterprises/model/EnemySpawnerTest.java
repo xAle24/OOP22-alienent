@@ -10,7 +10,9 @@ import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.model.api.components.HitboxComponent;
 import it.unibo.alienenterprises.model.api.components.InputComponent;
 import it.unibo.alienenterprises.model.geometry.Point2D;
-
+/**
+ * Test class for enemySpawner.
+ */
 public class EnemySpawnerTest {
     /**
      * Test to check if the map creation happens correctly.
