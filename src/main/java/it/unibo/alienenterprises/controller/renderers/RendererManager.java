@@ -23,7 +23,6 @@ public class RendererManager {
     }
 
     public void render() {
-        this.canvasPaint.clearCanvas();
         this.canvasPaint.render();
     }
 }
