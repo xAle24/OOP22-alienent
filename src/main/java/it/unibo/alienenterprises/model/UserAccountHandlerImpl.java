@@ -31,43 +31,20 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
     // System.getProperty("user.home") + SEPARATOR + ".Alien Enterprises";
     private static final String YML = ".yml";
 
-    private boolean existingAccount(final String nickname) {
-        return Files.exists(Paths.get(GAME_PATH + SEPARATOR + nickname + YML));
-    }
-
-    private boolean correctPassword(final String nickname, final String password) {
-        try {
-            final Yaml yaml = new Yaml();
-            final FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + "passwords.yml");
-            final Map<String, String> passwordMap = yaml.load(inputStream);
-            inputStream.close();
-
-            return passwordMap.get(nickname).equals(password);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return false; // non dovrebbe giungere a questa riga
-    }
-
     /**
      * {@inheritDoc}
      */
     @Override
     public Optional<UserAccountImpl> login(final String nickname, final String password) {
         if (existingAccount(nickname) && correctPassword(nickname, password)) {
-            try {
+            try (FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + nickname + YML)) {
                 final Constructor constructor = new Constructor(UserAccountImpl.class, new LoaderOptions());
                 final TypeDescription accountDescription = new TypeDescription(UserAccountImpl.class);
                 accountDescription.addPropertyParameters("inventory", String.class, Integer.class);
                 constructor.addTypeDescription(accountDescription);
 
                 final Yaml yaml = new Yaml(constructor);
-                final FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + nickname + YML);
                 final UserAccountImpl userAccount = (UserAccountImpl) yaml.load(inputStream);
-
-                inputStream.close();
 
                 return Optional.of(userAccount);
 
@@ -86,19 +63,22 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
     public Optional<UserAccountImpl> registration(final String nickname, final String password) {
         if (!existingAccount(nickname)) {
             final File accountFile = new File(GAME_PATH + SEPARATOR + nickname + YML);
-            try {
+            try (FileWriter writer = new FileWriter(GAME_PATH + SEPARATOR + "passwords.yml",
+                    StandardCharsets.UTF_8,
+                    true);) {
                 accountFile.createNewFile();
-                final FileWriter writer = new FileWriter(GAME_PATH + SEPARATOR + "passwords.yml",
-                        StandardCharsets.UTF_8,
-                        true);
-                final Representer representer = new Representer(new DumperOptions());
-                representer.addClassTag(Map.class, new Tag("!Password"));
-                final Yaml yaml = new Yaml(representer);
+
+                final DumperOptions option = new DumperOptions();
+                option.setExplicitStart(true);
+                /*
+                 * final Representer representer = new Representer(option);
+                 * representer.addClassTag(Map.class, new Tag("!Password"));
+                 */
+                final Yaml yaml = new Yaml(option);
                 final Map<String, String> map = new HashMap<>();
                 map.put(nickname, password);
                 final String output = yaml.dump(map);
                 writer.append(output);
-                writer.close();
 
                 return Optional.of(new UserAccountImpl(nickname));
             } catch (Exception e) {
@@ -119,10 +99,34 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
             representer.addClassTag(UserAccountImpl.class, new Tag("!UserAccountImpl"));
             final Yaml yaml = new Yaml(representer);
             final String output = yaml.dump(account);
+            System.out.println(output);
             writer.append(output);
-            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    private boolean existingAccount(final String nickname) {
+        return Files.exists(Paths.get(GAME_PATH + SEPARATOR + nickname + YML));
+    }
+
+    private boolean correctPassword(final String nickname, final String password) {
+        try (final FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + "passwords.yml")) {
+            final Yaml yaml = new Yaml();
+            final Iterable<Object> document = yaml.loadAll(inputStream);
+            Map<String, String> passwordMap = new HashMap<>();
+
+            for (Object obj : document) {
+                passwordMap.putAll((Map<? extends String, ? extends String>) obj);
+            }
+
+            return passwordMap.get(nickname).equals(password);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false; // non dovrebbe giungere a questa riga
+    }
+
 }
