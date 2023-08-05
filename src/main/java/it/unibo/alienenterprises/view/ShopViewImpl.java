@@ -10,6 +10,7 @@ import java.util.Map;
 import it.unibo.alienenterprises.controller.api.ShopController;
 import it.unibo.alienenterprises.model.api.PowerUpRenderer;
 import it.unibo.alienenterprises.view.api.ShopView;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
@@ -38,6 +39,11 @@ public class ShopViewImpl extends BorderPane implements ShopView {
     // private static final String SEPARATOR = File.separator;
     // private static final String GAME_PATH = "src/main/resources/examplemvc";
     // System.getProperty("user.home") + SEPARATOR + ".Alien Enterprises";
+    private static final double SCREENWIDHT = Screen.getPrimary().getVisualBounds().getWidth();
+    private static final double SCREENHEIGHT = Screen.getPrimary().getVisualBounds().getHeight();
+
+    private Double widthUnit;
+    private Double heightUnit;
 
     private ShopController controller;
     private BorderPane box = new BorderPane();
@@ -81,61 +87,77 @@ public class ShopViewImpl extends BorderPane implements ShopView {
      * {@inheritDoc}
      */
     @Override
-    public BorderPane setUpShopView() {
+    public BorderPane showShopView() {
+
+        widthUnit = SCREENWIDHT / 28;
+        heightUnit = SCREENHEIGHT / 19.5;
+
+        box.getStylesheets().addAll(getClass().getResource(
+                "/css/ShopGui.css")
+                .toExternalForm());
 
         box.setId("box");
+        box.setMaxSize(SCREENWIDHT, SCREENHEIGHT);
 
-        /*
-         * box.getStylesheets().add(getClass().getResource(
-         * "css/ShopGui.css")
-         * .toExternalForm());
-         */
+        // Set shownScore
+        shownScore.setId("shownscore");
+        shownScore.setText(String.valueOf(controller.getUserAccount().getMoney()) + "$");
 
-        /* Setta titolo */
+        // Set upper part of the screen
+
+        // Set the user info
+        VBox user = new VBox();
+        user.setId("user");
+        user.getChildren().addAll(new Label(controller.getUserAccount().getNickname()),
+                shownScore);
+        BorderPane.setMargin(user, new Insets(widthUnit / 2, widthUnit / 2, widthUnit / 2, widthUnit / 2));
+        user.setPrefSize(widthUnit * 5, heightUnit * 2);
+
+        // Set the title
         Label title = new Label("SHOP");
         title.setId("title");
+        title.setLayoutX((SCREENWIDHT / 2) - title.getPrefWidth());
 
-        shownScore.setId("shownscore");
-        shownScore.setText(String.valueOf(controller.getUserAccount().getMoney()));
-
-        /* Setta l'exitButton */
+        // Set the exit button
         exitButton.setId("exitButton");
         setExitButton();
 
-        /* Setta GridPane */
+        // Fill the borderPane in the upper screen with all the elements
+        BorderPane top = new BorderPane();
+        top.setLeft(user);
+        top.setCenter(title);
+        top.setRight(exitButton);
+        BorderPane.setAlignment(user, Pos.CENTER);
+        BorderPane.setAlignment(title, Pos.CENTER);
+        BorderPane.setAlignment(exitButton, Pos.TOP_RIGHT);
+
+        // Set the scroll with a GridPane inside
         setScroll();
 
-        /* Infila tutto nella box */
-        box.setTop(title);
+        // Fill the borderPane with all the elements
+        box.setTop(top);
+        BorderPane.setAlignment(scroll, Pos.TOP_CENTER);
         box.setCenter(scroll);
+        BorderPane.setAlignment(bottom, Pos.TOP_LEFT);
         box.setBottom(bottom);
 
-        VBox rightSide = new VBox();
-        rightSide.getChildren().addAll(exitButton, shownScore);
-        box.setRight(rightSide);
-
+        // Set error message
         setPopUpWindow();
 
         this.box.setVisible(false);
+
+        setCheck();
+
+        this.box.setVisible(true);
 
         return this.box;
 
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void show() {
-
-        shownScore.setText(String.valueOf(controller.getUserAccount().getMoney()));
-        setCheck();
-
-        this.box.setVisible(true);
-    }
-
     private void setScroll() {
         GridPane grid = new GridPane();
+
+        grid.setId("grid");
 
         Iterator<PowerUpRenderer> iter = pwuInfo.iterator();
 
@@ -145,10 +167,12 @@ public class ShopViewImpl extends BorderPane implements ShopView {
         while (iter.hasNext()) {
             PowerUpRenderer curr = iter.next();
             VBox pwuBox = new VBox();
+            pwuBox.setId("pwubox");
             Image image = new Image(
                     "C:/Users/ginni/Desktop/ProgettoOOP/OOP22-alienent/src/main/resources/examplemvc/"
                             + curr.getImage());
             // GAME_PATH + SEPARATOR + curr.getImage());
+
             Button button = new Button();
             button.setGraphic(new ImageView(image));
             buttons.put(button, curr.getId());
@@ -187,9 +211,16 @@ public class ShopViewImpl extends BorderPane implements ShopView {
                     columNum++;
                 }
             }
+
         }
 
-        grid.setAlignment(Pos.CENTER);
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+
+        scroll.setId("scroll");
+
+        scroll.setMaxSize((screenBounds.getWidth() / 7) * 6, (screenBounds.getHeight() / 6) * 2);
+        grid.setHgap((scroll.getMaxWidth() / 12));
+        grid.setVgap(scroll.getMaxHeight() / 12);
         this.scroll.setContent(grid);
     }
 
@@ -236,10 +267,18 @@ public class ShopViewImpl extends BorderPane implements ShopView {
             buyButton.setPrefWidth(300); // Imposta la larghezza preferita a 200
             buyButton.setPrefHeight(50);
 
-            VBox bottomRightContainer = new VBox(buyButton);
-            bottomRightContainer.setAlignment(Pos.BOTTOM_RIGHT);
+            BorderPane rightContainer = new BorderPane();
+            rightContainer.setBottom(buyButton);
 
-            bottom.setRight(bottomRightContainer);
+            Button closeButton = new Button("X");
+            closeButton.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
+            closeButton.setOnAction(closePopup -> {
+                bottom.setVisible(false);
+            });
+            rightContainer.setTop(closeButton);
+
+            bottom.setRight(rightContainer);
+            bottom.setVisible(true);
 
         });
 
@@ -286,11 +325,10 @@ public class ShopViewImpl extends BorderPane implements ShopView {
     }
 
     private void setExitButton() {
-        // Image image = new Image(
-        // "C:/Users/ginni/Desktop/ProgettoOOP/OOP22-alienent/src/main/resources/examplemvc/cross.png");
-        // GAME_PATH + SEPARATOR + curr.getImage());
 
-        // exitButton.setGraphic(new ImageView(image));
+        BorderPane.setMargin(exitButton, new Insets(widthUnit / 4, widthUnit / 2, widthUnit / 4, widthUnit / 4));
+        exitButton.setPrefSize(widthUnit, widthUnit);
+
         exitButton.setOnAction(closeShop -> {
             this.box.setVisible(false);
         });

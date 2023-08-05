@@ -29,14 +29,5 @@ public interface ShopView {
      * 
      * @return
      */
-    BorderPane setUpShopView();
-
-    /**
-     * it shows the shop GUI.
-     * 
-     * @return
-     * 
-     */
-    void show();
-
+    BorderPane showShopView();
 }

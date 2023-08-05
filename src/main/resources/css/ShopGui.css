@@ -1,0 +1,91 @@
+box {
+  -fx-background-color: #ff00d4;
+  background-color: #ff00d4;
+  -fx-border-width: 1px;
+  border-width: 1px;
+  -fx-border-style: solid;
+  border-style: solid;
+  -fx-border-color: black;
+  border-color: black;
+
+  -fx-display: flex;
+  display: flex;
+}
+
+#title {
+  -fx-font-size: 50;
+  font-size: 50;
+  -fx-font-weight: bold;
+  font-weight: bold;
+  -fx-decoration-color: RED;
+  text-decoration-color: red;
+  -fx-font-family: fantasy;
+  font-family: fantasy;
+
+  -fx-text-align: center;
+  text-align: center;
+  -fx-padding: 10px;
+  padding: 10px;
+
+  -fx-border-width: 1px;
+  border-width: 1px;
+  -fx-border-style: solid;
+  border-style: solid;
+  -fx-border-color: black;
+  border-color: black;
+}
+
+#user {
+  -fx-font-size: 20px;
+  font-size: 20px;
+  -fx-decoration-color: BLACK;
+  text-decoration-color: black;
+  -fx-font-family: fantasy;
+  font-family: fantasy;
+  -fx-text-align: center;
+  text-align: center;
+
+  -fx-margin: 24px;
+  margin: 24px;
+  -fx-padding: 10px;
+  padding: 10px;
+
+  -fx-background-color: #99eee3;
+  background-color: #99eee3;
+  -fx-border-width: 2px;
+  border-width: 2px;
+  -fx-border-style: solid;
+  border-style: solid;
+  -fx-border-color: rgb(93, 212, 139);
+  border-color: rgb(93, 212, 139);
+}
+
+#exitButton {
+  -fx-background-image: url("/examplemvc/cross.png");
+  background-image: url("/examplemvc/cross.png");
+  -fx-background-size: cover;
+  background-size: cover;
+  -fx-background-position: center;
+  background-position: center;
+}
+
+#scroll {
+  -fx-margin: 10;
+  margin: 10;
+  -fx-padding: 10;
+  padding: 10;
+}
+
+#grid {
+  -fx-row-gap: 12.5px;
+  row-gap: 12.5px;
+  -fx-column-gap: 10px;
+  column-gap: 10px;
+}
+
+#pwubox {
+  -fx-width: 40px;
+  width: 40px;
+  -fx-height: 47.5px;
+  height: 47.5px;
+}
