@@ -3,3 +3,6 @@ playerclasses:
   - tank
   - sniper
 enemyclasses:
+  - enemyBomber
+  - enemyTank
+  - enemySniper
