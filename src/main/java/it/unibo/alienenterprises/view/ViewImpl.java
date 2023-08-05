@@ -20,7 +20,6 @@ import it.unibo.alienenterprises.model.impl.components.hitbox.BomberHitboxCompon
 import it.unibo.alienenterprises.model.impl.components.hitbox.SimpleShipHitboxComponentImpl;
 import it.unibo.alienenterprises.view.javafx.CanvasPainter;
 import it.unibo.alienenterprises.view.javafx.SceneLoader;
-import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -28,12 +27,11 @@ import javafx.stage.Stage;
 /**
  * Alien enterprises game jafaFX main.
  */
-public final class ViewImpl extends Application implements View {
+public final class ViewImpl implements View {
 
     private final SceneLoader loader = new SceneLoader();
     private Stage primaryStage;
 
-    @Override
     public void start(final Stage primaryStage) throws Exception {
         var gameSessionFac = new GameSessionFactoryImpl();
         var statMap1 = new HashMap<Statistic, Integer>();
@@ -93,16 +91,4 @@ public final class ViewImpl extends Application implements View {
         this.primaryStage.show();
 
     }
-
-    /**
-     * Program's entry point.
-     * 
-     * @param args
-     */
-
-    @Override
-    public void start(final String[] args) {
-        launch(args);
-    }
-
 }

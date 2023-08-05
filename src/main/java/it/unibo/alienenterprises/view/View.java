@@ -12,5 +12,5 @@ public interface View {
      * 
      * @param args
      */
-    void start(String[] args);
+    // void start(String[] args);
 }
