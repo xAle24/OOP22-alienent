@@ -1,0 +1,100 @@
+package it.unibo.alienenterprises.view;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+
+import org.yaml.snakeyaml.Yaml;
+
+//TODO Da sistemare
+public class PlayerInfoLoaderImpl implements ShipInfoLoader {
+    private static final String SEPARATOR = File.separator;
+    private static final String GAME_RESOURCES_PATH = "src" + SEPARATOR + "main" + SEPARATOR + "resources" + SEPARATOR
+            + "ships";
+    private static final String DESCRIPTIONS_PATH = GAME_RESOURCES_PATH + SEPARATOR + "playerInfo";
+    private static final String SHIP_LIST_FILE_PATH = GAME_RESOURCES_PATH + SEPARATOR + "shipList.yml";
+    private static final String FILE_SUFFIX = "Info.yml";
+    private static final String PLAYERS = "playerclasses";
+
+    private boolean isLoaded = false;
+    private Set<String> playerIds;
+    private final Map<String, PlayerClassInfo> infoMap = new HashMap<>();
+
+    public PlayerInfoLoaderImpl() {
+        try (final InputStream inputStream = new FileInputStream(SHIP_LIST_FILE_PATH)) {
+            System.out.println("ok");
+            final Yaml yaml = new Yaml();
+            System.out.println("ok");
+            final Map<String, List<String>> map = yaml.load(inputStream);
+            System.out.println("ok");
+            this.playerIds = Set.copyOf(map.get(PLAYERS));
+            System.out.println("ok");
+        } catch (final Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+    }
+
+    public PlayerInfoLoaderImpl(final Set<String> IdSet) {
+        this.playerIds = IdSet;
+    }
+
+    @Override
+    public void load() {
+        if(!this.isLoaded){
+            for (final var name : this.playerIds) {
+                try (final InputStream inputStream = new FileInputStream(
+                        DESCRIPTIONS_PATH + SEPARATOR + name + FILE_SUFFIX)) {
+                    final Yaml yaml = new Yaml();
+                    final PlayerClassInfo pInfo = yaml.loadAs(inputStream, PlayerClassInfoImpl.class);
+                    this.infoMap.put(name, pInfo);
+                } catch (final Exception e) {
+                    // TODO: handle exception
+                    e.printStackTrace();
+                }
+            }
+            this.isLoaded = true;
+        }
+    }
+
+    @Override
+    public Optional<String> getShipName(String id) {
+        this.checkIfLoaded();
+        if(infoMap.containsKey(id)){
+            return Optional.of(infoMap.get(id).getName());
+        }else{
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public Optional<String> getShipDescription(String id) {
+        this.checkIfLoaded();
+        if(infoMap.containsKey(id)){
+            return Optional.of(infoMap.get(id).getDescription());
+        }else{
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public Optional<String> getShipSpriteFilePath(String id) {
+        this.checkIfLoaded();
+        if(infoMap.containsKey(id)){
+            return Optional.of(infoMap.get(id).getSpriteFilePath());
+        }else{
+            return Optional.empty();
+        }
+    }
+
+    private void checkIfLoaded(){
+        if(!isLoaded){
+            throw new IllegalStateException("The data has not been loaded");
+        }
+    }
+}

@@ -1,29 +1,29 @@
 package it.unibo.alienenterprises.model.api.components;
 
-public interface PlayerInputComponent extends Component {
+import java.util.Optional;
 
-    enum Input{
-        /**
-         * Called when the player must accelerate.
-         */
-        ACCELERATE,
-        /**
-         * Called when the player stops accelerating.
-         */
-        STOP_ACCELERATE,
-        /**
-         * Called when player turns left.
-         */
-        TURN_LEFT,
-        /**
-         * Called when player turns right.
-         */
-        TURN_RIGHT,
-        /**
-         * Called when player stops turning.
-         */
-        STOP_TURN;
-    }
-    
-    void addInput (final Input input);
+import it.unibo.alienenterprises.model.api.InputSupplier;
+
+/**
+ * PlayerInputComponent
+ */
+public interface PlayerInputComponent extends InputComponent {
+
+    /**
+     * @return the input supplier of the component if any
+     */
+    public InputSupplier getInputSupplier();
+
+    /**
+     * Set the given input supplier if neded
+     * 
+     * @param inputSupplier
+     */
+    public void setInputSupplier(InputSupplier inputSupplier);
+
+    /**
+     * @return
+     */
+    public Optional<ShooterComponent> getShooterComponent();
+
 }

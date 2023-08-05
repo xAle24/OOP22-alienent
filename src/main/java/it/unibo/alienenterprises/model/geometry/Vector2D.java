@@ -26,12 +26,6 @@ public class Vector2D {
      */
     public static Vector2D fromAngleAndModule(final double angle, final double module) {
         var r = Math.toRadians(angle);
-        var angTr = Math.toDegrees(r);
-        if (angTr == 270 || angTr == 90) {
-            return angTr == 270 ? new Vector2D(0, -module) : new Vector2D(0, module);
-        } else if (angTr == 0 || angTr == 180) {
-            return angTr == 0 ? new Vector2D(module, 0) : new Vector2D(-module, 0);
-        }
         return new Vector2D(module * Math.cos(r), module * Math.sin(r));
     }
 
@@ -59,7 +53,8 @@ public class Vector2D {
             }
             return yComp < 0 ? 270 : 90;
         }
-        return Math.toDegrees(Math.atan(yComp / xComp));
+        final var aTan = Math.toDegrees(Math.atan(yComp / xComp));
+        return xComp<0 ? aTan+180 : aTan;
     }
 
     /**
@@ -85,6 +80,20 @@ public class Vector2D {
         return new Vector2D(xComp + vec.getxComp(), yComp + vec.getyComp());
     }
 
+    /**
+     * Multipy the vector for the given number
+     * @param a
+     * @return A new vector equal to the multiplication
+     */
+    public Vector2D mul(final double a) {
+        return new Vector2D(this.xComp * a, this.yComp * a);
+    }
+
+    @Override
+    public String toString() {
+        return "Vector2D [xComp=" + getxComp() + ", yComp=" + getyComp() + "]";
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -99,17 +108,22 @@ public class Vector2D {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         Vector2D other = (Vector2D) obj;
-        if (Double.doubleToLongBits(xComp) != Double.doubleToLongBits(other.xComp))
+        if (Double.doubleToLongBits(xComp) != Double.doubleToLongBits(other.xComp)) {
             return false;
-        if (Double.doubleToLongBits(yComp) != Double.doubleToLongBits(other.yComp))
+        }
+        if (Double.doubleToLongBits(yComp) != Double.doubleToLongBits(other.yComp)) {
             return false;
+        }
         return true;
     }
 

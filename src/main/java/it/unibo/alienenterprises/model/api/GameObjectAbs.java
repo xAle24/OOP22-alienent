@@ -1,21 +1,22 @@
 package it.unibo.alienenterprises.model.api;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import it.unibo.alienenterprises.model.api.components.Component;
-import it.unibo.alienenterprises.model.api.components.HitboxComponent;
 import it.unibo.alienenterprises.model.geometry.Point2D;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
 
 /**
  * Implements methods common to all objects.
  */
-public abstract class GameObjectAbs implements GameObject {
+public class GameObjectAbs implements GameObject {
     private Point2D position;
     private Vector2D velocity;
+    private int health;
     private Map<Statistic, Integer> stats; 
     private Set<Component> component;
 
@@ -25,15 +26,18 @@ public abstract class GameObjectAbs implements GameObject {
      * @param vector
      * @param stat
      */
-    public GameObjectAbs(final Point2D pos, final Vector2D vector, final Map<Statistic, Integer> stat, final Component... components) {
+    public GameObjectAbs(final Point2D pos, final Vector2D vector, final Map<Statistic, Integer> stat) {
         this.position = pos;
         this.velocity = vector;
         this.stats = stat;
-        this.component = new HashSet<>(Set.of(components));
+        this.health = stat.get(Statistic.HP);
+        this.component = new HashSet<Component>();
     }
 
     @Override
-    public abstract boolean isAlive();
+    public boolean isAlive(){
+        return this.getStatValue(Statistic.HP) > 0 ? true : false;
+    }
     /**
      * return the position of the object.
      * @return the object position 
@@ -106,11 +110,31 @@ public abstract class GameObjectAbs implements GameObject {
     public void addComponent(final Component component) {
         this.component.add(component);
     }
+
+    @Override
+    public void hit(int dmg) {
+        this.health = this.health - dmg;
+    }
+
+    @Override
+    public void heal(int heal) {
+        this.health = this.health + heal;
+    }
     /**
      * Update the game object.
      */
     @Override
-    public void update() {
-        getAllComponent().stream().filter(e -> !e.getClass().equals(HitboxComponent.class)).forEach(e -> e.handle(this));
+    public void update(final double deltatime) {
+        getAllComponent().stream().forEach(e -> e.update(deltatime));
+    }
+
+    @Override
+    public int gethealth() {
+        return this.health;
+    }
+
+    @Override
+    public void addAllComponent(Collection<Component> components) {
+        this.component.addAll(components);
     }
 }

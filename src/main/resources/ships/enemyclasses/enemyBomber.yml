@@ -1,0 +1,24 @@
+!it.unibo.alienenterprises.controller.ShipProp
+stats:
+  HP: 30
+  SPEED: 65
+  DAMAGE: 50
+  DEFENCE: 3
+  PROJECTILESPEED: 20
+  COOLDOWN: 1
+  RECOVERY: 1
+components:
+  InputComponentBomberImpl:
+    -
+      type: BOOLEAN
+      value: "TRUE"
+  hitbox.BomberHitboxComponentImpl:
+    -
+      type: BOOLEAN
+      value: "TRUE"
+    -
+      type: HITBOXTYPE
+      value: ENEMY
+    -
+      type: INT
+      value: "20"

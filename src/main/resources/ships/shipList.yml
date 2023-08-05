@@ -1,0 +1,8 @@
+playerclasses:
+  - standard
+  - tank
+  - sniper
+enemyclasses:
+  - enemyBomber
+  - enemyTank
+  - enemySniper
