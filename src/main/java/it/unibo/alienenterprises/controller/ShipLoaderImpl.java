@@ -29,7 +29,7 @@ public class ShipLoaderImpl implements ShipLoader {
 
     private static final String SEPARATOR = File.separator;
     private static final String GAME_PATH = "src" + SEPARATOR + "main" + SEPARATOR + "resources" + SEPARATOR + "ships";
-    private static final String SHIPLIST_FILE = "shipList";
+    private static final String SHIPLIST_FILE = GAME_PATH + SEPARATOR + "shipList.yml";
     private static final String PLAYER_FOLDER = "playerclasses";
     private static final String ENEMY_FOLDER = "enemyclasses";
 
@@ -57,7 +57,7 @@ public class ShipLoaderImpl implements ShipLoader {
     }
 
     public ShipLoaderImpl(final Object... factories) {
-        try (final InputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + SHIPLIST_FILE + YAML)) {
+        try (final InputStream inputStream = new FileInputStream(SHIPLIST_FILE)) {
             final Yaml yaml = new Yaml();
             final Map<String, List<String>> map = yaml.load(inputStream);
             if (map.get(PLAYER_FOLDER) != null) {
