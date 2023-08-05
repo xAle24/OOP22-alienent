@@ -11,6 +11,8 @@ import it.unibo.alienenterprises.view.javafx.SceneLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -28,9 +30,7 @@ public class PlayerClassMenu extends BorderPane {
 
     private final VBox left = new VBox();
     private final GridPane center = new GridPane();
-    private final VBox bottom = new VBox();
-
-    private Text bottomTextArea = new Text("Qui ci va la descrizione e l'immagine");
+    private final BorderPane bottom = new BorderPane();
 
     private final List<Button> buttons = new ArrayList<>();
 
@@ -51,7 +51,6 @@ public class PlayerClassMenu extends BorderPane {
         buttons.get(0).fire();
         container.setCenter(this.center);
 
-        this.bottom.getChildren().add(this.bottomTextArea);
         container.setBottom(this.bottom);
 
         this.setCenter(container);
@@ -72,6 +71,11 @@ public class PlayerClassMenu extends BorderPane {
             for (int t = j; t < list.size() && t < j + NUM_BUTTONS_RAW; t++) {
                 id = list.get(t);
                 final Button button = new Button(controller.getName(id).get());
+                //System.out.println(controller.getSpritePath(id).get());
+                var img = new ImageView(controller.getSpritePath(id).get());
+                img.setFitWidth(50);
+                img.setFitHeight(50);
+                button.setGraphic(img);
                 setAction(button, id);
                 this.buttons.add(button);
                 center.add(button, t-j, i);
@@ -84,7 +88,16 @@ public class PlayerClassMenu extends BorderPane {
             buttons.forEach((b)->b.setDisable(false));
             button.setDisable(true);
             showStats(controller.getStats(id).get());
-            bottomTextArea.setText(controller.getDescription(id).get());
+            
+            bottom.getChildren().clear();
+            
+            final var img = new ImageView(controller.getSpritePath(id).get());
+            img.setFitHeight(150);
+            img.setFitWidth(150);
+            bottom.setLeft(img);
+
+            bottom.setCenter(new Text(controller.getDescription(id).get()));
+
             controller.select(id);
         });
     }
