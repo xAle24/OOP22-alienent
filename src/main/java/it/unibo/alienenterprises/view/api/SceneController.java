@@ -2,6 +2,7 @@ package it.unibo.alienenterprises.view.api;
 
 import it.unibo.alienenterprises.view.ViewType;
 import it.unibo.alienenterprises.view.controllers.InitController;
+import it.unibo.alienenterprises.view.viewstates.ViewState;
 import javafx.scene.Scene;
 
 /**
@@ -30,4 +31,10 @@ public interface SceneController {
      * @return the current controller.
      */
     InitController getCurrentController();
+
+    /**
+     * 
+     * @return
+     */
+    ViewState getViewState();
 }

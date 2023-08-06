@@ -2,6 +2,7 @@ package it.unibo.alienenterprises.view.controllers;
 
 import it.unibo.alienenterprises.controller.Controller;
 import it.unibo.alienenterprises.view.ViewType;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -22,9 +23,10 @@ public class GameStageController implements InitController {
     }
 
     @FXML
-    private void handleQuit() {
+    private void handleQuit(ActionEvent event) {
         this.controller.getGameSession().gameOver();
         this.controller.changeScene(ViewType.GAMEOVER);
+        event.consume();
     }
 
 }

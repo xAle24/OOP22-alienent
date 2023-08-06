@@ -32,13 +32,6 @@ public final class GameLoopThread extends Thread implements GameLoop {
 
     @Override
     public void run() {
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
         long previousStart = System.currentTimeMillis();
         while (!this.stopped) {
             if (this.paused) {

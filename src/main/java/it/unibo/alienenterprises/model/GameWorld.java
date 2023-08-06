@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import it.unibo.alienenterprises.model.api.GameObject;
+import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.model.api.World;
 import it.unibo.alienenterprises.model.api.components.HitboxComponent;
 import it.unibo.alienenterprises.model.collisionhandler.CollisionHandler;
@@ -14,6 +15,7 @@ public final class GameWorld implements World {
     private final CollisionHandler collisionHandler;
     private Set<GameObject> gameObjects;
     private Set<GameObject> deadGameObjects;
+    private int score;
 
     public GameWorld() {
         this.collisionHandler = new SimpleCollisionHandler();
@@ -30,7 +32,10 @@ public final class GameWorld implements World {
                 o.update(deltaTime);
             }
         });
-        this.deadGameObjects.forEach(o -> this.removeGameObject(o));
+        this.deadGameObjects.forEach(o -> {
+            this.removeGameObject(o);
+            this.score += o.getStatValue(Statistic.DAMAGE) * 100;
+        });
         this.deadGameObjects.clear();
         this.collisionHandler.checkCollisions();
     }
@@ -56,8 +61,8 @@ public final class GameWorld implements World {
     }
 
     @Override
-    public void notifyScore(int score) {
-
+    public int getScore() {
+        return this.score;
     }
 
 }

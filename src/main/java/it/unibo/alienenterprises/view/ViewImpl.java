@@ -1,6 +1,7 @@
 package it.unibo.alienenterprises.view;
 
 import it.unibo.alienenterprises.controller.Controller;
+import it.unibo.alienenterprises.view.viewstates.ViewState;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -27,14 +28,15 @@ public final class ViewImpl implements View {
         this.primaryStage.setTitle(TITLE);
         this.primaryStage.setMinHeight(MIN_HEIGHT);
         this.primaryStage.setMinWidth(MIN_WIDTH);
-        this.controller.changeScene(ViewType.MAINMENU);
+        this.controller.changeScene(ViewType.GAMESTAGE);
         this.primaryStage.setScene(this.controller.getSceneController().getCurrentScene());
         this.primaryStage.setScene(new Scene(new BorderPane()));
         this.primaryStage.show();
     }
 
     @Override
-    public void setScene() {
+    public void setScene(ViewState state) {
+        state.init(this.primaryStage);
         this.primaryStage.setScene(this.controller.getSceneController().getCurrentScene());
         this.primaryStage.show();
     }

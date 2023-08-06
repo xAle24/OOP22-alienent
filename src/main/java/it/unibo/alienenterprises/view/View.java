@@ -1,6 +1,7 @@
 package it.unibo.alienenterprises.view;
 
 import it.unibo.alienenterprises.controller.Controller;
+import it.unibo.alienenterprises.view.viewstates.ViewState;
 
 /**
  * View interface.
@@ -16,7 +17,9 @@ public interface View {
     /**
      * Sets the scene that has to be shown.
      * 
+     * @param viewState
+     * 
      * @param scene
      */
-    void setScene();
+    void setScene(ViewState viewState);
 }

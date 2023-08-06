@@ -18,7 +18,9 @@ public class JFXSceneLoader implements SceneLoader {
     public Parent getParent(final ViewType type) {
         final String path = PATH_START + type.toString().toLowerCase() + PATH_END;
         try {
-            final Parent root = this.fxmlLoader.load(getClass().getResourceAsStream(path));
+            var res = getClass().getResource(path);
+            this.fxmlLoader.setLocation(res);
+            final Parent root = this.fxmlLoader.load();
             return root;
         } catch (Exception e) {
             e.printStackTrace();
@@ -28,6 +30,6 @@ public class JFXSceneLoader implements SceneLoader {
 
     @Override
     public InitController getCurrentController() {
-        return fxmlLoader.getController();
+        return this.fxmlLoader.getController();
     }
 }

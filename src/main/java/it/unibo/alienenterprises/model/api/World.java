@@ -27,9 +27,9 @@ public interface World {
     public void addAllGameObjects(GameObject... objects);
 
     /**
-     * When the game is over, pass the score to the model
+     * get the current score
      * 
-     * @param score the end game score
+     * @return the score
      */
-    public void notifyScore(int score);
+    public int getScore();
 }

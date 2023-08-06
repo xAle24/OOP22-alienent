@@ -9,13 +9,6 @@ import it.unibo.alienenterprises.controller.api.GameLoop;
 public interface GameSession {
 
     /**
-     * Get the current match's score.
-     * 
-     * @return the current match's score.
-     */
-    int getScore();
-
-    /**
      * Get the current session's GameLoop.
      * 
      * @return the current session's GameLoop.

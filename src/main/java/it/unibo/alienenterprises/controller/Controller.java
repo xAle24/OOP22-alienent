@@ -43,4 +43,9 @@ public interface Controller {
      * @return the account handler.
      */
     UserAccountHandler getUserAccountHandler();
+
+    /**
+     * Save the game.
+     */
+    void save();
 }
