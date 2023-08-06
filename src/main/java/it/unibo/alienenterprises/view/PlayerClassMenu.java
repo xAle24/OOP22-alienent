@@ -1,7 +1,6 @@
 package it.unibo.alienenterprises.view;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,15 +9,12 @@ import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.view.javafx.SceneLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 
 public class PlayerClassMenu extends BorderPane {
 
@@ -71,7 +67,6 @@ public class PlayerClassMenu extends BorderPane {
             for (int t = j; t < list.size() && t < j + NUM_BUTTONS_RAW; t++) {
                 id = list.get(t);
                 final Button button = new Button(controller.getName(id).get());
-                //System.out.println(controller.getSpritePath(id).get());
                 var img = new ImageView(controller.getSpritePath(id).get());
                 img.setFitWidth(50);
                 img.setFitHeight(50);

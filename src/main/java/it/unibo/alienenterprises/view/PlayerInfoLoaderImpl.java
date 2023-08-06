@@ -87,9 +87,8 @@ public class PlayerInfoLoaderImpl implements ShipInfoLoader {
     public Optional<String> getShipSpriteFilePath(String id) {
         this.checkIfLoaded();
         if (infoMap.containsKey(id)) {
-            //return Optional.of(SPRITES_PATH + infoMap.get(id).getSpriteFilePath());
-            final File f = new File(SPRITES_PATH + id);
-            return Optional.of(f.getAbsolutePath()+ ".png");
+            final File f = new File(SPRITES_PATH + infoMap.get(id).getSpriteFilePath());
+            return Optional.of(f.getAbsolutePath());
         } else {
             return Optional.empty();
         }
