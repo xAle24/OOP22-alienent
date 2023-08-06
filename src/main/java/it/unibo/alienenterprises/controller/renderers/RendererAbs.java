@@ -1,9 +1,7 @@
 package it.unibo.alienenterprises.controller.renderers;
 
 import it.unibo.alienenterprises.model.api.GameObject;
-import it.unibo.alienenterprises.view.javafx.CanvasPainter;
 import it.unibo.alienenterprises.view.sprites.Sprite;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 
 /**

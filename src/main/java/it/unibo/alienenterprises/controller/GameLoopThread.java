@@ -1,14 +1,9 @@
 package it.unibo.alienenterprises.controller;
 
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
-
 import it.unibo.alienenterprises.controller.api.GameLoop;
-import it.unibo.alienenterprises.model.GameWorld;
+import it.unibo.alienenterprises.controller.renderers.RendererManager;
 import it.unibo.alienenterprises.model.api.World;
-import it.unibo.alienenterprises.view.View;
-import it.unibo.alienenterprises.view.renderers.RendererManager;
 
 /**
  * Implementation of the GameLoop interface.
@@ -18,7 +13,7 @@ public final class GameLoopThread extends Thread implements GameLoop {
     private static final int MAX_INPUT = 5;
     private final World world;
     private final RendererManager rendererManager;
-    private Map<UserTag, String> inputQueue;
+    // private Map<UserTag, String> inputQueue;
     private boolean stopped;
     private boolean paused;
 
@@ -58,7 +53,6 @@ public final class GameLoopThread extends Thread implements GameLoop {
                 }
             }
             long currentStart = System.currentTimeMillis();
-            System.out.println("Ciao" + currentStart);
             long elapsed = currentStart - previousStart;
             this.processInput();
             this.updateGame(elapsed / 1000.0);

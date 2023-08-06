@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.unibo.alienenterprises.model.api.GameObject;
-import it.unibo.alienenterprises.view.View;
 import it.unibo.alienenterprises.view.javafx.CanvasPainter;
 
 public class RendererManager {
