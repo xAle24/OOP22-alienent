@@ -1,24 +1,33 @@
 package it.unibo.alienenterprises.view.api;
 
+import java.util.List;
+
+import it.unibo.alienenterprises.model.api.PowerUpRenderer;
+import javafx.scene.layout.BorderPane;
+
 /**
  * ShopView.
  */
 public interface ShopView {
 
     /**
-     * it shows the shop GUI.
+     * It saves the list containing the pwu info inside a collection.
      * 
-     * @return
-     * 
+     * @param pwuInfo
      */
-    void show();
+    void loadPwuInfo(List<PowerUpRenderer> pwuInfo);
 
     /**
-     * it start the shop GUI.
+     * It returns a list of PowerUpEenderer
      * 
      * @return
-     * 
      */
-    void start();
+    List<PowerUpRenderer> getInfo();
 
+    /**
+     * It setUps all the elements inside the GUI and returns
+     * 
+     * @return
+     */
+    BorderPane showShopView();
 }

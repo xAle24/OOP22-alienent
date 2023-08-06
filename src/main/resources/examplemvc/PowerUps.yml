@@ -34,3 +34,51 @@ statModifiers:
   PROJECTILESPEED: 0
   COOLDOWN: 0
   RECOVERY: 0
+---
+id: "Defence"
+cost: 400
+maxLevel: 4
+statModifiers:
+  HP: 0
+  SPEED: 0
+  DAMAGE: 0
+  DEFENCE: 5
+  PROJECTILESPEED: 0
+  COOLDOWN: 0
+  RECOVERY: 0
+---
+id: "ProjectileSpeed"
+cost: 700
+maxLevel: 5
+statModifiers:
+  HP: 0
+  SPEED: 0
+  DAMAGE: 0
+  DEFENCE: 0
+  PROJECTILESPEED: 5
+  COOLDOWN: 0
+  RECOVERY: 0
+---
+id: "Cooldown"
+cost: 100
+maxLevel: 2
+statModifiers:
+  HP: 0
+  SPEED: 0
+  DAMAGE: 0
+  DEFENCE: 0
+  PROJECTILESPEED: 0
+  COOLDOWN: 5
+  RECOVERY: 0
+---
+id: "Recovery"
+cost: 800
+maxLevel: 5
+statModifiers:
+  HP: 0
+  SPEED: 0
+  DAMAGE: 0
+  DEFENCE: 0
+  PROJECTILESPEED: 0
+  COOLDOWN: 0
+  RECOVERY: 5

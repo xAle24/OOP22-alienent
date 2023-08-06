@@ -45,7 +45,7 @@ public interface UserAccount {
      * @return
      * 
      */
-    void setInventory(Map<Integer, Integer> newInventory);
+    void setInventory(Map<String, Integer> newInventory);
 
     /**
      * 
@@ -94,6 +94,15 @@ public interface UserAccount {
     int getCurrLevel(String id);
 
     /**
+     * Return the toAddPwu map, which is a map filled with the statistic percentage
+     * to add at the start of each game.
+     * 
+     * @return a map filled with the statistic percentage
+     *         to add at the start of each game.
+     */
+    Map<Statistic, Integer> getToAddPwu();
+
+    /**
      * 
      * Add the id, corresponding to a PWU, to the user's inventory.
      * 
@@ -102,15 +111,6 @@ public interface UserAccount {
      * 
      */
     void updateInventory(String id);
-
-    /**
-     * Return the toAddPwu map, which is a map filled with the statistic percentage
-     * to add at the start of each game.
-     * 
-     * @return a map filled with the statistic percentage
-     *         to add at the start of each game.
-     */
-    Map<Statistic, Integer> getToAddPwu();
 
     /**
      * Update the map toAddPwu with the new statistic, after buying a new pwu.

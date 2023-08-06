@@ -64,8 +64,8 @@ public class UserAccountImpl implements UserAccount {
      * {@inheritDoc}
      */
     @Override
-    public void setInventory(final Map<Integer, Integer> newInventory) {
-        this.inventory.putAll(inventory);
+    public void setInventory(final Map<String, Integer> newInventory) {
+        this.inventory.putAll(newInventory);
     }
 
     /**
@@ -104,6 +104,14 @@ public class UserAccountImpl implements UserAccount {
      * {@inheritDoc}
      */
     @Override
+    public Map<Statistic, Integer> getToAddPwu() {
+        return this.toAddPwu;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public int getCurrLevel(final String id) {
         return inventory.containsKey(id) ? this.inventory.get(id) : 0;
     }
@@ -113,19 +121,7 @@ public class UserAccountImpl implements UserAccount {
      */
     @Override
     public void updateInventory(final String id) {
-        if (!inventory.containsKey(id)) {
-            inventory.put(id, 1);
-        } else {
-            this.inventory.computeIfPresent(id, (k, v) -> v + 1);
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Map<Statistic, Integer> getToAddPwu() {
-        return this.toAddPwu;
+        this.inventory.merge(id, 1, (k, v) -> v + 1);
     }
 
     /**
@@ -137,13 +133,10 @@ public class UserAccountImpl implements UserAccount {
             toAddPwu.putAll(mapToAdd);
         } else {
             mapToAdd.forEach((s, i) -> {
-                if (toAddPwu.get(s) == 0) {
-                    toAddPwu.replace(s, i);
-                } else {
-                    toAddPwu.replace(s, toAddPwu.get(s) + i);
-                }
+                toAddPwu.compute(s, (k, v) -> v == 0 ? i : v + 1);
             });
         }
+
     }
 
 }
