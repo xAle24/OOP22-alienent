@@ -1,5 +1,7 @@
 package it.unibo.alienenterprises.model.api;
 
+import it.unibo.alienenterprises.model.WorldDimensions;
+
 /**
  * The main model of the game.
  */
@@ -11,6 +13,13 @@ public interface World {
      * @param deltaTime time elapsed since last update
      */
     public void update(double deltaTime);
+
+    /**
+     * Get the dimensions of the {@link World}
+     * 
+     * @return
+     */
+    public Dimensions getWorldDimensions();
 
     /**
      * Adds a GameObject to the list of gameobjects at play.

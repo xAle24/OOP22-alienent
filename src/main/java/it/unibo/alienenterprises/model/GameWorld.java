@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import it.unibo.alienenterprises.model.api.Dimensions;
 import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.model.api.World;
@@ -16,8 +17,10 @@ public final class GameWorld implements World {
     private Set<GameObject> gameObjects;
     private Set<GameObject> deadGameObjects;
     private int score;
+    private Dimensions worldDimensions;
 
-    public GameWorld() {
+    public GameWorld(Dimensions worldDimensions) {
+        this.worldDimensions = worldDimensions;
         this.collisionHandler = new SimpleCollisionHandler();
         this.gameObjects = new HashSet<>();
         this.deadGameObjects = new HashSet<>();
@@ -63,6 +66,11 @@ public final class GameWorld implements World {
     @Override
     public int getScore() {
         return this.score;
+    }
+
+    @Override
+    public Dimensions getWorldDimensions() {
+        return this.worldDimensions;
     }
 
 }

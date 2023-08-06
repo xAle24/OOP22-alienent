@@ -1,6 +1,7 @@
 package it.unibo.alienenterprises.view;
 
 import it.unibo.alienenterprises.controller.Controller;
+import it.unibo.alienenterprises.model.geometry.Point2D;
 import it.unibo.alienenterprises.view.viewstates.ViewState;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -39,6 +40,11 @@ public final class ViewImpl implements View {
         state.init(this.primaryStage);
         this.primaryStage.setScene(this.controller.getSceneController().getCurrentScene());
         this.primaryStage.show();
+    }
+
+    @Override
+    public Point2D getWidthHeight() {
+        return new Point2D(this.primaryStage.getWidth(), this.primaryStage.getHeight());
     }
 
 }

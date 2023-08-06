@@ -7,8 +7,16 @@ import it.unibo.alienenterprises.view.ViewImpl;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+/**
+ * This class starts the JavaFX thread and launches the game within it.
+ */
 public class AppStart extends Application {
 
+    /**
+     * Initialize the {@link Application}
+     * 
+     * @param args
+     */
     public void init(final String[] args) {
         launch(args);
     }
