@@ -44,7 +44,7 @@ public class Vector2D {
      * @param module the module of the resulting vector
      * @return the vector with the direction from a to b and the given module
      */
-    public static Vector2D fromTwoPointsModule(final Point2D a, final Point2D b, final double module) {
+    public static Vector2D fromTwoPointsAndModule(final Point2D a, final Point2D b, final double module) {
         var vet = fromTwoPoints(a, b);
         return fromAngleAndModule(vet.getAngle(), module);
     }
