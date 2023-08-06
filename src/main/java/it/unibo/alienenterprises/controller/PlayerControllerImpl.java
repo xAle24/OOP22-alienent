@@ -12,14 +12,14 @@ import it.unibo.alienenterprises.model.impl.ProjectileSupplierFactoryImpl;
 import it.unibo.alienenterprises.view.PlayerInfoLoaderImpl;
 import it.unibo.alienenterprises.view.ShipInfoLoader;
 
-public class PlayerMenuControllerImpl implements PlayerMenuController {
+public class PlayerControllerImpl implements PlayerController {
 
     private final World world;
     private final Map<String, GameObject> playerMap;
     private final ShipInfoLoader info;
     private Optional<String> selected = Optional.empty();
 
-    public PlayerMenuControllerImpl(final World world) {
+    public PlayerControllerImpl(final World world) {
         this.world = world;
         this.playerMap = new ShipLoaderImpl(new ProjectileSupplierFactoryImpl(world)).loadPlayerClasses();
         this.info = new PlayerInfoLoaderImpl(playerMap.keySet());

@@ -11,13 +11,12 @@ import java.util.Set;
 
 import org.yaml.snakeyaml.Yaml;
 
-//TODO Da sistemare
 public class PlayerInfoLoaderImpl implements ShipInfoLoader {
     private static final String SEPARATOR = File.separator;
     private static final String GAME_RESOURCES_PATH = "src" + SEPARATOR + "main" + SEPARATOR + "resources" + SEPARATOR
             + "ships" + SEPARATOR;
-    private static final String DESCRIPTIONS_PATH = GAME_RESOURCES_PATH  + "playerInfo" + SEPARATOR;
-    private static final String SHIP_LIST_FILE_PATH = GAME_RESOURCES_PATH  + "shipList.yml";
+    private static final String DESCRIPTIONS_PATH = GAME_RESOURCES_PATH + "playerInfo" + SEPARATOR;
+    private static final String SHIP_LIST_FILE_PATH = GAME_RESOURCES_PATH + "shipList.yml";
     private static final String SPRITES_PATH = GAME_RESOURCES_PATH + "sprites" + SEPARATOR;
     private static final String FILE_SUFFIX = "Info.yml";
     private static final String PLAYERS = "playerclasses";
@@ -26,6 +25,10 @@ public class PlayerInfoLoaderImpl implements ShipInfoLoader {
     private Set<String> playerIds;
     private final Map<String, PlayerClassInfo> infoMap = new HashMap<>();
 
+    /**
+     * Create a new PlayerInfoLoaderImpl taking the id set from the playerclasses
+     * section of the file shipList
+     */
     public PlayerInfoLoaderImpl() {
         try (final InputStream inputStream = new FileInputStream(SHIP_LIST_FILE_PATH)) {
             System.out.println("ok");
@@ -41,6 +44,11 @@ public class PlayerInfoLoaderImpl implements ShipInfoLoader {
         }
     }
 
+    /**
+     * Create a new PlayerInfoLoaderImpl of the ships contained in the IdSet
+     * 
+     * @param IdSet Identifiers of the ships
+     */
     public PlayerInfoLoaderImpl(final Set<String> IdSet) {
         this.playerIds = IdSet;
     }
@@ -50,7 +58,7 @@ public class PlayerInfoLoaderImpl implements ShipInfoLoader {
         if (!this.isLoaded) {
             for (final var name : this.playerIds) {
                 try (final InputStream inputStream = new FileInputStream(
-                        DESCRIPTIONS_PATH  + name + FILE_SUFFIX)) {
+                        DESCRIPTIONS_PATH + name + FILE_SUFFIX)) {
                     final Yaml yaml = new Yaml();
                     final PlayerClassInfo pInfo = yaml.loadAs(inputStream, PlayerClassInfoImpl.class);
                     this.infoMap.put(name, pInfo);

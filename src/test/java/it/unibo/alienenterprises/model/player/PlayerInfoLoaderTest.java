@@ -1,11 +1,9 @@
 package it.unibo.alienenterprises.model.player;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import it.unibo.alienenterprises.view.PlayerClassInfoLoader;
 import it.unibo.alienenterprises.view.PlayerInfoLoaderImpl;
 import it.unibo.alienenterprises.view.ShipInfoLoader;
 

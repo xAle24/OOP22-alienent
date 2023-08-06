@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import it.unibo.alienenterprises.controller.PlayerMenuController;
+import it.unibo.alienenterprises.controller.PlayerController;
 import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.view.javafx.SceneLoader;
 import javafx.geometry.Pos;
@@ -22,7 +22,7 @@ public class PlayerClassMenu extends BorderPane {
 
     private static final int NUM_BUTTONS_RAW = 3;
 
-    private final PlayerMenuController controller;
+    private final PlayerController controller;
 
     private final VBox left = new VBox();
     private final GridPane center = new GridPane();
@@ -30,7 +30,7 @@ public class PlayerClassMenu extends BorderPane {
 
     private final List<Button> buttons = new ArrayList<>();
 
-    public PlayerClassMenu(final PlayerMenuController controller, final SceneLoader sceneLoader) {
+    public PlayerClassMenu(final PlayerController controller, final SceneLoader sceneLoader) {
         super();
         this.controller = controller;
 
