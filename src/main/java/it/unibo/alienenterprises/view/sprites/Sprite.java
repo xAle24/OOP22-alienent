@@ -2,8 +2,6 @@ package it.unibo.alienenterprises.view.sprites;
 
 import it.unibo.alienenterprises.model.geometry.Point2D;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
-import it.unibo.alienenterprises.view.javafx.CanvasPainter;
-import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

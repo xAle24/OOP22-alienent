@@ -1,6 +1,6 @@
 package it.unibo.alienenterprises.view.api;
 
-import it.unibo.alienenterprises.view.SceneType;
+import it.unibo.alienenterprises.view.ViewType;
 import it.unibo.alienenterprises.view.controllers.InitController;
 import javafx.scene.Scene;
 
@@ -15,7 +15,7 @@ public interface SceneController {
      * 
      * @param type the type of Scene that is being requested.
      */
-    void setCurrentScene(SceneType type);
+    void setCurrentScene(ViewType type);
 
     /**
      * Get the current scene.

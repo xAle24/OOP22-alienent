@@ -1,21 +1,21 @@
 package it.unibo.alienenterprises.view.javafx;
 
-import it.unibo.alienenterprises.view.SceneType;
+import it.unibo.alienenterprises.view.ViewType;
 import it.unibo.alienenterprises.view.api.SceneController;
 import it.unibo.alienenterprises.view.controllers.InitController;
 import javafx.scene.Scene;
 
 public class JFXSceneController implements SceneController {
-    private final SceneLoader loader = new SceneLoader();
+    private final JFXSceneLoader loader = new JFXSceneLoader();
 
     private Scene currentScene;
 
     public JFXSceneController() {
-        this.setCurrentScene(SceneType.MAINMENU);
+        this.setCurrentScene(ViewType.MAINMENU);
     }
 
     @Override
-    public void setCurrentScene(SceneType type) {
+    public void setCurrentScene(ViewType type) {
         switch (type) {
             case SHOP:
                 break;
@@ -24,7 +24,7 @@ public class JFXSceneController implements SceneController {
             case PAUSE:
                 break;
             default:
-                this.loader.setScene(type);
+                this.currentScene = new Scene(this.loader.getParent(type));
         }
     }
 
