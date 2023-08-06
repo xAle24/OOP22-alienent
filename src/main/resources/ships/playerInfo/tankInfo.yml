@@ -3,4 +3,4 @@ name: "Mech da Battaglia"
 description: |
   Possente veicolo pilotato a distanza.
   Dalle alte difese, ma pecca sulla mobilità e l'attacco.
-spriteFilePath: "Da mettere"
+spriteFilePath: "tank.png"

@@ -1,4 +1,4 @@
-package it.unibo.alienenterprises.view;
+package it.unibo.alienenterprises.controller;
 
 /**
  * Class that contains the information that need to be shown to the player
