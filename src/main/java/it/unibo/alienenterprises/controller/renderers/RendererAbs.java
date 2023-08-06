@@ -1,4 +1,4 @@
-package it.unibo.alienenterprises.view.renderers;
+package it.unibo.alienenterprises.controller.renderers;
 
 import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.view.javafx.CanvasPainter;
@@ -18,10 +18,9 @@ public abstract class RendererAbs implements Renderer {
      * 
      * @param obj the {@link GameObject} to be rendered
      */
-    public RendererAbs(GameObject obj, CanvasPainter canvasPaint) {
+    public RendererAbs(GameObject obj) {
         this.obj = obj;
         this.sprite = new Sprite(findImage(), this.obj.getPosition(), this.obj.getVelocity());
-        canvasPaint.addAll(this);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package it.unibo.alienenterprises.view.renderers;
+package it.unibo.alienenterprises.controller.renderers;
 
 import it.unibo.alienenterprises.view.sprites.Sprite;
 

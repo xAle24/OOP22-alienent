@@ -1,4 +1,4 @@
-package it.unibo.alienenterprises.view.renderers;
+package it.unibo.alienenterprises.controller.renderers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,11 +15,13 @@ public class RendererManager {
     public RendererManager(final CanvasPainter cp) {
         this.canvasPaint = cp;
         this.renderers = new ArrayList<>();
-        this.renderFactory = new RendererFactoryImpl(this.canvasPaint);
+        this.renderFactory = new RendererFactoryImpl();
     }
 
     public void addRenderer(GameObject obj) {
-        this.renderers.add(this.renderFactory.createGameObjectRenderer(obj));
+        var newRenderer = this.renderFactory.createGameObjectRenderer(obj);
+        this.renderers.add(newRenderer);
+        this.canvasPaint.addAll(newRenderer);
     }
 
     public void render() {

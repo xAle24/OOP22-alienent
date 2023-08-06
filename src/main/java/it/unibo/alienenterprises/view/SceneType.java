@@ -10,6 +10,11 @@ public enum SceneType {
     LOGIN,
 
     /**
+     * Registration screen.
+     */
+    REGISTRATION,
+
+    /**
      * Main menu.
      */
     MAINMENU,
