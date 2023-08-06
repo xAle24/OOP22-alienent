@@ -42,6 +42,9 @@ public class EnemySpawnerImpl implements EnemySpawner {
         enemy = loader.loadEnemyClasses();
         newEnemy = List.copyOf(enemy.values());
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GameObject getEnemy() {
         var randomEnemy = new Random().nextInt(newEnemy.size());
@@ -54,6 +57,9 @@ public class EnemySpawnerImpl implements EnemySpawner {
         enemySpawn.setPosition(new Point2D(pointX, pointY));
         return enemySpawn;
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HashMap<Statistic, Integer> getStats() {
         var newStats = new HashMap<Statistic, Integer>();
@@ -63,6 +69,9 @@ public class EnemySpawnerImpl implements EnemySpawner {
         newStats.put(Statistic.DEFENCE, increase);
         return newStats;
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update(final double deltaTime) {
         if (spawnTime > SPAWNTIME) {
