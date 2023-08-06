@@ -2,14 +2,7 @@ package it.unibo.alienenterprises.view;
 
 import it.unibo.alienenterprises.controller.Controller;
 import it.unibo.alienenterprises.model.geometry.Point2D;
-import it.unibo.alienenterprises.model.geometry.Vector2D;
-import it.unibo.alienenterprises.model.impl.components.InputComponentSniperImpl;
-import it.unibo.alienenterprises.model.impl.components.StraightInputComponent;
-import it.unibo.alienenterprises.model.impl.components.hitbox.BomberHitboxComponentImpl;
-import it.unibo.alienenterprises.model.impl.components.hitbox.SimpleShipHitboxComponentImpl;
-import it.unibo.alienenterprises.view.javafx.CanvasPainter;
 import it.unibo.alienenterprises.view.viewstates.ViewState;
-import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -17,7 +10,7 @@ import javafx.stage.Stage;
 /**
  * Alien enterprises game jafaFX main.
  */
-public final class ViewImpl extends Application implements View {
+public final class ViewImpl implements View {
 
     private static final double MIN_WIDTH = 500.0;
     private static final double MIN_HEIGHT = 500.0;
