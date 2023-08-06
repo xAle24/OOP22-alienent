@@ -4,11 +4,11 @@ import it.unibo.alienenterprises.controller.Controller;
 import it.unibo.alienenterprises.view.ViewType;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.BorderPane;
 
 public class GameStageController implements InitController {
     @FXML
-    private StackPane canvasContainer;
+    private BorderPane canvasContainer;
     @FXML
     private Label currScore;
     @FXML
@@ -22,7 +22,7 @@ public class GameStageController implements InitController {
     }
 
     @FXML
-    public void handleQuit() {
+    private void handleQuit() {
         this.controller.getGameSession().gameOver();
         this.controller.changeScene(ViewType.GAMEOVER);
     }

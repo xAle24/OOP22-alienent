@@ -11,13 +11,14 @@ import it.unibo.alienenterprises.view.javafx.JFXSceneController;
 public final class ControllerImpl implements Controller {
     private final SceneController sceneController;
     private final UserAccountHandler accHandler;
-    private View view;
+    private final View view;
 
     private GameSession currGameSession;
 
-    public ControllerImpl() {
+    public ControllerImpl(final View view) {
         this.sceneController = new JFXSceneController();
         this.accHandler = new UserAccountHandlerImpl();
+        this.view = view;
     }
 
     @Override
@@ -38,6 +39,7 @@ public final class ControllerImpl implements Controller {
     @Override
     public void changeScene(ViewType type) {
         this.sceneController.setCurrentScene(type);
+        this.sceneController.getCurrentController().init(this);
         this.view.setScene();
     }
 
@@ -45,10 +47,4 @@ public final class ControllerImpl implements Controller {
     public UserAccountHandler getUserAccountHandler() {
         return this.accHandler;
     }
-
-    @Override
-    public void SetView(View view) {
-        this.view = view;
-    }
-
 }

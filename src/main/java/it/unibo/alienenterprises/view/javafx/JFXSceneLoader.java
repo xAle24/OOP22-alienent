@@ -18,10 +18,9 @@ public class JFXSceneLoader implements SceneLoader {
     public Parent getParent(final ViewType type) {
         final String path = PATH_START + type.toString().toLowerCase() + PATH_END;
         try {
-            final Parent root = FXMLLoader.load(this.getClass().getResource(path));
+            final Parent root = this.fxmlLoader.load(getClass().getResourceAsStream(path));
             return root;
         } catch (Exception e) {
-            // return a dialog builder window that says "could not load scene"
             e.printStackTrace();
             return null;
         }

@@ -9,9 +9,10 @@ public class JFXSceneController implements SceneController {
     private final JFXSceneLoader loader = new JFXSceneLoader();
 
     private Scene currentScene;
+    private InitController currentController;
 
     public JFXSceneController() {
-        this.setCurrentScene(ViewType.MAINMENU);
+        this.setCurrentScene(ViewType.GAMESTAGE);
     }
 
     @Override
@@ -25,6 +26,7 @@ public class JFXSceneController implements SceneController {
                 break;
             default:
                 this.currentScene = new Scene(this.loader.getParent(type));
+                this.currentController = this.loader.getCurrentController();
         }
     }
 
@@ -35,7 +37,7 @@ public class JFXSceneController implements SceneController {
 
     @Override
     public InitController getCurrentController() {
-        return this.loader.getCurrentController();
+        return this.currentController;
     }
 
 }

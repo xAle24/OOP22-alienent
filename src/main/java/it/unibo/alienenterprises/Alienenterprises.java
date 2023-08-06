@@ -2,7 +2,6 @@ package it.unibo.alienenterprises;
 
 import it.unibo.alienenterprises.controller.Controller;
 import it.unibo.alienenterprises.controller.ControllerImpl;
-import it.unibo.alienenterprises.view.AppStart;
 import it.unibo.alienenterprises.view.View;
 import it.unibo.alienenterprises.view.ViewImpl;
 import javafx.application.Application;

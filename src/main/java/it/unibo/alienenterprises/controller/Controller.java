@@ -43,12 +43,4 @@ public interface Controller {
      * @return the account handler.
      */
     UserAccountHandler getUserAccountHandler();
-
-    /**
-     * Sets the reference to {@link View} that has to be contained inside this
-     * object.
-     * 
-     * @param view the main {@link View} of the game.
-     */
-    void SetView(View view);
 }

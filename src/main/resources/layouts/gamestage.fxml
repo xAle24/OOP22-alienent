@@ -12,7 +12,7 @@
     prefHeight="500" prefWidth="500"
     StackPane.alignment="CENTER"
     fx:controller="it.unibo.alienenterprises.view.controllers.GameStageController"
-    onCloseRequest="#handleQuit">
+    onQuitRequest="#handleQuit">
 
     <BorderPane fx:id="canvasContainer" 
         prefHeight="500" prefWidth="500">

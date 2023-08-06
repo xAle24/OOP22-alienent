@@ -12,8 +12,10 @@ public final class ViewImpl implements View {
     private static final double MIN_WIDTH = 500.0;
     private static final double MIN_HEIGHT = 500.0;
     private static final String TITLE = "Alienent";
-    private Controller controller;
+
     private final Stage primaryStage;
+
+    private Controller controller;
 
     public ViewImpl(final Stage stage) {
         this.primaryStage = stage;
@@ -25,7 +27,6 @@ public final class ViewImpl implements View {
         this.primaryStage.setTitle(TITLE);
         this.primaryStage.setMinHeight(MIN_HEIGHT);
         this.primaryStage.setMinWidth(MIN_WIDTH);
-        this.controller.SetView(this);
         this.controller.changeScene(ViewType.MAINMENU);
         this.primaryStage.setScene(this.controller.getSceneController().getCurrentScene());
         this.primaryStage.setScene(new Scene(new BorderPane()));
