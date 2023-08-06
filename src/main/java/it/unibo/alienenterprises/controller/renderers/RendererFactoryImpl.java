@@ -2,7 +2,6 @@ package it.unibo.alienenterprises.controller.renderers;
 
 import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.Projectile;
-import it.unibo.alienenterprises.model.api.Ship;
 import it.unibo.alienenterprises.model.api.components.HitboxComponent;
 import it.unibo.alienenterprises.model.geometry.Circle2D;
 import it.unibo.alienenterprises.view.javafx.CanvasPainter;

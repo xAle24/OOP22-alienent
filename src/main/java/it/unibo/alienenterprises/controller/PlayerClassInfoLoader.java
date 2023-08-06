@@ -1,4 +1,4 @@
-package it.unibo.alienenterprises.view;
+package it.unibo.alienenterprises.controller;
 
 import java.util.Map;
 import java.util.Optional;

@@ -1,30 +1,26 @@
 package it.unibo.alienenterprises.model.player;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import it.unibo.alienenterprises.view.PlayerClassInfoLoader;
-import it.unibo.alienenterprises.view.PlayerClassInfoLoaderImpl;
+import it.unibo.alienenterprises.controller.PlayerInfoLoaderImpl;
+import it.unibo.alienenterprises.view.ShipInfoLoader;
 
 public class PlayerInfoLoaderTest {
 
-    private final PlayerClassInfoLoader infoLoader;
-    private final List<String> list = List.of("standard", "tank", "sniper");
+    private final ShipInfoLoader infoLoader;
+    private final Set<String> list = Set.of("standard", "tank", "sniper");
 
     public PlayerInfoLoaderTest(){
-        this.infoLoader = new PlayerClassInfoLoaderImpl(list);
+        this.infoLoader = new PlayerInfoLoaderImpl(list);
         this.infoLoader.load();
     }
 
     @Test
-    public void infoLoaderTest(){
+    public void spriteLoadTest(){
         for(final var s : list){
-            var info = this.infoLoader.getPlayerClassInfo(s);
-            assertTrue(info.isPresent(), "the name is not loaded");
-            System.out.println(info);
+            System.out.println(infoLoader.getShipSpriteFilePath(s).get());
         }
     }
     
