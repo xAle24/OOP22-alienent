@@ -9,7 +9,6 @@ import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.model.api.World;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
 import it.unibo.alienenterprises.model.impl.ProjectileSupplierFactoryImpl;
-import it.unibo.alienenterprises.view.PlayerInfoLoaderImpl;
 import it.unibo.alienenterprises.view.ShipInfoLoader;
 
 public class PlayerControllerImpl implements PlayerController {

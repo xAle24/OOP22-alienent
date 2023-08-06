@@ -1,4 +1,4 @@
-package it.unibo.alienenterprises.view;
+package it.unibo.alienenterprises.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,6 +10,8 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.yaml.snakeyaml.Yaml;
+
+import it.unibo.alienenterprises.view.ShipInfoLoader;
 
 public class PlayerInfoLoaderImpl implements ShipInfoLoader {
     private static final String SEPARATOR = File.separator;

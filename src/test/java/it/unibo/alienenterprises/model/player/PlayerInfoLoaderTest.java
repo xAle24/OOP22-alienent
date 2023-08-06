@@ -4,7 +4,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import it.unibo.alienenterprises.view.PlayerInfoLoaderImpl;
+import it.unibo.alienenterprises.controller.PlayerInfoLoaderImpl;
 import it.unibo.alienenterprises.view.ShipInfoLoader;
 
 public class PlayerInfoLoaderTest {
