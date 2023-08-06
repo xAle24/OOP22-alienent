@@ -1,6 +1,9 @@
 package it.unibo.alienenterprises.controller;
 
 import it.unibo.alienenterprises.controller.gamesession.GameSession;
+import it.unibo.alienenterprises.model.api.UserAccountHandler;
+import it.unibo.alienenterprises.view.ViewType;
+import it.unibo.alienenterprises.view.View;
 import it.unibo.alienenterprises.view.api.SceneController;
 
 /**
@@ -28,4 +31,24 @@ public interface Controller {
      * @return the scene controller.
      */
     SceneController getSceneController();
+
+    /**
+     * Changes the {@link Scene} that is being displayed.
+     */
+    void changeScene(ViewType type);
+
+    /**
+     * Return the {@link UserAccountHandler} that is being used.
+     * 
+     * @return the account handler.
+     */
+    UserAccountHandler getUserAccountHandler();
+
+    /**
+     * Sets the reference to {@link View} that has to be contained inside this
+     * object.
+     * 
+     * @param view the main {@link View} of the game.
+     */
+    void SetView(View view);
 }

@@ -1,26 +1,23 @@
 package it.unibo.alienenterprises.controller;
 
-import java.util.Map;
-
 import it.unibo.alienenterprises.controller.gamesession.GameSession;
-import it.unibo.alienenterprises.controller.gamesession.GameSessionAbs;
-import it.unibo.alienenterprises.controller.gamesession.GameSessionFactory;
-import it.unibo.alienenterprises.controller.gamesession.GameSessionFactoryImpl;
-import it.unibo.alienenterprises.model.ModelImpl;
-import it.unibo.alienenterprises.model.api.Model;
-import it.unibo.alienenterprises.view.SceneType;
+import it.unibo.alienenterprises.model.UserAccountHandlerImpl;
+import it.unibo.alienenterprises.model.api.UserAccountHandler;
+import it.unibo.alienenterprises.view.ViewType;
+import it.unibo.alienenterprises.view.View;
 import it.unibo.alienenterprises.view.api.SceneController;
 import it.unibo.alienenterprises.view.javafx.JFXSceneController;
 
 public final class ControllerImpl implements Controller {
-    private final GameSessionFactory sessionFactory;
     private final SceneController sceneController;
+    private final UserAccountHandler accHandler;
+    private View view;
 
     private GameSession currGameSession;
 
     public ControllerImpl() {
-        this.sessionFactory = new GameSessionFactoryImpl();
         this.sceneController = new JFXSceneController();
+        this.accHandler = new UserAccountHandlerImpl();
     }
 
     @Override
@@ -35,12 +32,23 @@ public final class ControllerImpl implements Controller {
 
     @Override
     public SceneController getSceneController() {
-        return null;
+        return this.sceneController;
     }
 
     @Override
-    public void changeScene(SceneType type) {
+    public void changeScene(ViewType type) {
         this.sceneController.setCurrentScene(type);
+        this.view.setScene();
+    }
+
+    @Override
+    public UserAccountHandler getUserAccountHandler() {
+        return this.accHandler;
+    }
+
+    @Override
+    public void SetView(View view) {
+        this.view = view;
     }
 
 }

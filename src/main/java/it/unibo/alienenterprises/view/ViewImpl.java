@@ -1,27 +1,34 @@
 package it.unibo.alienenterprises.view;
 
 import it.unibo.alienenterprises.controller.Controller;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 /**
  * Alien enterprises game jafaFX main.
  */
 public final class ViewImpl implements View {
+    private static final double MIN_WIDTH = 500.0;
+    private static final double MIN_HEIGHT = 500.0;
+    private static final String TITLE = "Alienent";
     private Controller controller;
-    private Stage primaryStage;
+    private final Stage primaryStage;
 
-    public ViewImpl(Stage stage) {
+    public ViewImpl(final Stage stage) {
         this.primaryStage = stage;
-        this.primaryStage.setTitle("Alienent");
-        this.primaryStage.setMinHeight(500);
-        this.primaryStage.setMinWidth(500);
-        this.controller.changeScene(ViewType.MAINMENU);
-        this.primaryStage.setScene(this.controller.getSceneController().getCurrentScene());
     }
 
     @Override
-    public void init(Controller controller) {
+    public void init(final Controller controller) {
         this.controller = controller;
+        this.primaryStage.setTitle(TITLE);
+        this.primaryStage.setMinHeight(MIN_HEIGHT);
+        this.primaryStage.setMinWidth(MIN_WIDTH);
+        this.controller.SetView(this);
+        this.controller.changeScene(ViewType.MAINMENU);
+        this.primaryStage.setScene(this.controller.getSceneController().getCurrentScene());
+        this.primaryStage.setScene(new Scene(new BorderPane()));
         this.primaryStage.show();
     }
 

@@ -1,7 +1,6 @@
 package it.unibo.alienenterprises.view;
 
 import it.unibo.alienenterprises.controller.Controller;
-import javafx.scene.Scene;
 
 /**
  * View interface.
@@ -12,7 +11,7 @@ public interface View {
      * 
      * @param controller the main {@link Controller} of the game
      */
-    void start(Controller controller);
+    void init(Controller controller);
 
     /**
      * Sets the scene that has to be shown.
