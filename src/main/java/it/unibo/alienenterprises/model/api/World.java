@@ -20,13 +20,6 @@ public interface World {
     public void addGameObject(GameObject add);
 
     /**
-     * Removes a GameObject from the list of gameobjects at play.
-     * 
-     * @param remove the GameObject that needs to be removed.
-     */
-    public void removeGameObject(GameObject remove);
-
-    /**
      * Add one or more {@link GameObjects to the World.
      * 
      * @param gameObjects the objects to be added.
