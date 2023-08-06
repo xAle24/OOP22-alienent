@@ -9,17 +9,16 @@ import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.model.api.World;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
 import it.unibo.alienenterprises.model.impl.ProjectileSupplierFactoryImpl;
-import it.unibo.alienenterprises.view.PlayerInfoLoaderImpl;
 import it.unibo.alienenterprises.view.ShipInfoLoader;
 
-public class PlayerMenuControllerImpl implements PlayerMenuController {
+public class PlayerControllerImpl implements PlayerController {
 
     private final World world;
     private final Map<String, GameObject> playerMap;
     private final ShipInfoLoader info;
     private Optional<String> selected = Optional.empty();
 
-    public PlayerMenuControllerImpl(final World world) {
+    public PlayerControllerImpl(final World world) {
         this.world = world;
         this.playerMap = new ShipLoaderImpl(new ProjectileSupplierFactoryImpl(world)).loadPlayerClasses();
         this.info = new PlayerInfoLoaderImpl(playerMap.keySet());
@@ -32,7 +31,7 @@ public class PlayerMenuControllerImpl implements PlayerMenuController {
     }
 
     @Override
-    public Optional<Map<Statistic,Integer>> getStats(final String id){
+    public Optional<Map<Statistic, Integer>> getStats(final String id) {
         return playerMap.containsKey(id) ? Optional.of(playerMap.get(id).getAllStats()) : Optional.empty();
     }
 
@@ -53,14 +52,14 @@ public class PlayerMenuControllerImpl implements PlayerMenuController {
 
     @Override
     public void select(final String id) {
-        if(this.playerMap.containsKey(id)){
+        if (this.playerMap.containsKey(id)) {
             this.selected = Optional.of(id);
         }
     }
 
     @Override
     public void confirmSelection() {
-        if(this.selected.isEmpty()){
+        if (this.selected.isEmpty()) {
             throw new IllegalStateException("nothing has been selected");
         }
         final var player = this.playerMap.get(this.selected.get());

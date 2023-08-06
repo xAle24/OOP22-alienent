@@ -30,6 +30,26 @@ public class Vector2D {
     }
 
     /**
+     * @param a starting point
+     * @param b ending point
+     * @return the vector that goes from a and b
+     */
+    public static Vector2D fromTwoPoints(final Point2D a, final Point2D b) {
+        return new Vector2D(b.getX() - a.getX(), b.getY() - a.getX());
+    }
+
+    /**
+     * @param a
+     * @param b
+     * @param module the module of the resulting vector
+     * @return the vector with the direction from a to b and the given module
+     */
+    public static Vector2D fromTwoPointsAndModule(final Point2D a, final Point2D b, final double module) {
+        var vet = fromTwoPoints(a, b);
+        return fromAngleAndModule(vet.getAngle(), module);
+    }
+
+    /**
      * @return xComponent
      */
     public double getxComp() {
@@ -54,7 +74,7 @@ public class Vector2D {
             return yComp < 0 ? 270 : 90;
         }
         final var aTan = Math.toDegrees(Math.atan(yComp / xComp));
-        return xComp<0 ? aTan+180 : aTan;
+        return xComp < 0 ? aTan + 180 : aTan;
     }
 
     /**
@@ -82,6 +102,7 @@ public class Vector2D {
 
     /**
      * Multipy the vector for the given number
+     * 
      * @param a
      * @return A new vector equal to the multiplication
      */

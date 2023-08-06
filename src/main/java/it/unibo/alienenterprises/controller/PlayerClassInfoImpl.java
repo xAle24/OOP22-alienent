@@ -1,4 +1,4 @@
-package it.unibo.alienenterprises.view;
+package it.unibo.alienenterprises.controller;
 
 public class PlayerClassInfoImpl implements PlayerClassInfo {
 

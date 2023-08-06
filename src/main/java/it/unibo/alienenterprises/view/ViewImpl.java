@@ -1,6 +1,8 @@
 package it.unibo.alienenterprises.view;
 
 import java.util.HashMap;
+
+import it.unibo.alienenterprises.controller.PlayerControllerImpl;
 import it.unibo.alienenterprises.controller.gamesession.GameSessionFactoryImpl;
 import it.unibo.alienenterprises.controller.renderers.RendererManager;
 import it.unibo.alienenterprises.model.GameWorld;
@@ -33,6 +35,7 @@ public final class ViewImpl implements View {
     private Stage primaryStage;
 
     public void start(final Stage primaryStage) throws Exception {
+        
         var gameSessionFac = new GameSessionFactoryImpl();
         var statMap1 = new HashMap<Statistic, Integer>();
         statMap1.put(Statistic.HP, 2);
