@@ -3,11 +3,16 @@ package it.unibo.alienenterprises.view;
 /**
  * Different types of scene possible in the game.
  */
-public enum SceneType {
+public enum ViewType {
     /**
      * Login screen.
      */
     LOGIN,
+
+    /**
+     * Registration screen.
+     */
+    REGISTRATION,
 
     /**
      * Main menu.
@@ -28,5 +33,10 @@ public enum SceneType {
     /**
      * Shop for powerups.
      */
-    SHOP
+    SHOP,
+
+    /**
+     * Pause the game during a game session.
+     */
+    PAUSE
 }

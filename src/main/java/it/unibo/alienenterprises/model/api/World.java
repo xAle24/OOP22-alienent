@@ -1,5 +1,7 @@
 package it.unibo.alienenterprises.model.api;
 
+import it.unibo.alienenterprises.model.WorldDimensions;
+
 /**
  * The main model of the game.
  */
@@ -13,18 +15,18 @@ public interface World {
     public void update(double deltaTime);
 
     /**
+     * Get the dimensions of the {@link World}
+     * 
+     * @return
+     */
+    public Dimensions getWorldDimensions();
+
+    /**
      * Adds a GameObject to the list of gameobjects at play.
      * 
      * @param add the GameObject that needs to be added.
      */
     public void addGameObject(GameObject add);
-
-    /**
-     * Removes a GameObject from the list of gameobjects at play.
-     * 
-     * @param remove the GameObject that needs to be removed.
-     */
-    public void removeGameObject(GameObject remove);
 
     /**
      * Add one or more {@link GameObjects to the World.
@@ -34,9 +36,9 @@ public interface World {
     public void addAllGameObjects(GameObject... objects);
 
     /**
-     * When the game is over, pass the score to the model
+     * get the current score
      * 
-     * @param score the end game score
+     * @return the score
      */
-    public void notifyScore(int score);
+    public int getScore();
 }

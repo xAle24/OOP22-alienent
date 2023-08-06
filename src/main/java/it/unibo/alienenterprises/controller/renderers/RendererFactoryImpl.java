@@ -1,27 +1,19 @@
 package it.unibo.alienenterprises.controller.renderers;
 
 import it.unibo.alienenterprises.model.api.GameObject;
-import it.unibo.alienenterprises.model.api.Projectile;
-import it.unibo.alienenterprises.model.api.components.HitboxComponent;
-import it.unibo.alienenterprises.model.geometry.Circle2D;
-import it.unibo.alienenterprises.view.javafx.CanvasPainter;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 
 /**
  * Implementation of the {@link RendererFactory}.
  */
 public class RendererFactoryImpl implements RendererFactory {
-    private final CanvasPainter canvasPaint;
 
-    public RendererFactoryImpl(CanvasPainter canvasPaint) {
-        this.canvasPaint = canvasPaint;
+    public RendererFactoryImpl() {
     }
 
     @Override
     public Renderer createGameObjectRenderer(GameObject obj) {
-        return new RendererAbs(obj, this.canvasPaint) {
+        return new RendererAbs(obj) {
 
             @Override
             protected Image findImage() {
