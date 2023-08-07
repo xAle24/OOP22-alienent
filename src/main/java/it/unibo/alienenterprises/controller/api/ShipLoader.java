@@ -1,8 +1,14 @@
 package it.unibo.alienenterprises.controller.api;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import org.yaml.snakeyaml.Yaml;
+
+import it.unibo.alienenterprises.controller.ShipProp;
 import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.Statistic;
 
@@ -42,6 +48,19 @@ public interface ShipLoader {
      * @param shipFileName
      * @return
      */
-    Optional<Map<Statistic, Integer>> loadStatsOf(String shipFileName);
+    static Optional<Map<Statistic, Integer>> loadStatsOf(final String shipFileName) {
+        try (final InputStream inputStream = new FileInputStream(shipFileName)) {
+            final Yaml yaml = new Yaml();
+            final ShipProp obj = yaml.loadAs(inputStream, ShipProp.class);
+            final Map<Statistic, Integer> stats = new HashMap<>();
+            for (var s : obj.getStats().keySet()) {
+                stats.put(Statistic.valueOf(s), obj.getStats().get(s));
+            }
+            return Optional.of(stats);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Optional.empty();
+        }
+    }
 
 }

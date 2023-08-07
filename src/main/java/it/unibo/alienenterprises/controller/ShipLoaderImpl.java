@@ -129,22 +129,6 @@ public class ShipLoaderImpl implements ShipLoader {
         }
     }
 
-    @Override
-    public Optional<Map<Statistic,Integer>> loadStatsOf(final String shipFileName){
-        try (final InputStream inputStream = new FileInputStream(shipFileName)) {
-            final Yaml yaml = new Yaml();
-            final ShipProp obj = yaml.loadAs(inputStream, ShipProp.class);
-            final Map<Statistic, Integer> stats = new HashMap<>();
-            for (var s : obj.getStats().keySet()) {
-                stats.put(Statistic.valueOf(s), obj.getStats().get(s));
-            }
-            return Optional.of(stats);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Optional.empty();
-        }
-    }
-
     private List<Component> fetchComponents(final Map<String, List<Map<String, String>>> componentMap,
             final GameObject obj) {
         final List<Component> out = new ArrayList<>();
