@@ -5,13 +5,14 @@ import java.util.Optional;
 import java.util.Set;
 
 import it.unibo.alienenterprises.model.api.Statistic;
+import it.unibo.alienenterprises.view.controllers.InitController;
 
 /**
  * PlayerController
  * Controls the informations that can be shown of the player.
  * It can also have the job of spawning the player.
  */
-public interface PlayerController {
+public interface PlayerController extends InitController{
 
     /**
      * @return the ids of the players that the controller owns

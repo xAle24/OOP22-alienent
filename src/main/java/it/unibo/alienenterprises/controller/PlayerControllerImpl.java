@@ -9,6 +9,7 @@ import it.unibo.alienenterprises.controller.api.ShipLoader;
 import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.model.api.World;
 import it.unibo.alienenterprises.view.ShipInfoLoader;
+import it.unibo.alienenterprises.view.ViewType;
 
 public class PlayerControllerImpl implements PlayerController {
 
@@ -19,10 +20,16 @@ public class PlayerControllerImpl implements PlayerController {
 
     private final ShipInfoLoader info;
     private Optional<String> selected = Optional.empty();
+    private Optional<Controller> controller = Optional.empty();
 
     public PlayerControllerImpl(final World world) {
         this.info = new PlayerInfoLoaderImpl();
         this.info.load();
+    }
+
+    @Override
+    public void init(final Controller controller) {
+        this.controller = Optional.of(controller);
     }
 
     @Override
@@ -63,6 +70,12 @@ public class PlayerControllerImpl implements PlayerController {
         if (this.selected.isEmpty()) {
             throw new IllegalStateException("nothing has been selected");
         }
+        if (this.controller.isEmpty()){
+            throw new IllegalStateException("the controller has not been initialized");
+        }
+        //TODO settare il player
+        this.controller.get().initiateGameSession(false);
+        this.controller.get().changeScene(ViewType.GAMESTAGE);
     }
 
 }
