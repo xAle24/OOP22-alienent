@@ -21,11 +21,9 @@ public class BasicShooterComponent extends ComponentAbs implements ShooterCompon
 
     private boolean trigger = false;
 
-    public BasicShooterComponent(final GameObject object, final boolean enabled, final Supplier<GameObject> shot,
-            final double delay) {
+    public BasicShooterComponent(final GameObject object, final boolean enabled, final Supplier<GameObject> shot) {
         super(object, enabled);
         this.shoot = shot;
-        this.delay = delay;
     }
 
     @Override
@@ -50,6 +48,7 @@ public class BasicShooterComponent extends ComponentAbs implements ShooterCompon
     public void start() {
         this.damage = getGameObject().getStatValue(Statistic.DAMAGE);
         this.speed = getGameObject().getStatValue(Statistic.PROJECTILESPEED);
+        this.delay = getGameObject().getStatValue(Statistic.COOLDOWN);
     }
 
     @Override
@@ -69,7 +68,7 @@ public class BasicShooterComponent extends ComponentAbs implements ShooterCompon
 
     @Override
     public Optional<Component> duplicate(final GameObject obj) {
-        return Optional.of(new BasicShooterComponent(obj, true, shoot, obj.getStatValue(Statistic.COOLDOWN)));
+        return Optional.of(new BasicShooterComponent(obj, true, shoot));
     }
 
 }
