@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import org.yaml.snakeyaml.Yaml;
 
@@ -27,11 +28,21 @@ public interface ShipLoader {
     Map<String, GameObject> loadPlayerClasses();
 
     /**
+     * @return the set of the accepted player ids
+     */
+    Set<String> getPlayerIds();
+
+    /**
      * Loads the enemy classes into memory
      * 
      * @return a map of the enemyClassesNames and objects
      */
     Map<String, GameObject> loadEnemyClasses();
+
+    /**
+     * @return the set of the accepted enemy ids
+     */
+    Set<String> getEnemyIds();
 
     /**
      * Load the ship identified by the shipFileName in memory
