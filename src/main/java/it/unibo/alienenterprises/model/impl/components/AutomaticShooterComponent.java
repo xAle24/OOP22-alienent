@@ -13,6 +13,10 @@ import it.unibo.alienenterprises.model.api.components.ShooterComponent;
 import it.unibo.alienenterprises.model.api.components.HitboxComponent.Type;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
 
+/**
+ * AutomaticShooterComponent
+ * A shooter component that shoot automatically
+ */
 public class AutomaticShooterComponent extends ComponentAbs implements ShooterComponent {
 
     private int delay;
@@ -24,8 +28,11 @@ public class AutomaticShooterComponent extends ComponentAbs implements ShooterCo
 
     private Supplier<GameObject> shot;
 
-    private boolean mustShoot = false;
-
+    /**
+     * @param object  the referenced object
+     * @param enabled if the component must be enabled
+     * @param shot    the supplier of the projectiles
+     */
     public AutomaticShooterComponent(final GameObject object, final boolean enabled, final Supplier<GameObject> shot) {
         super(object, enabled);
         this.shot = shot;
@@ -35,18 +42,18 @@ public class AutomaticShooterComponent extends ComponentAbs implements ShooterCo
     public void start() {
         this.delay = getGameObject().getStatValue(Statistic.COOLDOWN);
         this.projectileSpeed = getGameObject().getStatValue(Statistic.PROJECTILESPEED);
-        this.shooterType = getGameObject().getComponent(HitboxComponent.class).get().getType();//TODO
+        this.shooterType = getGameObject().getComponent(HitboxComponent.class).get().getType();// TODO
         this.damage = getGameObject().getStatValue(Statistic.DAMAGE);
     }
 
     @Override
     public void update(final double deltatime) {
         this.count = this.count + deltatime;
-        if(this.count>=this.delay || this.mustShoot){
+        if (this.count >= this.delay) {
             var p = this.shot.get();
             p.setStatValue(Statistic.SPEED, projectileSpeed);
             var hb = p.getComponent(ProjectileHitboxComponent.class);
-            if(hb.isPresent()){
+            if (hb.isPresent()) {
                 hb.get().setShooter(this.shooterType);
             }
             p.setStatValue(Statistic.DAMAGE, damage);
@@ -58,7 +65,7 @@ public class AutomaticShooterComponent extends ComponentAbs implements ShooterCo
 
     @Override
     public void shoot() {
-        this.mustShoot = true;
+        // this component shoots automatically
     }
 
     @Override
@@ -70,7 +77,6 @@ public class AutomaticShooterComponent extends ComponentAbs implements ShooterCo
     public void setProjectileSupplier(Supplier<GameObject> pSupplier) {
         this.shot = pSupplier;
     }
-
 
     @Override
     public Optional<Component> duplicate(final GameObject obj) {

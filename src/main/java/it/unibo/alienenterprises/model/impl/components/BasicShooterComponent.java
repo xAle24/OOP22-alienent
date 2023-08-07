@@ -13,6 +13,10 @@ import it.unibo.alienenterprises.model.api.components.ShooterComponent;
 import it.unibo.alienenterprises.model.api.components.HitboxComponent.Type;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
 
+/**
+ * BasicShooterComponent
+ * A simple implementation of ShooterComponent
+ */
 public class BasicShooterComponent extends ComponentAbs implements ShooterComponent {
 
     private Supplier<GameObject> shoot;
@@ -25,6 +29,11 @@ public class BasicShooterComponent extends ComponentAbs implements ShooterCompon
 
     private boolean trigger = false;
 
+    /**
+     * @param object  the referenced object
+     * @param enabled if the component must be enabled
+     * @param shot    the supplier of the projectiles
+     */
     public BasicShooterComponent(final GameObject object, final boolean enabled, final Supplier<GameObject> shot) {
         super(object, enabled);
         this.shoot = shot;
@@ -43,7 +52,7 @@ public class BasicShooterComponent extends ComponentAbs implements ShooterCompon
             p.setStatValue(Statistic.DAMAGE, damage);
             p.setStatValue(Statistic.SPEED, speed);
             var hb = p.getComponent(ProjectileHitboxComponent.class);
-            if(hb.isPresent()){
+            if (hb.isPresent()) {
                 hb.get().setShooter(this.shooterType);
             }
             p.setVelocity(Vector2D.fromAngleAndModule(getGameObject().getVelocity().getAngle(), speed));
@@ -56,7 +65,7 @@ public class BasicShooterComponent extends ComponentAbs implements ShooterCompon
         this.damage = getGameObject().getStatValue(Statistic.DAMAGE);
         this.speed = getGameObject().getStatValue(Statistic.PROJECTILESPEED);
         this.delay = getGameObject().getStatValue(Statistic.COOLDOWN);
-        this.shooterType = getGameObject().getComponent(HitboxComponent.class).get().getType();//TODO
+        this.shooterType = getGameObject().getComponent(HitboxComponent.class).get().getType();// TODO
     }
 
     @Override
