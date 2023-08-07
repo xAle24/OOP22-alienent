@@ -25,14 +25,4 @@ public interface ShooterComponent extends Component {
      * @param pSupplier new supplier
      */
     void setProjectileSupplier(Supplier<GameObject> pSupplier);
-
-    /**
-     * @return the delay between two shots
-     */
-    double getDelay();
-
-    /**
-     * Set a new value for the delay between two shots
-     */
-    void setDelay(double delay);
 }

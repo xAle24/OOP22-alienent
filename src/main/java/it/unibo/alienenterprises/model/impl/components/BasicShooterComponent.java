@@ -68,16 +68,6 @@ public class BasicShooterComponent extends ComponentAbs implements ShooterCompon
     }
 
     @Override
-    public double getDelay() {
-        return delay;
-    }
-
-    @Override
-    public void setDelay(final double delay) {
-        this.delay = delay;
-    }
-
-    @Override
     public Optional<Component> duplicate(final GameObject obj) {
         return Optional.of(new BasicShooterComponent(obj, true, shoot, obj.getStatValue(Statistic.COOLDOWN)));
     }
