@@ -55,18 +55,17 @@ public class ShopViewImpl extends BorderPane implements ShopView {
     private Label score = new Label();
     private ScrollPane scroll = new ScrollPane();
     private BorderPane bottom = new BorderPane();
-    private Popup popUp = new Popup();
+    private Popup inventoryPopup = new Popup();
+    private Popup attentionPopup = new Popup();
+    private Text inventoryText = new Text();
+    private Text attentionText = new Text();
 
     private Map<Button, String> pwuButtons = new HashMap<>();
     private List<PowerUpRenderer> pwuInfo = new LinkedList<>();
     private Map<String, List<CheckBox>> checkBoxesMap = new HashMap<>();
 
-    private enum PopUpCondition {
-        INVENTORY, ATTENTION;
-    }
-
     private enum ExitCondition {
-        SHOP, POPUP, PWUINFO;
+        SHOP, ATTENTION, INVENTORY, PWUINFO;
     }
 
     /**
@@ -101,12 +100,14 @@ public class ShopViewImpl extends BorderPane implements ShopView {
                 .toExternalForm());
 
         box.setId("box");
+
         box.setMaxSize(SCREENWIDHT, SCREENHEIGHT);
 
         // Set upper part of the screen
 
         // Set the user info
         setUserInfo();
+        setInventoryPopup();
 
         // Set the title
         Label title = new Label("SHOP");
@@ -159,10 +160,9 @@ public class ShopViewImpl extends BorderPane implements ShopView {
         userInfo.setPrefSize(widthUnit * 5, heightUnit * 2);
 
         inventory.setOnAction(inventory -> {
-            setPopUpWindow(PopUpCondition.INVENTORY);
             double anchorX = userInfo.getPrefWidth() + BorderPane.getMargin(userInfo).getBottom();
             double anchorY = userInfo.getPrefHeight() + BorderPane.getMargin(userInfo).getRight();
-            popUp.show(box, anchorX, anchorY);
+            inventoryPopup.show(box, anchorX, anchorY);
         });
 
         userInfo.getChildren().addAll(inventory, score);
@@ -302,8 +302,8 @@ public class ShopViewImpl extends BorderPane implements ShopView {
             // Imposta l'anchor point al centro dello schermo
             double anchorX = screenBounds.getWidth() / 2 - 100;
             double anchorY = screenBounds.getHeight() / 2 - 200;
-            setPopUpWindow(PopUpCondition.ATTENTION);
-            popUp.show(box, anchorX, anchorY);
+            setAttentionPopup();
+            attentionPopup.show(box, anchorX, anchorY);
         } else {
             score.setText(controller.getUserAccount().getMoney() + "$");
             if (controller.getUserAccount().getCurrLevel(curr.getId()) == (curr.getPwu().getMaxLevel())) {
@@ -314,11 +314,12 @@ public class ShopViewImpl extends BorderPane implements ShopView {
             }
             checkBoxesMap.get(curr.getId()).get(controller.getUserAccount().getCurrLevel(curr.getId()) - 1)
                     .setSelected(true);
+            updateInventoryPopup();
 
         }
     }
 
-    private void setPopUpWindow(PopUpCondition condition) {
+    private void setInventoryPopup() {
         HBox popUpContent = new HBox();
         VBox button = new VBox();
 
@@ -329,47 +330,74 @@ public class ShopViewImpl extends BorderPane implements ShopView {
          */
         popUpContent.setId("popup");
 
-        button.getChildren().add(setExitButton(ExitCondition.POPUP));
+        button.getChildren().add(setExitButton(ExitCondition.INVENTORY));
         button.setAlignment(Pos.TOP_RIGHT);
         Insets margins = new Insets(widthUnit / 4, widthUnit / 2, widthUnit / 4, widthUnit / 2);
         button.setPadding(margins);
 
         TextFlow textBox = new TextFlow();
-        Text text = new Text();
 
-        switch (condition) {
-            case INVENTORY:
-                Map<String, Integer> inventory = new HashMap<>();
+        updateInventoryPopup();
 
-                controller.getUserAccount().getInventory()
-                        .forEach((s, l) -> {
-                            pwuInfo.stream().filter(p -> p.getId().equals(s))
-                                    .findFirst()
-                                    .ifPresent(pwu -> pwu.getPwu().getStatModifiers()
-                                            .forEach((stat, p) -> {
-                                                inventory.compute(s,
-                                                        (k, oldValue) -> oldValue == null ? p * l : oldValue + p * l);
-                                            }));
-                        });
-                final StringBuilder stats = new StringBuilder("");
-                inventory.forEach((s, i) -> stats.append(s).append(":\t").append(i).append("\n"));
+        inventoryText.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
 
-                text.setText(controller.getUserAccount().getNickname() + "\n" + controller.getUserAccount().getMoney()
-                        + "\n" + stats);
-                break;
-            case ATTENTION:
-                text.setText("ATTENTION!\n You don't have enough money for this powerUp");
-                break;
-        }
-
-        text.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
-
-        textBox.getChildren().add(text);
+        textBox.getChildren().add(inventoryText);
         textBox.setTextAlignment(TextAlignment.LEFT);
 
         popUpContent.getChildren().addAll(textBox, button);
 
-        popUp.getContent().add(popUpContent);
+        inventoryPopup.getContent().add(popUpContent);
+
+    }
+
+    private void updateInventoryPopup() {
+        Map<String, Integer> inventory = new HashMap<>();
+
+        controller.getUserAccount().getInventory()
+                .forEach((s, l) -> {
+                    pwuInfo.stream().filter(p -> p.getId().equals(s))
+                            .findFirst()
+                            .ifPresent(pwu -> pwu.getPwu().getStatModifiers()
+                                    .forEach((stat, p) -> {
+                                        inventory.compute(s,
+                                                (k, oldValue) -> oldValue == null ? p * l : oldValue + p * l);
+                                    }));
+                });
+        final StringBuilder stats = new StringBuilder("");
+        inventory.forEach((s, i) -> stats.append(s).append(":\t").append(i).append("\n"));
+
+        inventoryText.setText(
+                controller.getUserAccount().getNickname() + "\n" + controller.getUserAccount().getMoney()
+                        + "\n" + stats);
+    }
+
+    private void setAttentionPopup() {
+        HBox popUpContent = new HBox();
+        VBox button = new VBox();
+
+        /*
+         * popUpContent.setStyle(
+         * "-fx-background-image: url('/images/UI_Flat_Frame_Standard.png'); -fx-background-size: cover; -fx-background-position: center;"
+         * );
+         */
+        popUpContent.setId("popup");
+
+        button.getChildren().add(setExitButton(ExitCondition.ATTENTION));
+        button.setAlignment(Pos.TOP_RIGHT);
+        Insets margins = new Insets(widthUnit / 4, widthUnit / 2, widthUnit / 4, widthUnit / 2);
+        button.setPadding(margins);
+
+        TextFlow textBox = new TextFlow();
+
+        attentionText.setText("ATTENTION!\n You don't have enough money for this powerUp");
+        attentionText.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
+
+        textBox.getChildren().add(attentionText);
+        textBox.setTextAlignment(TextAlignment.LEFT);
+
+        popUpContent.getChildren().addAll(textBox, button);
+
+        attentionPopup.getContent().add(popUpContent);
 
     }
 
@@ -382,9 +410,9 @@ public class ShopViewImpl extends BorderPane implements ShopView {
         exitButton.setPadding(margins);
 
         switch (condition) {
-            case POPUP:
+            case ATTENTION:
                 exitButton.setOnAction(closePopUp -> {
-                    this.popUp.hide();
+                    this.attentionPopup.hide();
                 });
                 break;
             case PWUINFO:
@@ -396,6 +424,13 @@ public class ShopViewImpl extends BorderPane implements ShopView {
                 exitButton.setOnAction(closeShop -> {
                     this.box.setVisible(false);
                 });
+                break;
+            case INVENTORY:
+                exitButton.setOnAction(closePopUp -> {
+                    this.inventoryPopup.hide();
+                });
+                break;
+            default:
                 break;
         }
         return exitButton;
