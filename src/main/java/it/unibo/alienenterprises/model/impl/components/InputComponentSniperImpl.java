@@ -6,13 +6,13 @@ import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.model.api.components.Component;
 import it.unibo.alienenterprises.model.api.components.ComponentAbs;
-import it.unibo.alienenterprises.model.api.components.InputComponent;
+import it.unibo.alienenterprises.model.api.components.EnemyInputComponent;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
 
 /**
  * Sniper behaviour.
  */
-public class InputComponentSniperImpl extends ComponentAbs implements InputComponent {
+public class InputComponentSniperImpl extends ComponentAbs implements EnemyInputComponent {
     private static final int DISTANCE = 900;
     private GameObject target;
 

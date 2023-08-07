@@ -6,13 +6,13 @@ import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.model.api.components.Component;
 import it.unibo.alienenterprises.model.api.components.ComponentAbs;
-import it.unibo.alienenterprises.model.api.components.InputComponent;
+import it.unibo.alienenterprises.model.api.components.EnemyInputComponent;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
 
 /**
  * Bomber behaviour.
  */
-public class InputComponentBomberImpl extends ComponentAbs implements InputComponent {
+public class InputComponentBomberImpl extends ComponentAbs implements EnemyInputComponent {
     private GameObject target;
 
     public InputComponentBomberImpl(final GameObject object,final boolean enabled) {
