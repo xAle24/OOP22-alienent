@@ -7,16 +7,12 @@ public class Vector2D {
 
     public static final Vector2D NULL_VECTOR = new Vector2D(0, 0);
 
-    private final double xComp;
-    private final double yComp;
+    private final double module;
+    private final double angle;
 
-    /**
-     * @param xComponent
-     * @param yComponent
-     */
-    public Vector2D(final double xComponent, final double yComponent) {
-        this.xComp = xComponent;
-        this.yComp = yComponent;
+    private Vector2D(final double angle, final double module) {
+        this.angle = angle;
+        this.module = module;
     }
 
     /**
@@ -25,8 +21,23 @@ public class Vector2D {
      * @return The vecttor with that angle and module
      */
     public static Vector2D fromAngleAndModule(final double angle, final double module) {
-        var r = Math.toRadians(angle);
-        return new Vector2D(module * Math.cos(r), module * Math.sin(r));
+        return new Vector2D(angle,module);
+    }
+
+    public static Vector2D fromComponents(final double xComp, final double yComp){
+        final double angle;
+        final double module = Math.sqrt(xComp * xComp + yComp * yComp);
+        if (xComp == 0) {
+            if (yComp == 0) {
+                angle = 0;
+            } else {
+                angle = yComp < 0 ? 270 : 90;
+            }
+        } else {
+            final var aTan = Math.toDegrees(Math.atan(yComp / xComp));
+            angle = xComp < 0 ? aTan + 180 : aTan;
+        }
+        return new Vector2D(angle, module);
     }
 
     /**
@@ -53,35 +64,28 @@ public class Vector2D {
      * @return xComponent
      */
     public double getxComp() {
-        return xComp;
+        return this.module * Math.cos(this.angle);
     }
 
     /**
      * @return yComponent
      */
     public double getyComp() {
-        return yComp;
+        return this.module * Math.sin(this.angle);
     }
 
     /**
      * @return vector angle in degrees
      */
     public double getAngle() {
-        if (xComp == 0) {
-            if (yComp == 0) {
-                return 0;
-            }
-            return yComp < 0 ? 270 : 90;
-        }
-        final var aTan = Math.toDegrees(Math.atan(yComp / xComp));
-        return xComp < 0 ? aTan + 180 : aTan;
+        return this.angle;
     }
 
     /**
      * @return vector module
      */
     public double getModule() {
-        return Math.sqrt(xComp * xComp + yComp * yComp);
+        return this.module;
     }
 
     /**
@@ -89,7 +93,7 @@ public class Vector2D {
      * @return the point resulting form the translation
      */
     public Point2D translate(final Point2D p) {
-        return new Point2D(p.getX() + xComp, p.getY() + yComp);
+        return new Point2D(p.getX() + this.getxComp(), p.getY() + this.getyComp());
     }
 
     /**
@@ -97,7 +101,7 @@ public class Vector2D {
      * @return return the vector obtainded adding vec
      */
     public Vector2D add(final Vector2D vec) {
-        return new Vector2D(xComp + vec.getxComp(), yComp + vec.getyComp());
+        return fromComponents(this.getxComp() + vec.getxComp(), this.getyComp() + vec.getyComp());
     }
 
     /**
@@ -107,7 +111,7 @@ public class Vector2D {
      * @return A new vector equal to the multiplication
      */
     public Vector2D mul(final double a) {
-        return new Vector2D(this.xComp * a, this.yComp * a);
+        return fromAngleAndModule(this.angle, this.module * a);
     }
 
     @Override
@@ -120,29 +124,29 @@ public class Vector2D {
         final int prime = 31;
         int result = 1;
         long temp;
-        temp = Double.doubleToLongBits(xComp);
+        temp = Double.doubleToLongBits(module);
         result = prime * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(yComp);
+        temp = Double.doubleToLongBits(angle);
         result = prime * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
+        if (this == obj){
             return true;
         }
-        if (obj == null) {
+        if (obj == null){
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass()){
             return false;
         }
         Vector2D other = (Vector2D) obj;
-        if (Double.doubleToLongBits(xComp) != Double.doubleToLongBits(other.xComp)) {
+        if (Double.doubleToLongBits(module) != Double.doubleToLongBits(other.module)){
             return false;
         }
-        if (Double.doubleToLongBits(yComp) != Double.doubleToLongBits(other.yComp)) {
+        if (Double.doubleToLongBits(angle) != Double.doubleToLongBits(other.angle)){
             return false;
         }
         return true;
