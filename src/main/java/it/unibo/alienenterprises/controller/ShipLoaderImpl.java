@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import org.yaml.snakeyaml.Yaml;
 
@@ -70,7 +71,7 @@ public class ShipLoaderImpl implements ShipLoader {
             } else {
                 enemyList = List.of();
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
         }
         this.factories = List.of(factories);
@@ -90,6 +91,11 @@ public class ShipLoaderImpl implements ShipLoader {
     }
 
     @Override
+    public Set<String> getPlayerIds() {
+        return Set.copyOf(playerList);
+    }
+
+    @Override
     public Map<String, GameObject> loadEnemyClasses() {
         final var path = GAME_PATH + SEPARATOR + ENEMY_FOLDER + SEPARATOR;
         final Map<String, GameObject> enemyMap = new HashMap<>();
@@ -100,6 +106,11 @@ public class ShipLoaderImpl implements ShipLoader {
             }
         }
         return enemyMap;
+    }
+
+    @Override
+    public Set<String> getEnemyIds() {
+        return Set.copyOf(enemyList);
     }
 
     /**
@@ -120,10 +131,10 @@ public class ShipLoaderImpl implements ShipLoader {
             for (var s : obj.getStats().keySet()) {
                 stats.put(Statistic.valueOf(s), obj.getStats().get(s));
             }
-            GameObject temp = new GameObjectAbs(Point2D.ORIGIN, Vector2D.NULL_VECTOR, stats);
+            final GameObject temp = new GameObjectAbs(Point2D.ORIGIN, Vector2D.NULL_VECTOR, stats);
             temp.addAllComponent(fetchComponents(obj.getComponents(), temp));
             return Optional.of(temp);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
             return Optional.empty();
         }
@@ -152,7 +163,7 @@ public class ShipLoaderImpl implements ShipLoader {
                 }
                 final Component component = (Component) c[0].newInstance(constructorParameters.toArray());
                 out.add(component);
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
@@ -165,8 +176,8 @@ public class ShipLoaderImpl implements ShipLoader {
         switch (type) {
             case CLASS:
                 try {
-                    Class<?> parameterClass = Class.forName(parameter.get(VALUE));
-                    Object obj = parameterClass.getConstructor().newInstance();
+                    final Class<?> parameterClass = Class.forName(parameter.get(VALUE));
+                    final Object obj = parameterClass.getConstructor().newInstance();
                     return Optional.ofNullable(obj);
                 } catch (final Exception e) {
                     // TODO
@@ -194,13 +205,13 @@ public class ShipLoaderImpl implements ShipLoader {
                     final Optional<Object> factory = factories.stream()
                             .filter((p) -> p.getClass().equals(factoryClass))
                             .findFirst();
-                    if(factory.isPresent()){
+                    if (factory.isPresent()) {
                         final Method factoryMethod = factoryClass.getMethod(parameter.get(VALUE));
                         return Optional.of(factoryMethod.invoke(factory.get()));
-                    }else{
+                    } else {
                         throw new IllegalStateException();
                     }
-                } catch (Exception e) {
+                } catch (final Exception e) {
                     e.printStackTrace();
                 }
                 break;

@@ -12,7 +12,7 @@ public class ShipLoaderTest {
     private final ShipLoader shipLoader;
 
     public ShipLoaderTest() {
-        this.shipLoader = new ShipLoaderImpl(new ProjectileSupplierFactoryImpl(new GameWorld()));
+        this.shipLoader = new ShipLoaderImpl(new ProjectileSupplierFactoryImpl(new GameWorld(null)));
     }
 
     @Test

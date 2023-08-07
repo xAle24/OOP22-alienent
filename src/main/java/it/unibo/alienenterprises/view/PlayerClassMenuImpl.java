@@ -1,7 +1,5 @@
 package it.unibo.alienenterprises.view;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -9,10 +7,8 @@ import java.util.Map;
 import it.unibo.alienenterprises.controller.PlayerController;
 import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.view.api.PlayerClassMenu;
-import it.unibo.alienenterprises.view.api.SceneLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
@@ -41,7 +37,7 @@ public class PlayerClassMenuImpl extends BorderPane implements PlayerClassMenu {
      * @param controller
      * @param sceneLoader
      */
-    public PlayerClassMenuImpl(final PlayerController controller, final SceneLoader sceneLoader) {
+    public PlayerClassMenuImpl(final PlayerController controller) {
         super();
         this.controller = controller;
 
@@ -82,15 +78,10 @@ public class PlayerClassMenuImpl extends BorderPane implements PlayerClassMenu {
             for (int t = j; t < list.size() && t < j + NUM_BUTTONS_RAW; t++) {
                 id = list.get(t);
                 final Button button = new Button(controller.getName(id).get());
-                try (final InputStream inputStream = new FileInputStream(
-                        controller.getSpriteFile(id).orElseThrow(() -> new IllegalArgumentException()))) {
-                    var img = new ImageView(new Image(inputStream));
-                    img.setFitWidth(50);
-                    img.setFitHeight(50);
-                    button.setGraphic(img);
-                } catch (Exception e) {
-                    // TODO: handle exception
-                }
+                var img = new ImageView(controller.getSpriteFile(id).get());// TODO
+                img.setFitWidth(50);
+                img.setFitHeight(50);
+                button.setGraphic(img);
                 setAction(button, id);
                 this.buttons.add(button);
                 center.add(button, t - j, i);
@@ -103,15 +94,11 @@ public class PlayerClassMenuImpl extends BorderPane implements PlayerClassMenu {
             buttons.forEach((b) -> b.setDisable(false));
             button.setDisable(true);
             showStats(controller.getStats(id).get());
-            try (final InputStream inputStream = new FileInputStream(
-                    controller.getSpriteFile(id).orElseThrow(() -> new IllegalArgumentException()))) {
-                ImageView img = new ImageView();
-                img.setFitHeight(150);
-                img.setFitWidth(150);
-                bottom.setLeft(img);
-            } catch (Exception e) {
-                // TODO: handle exception
-            }
+            ImageView img = new ImageView(controller.getSpriteFile(id).get());// TODO
+            img.setFitHeight(150);
+            img.setFitWidth(150);
+            bottom.setLeft(img);
+
             bottom.setCenter(new Text(controller.getDescription(id).get()));
 
             controller.select(id);

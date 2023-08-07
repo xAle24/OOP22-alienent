@@ -27,10 +27,10 @@ public class ImageLoaderImpl implements ImageLoader {
     }
 
     @Override
-    public Optional<File> getSpriteFileOf(final String id) {
+    public Optional<String> getSpriteFilePathOf(final String id) {
         final var s = Optional.ofNullable(spriteMap.get(id));
         if (s.isPresent()) {
-            return Optional.of(new File(SPRITE_PATH + s.get()));
+            return Optional.of(new File(SPRITE_PATH + s.get()).getAbsolutePath());
         }
         return Optional.empty();
     }

@@ -29,9 +29,9 @@ public class BoundaryHitboxComponentImpl extends ComponentAbs implements Boundar
         if (hitbox.getType() == Type.PROJECTILE) {
             hitbox.getGameObject().hit(DESTROY);
         } else if((this.location == Locations.UP) || (this.location == Locations.DOWN)) {
-            hitbox.getGameObject().setVelocity(new Vector2D(hitbox.getGameObject().getVelocity().getxComp(), 0));
+            hitbox.getGameObject().setVelocity(Vector2D.fromComponents(hitbox.getGameObject().getVelocity().getxComp(), 0));
         } else {
-            hitbox.getGameObject().setVelocity(new Vector2D(0, hitbox.getGameObject().getVelocity().getyComp()));
+            hitbox.getGameObject().setVelocity(Vector2D.fromComponents(0, hitbox.getGameObject().getVelocity().getyComp()));
         }
     }
 

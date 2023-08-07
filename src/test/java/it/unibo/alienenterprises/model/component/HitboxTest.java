@@ -191,8 +191,8 @@ public class HitboxTest {
         hitboxLeft.isColliding(hitbox2);
         assertEquals(-899, obj2.gethealth());
         //upper lower boundary
-        obj1.setVelocity(new Vector2D(1, 1));
-        obj3.setVelocity(new Vector2D(1, 1));
+        obj1.setVelocity(Vector2D.fromComponents(1, 1));
+        obj3.setVelocity(Vector2D.fromComponents(1, 1));
         assertEquals(1, obj1.getVelocity().getxComp());
         assertEquals(1, obj1.getVelocity().getyComp());
         hitboxUp.isColliding(hitbox1);
@@ -200,8 +200,8 @@ public class HitboxTest {
         hitboxUp.isColliding(hitbox3);
         assertEquals(0.0, obj3.getVelocity().getyComp());
         //right left boundary
-        obj1.setVelocity(new Vector2D(1, 1));
-        obj3.setVelocity(new Vector2D(1, 1));
+        obj1.setVelocity(Vector2D.fromComponents(1, 1));
+        obj3.setVelocity(Vector2D.fromComponents(1, 1));
         hitboxRight.isColliding(hitbox1);
         assertEquals(0.0, obj1.getVelocity().getxComp());
         hitboxRight.isColliding(hitbox3);
