@@ -34,13 +34,12 @@ public final class ViewImpl implements View {
         this.primaryStage.setTitle(TITLE);
         this.primaryStage.setMinHeight(MIN_HEIGHT);
         this.primaryStage.setMinWidth(MIN_WIDTH);
-        this.setScene(ViewType.LOGIN);
+        this.setScene(ViewType.REGISTRATION);
     }
 
     @Override
     public void setScene(ViewType type) {
         this.sceneController.setCurrentScene(type);
-        this.sceneController.getCurrentController().init(this.controller);
         this.sceneController.getViewState().init(this.primaryStage);
         this.primaryStage.setScene(this.sceneController.getCurrentScene());
         this.primaryStage.show();
