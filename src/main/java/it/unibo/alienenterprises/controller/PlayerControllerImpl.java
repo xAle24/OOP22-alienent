@@ -53,7 +53,7 @@ public class PlayerControllerImpl implements PlayerController {
     }
 
     @Override
-    public Optional<File> getSpriteFile(final String id) {
+    public Optional<String> getSpriteFile(final String id) {
         return this.info.getShipSpriteFile(id);
     }
 
@@ -69,10 +69,10 @@ public class PlayerControllerImpl implements PlayerController {
         if (this.selected.isEmpty()) {
             throw new IllegalStateException("nothing has been selected");
         }
-        if (this.controller.isEmpty()){
+        if (this.controller.isEmpty()) {
             throw new IllegalStateException("the controller has not been initialized");
         }
-        //TODO settare il player
+        // TODO settare il player
         this.controller.get().initiateGameSession(selected.get());
         this.controller.get().changeScene(ViewType.GAMESTAGE);
     }

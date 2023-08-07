@@ -1,6 +1,5 @@
 package it.unibo.alienenterprises.controller;
 
-import java.io.File;
 import java.util.Optional;
 
 /**
@@ -11,8 +10,9 @@ public interface ImageLoader {
 
     /**
      * @param id the identifier of the GameObject
-     * @return an Optional of the sprite relative to the given identifier if present
+     * @return an Optional of the path to the sprite relative to the given
+     *         identifier if present
      *         otherwise an empty Optional
      */
-    Optional<File> getSpriteFileOf(String id);
+    Optional<String> getSpriteFilePathOf(String id);
 }
