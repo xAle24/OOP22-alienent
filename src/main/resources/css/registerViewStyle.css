@@ -7,7 +7,7 @@
     -fx-alignment: center;
 }
 
-#LoginBtn {
+#RegisterBtn {
     -fx-background-image: url("/images/unlocked.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: left;
@@ -32,9 +32,4 @@
 
 #passwordText{
     -fx-text-fill: white;
-}
-
-#Alert{
-    -fx-max-width: 400px;
-    -fx-max-height: 200px;
 }

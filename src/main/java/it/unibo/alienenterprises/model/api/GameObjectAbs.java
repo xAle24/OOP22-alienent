@@ -36,7 +36,7 @@ public class GameObjectAbs implements GameObject {
 
     @Override
     public boolean isAlive(){
-        return this.getStatValue(Statistic.HP) > 0 ? true : false;
+        return this.gethealth() > 0;
     }
     /**
      * return the position of the object.
@@ -93,7 +93,7 @@ public class GameObjectAbs implements GameObject {
      */
     @Override
     public Map<Statistic, Integer> getAllStats() {
-        return stats;
+        return Map.copyOf(stats);
     }
     /**
      * Insert the given value in the corresponding stat.
