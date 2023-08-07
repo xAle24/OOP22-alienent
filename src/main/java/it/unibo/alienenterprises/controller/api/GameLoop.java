@@ -1,7 +1,5 @@
 package it.unibo.alienenterprises.controller.api;
 
-import it.unibo.alienenterprises.controller.renderers.RendererManager;
-
 /**
  * Starts when a new game session is started, updates the game periodically.
  */

@@ -2,8 +2,6 @@ package it.unibo.alienenterprises.view.sprites;
 
 import it.unibo.alienenterprises.model.geometry.Point2D;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
-import it.unibo.alienenterprises.view.javafx.CanvasPainter;
-import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,9 +14,9 @@ public final class Sprite {
 
     public Sprite(Image image, Point2D pos, Vector2D angle) {
         this.image = new ImageView(image);
-        this.image.setVisible(true);
         this.image.setFitHeight(50);
         this.image.setFitWidth(50);
+        this.image.setVisible(true);
         this.render(pos, angle);
     }
 

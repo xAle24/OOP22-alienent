@@ -1,25 +1,16 @@
 package it.unibo.alienenterprises.controller.gamesession;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import it.unibo.alienenterprises.controller.GameLoopThread;
 import it.unibo.alienenterprises.controller.api.GameLoop;
 import it.unibo.alienenterprises.controller.renderers.RendererManager;
-import it.unibo.alienenterprises.model.GameWorld;
-import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.World;
-import it.unibo.alienenterprises.view.View;
-import it.unibo.alienenterprises.view.javafx.CanvasPainter;
 
 /**
  * Generic GameSession.
  */
 public abstract class GameSessionAbs implements GameSession {
-    private int score;
     private GameLoopThread gameLoop;
-    private final CanvasPainter canvasPaint;
-    private final World model;
+    protected final World world;
 
     /**
      * Create an instance of the GameSessionAbs class.
@@ -27,21 +18,10 @@ public abstract class GameSessionAbs implements GameSession {
      * @param view
      * @param world
      */
-    public GameSessionAbs(final CanvasPainter canvasPaint, final World model, RendererManager rendererManager) {
-        this.score = 0;
-        this.canvasPaint = canvasPaint;
-        this.model = model;
-        this.gameLoop = new GameLoopThread(rendererManager, model);
+    public GameSessionAbs(final World world, final RendererManager rendererManager) {
+        this.world = world;
+        this.gameLoop = new GameLoopThread(rendererManager, world);
         this.gameLoop.start();
-    }
-
-    protected synchronized void addScore(int score) {
-        this.score += score;
-    }
-
-    @Override
-    public int getScore() {
-        return this.score;
     }
 
     @Override
@@ -52,7 +32,6 @@ public abstract class GameSessionAbs implements GameSession {
     @Override
     public void gameOver() {
         this.gameLoop.stopLoop();
-        this.model.notifyScore(score);
     }
 
 }

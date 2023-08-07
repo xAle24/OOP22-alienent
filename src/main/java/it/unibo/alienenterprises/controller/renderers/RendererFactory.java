@@ -1,8 +1,6 @@
 package it.unibo.alienenterprises.controller.renderers;
 
 import it.unibo.alienenterprises.model.api.GameObject;
-import it.unibo.alienenterprises.model.api.Projectile;
-import it.unibo.alienenterprises.model.api.components.HitboxComponent;
 
 /**
  * Factory that creates the renderers to be used by the view.

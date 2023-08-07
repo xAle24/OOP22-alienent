@@ -56,7 +56,8 @@ public final class CanvasPainter {
     }
 
     /**
-     * Clears the canvas in preparation of another render.
+     * Clears the canvas of every {@link Sprite} drawn on it, in preparation of a
+     * new render.
      */
     private void clearCanvas() {
         this.gc.clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
