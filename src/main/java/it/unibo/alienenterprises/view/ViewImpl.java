@@ -2,6 +2,8 @@ package it.unibo.alienenterprises.view;
 
 import it.unibo.alienenterprises.controller.Controller;
 import it.unibo.alienenterprises.model.geometry.Point2D;
+import it.unibo.alienenterprises.view.api.SceneController;
+import it.unibo.alienenterprises.view.javafx.JFXSceneController;
 import it.unibo.alienenterprises.view.viewstates.ViewState;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -17,6 +19,7 @@ public final class ViewImpl implements View {
     private static final String TITLE = "Alienent";
 
     private final Stage primaryStage;
+    private SceneController sceneController;
 
     private Controller controller;
 
@@ -27,19 +30,19 @@ public final class ViewImpl implements View {
     @Override
     public void init(final Controller controller) {
         this.controller = controller;
+        this.sceneController = new JFXSceneController(controller);
         this.primaryStage.setTitle(TITLE);
         this.primaryStage.setMinHeight(MIN_HEIGHT);
         this.primaryStage.setMinWidth(MIN_WIDTH);
-        this.controller.changeScene(ViewType.GAMESTAGE);
-        this.primaryStage.setScene(this.controller.getSceneController().getCurrentScene());
-        this.primaryStage.setScene(new Scene(new BorderPane()));
-        this.primaryStage.show();
+        this.setScene(ViewType.LOGIN);
     }
 
     @Override
-    public void setScene(ViewState state) {
-        state.init(this.primaryStage);
-        this.primaryStage.setScene(this.controller.getSceneController().getCurrentScene());
+    public void setScene(ViewType type) {
+        this.sceneController.setCurrentScene(type);
+        this.sceneController.getCurrentController().init(this.controller);
+        this.sceneController.getViewState().init(this.primaryStage);
+        this.primaryStage.setScene(this.sceneController.getCurrentScene());
         this.primaryStage.show();
     }
 

@@ -25,7 +25,7 @@ public interface View {
      * 
      * @param scene
      */
-    void setScene(ViewState viewState);
+    void setScene(ViewType type);
 
     /**
      * Returns the {@link Stage} width as the x coordinate and the height as the y
