@@ -19,18 +19,19 @@ public class GameObjectAbs implements GameObject {
     private int health;
     private Map<Statistic, Integer> stats; 
     private Set<Component> component;
-
+    private String id;
     /**
      * Contructor for all objects.
      * @param pos
      * @param vector
      * @param stat
      */
-    public GameObjectAbs(final Point2D pos, final Vector2D vector, final Map<Statistic, Integer> stat) {
+    public GameObjectAbs(final Point2D pos, final Vector2D vector, final Map<Statistic, Integer> stat, final String id) {
         this.position = pos;
         this.velocity = vector;
         this.stats = stat;
         this.health = stat.get(Statistic.HP);
+        this.id = id;
         this.component = new HashSet<Component>();
     }
 
@@ -132,7 +133,9 @@ public class GameObjectAbs implements GameObject {
     public int gethealth() {
         return this.health;
     }
-
+    public String getId() {
+        return id;
+    }
     @Override
     public void addAllComponent(Collection<Component> components) {
         this.component.addAll(components);
