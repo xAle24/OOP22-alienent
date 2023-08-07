@@ -15,7 +15,8 @@ import it.unibo.alienenterprises.view.ShipInfoLoader;
 
 public class PlayerInfoLoaderImpl implements ShipInfoLoader {
     private static final String SEPARATOR = File.separator;
-    private static final String GAME_RESOURCES_PATH = "src" + SEPARATOR + "main" + SEPARATOR + "resources" + SEPARATOR;
+    private static final String GAME_RESOURCES_PATH = "src" + SEPARATOR + "main" + SEPARATOR + "resources" + SEPARATOR
+            + "ships" + SEPARATOR;
     private static final String DESCRIPTIONS_PATH = GAME_RESOURCES_PATH + "playerInfo" + SEPARATOR;
     private static final String SHIP_LIST_FILE_PATH = GAME_RESOURCES_PATH + "shipList.yml";
     private static final String FILE_SUFFIX = "Info.yml";
@@ -69,7 +70,7 @@ public class PlayerInfoLoaderImpl implements ShipInfoLoader {
     }
 
     @Override
-    public Set<String> getShipIds(){
+    public Set<String> getShipIds() {
         return Set.copyOf(playerIds);
     }
 

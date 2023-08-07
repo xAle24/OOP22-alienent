@@ -7,7 +7,6 @@ import java.util.Set;
 
 import it.unibo.alienenterprises.controller.api.ShipLoader;
 import it.unibo.alienenterprises.model.api.Statistic;
-import it.unibo.alienenterprises.model.api.World;
 import it.unibo.alienenterprises.view.ShipInfoLoader;
 import it.unibo.alienenterprises.view.ViewType;
 
@@ -22,7 +21,7 @@ public class PlayerControllerImpl implements PlayerController {
     private Optional<String> selected = Optional.empty();
     private Optional<Controller> controller = Optional.empty();
 
-    public PlayerControllerImpl(final World world) {
+    public PlayerControllerImpl() {
         this.info = new PlayerInfoLoaderImpl();
         this.info.load();
     }

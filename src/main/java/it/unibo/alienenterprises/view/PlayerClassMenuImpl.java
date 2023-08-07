@@ -9,7 +9,6 @@ import java.util.Map;
 import it.unibo.alienenterprises.controller.PlayerController;
 import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.view.api.PlayerClassMenu;
-import it.unibo.alienenterprises.view.api.SceneLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -41,7 +40,7 @@ public class PlayerClassMenuImpl extends BorderPane implements PlayerClassMenu {
      * @param controller
      * @param sceneLoader
      */
-    public PlayerClassMenuImpl(final PlayerController controller, final SceneLoader sceneLoader) {
+    public PlayerClassMenuImpl(final PlayerController controller) {
         super();
         this.controller = controller;
 
@@ -105,12 +104,13 @@ public class PlayerClassMenuImpl extends BorderPane implements PlayerClassMenu {
             showStats(controller.getStats(id).get());
             try (final InputStream inputStream = new FileInputStream(
                     controller.getSpriteFile(id).orElseThrow(() -> new IllegalArgumentException()))) {
-                ImageView img = new ImageView();
+                ImageView img = new ImageView(new Image(inputStream));
                 img.setFitHeight(150);
                 img.setFitWidth(150);
                 bottom.setLeft(img);
             } catch (Exception e) {
                 // TODO: handle exception
+                e.printStackTrace();
             }
             bottom.setCenter(new Text(controller.getDescription(id).get()));
 
