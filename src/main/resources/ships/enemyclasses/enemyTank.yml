@@ -20,9 +20,6 @@ components:
       type: FACTORYMETHOD
       callingClass: it.unibo.alienenterprises.model.impl.ProjectileSupplierFactoryImpl
       value: getBasicProjectileSupplier
-    -
-      type: DOUBLE
-      value: "10"
   hitbox.SimpleShipHitboxComponentImpl:
     -
       type: BOOLEAN
