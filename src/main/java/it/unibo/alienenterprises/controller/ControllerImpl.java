@@ -36,7 +36,7 @@ public final class ControllerImpl implements Controller {
         Dimensions wd = new WorldDimensions(this.view.getWidthHeight());
         CanvasPainter cp = new CanvasPainter(wd.getBounds().getX(), wd.getBounds().getY());
         if (this.account != null) {
-            this.currGameSession = new SimpleGameSession(new GameWorld(wd), new RendererManager(cp), account);
+            this.currGameSession = new SimpleGameSession(new GameWorld(wd), new RendererManager(cp), account, playerID);
         } else {
             // TODO
         }

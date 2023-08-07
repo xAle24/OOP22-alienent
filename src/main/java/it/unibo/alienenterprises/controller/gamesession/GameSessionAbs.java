@@ -18,9 +18,9 @@ public abstract class GameSessionAbs implements GameSession {
      * @param view
      * @param world
      */
-    public GameSessionAbs(final World world, final RendererManager rendererManager) {
+    public GameSessionAbs(final World world, final RendererManager rendererManager, final String playerID) {
         this.world = world;
-        this.gameLoop = new GameLoopThread(rendererManager, world);
+        this.gameLoop = new GameLoopThread(rendererManager, world, playerID);
         this.gameLoop.start();
     }
 

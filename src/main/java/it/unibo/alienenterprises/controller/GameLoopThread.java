@@ -1,18 +1,21 @@
 package it.unibo.alienenterprises.controller;
 
-import java.util.Map;
 import it.unibo.alienenterprises.controller.api.GameLoop;
 import it.unibo.alienenterprises.controller.renderers.RendererManager;
+import it.unibo.alienenterprises.model.EnemySpawnerImpl;
+import it.unibo.alienenterprises.model.PlayerSpawnerImpl;
+import it.unibo.alienenterprises.model.api.EnemySpawner;
 import it.unibo.alienenterprises.model.api.World;
 
 /**
  * Implementation of the GameLoop interface.
  */
 public final class GameLoopThread extends Thread implements GameLoop {
-    private static final long MS_PER_FRAME = 1000;
+    private static final long MS_PER_FRAME = 20;
     private static final int MAX_INPUT = 5;
     private final World world;
     private final RendererManager rendererManager;
+    private final EnemySpawner enemySpawner;
     // private Map<UserTag, String> inputQueue;
     private boolean stopped;
     private boolean paused;
@@ -23,9 +26,12 @@ public final class GameLoopThread extends Thread implements GameLoop {
      * @param view
      * @param world
      */
-    public GameLoopThread(RendererManager rendererManager, final World world) {
+    public GameLoopThread(RendererManager rendererManager, final World world, final String playerID) {
         this.world = world;
         this.rendererManager = rendererManager;
+        var player = new PlayerSpawnerImpl(world).getPlayer(playerID).get();
+        this.enemySpawner = new EnemySpawnerImpl(world, null, null, player);
+        this.rendererManager.addRenderer(player, playerID);
         this.stopped = false;
         this.paused = false;
     }
@@ -48,7 +54,7 @@ public final class GameLoopThread extends Thread implements GameLoop {
             long currentStart = System.currentTimeMillis();
             long elapsed = currentStart - previousStart;
             this.processInput();
-            this.updateGame(elapsed / 1000.0);
+            this.updateGame(elapsed);
             this.render();
             this.waitForNextFrame(System.currentTimeMillis() - currentStart);
             previousStart = currentStart;
@@ -72,7 +78,10 @@ public final class GameLoopThread extends Thread implements GameLoop {
 
     @Override
     public void updateGame(final double deltaTime) {
+        this.enemySpawner.update(deltaTime);
         this.world.update(deltaTime);
+        // this.world.getLastAdded().forEach(o -> this.rendererManager.addRenderer(o,
+        // o.getID()));
     }
 
     @Override
