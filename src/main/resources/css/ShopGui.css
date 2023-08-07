@@ -35,6 +35,22 @@ box {
   border-color: black;
 }
 
+#score {
+  -fx-font-size: 30;
+  font-size: 30;
+  -fx-font-weight: bold;
+  font-weight: bold;
+  -fx-decoration-color: BLACK;
+  text-decoration-color: black;
+  -fx-font-family: fantasy;
+  font-family: fantasy;
+
+  -fx-text-align: center;
+  text-align: center;
+  -fx-padding: 10px;
+  padding: 10px;
+}
+
 #user {
   -fx-font-size: 20px;
   font-size: 20px;
@@ -50,23 +66,49 @@ box {
   -fx-padding: 10px;
   padding: 10px;
 
-  -fx-background-color: #99eee3;
-  background-color: #99eee3;
-  -fx-border-width: 2px;
-  border-width: 2px;
-  -fx-border-style: solid;
-  border-style: solid;
-  -fx-border-color: rgb(93, 212, 139);
-  border-color: rgb(93, 212, 139);
+  -fx-background-image: url("/images/UI_Flat_Frame_Horizontal.png");
+  background-image: url("/images/UI_Flat_Frame_Horizontal.png");
+  -fx-background-repeat: no-repeat;
+  background-repeat: no-repeat;
+  -fx-background-size: contain;
+  background-size: contain;
+  -fx-background-position: center;
+  background-position: center;
 }
 
 #exitButton {
   -fx-background-image: url("/examplemvc/cross.png");
   background-image: url("/examplemvc/cross.png");
-  -fx-background-size: cover;
-  background-size: cover;
+  -fx-background-repeat: no-repeat;
+  background-repeat: no-repeat;
+  -fx-background-size: contain;
+  background-size: contain;
   -fx-background-position: center;
   background-position: center;
+}
+
+#inventory {
+  -fx-background-image: url("/images/UI_Flat_Button.png"),
+    url("/images/inventory.png");
+  background-image: url("/images/UI_Flat_Button.png"),
+    url("/images/inventory.png");
+  -fx-background-position: center, center;
+  background-position: center, center;
+  -fx-background-repeat: no-repeat;
+  background-repeat: no-repeat;
+  -fx-background-size: contain;
+  background-size: contain;
+}
+
+#popup {
+  -fx-background-image: url("/images/UI_Flat_Frame_Standard.png");
+  background-image: url("/images/UI_Flat_Frame_Standard.png");
+  -fx-background-position: center, center;
+  background-position: center, center;
+  -fx-background-repeat: no-repeat;
+  background-repeat: no-repeat;
+  -fx-background-size: contain;
+  background-size: contain;
 }
 
 #scroll {
