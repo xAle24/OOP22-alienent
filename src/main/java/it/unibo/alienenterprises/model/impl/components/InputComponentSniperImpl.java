@@ -1,29 +1,23 @@
 package it.unibo.alienenterprises.model.impl.components;
 
 import java.util.Optional;
-import java.util.Random;
 
 import it.unibo.alienenterprises.model.api.GameObject;
+import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.model.api.components.Component;
 import it.unibo.alienenterprises.model.api.components.ComponentAbs;
-import it.unibo.alienenterprises.model.api.components.InputComponent;
+import it.unibo.alienenterprises.model.api.components.EnemyInputComponent;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
 
 /**
  * Sniper behaviour.
  */
-public class InputComponentSniperImpl extends ComponentAbs implements InputComponent {
-    private static final int DISTANCE = 700;
-    private static final int RIGHTANGLE = 90;
-    private static final int RANDOMANGLE = 91;
-    private static final Random rnd = new Random();
-
-    private boolean right, up = false;
+public class InputComponentSniperImpl extends ComponentAbs implements EnemyInputComponent {
+    private static final int DISTANCE = 900;
     private GameObject target;
 
-    public InputComponentSniperImpl(final GameObject object,final boolean enabled, final GameObject target) {
+    public InputComponentSniperImpl(final GameObject object,final boolean enabled) {
         super(object, enabled);
-        this.target = target;
     }
 
     @Override
@@ -34,47 +28,22 @@ public class InputComponentSniperImpl extends ComponentAbs implements InputCompo
     }
 
     private Vector2D calculateMovement() {
-        //movement on right/left direction
-        if (this.getGameObject().getPosition().getX() > target.getPosition().getX() 
-        && Math.abs(this.getGameObject().getPosition().getX() - target.getPosition().getX()) > DISTANCE) {
-            right = false;
-        } else if (this.getGameObject().getPosition().getX() > target.getPosition().getX() 
-        && Math.abs(this.getGameObject().getPosition().getX() - target.getPosition().getX()) < DISTANCE) {
-            right = true;
-        } else if (this.getGameObject().getPosition().getX() < target.getPosition().getX() 
-        && Math.abs(this.getGameObject().getPosition().getX() - target.getPosition().getX()) < DISTANCE) {
-            right = false;
+        double distanceTarget = Math.sqrt(Math.pow(this.target.getPosition().getX() - this.getGameObject().getPosition().getX(), 2) + 
+                            Math.pow(this.target.getPosition().getY() - this.getGameObject().getPosition().getY(), 2));
+        if (distanceTarget > DISTANCE){
+            return Vector2D.fromTwoPointsAndModule(this.getGameObject().getPosition(), this.target.getPosition(), 
+                this.getGameObject().getStatValue(Statistic.SPEED));
         } else {
-            right = true;
-        }
-
-        //movement on up/down direction
-        if (this.getGameObject().getPosition().getY() > target.getPosition().getY() 
-        &&  Math.abs(this.getGameObject().getPosition().getY() - target.getPosition().getY()) > DISTANCE) {
-            right = false;
-        } else if (this.getGameObject().getPosition().getY() > target.getPosition().getY() 
-        && Math.abs(this.getGameObject().getPosition().getY() - target.getPosition().getY()) < DISTANCE) {
-            right = true;
-        } else if (this.getGameObject().getPosition().getY() < target.getPosition().getY() 
-        && Math.abs(this.getGameObject().getPosition().getY() - target.getPosition().getY()) < DISTANCE) {
-            right = false;
-        } else {
-            right = true;
-        }
-
-        if (right && up) {
-            return Vector2D.fromAngleAndModule(rnd.nextInt(RANDOMANGLE), 0);
-        } else if (!right && up) {
-            return Vector2D.fromAngleAndModule(rnd.nextInt(RANDOMANGLE) + RIGHTANGLE, 0);
-        } else if (!right && !up) {
-            return Vector2D.fromAngleAndModule(rnd.nextInt(RANDOMANGLE) + RIGHTANGLE * 2, 0);
-        } else {
-            return Vector2D.fromAngleAndModule(rnd.nextInt(RANDOMANGLE) + RIGHTANGLE * 3, 0);
+            return Vector2D.fromTwoPointsAndModule(this.getGameObject().getPosition(), this.target.getPosition(), 
+            - this.getGameObject().getStatValue(Statistic.SPEED));
         }
     }
 
+    public void setTarget(final GameObject target) {
+        this.target = target;
+    }
     @Override
     public Optional<Component> duplicate(GameObject obj) {
-        return Optional.of(new InputComponentSniperImpl(obj, isEnabled(), target));
+        return Optional.of(new InputComponentSniperImpl(obj, isEnabled()));
     }
 }

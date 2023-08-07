@@ -17,8 +17,8 @@ public class RendererManager {
         this.renderFactory = new RendererFactoryImpl();
     }
 
-    public void addRenderer(GameObject obj) {
-        var newRenderer = this.renderFactory.createGameObjectRenderer(obj);
+    public void addRenderer(GameObject obj, String objID) {
+        var newRenderer = this.renderFactory.createGameObjectRenderer(obj, objID);
         this.renderers.add(newRenderer);
         this.canvasPaint.addAll(newRenderer);
     }

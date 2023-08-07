@@ -7,7 +7,7 @@ import it.unibo.alienenterprises.model.api.GameObject;
  */
 public interface RendererFactory {
 
-    public Renderer createGameObjectRenderer(GameObject obj);
+    public Renderer createGameObjectRenderer(GameObject obj, String objID);
 
     // /**
     // * Creates a {@link Ship} Renderer.

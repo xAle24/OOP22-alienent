@@ -1,7 +1,5 @@
 package it.unibo.alienenterprises.model.api;
 
-import it.unibo.alienenterprises.model.WorldDimensions;
-
 /**
  * The main model of the game.
  */

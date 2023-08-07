@@ -21,9 +21,8 @@ public interface Controller {
     /**
      * Initiate a {@link GameSession}.
      * 
-     * @param multiplayer true if the session is multiplayer, false otherwise.
      */
-    void initiateGameSession(boolean multiplayer);
+    void initiateGameSession();
 
     /**
      * Returns the {@link SceneController}.

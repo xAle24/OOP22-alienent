@@ -20,6 +20,16 @@ public enum ViewType {
     MAINMENU,
 
     /**
+     * Tutorial screen.
+     */
+    TUTORIAL,
+
+    /**
+     * Ship selection screen.
+     */
+    SHIPSELECT,
+
+    /**
      * Game world while a {@link GameSession} has not yet reached the game over
      * status.
      */
