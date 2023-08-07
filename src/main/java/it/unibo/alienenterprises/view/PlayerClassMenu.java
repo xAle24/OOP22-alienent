@@ -6,6 +6,7 @@ import java.util.Map;
 
 import it.unibo.alienenterprises.controller.PlayerController;
 import it.unibo.alienenterprises.model.api.Statistic;
+import it.unibo.alienenterprises.view.api.SceneLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -50,9 +51,8 @@ public class PlayerClassMenu extends BorderPane {
 
         this.setCenter(container);
         final Button confirmButton = new Button("Conferma");
-        confirmButton.setOnAction((e)->{
-            controller.confirmSelecti on ();
-            sceneLoader.setScene(SceneType.GAMESTAGE);
+        confirmButton.setOnAction((e) -> {
+            controller.confirmSelection();
         });
         this.setBottom(confirmButton);
     }
@@ -72,20 +72,17 @@ public class PlayerClassMenu extends BorderPane {
                 button.setGraphic(img);
                 setAction(button, id);
                 this.buttons.add(button);
-                center.add(button, t-j, i);
-            }  
+                center.add(button, t - j, i);
+            }
         }
     }
 
-    private void setAction(final Button button, final String id){
-        button.setOnAction((event)->{ 
-            buttons.forEach((b)->b .s etDisable(false));
-            button.setDisable(t ru e);
+    private void setAction(final Button button, final String id) {
+        button.setOnAction((event) -> {
+            buttons.forEach((b) -> b.setDisable(false));
+            button.setDisable(true);
             showStats(controller.getStats(id).get());
-            
-
-            
-
+            ImageView img = new ImageView(controller.getSpritePath(id).get());
             img.setFitHeight(150);
             img.setFitWidth(150);
             bottom.setLeft(img);
@@ -96,13 +93,13 @@ public class PlayerClassMenu extends BorderPane {
         });
     }
 
-    private void showStats(final Map<Statistic,Integer> stats){
-        final GridPane pane = new GridPane();  
+    private void showStats(final Map<Statistic, Integer> stats) {
+        final GridPane pane = new GridPane();
         pane.getColumnConstraints().add(new ColumnConstraints(120));
         pane.getColumnConstraints().add(new ColumnConstraints(50));
         int t = 0;
-        for(final var s : Statistic.values()){
-             pane.add(new Text(s.toString()),  0, t);
+        for (final var s : Statistic.values()) {
+            pane.add(new Text(s.toString()), 0, t);
             pane.add(new Text(stats.get(s).toString()), 1, t);
             t++;
         }
