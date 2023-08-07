@@ -103,6 +103,8 @@ public interface GameObject {
     void addAllComponent(Collection<Component> components);
 
     int gethealth();
+
+    String getId();
     /**
      * Update the game object.
      */
