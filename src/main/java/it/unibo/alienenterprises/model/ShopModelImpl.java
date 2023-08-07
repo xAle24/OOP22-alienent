@@ -42,8 +42,9 @@ public class ShopModelImpl implements ShopModel {
 
         UserAccountImpl user = controller.getUserAccount();
         return powerUps.stream().filter(p -> p.getId().equals(id))
-                .filter(p -> (user.getMoney() - (p.getCost()) * controller.getUserAccount().getCurrLevel(id)) >= 0)
-                .map(p -> -(p.getCost()) * controller.getUserAccount().getCurrLevel(id)).findFirst();
+                .filter(p -> (user.getMoney()
+                        - (p.getCost()) * (controller.getUserAccount().getCurrLevel(id) + 1)) >= 0)
+                .map(p -> -(p.getCost()) * (controller.getUserAccount().getCurrLevel(id) + 1)).findFirst();
     }
 
     /**
