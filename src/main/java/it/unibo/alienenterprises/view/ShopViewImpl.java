@@ -17,7 +17,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -130,10 +129,8 @@ public class ShopViewImpl extends BorderPane implements ShopView {
         box.setTop(top);
         BorderPane.setAlignment(scroll, Pos.TOP_CENTER);
         box.setCenter(scroll);
-        BorderPane.setAlignment(bottom, Pos.TOP_LEFT);
+        BorderPane.setAlignment(bottom, Pos.CENTER);
         box.setBottom(bottom);
-
-        this.box.setVisible(false);
 
         setCheck();
 
@@ -180,8 +177,11 @@ public class ShopViewImpl extends BorderPane implements ShopView {
 
         while (iter.hasNext()) {
             PowerUpRenderer curr = iter.next();
-            VBox pwuBox = new VBox();
+            BorderPane pwuBox = new BorderPane();
+
+            pwuBox.setPrefSize(widthUnit * 4, widthUnit * 5);
             pwuBox.setId("pwubox");
+
             Image image = new Image(
                     "C:/Users/ginni/Desktop/ProgettoOOP/OOP22-alienent/src/main/resources/examplemvc/"
                             + curr.getImage());
@@ -189,12 +189,15 @@ public class ShopViewImpl extends BorderPane implements ShopView {
 
             Button button = new Button();
             button.setGraphic(new ImageView(image));
+            button.setPrefSize(widthUnit * 3, widthUnit * 3);
+
             pwuButtons.put(button, curr.getId());
 
             Label name = new Label(curr.getName());
             name.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
             name.setTextFill(Color.DARKBLUE);
             name.setWrapText(true);
+            name.setPrefWidth(widthUnit * 4);
 
             addAction(curr, button);
 
@@ -210,9 +213,12 @@ public class ShopViewImpl extends BorderPane implements ShopView {
 
             checkBoxesMap.put(curr.getId(), pwuCheckBoxs);
 
-            pwuBox.getChildren().addAll(button, name, checkGrid);
-            pwuBox.setPrefWidth(200);
-            pwuBox.setAlignment(Pos.CENTER);
+            pwuBox.setTop(button);
+            pwuBox.setCenter(name);
+            pwuBox.setBottom(checkGrid);
+            BorderPane.setAlignment(button, Pos.CENTER);
+            BorderPane.setAlignment(name, Pos.CENTER);
+            BorderPane.setAlignment(checkGrid, Pos.CENTER);
 
             if (pwuButtons.size() == pwuInfo.size()) {
                 grid.add(pwuBox, columNum, rowNum);
@@ -231,23 +237,29 @@ public class ShopViewImpl extends BorderPane implements ShopView {
 
         }
 
-        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-
         scroll.setId("scroll");
 
-        scroll.setMaxSize((screenBounds.getWidth() / 7) * 6, (screenBounds.getHeight() / 6) * 2);
+        scroll.setMaxSize((SCREENWIDHT / 7) * 6, (SCREENHEIGHT / 6) * 2.5);
         grid.setHgap((scroll.getMaxWidth() / 12));
         grid.setVgap(scroll.getMaxHeight() / 12);
+        grid.setPrefSize(scroll.getPrefWidth(), scroll.getPrefHeight());
         this.scroll.setContent(grid);
     }
 
     private void addAction(PowerUpRenderer curr, Button button) {
         button.setOnAction(event -> {
 
-            ImageView icon = new ImageView(
+            bottom.setId("bottom");
+            bottom.setPrefSize(SCREENWIDHT - 40, widthUnit * 4);
+
+            VBox icon = new VBox();
+            icon.setAlignment(Pos.CENTER);
+            ImageView image = new ImageView(
                     "C:/Users/ginni/Desktop/ProgettoOOP/OOP22-alienent/src/main/resources/examplemvc/"
                             + curr.getImage());
 
+            icon.setId("icon");
+            icon.getChildren().add(image);
             bottom.setLeft(icon);
 
             Label newName = new Label(curr.getName());
@@ -255,25 +267,28 @@ public class ShopViewImpl extends BorderPane implements ShopView {
             final StringBuilder stats = new StringBuilder("");
             curr.getPwu().getStatModifiers()
                     .forEach((s, i) -> stats.append(i != 0 ? s + ": " + i + "\n" : ""));
-            TextArea description = new TextArea(curr.getDescription() + stats.toString());
-            description.setWrapText(true);
+
+            Text description = new Text(curr.getDescription() + "\n" + stats.toString());
             description.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
-            description.setEditable(false);
+            TextFlow descContenitor = new TextFlow(description);
 
+            ScrollPane scrollDesc = new ScrollPane();
+            scrollDesc.setId("scrollDesc");
             VBox descBox = new VBox();
+            descBox.setAlignment(Pos.CENTER_LEFT);
+            descBox.setId("descbox");
             descBox.getChildren().add(newName);
-            descBox.getChildren().add(description);
+            descBox.getChildren().add(descContenitor);
+            descBox.setMaxWidth(widthUnit * 20);
+            scrollDesc.setContent(descBox);
+            scrollDesc.setMaxWidth(widthUnit * 20.3);
 
-            bottom.setCenter(descBox);
+            bottom.setCenter(scrollDesc);
 
             Button buyButton = new Button();
-            int cost = 0;
-            if (controller.getUserAccount().getCurrLevel(curr.getPwu().getId()) == 0) {
-                cost = curr.getPwu().getCost();
-            } else {
-                cost = curr.getPwu().getCost()
-                        * (controller.getUserAccount().getInventory().get(curr.getId()) + 1);
-            }
+            buyButton.setId("buybutton");
+            int cost = curr.getPwu().getCost()
+                    * (controller.getUserAccount().getInventory().get(curr.getId()) + 1);
             buyButton.setText(String.valueOf(cost));
             buyButton.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
 
@@ -281,8 +296,7 @@ public class ShopViewImpl extends BorderPane implements ShopView {
                 buyEvent(curr, buyButton);
             });
 
-            buyButton.setPrefWidth(300); // Imposta la larghezza preferita a 200
-            buyButton.setPrefHeight(50);
+            buyButton.setMaxSize(widthUnit * 2, heightUnit);
 
             BorderPane rightContainer = new BorderPane();
             rightContainer.setBottom(buyButton);
@@ -419,6 +433,7 @@ public class ShopViewImpl extends BorderPane implements ShopView {
                 exitButton.setOnAction(closePwuInfo -> {
                     this.bottom.setVisible(false);
                 });
+                BorderPane.setAlignment(exitButton, Pos.TOP_RIGHT);
                 break;
             case SHOP:
                 exitButton.setOnAction(closeShop -> {
