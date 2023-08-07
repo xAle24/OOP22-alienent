@@ -93,7 +93,7 @@ public class GameObjectAbs implements GameObject {
      */
     @Override
     public Map<Statistic, Integer> getAllStats() {
-        return stats;
+        return Map.copyOf(stats);
     }
     /**
      * Insert the given value in the corresponding stat.
