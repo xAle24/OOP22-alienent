@@ -8,6 +8,7 @@ import java.util.Map;
 
 import it.unibo.alienenterprises.controller.PlayerController;
 import it.unibo.alienenterprises.model.api.Statistic;
+import it.unibo.alienenterprises.view.api.PlayerClassMenu;
 import it.unibo.alienenterprises.view.api.SceneLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -19,7 +20,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class PlayerClassMenu extends BorderPane {
+/**
+ * PlayerClassMenu
+ */
+public class PlayerClassMenuImpl extends BorderPane implements PlayerClassMenu {
 
     private static final String QUESTION = "Choose your class";
 
@@ -33,7 +37,11 @@ public class PlayerClassMenu extends BorderPane {
 
     private final List<Button> buttons = new ArrayList<>();
 
-    public PlayerClassMenu(final PlayerController controller, final SceneLoader sceneLoader) {
+    /**
+     * @param controller
+     * @param sceneLoader
+     */
+    public PlayerClassMenuImpl(final PlayerController controller, final SceneLoader sceneLoader) {
         super();
         this.controller = controller;
 
@@ -60,6 +68,11 @@ public class PlayerClassMenu extends BorderPane {
         this.setBottom(confirmButton);
     }
 
+    @Override
+    public PlayerController getController() {
+        return controller;
+    }
+
     private void setCentralPane() {
         final List<String> list = controller.getPlayerIds().stream().sorted().toList();
         int j;
@@ -69,7 +82,8 @@ public class PlayerClassMenu extends BorderPane {
             for (int t = j; t < list.size() && t < j + NUM_BUTTONS_RAW; t++) {
                 id = list.get(t);
                 final Button button = new Button(controller.getName(id).get());
-                try (final InputStream inputStream = new FileInputStream(controller.getSpriteFile(id).orElseThrow(()->new IllegalArgumentException()))) {
+                try (final InputStream inputStream = new FileInputStream(
+                        controller.getSpriteFile(id).orElseThrow(() -> new IllegalArgumentException()))) {
                     var img = new ImageView(new Image(inputStream));
                     img.setFitWidth(50);
                     img.setFitHeight(50);
@@ -89,14 +103,15 @@ public class PlayerClassMenu extends BorderPane {
             buttons.forEach((b) -> b.setDisable(false));
             button.setDisable(true);
             showStats(controller.getStats(id).get());
-            try (final InputStream inputStream = new FileInputStream(controller.getSpriteFile(id).orElseThrow(()->new IllegalArgumentException()))) {
-                    ImageView img = new ImageView();
-                    img.setFitHeight(150);
-                    img.setFitWidth(150);
-                    bottom.setLeft(img);
-                } catch (Exception e) {
-                    // TODO: handle exception
-                }
+            try (final InputStream inputStream = new FileInputStream(
+                    controller.getSpriteFile(id).orElseThrow(() -> new IllegalArgumentException()))) {
+                ImageView img = new ImageView();
+                img.setFitHeight(150);
+                img.setFitWidth(150);
+                bottom.setLeft(img);
+            } catch (Exception e) {
+                // TODO: handle exception
+            }
             bottom.setCenter(new Text(controller.getDescription(id).get()));
 
             controller.select(id);
@@ -116,4 +131,5 @@ public class PlayerClassMenu extends BorderPane {
         left.getChildren().clear();
         left.getChildren().add(pane);
     }
+
 }
