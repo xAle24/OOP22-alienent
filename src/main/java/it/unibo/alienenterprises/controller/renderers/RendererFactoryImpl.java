@@ -12,14 +12,8 @@ public class RendererFactoryImpl implements RendererFactory {
     }
 
     @Override
-    public Renderer createGameObjectRenderer(GameObject obj) {
-        return new RendererAbs(obj) {
-
-            @Override
-            protected Image findImage() {
-                return new Image(getClass().getResourceAsStream("/sprites_test/cat-g5485248ce_640.png"),
-                        50.0, 50.0, false, false);
-            }
+    public Renderer createGameObjectRenderer(GameObject obj, String objID) {
+        return new RendererAbs(obj, objID) {
 
         };
     }

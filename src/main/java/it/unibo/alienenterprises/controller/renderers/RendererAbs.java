@@ -2,7 +2,6 @@ package it.unibo.alienenterprises.controller.renderers;
 
 import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.view.sprites.Sprite;
-import javafx.scene.image.Image;
 
 /**
  * Abstract {@link Renderer} implementation.
@@ -16,9 +15,9 @@ public abstract class RendererAbs implements Renderer {
      * 
      * @param obj the {@link GameObject} to be rendered
      */
-    public RendererAbs(GameObject obj) {
+    public RendererAbs(GameObject obj, String objID) {
         this.obj = obj;
-        this.sprite = new Sprite(findImage(), this.obj.getPosition(), this.obj.getVelocity());
+        this.sprite = new Sprite(objID, this.obj.getPosition(), this.obj.getVelocity());
     }
 
     @Override
@@ -35,6 +34,4 @@ public abstract class RendererAbs implements Renderer {
     public Sprite getSprite() {
         return this.sprite;
     }
-
-    protected abstract Image findImage();
 }

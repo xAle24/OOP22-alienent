@@ -12,8 +12,8 @@ import javafx.scene.image.ImageView;
 public final class Sprite {
     private ImageView image;
 
-    public Sprite(Image image, Point2D pos, Vector2D angle) {
-        this.image = new ImageView(image);
+    public Sprite(String objID, Point2D pos, Vector2D angle) {
+        // this.image = new ImageView(image);
         this.image.setFitHeight(50);
         this.image.setFitWidth(50);
         this.image.setVisible(true);

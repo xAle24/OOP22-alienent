@@ -35,7 +35,7 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public void initiateGameSession(boolean multiplayer) {
+    public void initiateGameSession() {
         Dimensions wd = new WorldDimensions(this.view.getWidthHeight());
         CanvasPainter cp = new CanvasPainter(wd.getBounds().getX(), wd.getBounds().getY());
         if (this.account != null) {
