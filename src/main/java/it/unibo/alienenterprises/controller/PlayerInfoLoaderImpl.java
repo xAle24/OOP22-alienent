@@ -18,9 +18,9 @@ public class PlayerInfoLoaderImpl implements ShipInfoLoader {
     private static final String GAME_RESOURCES_PATH = "src" + SEPARATOR + "main" + SEPARATOR + "resources" + SEPARATOR;
     private static final String DESCRIPTIONS_PATH = GAME_RESOURCES_PATH + "playerInfo" + SEPARATOR;
     private static final String SHIP_LIST_FILE_PATH = GAME_RESOURCES_PATH + "shipList.yml";
-    private static final String SPRITES_PATH = GAME_RESOURCES_PATH + "sprites" + SEPARATOR;
     private static final String FILE_SUFFIX = "Info.yml";
     private static final String PLAYERS = "playerclasses";
+    private static final ImageLoader IMAGE_LOADER = new ImageLoaderImpl();
 
     private boolean isLoaded = false;
     private Set<String> playerIds;
@@ -94,11 +94,10 @@ public class PlayerInfoLoaderImpl implements ShipInfoLoader {
     }
 
     @Override
-    public Optional<String> getShipSpriteFilePath(String id) {
+    public Optional<File> getShipSpriteFile(String id) {
         this.checkIfLoaded();
         if (infoMap.containsKey(id)) {
-            final File f = new File(SPRITES_PATH + infoMap.get(id).getSpriteFilePath());
-            return Optional.of(f.getAbsolutePath());
+            return IMAGE_LOADER.getSpriteFileOf(id);
         } else {
             return Optional.empty();
         }

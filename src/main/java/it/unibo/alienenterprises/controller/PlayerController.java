@@ -1,5 +1,6 @@
 package it.unibo.alienenterprises.controller;
 
+import java.io.File;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -41,7 +42,7 @@ public interface PlayerController extends InitController{
      * @param id the id of the playerClass
      * @return the absolute path of the sprite of the playerClass
      */
-    Optional<String> getSpritePath(String id);
+    Optional<File> getSpriteFile(String id);
 
     /**
      * Set the selected player to the given player

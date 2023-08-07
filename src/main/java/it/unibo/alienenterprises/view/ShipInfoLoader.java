@@ -1,5 +1,6 @@
 package it.unibo.alienenterprises.view;
 
+import java.io.File;
 import java.util.Optional;
 import java.util.Set;
 
@@ -39,6 +40,6 @@ public interface ShipInfoLoader {
      * @return the SpriteFilePath of the ship, if the id is recognized, or an empty
      *         Optional if not
      */
-    Optional<String> getShipSpriteFilePath(String id);
+    Optional<File> getShipSpriteFile(String id);
 
 }

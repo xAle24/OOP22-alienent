@@ -20,7 +20,7 @@ public class PlayerInfoLoaderTest {
     @Test
     public void spriteLoadTest(){
         for(final var s : list){
-            System.out.println(infoLoader.getShipSpriteFilePath(s).get());
+            System.out.println(infoLoader.getShipSpriteFile(s).get());
         }
     }
     

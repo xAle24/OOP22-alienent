@@ -54,8 +54,8 @@ public class PlayerControllerImpl implements PlayerController {
     }
 
     @Override
-    public Optional<String> getSpritePath(final String id) {
-        return this.info.getShipSpriteFilePath(id);
+    public Optional<File> getSpriteFile(final String id) {
+        return this.info.getShipSpriteFile(id);
     }
 
     @Override
