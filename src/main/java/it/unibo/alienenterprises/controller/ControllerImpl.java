@@ -12,12 +12,9 @@ import it.unibo.alienenterprises.model.api.UserAccount;
 import it.unibo.alienenterprises.model.api.UserAccountHandler;
 import it.unibo.alienenterprises.view.ViewType;
 import it.unibo.alienenterprises.view.View;
-import it.unibo.alienenterprises.view.api.SceneController;
 import it.unibo.alienenterprises.view.javafx.CanvasPainter;
-import it.unibo.alienenterprises.view.javafx.JFXSceneController;
 
 public final class ControllerImpl implements Controller {
-    private final SceneController sceneController;
     private final UserAccountHandler accHandler;
     private final View view;
     private UserAccountImpl account = null;
@@ -25,7 +22,6 @@ public final class ControllerImpl implements Controller {
     private GameSession currGameSession;
 
     public ControllerImpl(final View view) {
-        this.sceneController = new JFXSceneController(this);
         this.accHandler = new UserAccountHandlerImpl();
         this.view = view;
     }
@@ -47,15 +43,8 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public SceneController getSceneController() {
-        return this.sceneController;
-    }
-
-    @Override
     public void changeScene(ViewType type) {
-        this.sceneController.setCurrentScene(type);
-        this.sceneController.getCurrentController().init(this);
-        this.view.setScene(this.sceneController.getViewState());
+        this.view.setScene(type);
     }
 
     @Override

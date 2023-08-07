@@ -1,6 +1,8 @@
 package it.unibo.alienenterprises.view.javafx;
 
 import it.unibo.alienenterprises.controller.Controller;
+import it.unibo.alienenterprises.controller.ShopControllerImpl;
+import it.unibo.alienenterprises.view.ShopViewImpl;
 import it.unibo.alienenterprises.view.ViewType;
 import it.unibo.alienenterprises.view.api.SceneController;
 import it.unibo.alienenterprises.view.controllers.InitController;
@@ -25,12 +27,11 @@ public class JFXSceneController implements SceneController {
     public void setCurrentScene(ViewType type) {
         switch (type) {
             case SHOP:
+                // this.currentController = new ShopControllerImpl();
+                // this.currentScene = new ShopViewImpl(this.currentController);
                 break;
-            case GAMEOVER:
+            case SHIPSELECT:
                 break;
-            case PAUSE:
-                break;
-            case GAMESTAGE:
             default:
                 this.currentScene = new Scene(this.loader.getParent(type));
                 this.currentController = this.loader.getCurrentController();

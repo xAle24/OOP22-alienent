@@ -27,13 +27,6 @@ public interface Controller {
     void initiateGameSession(String playerID);
 
     /**
-     * Returns the {@link SceneController}.
-     * 
-     * @return the scene controller.
-     */
-    SceneController getSceneController();
-
-    /**
      * Changes the {@link Scene} that is being displayed.
      */
     void changeScene(ViewType type);

@@ -34,7 +34,7 @@ public abstract class ViewStateAbs implements ViewState {
     }
 
     private void generateAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you done already?");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, message);
         alert.initOwner(stage);
         alert.showAndWait().filter(ans -> ans == ButtonType.OK).ifPresent(ans -> onCloseRequest());
     }
