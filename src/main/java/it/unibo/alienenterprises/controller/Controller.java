@@ -1,6 +1,7 @@
 package it.unibo.alienenterprises.controller;
 
 import it.unibo.alienenterprises.controller.gamesession.GameSession;
+import it.unibo.alienenterprises.model.api.UserAccount;
 import it.unibo.alienenterprises.model.api.UserAccountHandler;
 import it.unibo.alienenterprises.view.ViewType;
 import it.unibo.alienenterprises.view.View;
@@ -21,8 +22,9 @@ public interface Controller {
     /**
      * Initiate a {@link GameSession}.
      * 
+     * @param playerID the ID of the chosen player ship.
      */
-    void initiateGameSession();
+    void initiateGameSession(String playerID);
 
     /**
      * Returns the {@link SceneController}.
@@ -42,6 +44,13 @@ public interface Controller {
      * @return the account handler.
      */
     UserAccountHandler getUserAccountHandler();
+
+    /**
+     * Return the {@link UserAccount} currently logged in.
+     * 
+     * @return
+     */
+    UserAccount getUserAccount();
 
     /**
      * Save the game.
