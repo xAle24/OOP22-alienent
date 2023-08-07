@@ -121,9 +121,24 @@ public class ShipLoaderImpl implements ShipLoader {
                 stats.put(Statistic.valueOf(s), obj.getStats().get(s));
             }
             GameObject temp = new GameObjectAbs(Point2D.ORIGIN, Vector2D.NULL_VECTOR, stats);
-            // TODO Da modificare con l'addAllComponents
-            fetchComponents(obj.getComponents(), temp).stream().forEach((c) -> temp.addComponent(c));
+            temp.addAllComponent(fetchComponents(obj.getComponents(), temp));
             return Optional.of(temp);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public Optional<Map<Statistic,Integer>> loadStatsOf(final String shipFileName){
+        try (final InputStream inputStream = new FileInputStream(shipFileName)) {
+            final Yaml yaml = new Yaml();
+            final ShipProp obj = yaml.loadAs(inputStream, ShipProp.class);
+            final Map<Statistic, Integer> stats = new HashMap<>();
+            for (var s : obj.getStats().keySet()) {
+                stats.put(Statistic.valueOf(s), obj.getStats().get(s));
+            }
+            return Optional.of(stats);
         } catch (Exception e) {
             e.printStackTrace();
             return Optional.empty();

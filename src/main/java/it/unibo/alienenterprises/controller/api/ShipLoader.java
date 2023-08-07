@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import it.unibo.alienenterprises.model.api.GameObject;
+import it.unibo.alienenterprises.model.api.Statistic;
 
 /**
  * Ship Loader
@@ -34,5 +35,13 @@ public interface ShipLoader {
      *         was any problem whith the loading
      */
     Optional<GameObject> loadShip(String shipFileName);
+
+    /**
+     * Load the stat map of the ship identified by the shipFileName
+     * 
+     * @param shipFileName
+     * @return
+     */
+    Optional<Map<Statistic, Integer>> loadStatsOf(String shipFileName);
 
 }
