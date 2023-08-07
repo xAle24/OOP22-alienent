@@ -74,7 +74,7 @@ public class PlayerControllerImpl implements PlayerController {
             throw new IllegalStateException("the controller has not been initialized");
         }
         //TODO settare il player
-        this.controller.get().initiateGameSession();
+        this.controller.get().initiateGameSession(selected.get());
         this.controller.get().changeScene(ViewType.GAMESTAGE);
     }
 
