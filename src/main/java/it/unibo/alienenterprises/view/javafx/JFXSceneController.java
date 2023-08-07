@@ -9,6 +9,7 @@ import it.unibo.alienenterprises.view.ShopViewImpl;
 import it.unibo.alienenterprises.view.ViewType;
 import it.unibo.alienenterprises.view.api.SceneController;
 import it.unibo.alienenterprises.view.controllers.InitController;
+import it.unibo.alienenterprises.view.viewstates.BaseState;
 import it.unibo.alienenterprises.view.viewstates.IdleState;
 import it.unibo.alienenterprises.view.viewstates.PlayingState;
 import it.unibo.alienenterprises.view.viewstates.ViewState;
@@ -65,6 +66,8 @@ public class JFXSceneController implements SceneController {
         if (type == ViewType.GAMESTAGE) {
             this.viewState = new PlayingState(controller,
                     "Are you sure you want to give up?\n(This will trigger a game over)");
+        } else if (type == ViewType.LOGIN || type == ViewType.REGISTRATION) {
+            this.viewState = new BaseState(controller, "Giving up so soon?");
         } else {
             this.viewState = new IdleState(controller,
                     "Are you sure you want to quit?\n(Your purchases will be saved)");
