@@ -35,9 +35,9 @@ public class GeometryTest {
 
     @Test
     void translatePointTest() {
-        var vec1 = new Vector2D(5, 5);
-        var vec2 = new Vector2D(-2, -1);
-        var vec3 = new Vector2D(-1, 2);
+        var vec1 = Vector2D.fromComponents(5, 5);
+        var vec2 = Vector2D.fromComponents(-2, -1);
+        var vec3 = Vector2D.fromComponents(-1, 2);
 
         var p = new Point2D(0, 0);
         assertEquals(new Point2D(5, 5), vec1.translate(p));
@@ -70,13 +70,13 @@ public class GeometryTest {
 
     @Test
     void vectorAdditionTest() {
-        var vec1 = new Vector2D(5, 5);
-        var vec2 = new Vector2D(-2, -1);
-        var vec3 = new Vector2D(-1, 2);
+        var vec1 = Vector2D.fromComponents(5, 5);
+        var vec2 = Vector2D.fromComponents(-2, -1);
+        var vec3 = Vector2D.fromComponents(-1, 2);
 
-        assertEquals(new Vector2D(3, 4), vec1.add(vec2));
-        assertEquals(new Vector2D(4, 7), vec1.add(vec3));
-        assertEquals(new Vector2D(2, 6), vec1.add(vec2).add(vec3));
+        assertEquals(Vector2D.fromComponents(3, 4), vec1.add(vec2));
+        assertEquals(Vector2D.fromComponents(4, 7), vec1.add(vec3));
+        assertEquals(Vector2D.fromComponents(2, 6), vec1.add(vec2).add(vec3));
     }
 
 }
