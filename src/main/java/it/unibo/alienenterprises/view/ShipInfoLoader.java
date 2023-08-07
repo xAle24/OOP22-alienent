@@ -1,6 +1,7 @@
 package it.unibo.alienenterprises.view;
 
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * PlayerClassInfoLoader
@@ -13,6 +14,11 @@ public interface ShipInfoLoader {
      * Load in memory the Informations
      */
     void load();
+
+    /**
+     * @return the Set of Ship ids
+     */
+    Set<String> getShipIds();
 
     /**
      * @param id

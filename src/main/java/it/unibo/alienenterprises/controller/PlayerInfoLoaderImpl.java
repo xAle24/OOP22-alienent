@@ -33,13 +33,9 @@ public class PlayerInfoLoaderImpl implements ShipInfoLoader {
      */
     public PlayerInfoLoaderImpl() {
         try (final InputStream inputStream = new FileInputStream(SHIP_LIST_FILE_PATH)) {
-            System.out.println("ok");
             final Yaml yaml = new Yaml();
-            System.out.println("ok");
             final Map<String, List<String>> map = yaml.load(inputStream);
-            System.out.println("ok");
             this.playerIds = Set.copyOf(map.get(PLAYERS));
-            System.out.println("ok");
         } catch (final Exception e) {
             // TODO: handle exception
             e.printStackTrace();
@@ -71,6 +67,11 @@ public class PlayerInfoLoaderImpl implements ShipInfoLoader {
             }
             this.isLoaded = true;
         }
+    }
+
+    @Override
+    public Set<String> getShipIds(){
+        return Set.copyOf(playerIds);
     }
 
     @Override
