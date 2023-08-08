@@ -1,6 +1,7 @@
 package it.unibo.alienenterprises.model.api;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -94,7 +95,7 @@ public class GameObjectAbs implements GameObject {
      */
     @Override
     public Map<Statistic, Integer> getAllStats() {
-        return Map.copyOf(stats);
+        return new HashMap<Statistic, Integer>(stats);
     }
     /**
      * Insert the given value in the corresponding stat.
