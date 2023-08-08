@@ -1,7 +1,10 @@
 #root {
     -fx-background-image: url('/images/background.jpg');
+    background-image: url('/images/background.jpg');
     -fx-background-repeat: stretch;
+    background-repeat: stretch;
     -fx-background-position: center;
+    background-position: center;
     -fx-pref-width: 1600px;
     -fx-pref-height: 900px;
     -fx-alignment: center;
@@ -9,21 +12,29 @@
 
 #RegisterBtn {
     -fx-background-image: url("/images/unlocked.png");
+    background-image: url("/images/unlocked.png");
     -fx-background-repeat: no-repeat;
+    background-repeat: no-repeat;
     -fx-background-position: left;
+    background-position: left;
     -fx-background-size: contain;
+    background-size: contain;
     -fx-pref-width: 100px;
     -fx-pref-height: 40px;
 }
 
 #usernameField {
     -fx-max-width: 200px;
+    max-width: 200px;
     -fx-max-height: 100px;
+    max-height: 100px;
 }
 
 #passwordField {
     -fx-max-width: 200px;
+    max-width: 200px;
     -fx-max-height: 100px;
+    max-height: 100px;
 }
 
 #usernameText{

@@ -4,7 +4,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox id="root" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unibo.alienenterprises.view.controllers.RegistrationController"
+<VBox id="root" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unibo.alienenterprises.view.controllers.RegistrationControllerImpl"
     styleClass="style" stylesheets="@/css/loginViewStyle.css" >
     
     <Label text="Username" fx:id="usernameText"/>
