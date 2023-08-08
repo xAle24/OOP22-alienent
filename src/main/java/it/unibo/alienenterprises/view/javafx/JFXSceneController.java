@@ -34,7 +34,7 @@ public class JFXSceneController implements SceneController {
             case SHOP:
                 this.currentController = new ShopControllerImpl();
                 var contrShop = (ShopController) this.currentController;
-                this.currentScene = new Scene(new ShopViewImpl(contrShop));
+                this.currentScene = new Scene(new ShopViewImpl(contrShop).showShopView());
                 break;
             case SHIPSELECT:
                 this.currentController = new PlayerControllerImpl();
@@ -44,9 +44,10 @@ public class JFXSceneController implements SceneController {
             default:
                 this.currentScene = new Scene(this.loader.getParent(type));
                 this.currentController = this.loader.getCurrentController();
+
         }
         this.setState(type);
-        this.currentController.init(controller);
+        this.currentController.init(controller, this.currentScene);
     }
 
     @Override
