@@ -21,16 +21,18 @@ import it.unibo.alienenterprises.model.api.PowerUp;
 import it.unibo.alienenterprises.model.api.PowerUpRenderer;
 import it.unibo.alienenterprises.model.api.ShopModel;
 import it.unibo.alienenterprises.model.api.Statistic;
+import it.unibo.alienenterprises.view.controllers.InitController;
 
 /**
  * Shop Controller implementation.
  */
-public class ShopControllerImpl implements ShopController {
+public class ShopControllerImpl implements ShopController, InitController {
 
     private static final String SEPARATOR = File.separator;
     private static final String GAME_PATH = "src/main/resources/examplemvc";
     // System.getProperty("user.home") + SEPARATOR + ".Alien Enterprises";
 
+    private Controller controller;
     private UserAccountImpl account;
     private ShopModel model;
     private List<PowerUp> powerUps = new LinkedList<>();
@@ -49,6 +51,11 @@ public class ShopControllerImpl implements ShopController {
      */
     public ShopControllerImpl(final UserAccountImpl account) {
         this.account = account;
+    }
+
+    @Override
+    public void init(Controller controller) {
+        this.controller = controller;
     }
 
     /**
