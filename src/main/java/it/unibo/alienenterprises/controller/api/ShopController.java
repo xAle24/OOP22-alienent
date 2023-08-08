@@ -2,10 +2,10 @@ package it.unibo.alienenterprises.controller.api;
 
 import java.util.List;
 
-import it.unibo.alienenterprises.model.UserAccountImpl;
 import it.unibo.alienenterprises.model.api.PowerUp;
 import it.unibo.alienenterprises.model.api.PowerUpRenderer;
 import it.unibo.alienenterprises.model.api.ShopModel;
+import it.unibo.alienenterprises.model.api.UserAccount;
 
 /**
  * This is the Shop's Controller. It is the way the model and the view will
@@ -28,7 +28,7 @@ public interface ShopController {
      * 
      * @return the UserAccountImpl that the ShopController is referencing
      */
-    UserAccountImpl getUserAccount();
+    UserAccount getUserAccount();
 
     /**
      * It returns the List of PowerUp, that is created by loading the yaml file with
@@ -66,5 +66,10 @@ public interface ShopController {
      * @return true if the buying action was successful, false otherwise
      */
     boolean buy(String id);
+
+    /**
+     * Closes the shop.
+     */
+    void closeShop();
 
 }

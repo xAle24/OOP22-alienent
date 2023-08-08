@@ -148,6 +148,11 @@
   background-color: #fcecc4;
 }
 
+.scroll-pane .viewport {
+  -fx-background-color: #fca41c;
+  background-color: #fca41c;
+}
+
 #grid {
   -fx-background-color: #247cec;
   background-color: #247cec;

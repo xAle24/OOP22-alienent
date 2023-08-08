@@ -48,6 +48,14 @@ public interface UserAccount {
     void setInventory(Map<String, Integer> newInventory);
 
     /**
+     * Set the toAddPwu map, which is a map filled with the statistic percentage
+     * to add at the start of each game.
+     * 
+     * @return
+     */
+    void setToAddPwu(Map<Statistic, Integer> toAddPwu);
+
+    /**
      * 
      * Get the user money.
      * 
