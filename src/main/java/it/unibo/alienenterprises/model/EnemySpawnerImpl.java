@@ -27,8 +27,8 @@ public class EnemySpawnerImpl implements EnemySpawner {
     private double spawnTime;
     private double totalTime;
     private World world;
-    private Point2D p1;
-    private Point2D p2;
+    private Point2D bottomLeft;
+    private Point2D topRight;
     private final GameObject player;
     /**
      * Constructor for the enemy spawner.
@@ -38,8 +38,8 @@ public class EnemySpawnerImpl implements EnemySpawner {
      */
     public EnemySpawnerImpl(final World world, final Point2D x1, final Point2D y2, final GameObject player) {
         this.world = world;
-        this.p1 = x1;
-        this.p2 = y2;
+        this.bottomLeft = x1;
+        this.topRight = y2;
         this.player = player;
         var projectileFactory = new ProjectileSupplierFactoryImpl(world);
         var loader = new ShipLoaderImpl(projectileFactory);
@@ -57,8 +57,8 @@ public class EnemySpawnerImpl implements EnemySpawner {
         newEnemy.getComponent(EnemyInputComponent.class).get().setTarget(player);
         this.getStats().entrySet().stream().forEach(e -> newEnemy.setStatValue(e.getKey(), 
             newEnemy.getStatValue(e.getKey()) * e.getValue()));
-        var pointX = new Random().nextDouble(p2.getX() - p1.getX() + 1) + p1.getX();
-        var pointY = new Random().nextDouble(p2.getY() - p1.getY() + 1) + p1.getY();
+        var pointX = new Random().nextDouble(topRight.getX() + 1);
+        var pointY = new Random().nextDouble(bottomLeft.getY() + 1);
         newEnemy.setPosition(new Point2D(pointX, pointY));
         newEnemy.getAllComponent().stream().forEach(e -> e.start());
         return newEnemy;
