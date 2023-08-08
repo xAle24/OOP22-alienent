@@ -7,6 +7,7 @@ import it.unibo.alienenterprises.view.ViewType;
 import it.unibo.alienenterprises.view.View;
 import it.unibo.alienenterprises.view.api.Painter;
 import it.unibo.alienenterprises.view.api.SceneController;
+import javafx.scene.Scene;
 
 /**
  * Main controller of the game.
@@ -45,6 +46,14 @@ public interface Controller {
      * @return
      */
     UserAccount getUserAccount();
+
+    /**
+     * Sets the {@link UserAccount} instance in the Controller after logging in or
+     * signing up.
+     * 
+     * @param account
+     */
+    void setUserAccount(UserAccount account);
 
     /**
      * Save the game.

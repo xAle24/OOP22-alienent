@@ -2,7 +2,6 @@ package it.unibo.alienenterprises.controller;
 
 import it.unibo.alienenterprises.controller.gamesession.GameSession;
 import it.unibo.alienenterprises.controller.gamesession.SimpleGameSession;
-import it.unibo.alienenterprises.controller.renderers.RendererManager;
 import it.unibo.alienenterprises.model.GameWorld;
 import it.unibo.alienenterprises.model.UserAccountHandlerImpl;
 import it.unibo.alienenterprises.model.UserAccountImpl;
@@ -10,15 +9,13 @@ import it.unibo.alienenterprises.model.WorldDimensions;
 import it.unibo.alienenterprises.model.api.Dimensions;
 import it.unibo.alienenterprises.model.api.UserAccount;
 import it.unibo.alienenterprises.model.api.UserAccountHandler;
-import it.unibo.alienenterprises.view.ViewType;
-import it.unibo.alienenterprises.view.api.Painter;
 import it.unibo.alienenterprises.view.View;
-import it.unibo.alienenterprises.view.javafx.CanvasPainter;
+import it.unibo.alienenterprises.view.ViewType;
 
 public final class ControllerImpl implements Controller {
     private final UserAccountHandler accHandler;
     private final View view;
-    private UserAccountImpl account = null;
+    private UserAccount account = null;
 
     private GameSession currGameSession;
 
@@ -35,11 +32,7 @@ public final class ControllerImpl implements Controller {
     @Override
     public void initiateGameSession(String playerID) {
         Dimensions wd = new WorldDimensions(this.view.getWidthHeight());
-        if (this.account != null) {
-            this.currGameSession = new SimpleGameSession(new GameWorld(wd), account, playerID);
-        } else {
-            // TODO
-        }
+        this.currGameSession = new SimpleGameSession(new GameWorld(wd), account, playerID);
     }
 
     @Override
@@ -55,6 +48,11 @@ public final class ControllerImpl implements Controller {
     @Override
     public UserAccount getUserAccount() {
         return this.account;
+    }
+
+    @Override
+    public void setUserAccount(UserAccount account) {
+        this.account = account;
     }
 
     @Override
