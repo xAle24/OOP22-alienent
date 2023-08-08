@@ -46,7 +46,7 @@ public class Vector2D {
      * @return the vector that goes from a and b
      */
     public static Vector2D fromTwoPoints(final Point2D a, final Point2D b) {
-        return fromComponents(b.getX() - a.getX(), b.getY() - a.getX());
+        return fromComponents(b.getX() - a.getX(), b.getY() - a.getY());
     }
 
     /**
@@ -64,14 +64,14 @@ public class Vector2D {
      * @return xComponent
      */
     public double getxComp() {
-        return this.module * Math.cos(this.angle);
+        return this.module * Math.cos(Math.toRadians(this.angle));
     }
 
     /**
      * @return yComponent
      */
     public double getyComp() {
-        return this.module * Math.sin(this.angle);
+        return this.module * Math.sin(Math.toRadians(this.angle));
     }
 
     /**

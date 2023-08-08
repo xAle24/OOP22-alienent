@@ -79,4 +79,20 @@ public class GeometryTest {
         assertEquals(Vector2D.fromComponents(2, 6), vec1.add(vec2).add(vec3));
     }
 
+    @Test
+    void vectorFromTwoPoints(){
+        var a = new Point2D(102.17201533801102, 208.48643612629408);
+        var b = new Point2D(337.5, 171.0);
+        var xComp = b.getX() - a.getX();
+        var yComp = b.getY() - a.getY();
+        System.out.println(xComp);
+        System.out.println(yComp);
+
+        System.out.println(Math.sqrt(xComp * xComp + yComp * yComp));
+
+        var v1 = Vector2D.fromTwoPoints(a, b);
+        System.out.println(v1);
+        System.out.println(v1.getAngle());
+    }
+
 }
