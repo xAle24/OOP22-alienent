@@ -19,7 +19,6 @@ public class PlayerSpawnerImpl implements PlayerSpawner {
     private static final String SEPARATOR = File.separator;
     private static final String PLAYER_FOLDER = "src" + SEPARATOR + "main" + SEPARATOR + "resources" + SEPARATOR
             + "ships" + SEPARATOR + "playerclasses";
-    private static final String YAML = ".yml";
     private static final double RIGHT_ANGLE = 90;
 
     private final World world;
@@ -36,7 +35,7 @@ public class PlayerSpawnerImpl implements PlayerSpawner {
     @Override
     public Optional<GameObject> getPlayer(final String id) {
         if (this.shipLoader.getPlayerIds().contains(id)) {
-            final var opPlayer = this.shipLoader.loadShip(PLAYER_FOLDER+ id +YAML);
+            final var opPlayer = this.shipLoader.loadShip(PLAYER_FOLDER, id);
             if(opPlayer.isPresent()){
                 final var player = opPlayer.get();
                 player.setPosition(new Point2D(this.world.getWorldDimensions().getBounds().getX()/2, this.world.getWorldDimensions().getBounds().getY()/2));
