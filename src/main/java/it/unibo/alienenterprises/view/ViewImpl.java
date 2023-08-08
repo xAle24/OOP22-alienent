@@ -30,6 +30,7 @@ public final class ViewImpl implements View {
         this.primaryStage.setTitle(TITLE);
         this.primaryStage.setMinHeight(MIN_HEIGHT);
         this.primaryStage.setMinWidth(MIN_WIDTH);
+        this.primaryStage.centerOnScreen();
         this.primaryStage.getIcons().add(new Image(getClass().getResourceAsStream(ICON_PATH)));
         this.setScene(ViewType.LOGIN);
     }

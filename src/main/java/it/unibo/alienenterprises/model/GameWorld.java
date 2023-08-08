@@ -55,11 +55,13 @@ public final class GameWorld implements World {
     public void addGameObject(GameObject add) {
         this.gameObjects.add(add);
         this.collisionHandler.addHitbox(add.getComponent(HitboxComponent.class));
+        this.rendered = false;
     }
 
     public void addAllGameObjects(GameObject... objects) {
         this.gameObjects.addAll(List.of(objects));
         this.lastAdded.addAll(List.of(objects));
+        this.rendered = false;
     }
 
     @Override
