@@ -81,7 +81,10 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
                 final String output = yaml.dump(map);
                 writer.append(output);
 
-                return Optional.of(new UserAccountImpl(nickname));
+                Optional<UserAccount> account = Optional.of(new UserAccountImpl(nickname));
+                save(account.get());
+
+                return account;
             } catch (Exception e) {
                 e.printStackTrace();
             }
