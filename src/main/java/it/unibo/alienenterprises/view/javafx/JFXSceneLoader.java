@@ -12,10 +12,11 @@ import javafx.scene.Parent;
 public class JFXSceneLoader implements SceneLoader {
     private static final String PATH_START = "/layouts/";
     private static final String PATH_END = ".fxml";
-    private final FXMLLoader fxmlLoader = new FXMLLoader();
+    private FXMLLoader fxmlLoader;
 
     @Override
     public Parent getParent(final ViewType type) {
+        this.fxmlLoader = new FXMLLoader();
         final String path = PATH_START + type.toString().toLowerCase() + PATH_END;
         try {
             var res = getClass().getResource(path);
