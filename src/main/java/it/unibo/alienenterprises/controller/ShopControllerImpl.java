@@ -16,11 +16,12 @@ import org.yaml.snakeyaml.constructor.Constructor;
 import it.unibo.alienenterprises.controller.api.ShopController;
 import it.unibo.alienenterprises.model.PowerUpImpl;
 import it.unibo.alienenterprises.model.PowerUpRendererImpl;
-import it.unibo.alienenterprises.model.UserAccountImpl;
 import it.unibo.alienenterprises.model.api.PowerUp;
 import it.unibo.alienenterprises.model.api.PowerUpRenderer;
 import it.unibo.alienenterprises.model.api.ShopModel;
 import it.unibo.alienenterprises.model.api.Statistic;
+import it.unibo.alienenterprises.model.api.UserAccount;
+import it.unibo.alienenterprises.view.ViewType;
 import it.unibo.alienenterprises.view.controllers.InitController;
 
 /**
@@ -33,29 +34,15 @@ public class ShopControllerImpl implements ShopController, InitController {
     // System.getProperty("user.home") + SEPARATOR + ".Alien Enterprises";
 
     private Controller controller;
-    private UserAccountImpl account;
+    private UserAccount account;
     private ShopModel model;
     private List<PowerUp> powerUps = new LinkedList<>();
     private List<PowerUpRenderer> pwuInfo = new LinkedList<>();
 
-    /**
-     * Contructor without arguments.
-     */
-    public ShopControllerImpl() {
-    } // is this necessary??
-
-    /**
-     * Contructor with arguments.
-     * 
-     * @param account
-     */
-    public ShopControllerImpl(final UserAccountImpl account) {
-        this.account = account;
-    }
-
     @Override
     public void init(Controller controller) {
         this.controller = controller;
+        this.account = controller.getUserAccount();
     }
 
     /**
@@ -70,7 +57,7 @@ public class ShopControllerImpl implements ShopController, InitController {
      * {@inheritDoc}
      */
     @Override
-    public UserAccountImpl getUserAccount() {
+    public UserAccount getUserAccount() {
         return this.account;
     }
 
@@ -164,6 +151,14 @@ public class ShopControllerImpl implements ShopController, InitController {
             return false;
         }
 
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void closeShop() {
+        this.controller.changeScene(ViewType.MAINMENU);
     }
 
 }

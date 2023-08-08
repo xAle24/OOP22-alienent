@@ -7,6 +7,7 @@ import java.util.Optional;
 import it.unibo.alienenterprises.controller.api.ShopController;
 import it.unibo.alienenterprises.model.api.PowerUp;
 import it.unibo.alienenterprises.model.api.ShopModel;
+import it.unibo.alienenterprises.model.api.UserAccount;
 
 /**
  * ShopModelImpl.
@@ -40,7 +41,7 @@ public class ShopModelImpl implements ShopModel {
     @Override
     public Optional<Integer> check(final String id) {
 
-        UserAccountImpl user = controller.getUserAccount();
+        UserAccount user = controller.getUserAccount();
         return powerUps.stream().filter(p -> p.getId().equals(id))
                 .filter(p -> (user.getMoney()
                         - (p.getCost()) * (controller.getUserAccount().getCurrLevel(id) + 1)) >= 0)
@@ -52,13 +53,13 @@ public class ShopModelImpl implements ShopModel {
      */
     @Override
     public void updateShop(final String id, final int changeMoney) {
-        UserAccountImpl user = controller.getUserAccount();
+        UserAccount user = controller.getUserAccount();
         user.updateInventory(id);
         user.setMoney(changeMoney);
         updateToAddPwu(id, user);
     }
 
-    private UserAccountImpl updateToAddPwu(final String id, final UserAccountImpl user) {
+    private UserAccount updateToAddPwu(final String id, final UserAccount user) {
 
         user.updateToAddPwu(
                 powerUps.stream().filter(p -> p.getId().equals(id)).map(p -> p.getStatModifiers()).findFirst().get());

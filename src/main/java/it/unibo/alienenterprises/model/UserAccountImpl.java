@@ -72,6 +72,14 @@ public class UserAccountImpl implements UserAccount {
      * {@inheritDoc}
      */
     @Override
+    public void setToAddPwu(Map<Statistic, Integer> toAddPwu) {
+        this.toAddPwu.putAll(toAddPwu);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public int getMoney() {
         return this.money;
     }
@@ -134,7 +142,7 @@ public class UserAccountImpl implements UserAccount {
             toAddPwu.putAll(mapToAdd);
         } else {
             mapToAdd.forEach((s, i) -> {
-                toAddPwu.compute(s, (k, v) -> v == 0 ? i : v + 1);
+                toAddPwu.compute(s, (k, v) -> v == 0 ? i : v + i);
             });
         }
 
