@@ -1,6 +1,6 @@
 package it.unibo.alienenterprises.view.api;
 
-import it.unibo.alienenterprises.controller.PlayerController;
+import it.unibo.alienenterprises.view.controllers.PlayerController;
 
 /**
  * PlayerClassMenu
