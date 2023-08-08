@@ -3,17 +3,23 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Separator?>
 
-<VBox id="root" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unibo.alienenterprises.controller.LoginControllerImpl"
+<VBox id="root" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unibo.alienenterprises.view.controllers.LoginControllerImpl"
     styleClass="style" stylesheets="@/css/loginViewStyle.css" >
-    
-    <Label text="Username" fx:id="usernameText"/>
-    <TextField fx:id="usernameField" />
-    
-    <Label text="Password" fx:id="passwordText" />
-    <PasswordField fx:id="passwordField" />
-    
-    <Button fx:id="LoginBtn" text="Login" onAction="#handleLogin" styleClass="style" stylesheets="@/css/loginViewStyle.css"/>
+    <VBox id="innerBox" prefWidth="220" prefHeight="225">
+        <Label text="Username" fx:id="usernameText"/>
+        <TextField fx:id="usernameField" />
+        
+        <Label text="Password" fx:id="passwordText" />
+        <PasswordField fx:id="passwordField" />
+        
+        <Separator orientation="HORIZONTAL" valignment="CENTER" fx:id="separator" />
 
-    <Label text="" fx:id="Alert" />
+        <Button fx:id="LoginBtn" text="Login" onAction="#handleLogin" styleClass="style" stylesheets="@/css/loginViewStyle.css"/>
+
+        <Label text="Account inesistente o password non corretta" fx:id="Alert" visible="false"/>
+        
+        <Button fx:id="RegisterBtn" text="Sign up now" onAction="#handleRegister" styleClass="style" stylesheets="@/css/loginViewStyle.css"/>
+    </VBox>
 </VBox>

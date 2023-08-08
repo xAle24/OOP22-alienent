@@ -1,40 +1,73 @@
 #root {
-    -fx-background-image: url('/images/background.jpg');
+    -fx-background-image: url('/images/background.png');
+    background-image: url('/images/background.png');
     -fx-background-repeat: stretch;
+    background-repeat: stretch;
     -fx-background-position: center;
-    -fx-pref-width: 1600px;
-    -fx-pref-height: 900px;
+    background-position: center;
     -fx-alignment: center;
 }
-
+#innerBox {
+    -fx-background-color: #247cec;
+    background-color: #247cec;
+    -fx-alignment: center;
+    -fx-max-width: 300px;
+    max-width: 300px;
+    -fx-max-height: 750px;
+    max-height: 750px;
+}
 #LoginBtn {
     -fx-background-image: url("/images/unlocked.png");
+    background-image: url("/images/unlocked.png");
     -fx-background-repeat: no-repeat;
+    background-repeat: no-repeat;
     -fx-background-position: left;
+    background-position: left;
     -fx-background-size: contain;
-    -fx-pref-width: 100px;
+    background-size: contain;
+    -fx-pref-width: 120px;
     -fx-pref-height: 40px;
 }
 
 #usernameField {
     -fx-max-width: 200px;
+    max-width: 200px;
     -fx-max-height: 100px;
+    max-height: 100px;
 }
 
 #passwordField {
     -fx-max-width: 200px;
+    max-width: 200px;
     -fx-max-height: 100px;
+    max-height: 100px;
 }
 
 #usernameText{
-    -fx-text-fill: white;
+    -fx-text-fill: #fcecc4;
+    -fx-padding: 0px 5px 5px 5px;
+    padding: 0px 5px 5px 5px;
 }
 
 #passwordText{
-    -fx-text-fill: white;
+    -fx-text-fill: #fcecc4;
+    -fx-padding: 0px 5px 5px 5px;
+    padding: 0px 5px 5px 5px;
 }
 
+#separator {
+    -fx-background-color: #247cec;
+    background-color: #247cec;
+    -fx-padding:10px;
+    padding:10px;
+}
 #Alert{
     -fx-max-width: 400px;
+    max-width: 400px;
     -fx-max-height: 200px;
+    max-height: 200px;
+    -fx-text-fill: #fcecc4;
+    -fx-alignment: center;
+    -fx-padding: 0px 5px 5px 5px;
+    padding: 0px 5px 5px 5px;
 }

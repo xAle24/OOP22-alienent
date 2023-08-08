@@ -14,10 +14,9 @@ private Controller controller;
     public void init(Controller controller) {
         this.controller = controller;
     }
-    @Override
+    @Override @FXML
     public void handleRegister() {
         this.controller.getUserAccountHandler().registration(usernameField.getText(), passwordField.getText());
         this.controller.changeScene(ViewType.LOGIN);
     }
-    
 }
