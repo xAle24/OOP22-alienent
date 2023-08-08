@@ -45,7 +45,7 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
                 constructor.addTypeDescription(accountDescription);
 
                 final Yaml yaml = new Yaml(constructor);
-                final UserAccountImpl userAccount = (UserAccountImpl) yaml.load(inputStream);
+                final UserAccount userAccount = (UserAccountImpl) yaml.load(inputStream);
 
                 return Optional.of(userAccount);
 
