@@ -51,7 +51,7 @@ public interface ShipLoader {
      * @return An Optional containing the GameObject or an empty Optional if there
      *         was any problem whith the loading
      */
-    Optional<GameObject> loadShip(String shipFileName);
+    Optional<GameObject> loadShip(String folder, String id);
 
     /**
      * Load the stat map of the ship identified by the shipFileName

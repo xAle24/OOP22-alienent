@@ -81,10 +81,10 @@ public class ShipLoaderImpl implements ShipLoader {
     public Map<String, GameObject> loadPlayerClasses() {
         final var path = GAME_PATH + SEPARATOR + PLAYER_FOLDER + SEPARATOR;
         final Map<String, GameObject> playerMap = new HashMap<>();
-        for (var name : playerList) {
-            var obj = loadShip(path + name + YAML);
+        for (final var id : playerList) {
+            var obj = loadShip(path, id);
             if (obj.isPresent()) {
-                playerMap.put(name, obj.get());
+                playerMap.put(id, obj.get());
             }
         }
         return playerMap;
@@ -99,10 +99,10 @@ public class ShipLoaderImpl implements ShipLoader {
     public Map<String, GameObject> loadEnemyClasses() {
         final var path = GAME_PATH + SEPARATOR + ENEMY_FOLDER + SEPARATOR;
         final Map<String, GameObject> enemyMap = new HashMap<>();
-        for (var name : enemyList) {
-            var obj = loadShip(path + name + YAML);
+        for (final var id : enemyList) {
+            var obj = loadShip(path,id);
             if (obj.isPresent()) {
-                enemyMap.put(name, obj.get());
+                enemyMap.put(id, obj.get());
             }
         }
         return enemyMap;
@@ -119,19 +119,19 @@ public class ShipLoaderImpl implements ShipLoader {
      * one Constructor, the Constructor have to require at least a GameObject as a
      * parameter.
      * 
-     * @param shipFileName
+     * @param shipFilePath
      * @return
      */
     @Override
-    public Optional<GameObject> loadShip(final String shipFileName) {
-        try (final InputStream inputStream = new FileInputStream(shipFileName)) {
+    public Optional<GameObject> loadShip(final String folder, final String id) {
+        try (final InputStream inputStream = new FileInputStream(folder + id + YAML)) {
             final Yaml yaml = new Yaml();
             final ShipProp obj = yaml.loadAs(inputStream, ShipProp.class);
             final Map<Statistic, Integer> stats = new HashMap<>();
             for (var s : obj.getStats().keySet()) {
                 stats.put(Statistic.valueOf(s), obj.getStats().get(s));
             }
-            final GameObject temp = new GameObjectAbs(Point2D.ORIGIN, Vector2D.NULL_VECTOR, stats);
+            final GameObject temp = new GameObjectAbs(Point2D.ORIGIN, Vector2D.NULL_VECTOR, stats,id);
             temp.addAllComponent(fetchComponents(obj.getComponents(), temp));
             return Optional.of(temp);
         } catch (final Exception e) {
