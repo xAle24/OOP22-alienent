@@ -46,7 +46,7 @@ public class Vector2D {
      * @return the vector that goes from a and b
      */
     public static Vector2D fromTwoPoints(final Point2D a, final Point2D b) {
-        return new Vector2D(b.getX() - a.getX(), b.getY() - a.getX());
+        return fromComponents(b.getX() - a.getX(), b.getY() - a.getX());
     }
 
     /**
