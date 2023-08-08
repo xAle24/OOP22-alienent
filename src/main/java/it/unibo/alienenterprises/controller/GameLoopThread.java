@@ -45,9 +45,9 @@ public final class GameLoopThread extends Thread implements GameLoop {
         this.inputQueue = new ArrayList<>();
         var player = new PlayerSpawnerImpl(world).getPlayer(playerID).get();
         this.inputSupplier = player.getComponent(PlayerInputComponent.class).get().getInputSupplier();
-        var topRight = new Point2D(0, this.world.getWorldDimensions().getBounds().getY());
-        var bottomLeft = new Point2D(this.world.getWorldDimensions().getBounds().getX(), 0);
-        this.enemySpawner = new EnemySpawnerImpl(world, topRight, bottomLeft, player);
+        var topRight = new Point2D(this.world.getWorldDimensions().getBounds().getX(), 0);
+        var bottomLeft = new Point2D(0, this.world.getWorldDimensions().getBounds().getY());
+        this.enemySpawner = new EnemySpawnerImpl(world, bottomLeft, topRight, player);
         this.world.addAllGameObjects(player);
         this.stopped = false;
         this.paused = false;
