@@ -35,7 +35,7 @@ import javafx.stage.Stage;
 /**
  * Implementation fo ShopView.
  */
-public class ShopViewImpl extends BorderPane implements ShopView {
+public class ShopViewImpl implements ShopView {
 
     private static final int MAXLENGHT = 4;
     private static final double SCREENWIDHT = Screen.getPrimary().getVisualBounds().getWidth();
