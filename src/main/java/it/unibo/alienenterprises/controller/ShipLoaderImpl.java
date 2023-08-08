@@ -133,6 +133,7 @@ public class ShipLoaderImpl implements ShipLoader {
             }
             final GameObject temp = new GameObjectAbs(Point2D.ORIGIN, Vector2D.NULL_VECTOR, stats, id);
             temp.addAllComponent(fetchComponents(obj.getComponents(), temp));
+            temp.getAllComponent().stream().forEach((c)->c.start());
             return Optional.of(temp);
         } catch (final Exception e) {
             e.printStackTrace();
