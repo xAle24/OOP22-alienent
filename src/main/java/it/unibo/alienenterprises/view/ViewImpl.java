@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
- * Alien enterprises game jafaFX main.
+ * {@link View} implementation, main view of the game.
  */
 public final class ViewImpl implements View {
 
@@ -20,6 +20,11 @@ public final class ViewImpl implements View {
     private final Stage primaryStage;
     private SceneController sceneController;
 
+    /**
+     * Creates a new instance of this class.
+     * 
+     * @param stage the primary stage
+     */
     public ViewImpl(final Stage stage) {
         this.primaryStage = stage;
     }
@@ -27,10 +32,10 @@ public final class ViewImpl implements View {
     @Override
     public void init(final Controller controller) {
         this.sceneController = new JFXSceneController(controller);
+        this.primaryStage.centerOnScreen();
         this.primaryStage.setTitle(TITLE);
         this.primaryStage.setMinHeight(MIN_HEIGHT);
         this.primaryStage.setMinWidth(MIN_WIDTH);
-        this.primaryStage.centerOnScreen();
         this.primaryStage.getIcons().add(new Image(getClass().getResourceAsStream(ICON_PATH)));
         this.setScene(ViewType.LOGIN);
     }

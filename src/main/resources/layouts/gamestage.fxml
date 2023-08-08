@@ -8,13 +8,13 @@
 <?import javafx.scene.canvas.Canvas?>
 
 <StackPane 
+    fx:id="root"
     xmlns="http://javafx.com/javafx/11.0.1" 
     xmlns:fx="http://javafx.com/fxml/1"
     minHeight="500" minWidth="500"
     prefHeight="500" prefWidth="500"
     StackPane.alignment="CENTER"
-    fx:controller="it.unibo.alienenterprises.view.controllers.GameStageController"
-    onKeyPressed="#handleKeyPressed">
+    fx:controller="it.unibo.alienenterprises.view.controllers.GameStageController">
 
     <BorderPane prefHeight="500" prefWidth="500">
         <top>

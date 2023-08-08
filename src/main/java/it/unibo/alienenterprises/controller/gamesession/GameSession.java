@@ -1,5 +1,8 @@
 package it.unibo.alienenterprises.controller.gamesession;
 
+import java.util.concurrent.BlockingQueue;
+
+import it.unibo.alienenterprises.controller.InputQueue;
 import it.unibo.alienenterprises.controller.api.GameLoop;
 import it.unibo.alienenterprises.controller.renderers.RendererManager;
 
@@ -10,7 +13,7 @@ import it.unibo.alienenterprises.controller.renderers.RendererManager;
 public interface GameSession {
 
     /**
-     * Get the current session's GameLoop.
+     * Get the current session's {@link GameLoop}.
      * 
      * @return the current session's GameLoop.
      */
@@ -22,9 +25,9 @@ public interface GameSession {
     void gameOver();
 
     /**
-     * Start session after receiving the {@link RendererManager}
+     * Start session after receiving the {@link RendererManager}.
      * 
      * @param rendererManager
      */
-    void startSession(RendererManager rendererManager);
+    InputQueue startSession(RendererManager rendererManager);
 }

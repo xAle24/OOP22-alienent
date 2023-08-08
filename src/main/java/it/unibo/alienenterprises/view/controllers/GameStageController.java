@@ -1,15 +1,19 @@
 package it.unibo.alienenterprises.view.controllers;
 
 import it.unibo.alienenterprises.controller.Controller;
+import it.unibo.alienenterprises.controller.InputQueue;
 import it.unibo.alienenterprises.controller.gamesession.GameSession;
 import it.unibo.alienenterprises.controller.renderers.RendererManager;
-import it.unibo.alienenterprises.controller.api.GameLoop;
 import it.unibo.alienenterprises.view.javafx.CanvasPainter;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.StackPane;
 
+/**
+ * Controller for the GameStage.
+ */
 public class GameStageController implements InitController {
     @FXML
     private Label currScore;
@@ -17,17 +21,33 @@ public class GameStageController implements InitController {
     private Label healthDisplay;
     @FXML
     private Canvas canvas;
+    @FXML
+    private StackPane root;
 
     private GameSession gameSession;
 
+    private InputQueue keyPressQueue;
+
     @Override
-    public void init(Controller controller) {
+    public void init(Controller controller, Scene scene) {
         this.gameSession = controller.getGameSession();
-        this.gameSession.startSession(new RendererManager(new CanvasPainter(canvas)));
+        scene.setOnKeyPressed(e -> {
+            try {
+                this.addKeyPressed(e.getText());
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+        });
+        this.keyPressQueue = this.gameSession.startSession(new RendererManager(new CanvasPainter(canvas)));
     }
 
-    @FXML
-    void handleKeyPressed(KeyEvent event) {
-        this.gameSession.getGameLoop().addInput(event.getCharacter());
+    /**
+     * Adds a String to the {@link InputQueue}.
+     * 
+     * @param s the text of the key that was pressed
+     * @throws InterruptedException
+     */
+    private void addKeyPressed(String s) throws InterruptedException {
+        this.keyPressQueue.put(s);
     }
 }
