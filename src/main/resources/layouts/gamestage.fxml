@@ -2,8 +2,10 @@
 
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.canvas.Canvas?>
 
 <StackPane 
     xmlns="http://javafx.com/javafx/11.0.1" 
@@ -11,18 +13,26 @@
     minHeight="500" minWidth="500"
     prefHeight="500" prefWidth="500"
     StackPane.alignment="CENTER"
-    fx:controller="it.unibo.alienenterprises.view.controllers.GameStageController">
+    fx:controller="it.unibo.alienenterprises.view.controllers.GameStageController"
+    onKeyPressed="#handleKeyPressed">
 
-    <!-- <BorderPane fx:id="canvasContainer" 
+    <BorderPane fx:id="canvasContainer" 
         prefHeight="500" prefWidth="500">
         <top>
-            <Label text="SCORE:" textAlignment="RIGHT"/>
-            <Label fx:id="currScore" text="0000" alignment="TOP_RIGHT"/>
+            <VBox alignment="TOP_RIGHT">
+                <Label text="SCORE:" textAlignment="RIGHT" alignment="TOP_RIGHT"/>
+                <Label fx:id="currScore" text="0" alignment="TOP_RIGHT"/>
+            </VBox>
         </top>
+        <center>
+            <Canvas alignment="CENTER" maxWidth="1920" maxHeight="1080" fx:id="canvas" id="canvas"/>
+        </center>
         <bottom>
-            <Label text="HEALTH:" textAlignment="LEFT"/>
-            <Label fx:id="healthDisplay" alignment="BOTTOM_LEFT"/>
+            <VBox alignment="BOTTOM_LEFT">
+                <Label text="HEALTH:" textAlignment="LEFT"/>
+                <Label fx:id="healthDisplay"/>
+            </VBox>
         </bottom>
-    </BorderPane> -->
+    </BorderPane>
     
 </StackPane>  

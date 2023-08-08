@@ -11,6 +11,7 @@ import it.unibo.alienenterprises.model.api.World;
 public abstract class GameSessionAbs implements GameSession {
     private GameLoopThread gameLoop;
     protected final World world;
+    protected final String playerID;
 
     /**
      * Create an instance of the GameSessionAbs class.
@@ -18,10 +19,9 @@ public abstract class GameSessionAbs implements GameSession {
      * @param view
      * @param world
      */
-    public GameSessionAbs(final World world, final RendererManager rendererManager, final String playerID) {
+    public GameSessionAbs(final World world, String playerID) {
         this.world = world;
-        this.gameLoop = new GameLoopThread(rendererManager, world, playerID);
-        this.gameLoop.start();
+        this.playerID = playerID;
     }
 
     @Override
@@ -32,6 +32,11 @@ public abstract class GameSessionAbs implements GameSession {
     @Override
     public void gameOver() {
         this.gameLoop.stopLoop();
+    }
+
+    public void startSession(RendererManager rendererManager) {
+        this.gameLoop = new GameLoopThread(rendererManager, this.world, this.playerID);
+        this.gameLoop.start();
     }
 
 }

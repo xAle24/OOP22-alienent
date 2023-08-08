@@ -3,7 +3,9 @@ package it.unibo.alienenterprises.view.javafx;
 import java.util.HashSet;
 import java.util.Set;
 
+import edu.umd.cs.findbugs.annotations.OverrideMustInvoke;
 import it.unibo.alienenterprises.controller.renderers.Renderer;
+import it.unibo.alienenterprises.view.api.Painter;
 import it.unibo.alienenterprises.view.sprites.Sprite;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -14,7 +16,7 @@ import javafx.scene.transform.Rotate;
 /**
  * This class will draw each {@link Sprite} on the {@link Canvas} it contains.
  */
-public final class CanvasPainter {
+public final class CanvasPainter implements Painter {
     private GraphicsContext gc;
     private Canvas canvas;
     private Set<Renderer> renderers;
@@ -23,36 +25,34 @@ public final class CanvasPainter {
     /**
      * CanvasPainter constructor.
      * 
-     * @param maxHeight
-     *                  the max height of the {@link Canvas}; will be set to not
-     *                  resizable.
-     * @param maxWidth
-     *                  the max width of the {@link Canvas}; will be set to not
-     *                  resizable.
+     * @param canvas the {@link Canvas} on which this class draws.
      */
-    public CanvasPainter(double maxHeight, double maxWidth) {
-        this.canvas = new Canvas(maxWidth, maxHeight);
+    public CanvasPainter(Canvas canvas) {
+        this.canvas = canvas;
         this.gc = canvas.getGraphicsContext2D();
         this.renderers = new HashSet<>();
         this.toBeRemoved = new HashSet<>();
     }
 
-    /**
-     * Add one or more renderers to the {@link CanvasPainter}.
-     * 
-     * @param renderers the renderer/s to be added
-     */
-    public void addAll(Renderer... renderers) {
-        this.renderers.addAll(Set.of(renderers));
+    @Override
+    public void render() {
+        this.clearCanvas();
+        this.renderers.forEach(r -> {
+            if (r.isShown()) {
+                r.render();
+                ImageView image = r.getSprite().getImageView();
+                drawRotatedImage(image.getImage(), image.getRotate(), image.getX(), image.getY());
+            } else {
+                this.toBeRemoved.add(r);
+            }
+        });
+        this.toBeRemoved.forEach(r -> this.renderers.remove(r));
+        this.toBeRemoved.clear();
     }
 
-    /**
-     * Get the {@link Canvas} that {@link CanvasPainter} is drawing on.
-     * 
-     * @return the canvas
-     */
-    public Canvas getCanvas() {
-        return this.canvas;
+    @Override
+    public void addAll(Renderer... renderers) {
+        this.renderers.addAll(Set.of(renderers));
     }
 
     /**
@@ -89,24 +89,6 @@ public final class CanvasPainter {
         rotate(angle, topLeftX + image.getWidth() / 2, topLeftY + image.getHeight() / 2);
         gc.drawImage(image, topLeftX, topLeftY);
         gc.restore();
-    }
-
-    /**
-     * Use each {@link Renderer} to draw its {@link Sprite} on the gamestage.
-     */
-    public void render() {
-        this.clearCanvas();
-        this.renderers.forEach(r -> {
-            if (r.isShown()) {
-                r.render();
-                ImageView image = r.getSprite().getImageView();
-                drawRotatedImage(image.getImage(), image.getRotate(), image.getX(), image.getY());
-            } else {
-                this.toBeRemoved.add(r);
-            }
-        });
-        this.toBeRemoved.forEach(r -> this.renderers.remove(r));
-        this.toBeRemoved.clear();
     }
 
 }

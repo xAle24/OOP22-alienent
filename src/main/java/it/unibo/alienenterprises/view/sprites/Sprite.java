@@ -15,7 +15,7 @@ public final class Sprite {
 
     public Sprite(String objID, Point2D pos, Vector2D angle) {
         ImageLoader loader = new ImageLoaderImpl();
-        this.image = new ImageView(loader.getSpriteFileOf(objID).get().getAbsolutePath());
+        this.image = new ImageView(loader.getSpriteFilePathOf(objID).get());
         this.image.setFitHeight(50);
         this.image.setFitWidth(50);
         this.image.setVisible(true);

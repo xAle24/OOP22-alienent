@@ -7,9 +7,9 @@ import it.unibo.alienenterprises.model.api.World;
 public class SimpleGameSession extends GameSessionAbs {
     private final UserAccount account;
 
-    public SimpleGameSession(final World world, final RendererManager rendererManager, final UserAccount account,
+    public SimpleGameSession(final World world, final UserAccount account,
             final String playerID) {
-        super(world, rendererManager, playerID);
+        super(world, playerID);
         this.account = account;
     }
 

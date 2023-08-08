@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.unibo.alienenterprises.model.api.GameObject;
-import it.unibo.alienenterprises.view.javafx.CanvasPainter;
+import it.unibo.alienenterprises.view.api.Painter;
 
 public class RendererManager {
     private List<Renderer> renderers;
-    private final CanvasPainter canvasPaint;
+    private final Painter painter;
     private final RendererFactory renderFactory;
 
-    public RendererManager(final CanvasPainter cp) {
-        this.canvasPaint = cp;
+    public RendererManager(final Painter painter) {
+        this.painter = painter;
         this.renderers = new ArrayList<>();
         this.renderFactory = new RendererFactoryImpl();
     }
@@ -20,10 +20,10 @@ public class RendererManager {
     public void addRenderer(GameObject obj, String objID) {
         var newRenderer = this.renderFactory.createGameObjectRenderer(obj, objID);
         this.renderers.add(newRenderer);
-        this.canvasPaint.addAll(newRenderer);
+        this.painter.addAll(newRenderer);
     }
 
     public void render() {
-        this.canvasPaint.render();
+        this.painter.render();
     }
 }
