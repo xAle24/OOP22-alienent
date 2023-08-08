@@ -17,8 +17,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
+
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -54,7 +55,7 @@ public class ShopViewImpl extends BorderPane implements ShopView {
     private Label score = new Label();
     private ScrollPane scroll = new ScrollPane();
     private BorderPane bottom = new BorderPane();
-    private Popup inventoryPopup = new Popup();
+    private BorderPane inventoryPopup = new BorderPane();
     private Popup attentionPopup = new Popup();
     private Text inventoryText = new Text();
     private Text attentionText = new Text();
@@ -111,7 +112,6 @@ public class ShopViewImpl extends BorderPane implements ShopView {
         // Set the title
         Label title = new Label("SHOP");
         title.setId("title");
-        title.setLayoutX((SCREENWIDHT / 2) - title.getPrefWidth());
 
         // Fill the borderPane in the upper screen with all the elements
         BorderPane top = new BorderPane();
@@ -157,9 +157,11 @@ public class ShopViewImpl extends BorderPane implements ShopView {
         userInfo.setPrefSize(widthUnit * 5, heightUnit * 2);
 
         inventory.setOnAction(inventory -> {
-            double anchorX = userInfo.getPrefWidth() + BorderPane.getMargin(userInfo).getBottom();
-            double anchorY = userInfo.getPrefHeight() + BorderPane.getMargin(userInfo).getRight();
-            inventoryPopup.show(box, anchorX, anchorY);
+            double anchorX = userInfo.getPrefWidth() + 10;
+            double anchorY = userInfo.getPrefHeight() + 10;
+            AnchorPane.setTopAnchor(inventoryPopup, anchorY);
+            AnchorPane.setLeftAnchor(inventoryPopup, anchorX);
+            inventoryPopup.setVisible(true);
         });
 
         userInfo.getChildren().addAll(inventory, score);
@@ -182,19 +184,20 @@ public class ShopViewImpl extends BorderPane implements ShopView {
             pwuBox.setPrefSize(widthUnit * 4, widthUnit * 5);
             pwuBox.setId("pwubox");
 
-            Image image = new Image(
-                    "C:/Users/ginni/Desktop/ProgettoOOP/OOP22-alienent/src/main/resources/examplemvc/"
-                            + curr.getImage());
+            String imageURL = new String("/images/" + curr.getImage());
             // GAME_PATH + SEPARATOR + curr.getImage());
 
             Button button = new Button();
-            button.setGraphic(new ImageView(image));
+            button.setStyle("-fx-background-image: url(" + imageURL + ");" +
+                    "-fx-background-position: center;" +
+                    "-fx-background-repeat: no-repeat;" +
+                    "-fx-background-size: cover;");
             button.setPrefSize(widthUnit * 3, widthUnit * 3);
 
             pwuButtons.put(button, curr.getId());
 
             Label name = new Label(curr.getName());
-            name.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
+            name.setFont(Font.font("Times New Roman", FontWeight.BOLD, 19));
             name.setTextFill(Color.DARKBLUE);
             name.setWrapText(true);
             name.setPrefWidth(widthUnit * 4);
@@ -254,9 +257,7 @@ public class ShopViewImpl extends BorderPane implements ShopView {
 
             VBox icon = new VBox();
             icon.setAlignment(Pos.CENTER);
-            ImageView image = new ImageView(
-                    "C:/Users/ginni/Desktop/ProgettoOOP/OOP22-alienent/src/main/resources/examplemvc/"
-                            + curr.getImage());
+            ImageView image = new ImageView("/images/" + curr.getImage());
 
             icon.setId("icon");
             icon.getChildren().add(image);
@@ -275,7 +276,6 @@ public class ShopViewImpl extends BorderPane implements ShopView {
             ScrollPane scrollDesc = new ScrollPane();
             scrollDesc.setId("scrollDesc");
             VBox descBox = new VBox();
-            descBox.setAlignment(Pos.CENTER_LEFT);
             descBox.setId("descbox");
             descBox.getChildren().add(newName);
             descBox.getChildren().add(descContenitor);
@@ -284,11 +284,17 @@ public class ShopViewImpl extends BorderPane implements ShopView {
             scrollDesc.setMaxWidth(widthUnit * 20.3);
 
             bottom.setCenter(scrollDesc);
+            BorderPane.setAlignment(scrollDesc, Pos.CENTER_LEFT);
 
             Button buyButton = new Button();
             buyButton.setId("buybutton");
-            int cost = curr.getPwu().getCost()
-                    * (controller.getUserAccount().getInventory().get(curr.getId()) + 1);
+            int cost = 0;
+            if (controller.getUserAccount().getCurrLevel(curr.getId()) == 0) {
+                cost = curr.getPwu().getCost();
+            } else {
+                cost = curr.getPwu().getCost()
+                        * (controller.getUserAccount().getInventory().get(curr.getId()).intValue() + 1);
+            }
             buyButton.setText(String.valueOf(cost));
             buyButton.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
 
@@ -296,7 +302,7 @@ public class ShopViewImpl extends BorderPane implements ShopView {
                 buyEvent(curr, buyButton);
             });
 
-            buyButton.setMaxSize(widthUnit * 2, heightUnit);
+            buyButton.setPrefSize(widthUnit * 3, heightUnit);
 
             BorderPane rightContainer = new BorderPane();
             rightContainer.setBottom(buyButton);
@@ -334,7 +340,6 @@ public class ShopViewImpl extends BorderPane implements ShopView {
     }
 
     private void setInventoryPopup() {
-        HBox popUpContent = new HBox();
         VBox button = new VBox();
 
         /*
@@ -342,7 +347,10 @@ public class ShopViewImpl extends BorderPane implements ShopView {
          * "-fx-background-image: url('/images/UI_Flat_Frame_Standard.png'); -fx-background-size: cover; -fx-background-position: center;"
          * );
          */
-        popUpContent.setId("popup");
+
+        inventoryPopup.setId("inventorypopup");
+
+        inventoryPopup.setMaxSize(widthUnit * 5, heightUnit * 8);
 
         button.getChildren().add(setExitButton(ExitCondition.INVENTORY));
         button.setAlignment(Pos.TOP_RIGHT);
@@ -358,9 +366,10 @@ public class ShopViewImpl extends BorderPane implements ShopView {
         textBox.getChildren().add(inventoryText);
         textBox.setTextAlignment(TextAlignment.LEFT);
 
-        popUpContent.getChildren().addAll(textBox, button);
+        AnchorPane.setLeftAnchor(textBox, 10.0);
+        AnchorPane.setRightAnchor(button, 10.0);
 
-        inventoryPopup.getContent().add(popUpContent);
+        inventoryPopup.getChildren().addAll(textBox, button);
 
     }
 
@@ -394,7 +403,7 @@ public class ShopViewImpl extends BorderPane implements ShopView {
          * "-fx-background-image: url('/images/UI_Flat_Frame_Standard.png'); -fx-background-size: cover; -fx-background-position: center;"
          * );
          */
-        popUpContent.setId("popup");
+        // popUpContent.setId("popup");
 
         button.getChildren().add(setExitButton(ExitCondition.ATTENTION));
         button.setAlignment(Pos.TOP_RIGHT);
@@ -442,7 +451,7 @@ public class ShopViewImpl extends BorderPane implements ShopView {
                 break;
             case INVENTORY:
                 exitButton.setOnAction(closePopUp -> {
-                    this.inventoryPopup.hide();
+                    this.inventoryPopup.setVisible(false);
                 });
                 break;
             default:

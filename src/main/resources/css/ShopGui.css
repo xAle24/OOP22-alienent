@@ -11,8 +11,7 @@
   font-size: 50;
   -fx-font-weight: bold;
   font-weight: bold;
-  -fx-decoration-color: RED;
-  text-decoration-color: red;
+  -fx-font-color: RED;
   -fx-font-family: fantasy;
   font-family: fantasy;
 
@@ -96,15 +95,21 @@
   background-size: contain;
 }
 
-#popup {
-  -fx-background-image: url("/images/UI_Flat_Frame_Horizontal_Yellow.png");
-  background-image: url("/images/UI_Flat_Frame_Horizontal_Yellow.png");
+#inventorypopup {
+  -fx-background-image: url("/images/UI_Flat_Frame_Standard_Yellow.png");
+  background-image: url("/images/UI_Flat_Frame_Standard_Yellow.png");
+
   -fx-background-position: center;
   background-position: center;
-  -fx-background-repeat: no-repeat;
-  background-repeat: no-repeat;
+  -fx-background-repeat: stretch;
+  background-repeat: stretch;
   -fx-background-size: contain;
   background-size: contain;
+
+  -fx-border-color: black;
+  border-color: black;
+  -fx-border-width: 2px;
+  border-width: 2px;
 }
 
 #scroll {
@@ -228,24 +233,19 @@
   margin: 10;
   -fx-padding: 10;
   padding: 10;
-
-  -fx-border-radius: 5px;
-  border-radius: 5px;
-  -fx-border-color: red;
-  border-color: red;
-  -fx-border-width: 2px;
-  border-width: 2px;
 }
 
 #buybutton {
-  -fx-background-image: url("/images/UI_Flat_Button_Medium.png");
-  background-image: url("/images/UI_Flat_Button_Medium.png");
-  -fx-background-position: center;
-  background-position: center;
-  -fx-background-repeat: no-repeat;
-  background-repeat: no-repeat;
-  -fx-background-size: contain;
-  background-size: contain;
+  -fx-background-color: #fcecc4;
+  background-color: #fcecc4;
+  -fx-background-radius: 5px;
+
+  -fx-border-radius: 5px;
+  border-radius: 5px;
+  -fx-border-color: black;
+  border-color: black;
+  -fx-border-width: 2px;
+  border-width: 2px;
 
   -fx-margin: 10;
   margin: 10;
