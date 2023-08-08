@@ -19,10 +19,10 @@ import it.unibo.alienenterprises.model.impl.components.InputComponentTankImpl;
 
 public class InputComponentEnemyTest {
     private static final Map<Statistic, Integer> stat = Map.of(Statistic.HP, 5, Statistic.SPEED, 5);
-    private static final GameObject player = new GameObjectAbs(new Point2D(0, 0), null, stat);
-    private static final GameObject sniper = new GameObjectAbs(new Point2D(950, 0), null, stat);
-    private static final GameObject tank = new GameObjectAbs(new Point2D(450, 0), null, stat);
-    private static final GameObject bomber = new GameObjectAbs(new Point2D(450, 0), null, stat);
+    private static final GameObject player = new GameObjectAbs(new Point2D(0, 0), null, stat, "a");
+    private static final GameObject sniper = new GameObjectAbs(new Point2D(950, 0), null, stat, "b");
+    private static final GameObject tank = new GameObjectAbs(new Point2D(450, 0), null, stat, "c");
+    private static final GameObject bomber = new GameObjectAbs(new Point2D(450, 0), null, stat, "d");
 
     @Test
     public void SniperTest() {

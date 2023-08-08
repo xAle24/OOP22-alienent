@@ -31,8 +31,7 @@ public class InputComponentTankImpl extends ComponentAbs implements EnemyInputCo
         double distanceTarget = Math.sqrt(Math.pow(this.target.getPosition().getX() - this.getGameObject().getPosition().getX(), 2) + 
                             Math.pow(this.target.getPosition().getY() - this.getGameObject().getPosition().getY(), 2));
         if (distanceTarget < DISTANCE){
-            return Vector2D.fromTwoPointsAndModule(this.getGameObject().getPosition(), this.target.getPosition(), 
-                this.getGameObject().getStatValue(Statistic.SPEED));
+            return Vector2D.fromTwoPointsAndModule(this.getGameObject().getPosition(), this.target.getPosition(), 0);
         } else {
             return Vector2D.fromTwoPointsAndModule(this.getGameObject().getPosition(), this.target.getPosition(), 
                 this.getGameObject().getStatValue(Statistic.SPEED));
