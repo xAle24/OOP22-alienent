@@ -33,8 +33,8 @@ public class EnemySpawnerImpl implements EnemySpawner {
     /**
      * Constructor for the enemy spawner.
      * @param world
-     * @param x1
-     * @param y2
+     * @param x1 bottom-left value 
+     * @param y2 top-right value
      */
     public EnemySpawnerImpl(final World world, final Point2D x1, final Point2D y2, final GameObject player) {
         this.world = world;
@@ -60,6 +60,7 @@ public class EnemySpawnerImpl implements EnemySpawner {
         var pointX = new Random().nextDouble(p2.getX() - p1.getX() + 1) + p1.getX();
         var pointY = new Random().nextDouble(p2.getY() - p1.getY() + 1) + p1.getY();
         newEnemy.setPosition(new Point2D(pointX, pointY));
+        newEnemy.getAllComponent().stream().forEach(e -> e.start());
         return newEnemy;
     }
     /**
