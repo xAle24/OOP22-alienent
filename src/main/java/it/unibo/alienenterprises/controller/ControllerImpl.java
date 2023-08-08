@@ -11,6 +11,7 @@ import it.unibo.alienenterprises.model.api.Dimensions;
 import it.unibo.alienenterprises.model.api.UserAccount;
 import it.unibo.alienenterprises.model.api.UserAccountHandler;
 import it.unibo.alienenterprises.view.ViewType;
+import it.unibo.alienenterprises.view.api.Painter;
 import it.unibo.alienenterprises.view.View;
 import it.unibo.alienenterprises.view.javafx.CanvasPainter;
 
@@ -34,9 +35,8 @@ public final class ControllerImpl implements Controller {
     @Override
     public void initiateGameSession(String playerID) {
         Dimensions wd = new WorldDimensions(this.view.getWidthHeight());
-        CanvasPainter cp = new CanvasPainter(wd.getBounds().getX(), wd.getBounds().getY());
         if (this.account != null) {
-            this.currGameSession = new SimpleGameSession(new GameWorld(wd), new RendererManager(cp), account, playerID);
+            this.currGameSession = new SimpleGameSession(new GameWorld(wd), account, playerID);
         } else {
             // TODO
         }

@@ -5,6 +5,7 @@ import it.unibo.alienenterprises.model.api.UserAccount;
 import it.unibo.alienenterprises.model.api.UserAccountHandler;
 import it.unibo.alienenterprises.view.ViewType;
 import it.unibo.alienenterprises.view.View;
+import it.unibo.alienenterprises.view.api.Painter;
 import it.unibo.alienenterprises.view.api.SceneController;
 
 /**

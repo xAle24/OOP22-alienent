@@ -1,35 +1,49 @@
 package it.unibo.alienenterprises.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import it.unibo.alienenterprises.controller.api.GameLoop;
 import it.unibo.alienenterprises.controller.renderers.RendererManager;
 import it.unibo.alienenterprises.model.EnemySpawnerImpl;
 import it.unibo.alienenterprises.model.PlayerSpawnerImpl;
 import it.unibo.alienenterprises.model.api.EnemySpawner;
+import it.unibo.alienenterprises.model.api.GameObject;
+import it.unibo.alienenterprises.model.api.InputSupplier;
 import it.unibo.alienenterprises.model.api.World;
+import it.unibo.alienenterprises.model.api.InputSupplier.Input;
+import it.unibo.alienenterprises.model.api.components.PlayerInputComponent;
 
 /**
  * Implementation of the GameLoop interface.
  */
 public final class GameLoopThread extends Thread implements GameLoop {
     private static final long MS_PER_FRAME = 20;
-    private static final int MAX_INPUT = 5;
+    // private static final int MAX_INPUT = 5;
+
     private final World world;
     private final RendererManager rendererManager;
     private final EnemySpawner enemySpawner;
-    // private Map<UserTag, String> inputQueue;
+    private final InputSupplier inputSupplier;
+
+    private List<Input> inputQueue;
     private boolean stopped;
     private boolean paused;
 
     /**
      * Create an instance of the GameLoopThread class.
      * 
-     * @param view
-     * @param world
+     * @param rendererManager the {@link RendererManager} responsible for rendering
+     *                        the {@link GameObject} instances.
+     * @param world           the {@link World} instance of the {@link GameSession}
+     * @param playerID        the ID of the chosen player class.
      */
     public GameLoopThread(RendererManager rendererManager, final World world, final String playerID) {
         this.world = world;
         this.rendererManager = rendererManager;
+        this.inputQueue = new ArrayList<>();
         var player = new PlayerSpawnerImpl(world).getPlayer(playerID).get();
+        this.inputSupplier = player.getComponent(PlayerInputComponent.class).get().getInputSupplier();
         this.enemySpawner = new EnemySpawnerImpl(world, null, null, player);
         this.rendererManager.addRenderer(player, playerID);
         this.stopped = false;
@@ -71,17 +85,16 @@ public final class GameLoopThread extends Thread implements GameLoop {
     }
 
     private void processInput() {
-        // this.inputQueue.forEach(i -> {
-
-        // });
+        for (Input input : this.inputQueue) {
+            this.inputSupplier.addInput(input);
+        }
     }
 
     @Override
     public void updateGame(final double deltaTime) {
         this.enemySpawner.update(deltaTime);
         this.world.update(deltaTime);
-        // this.world.getLastAdded().forEach(o -> this.rendererManager.addRenderer(o,
-        // o.getID()));
+        this.world.getLastAdded().forEach(o -> this.rendererManager.addRenderer(o, o.getId()));
     }
 
     @Override
@@ -101,11 +114,32 @@ public final class GameLoopThread extends Thread implements GameLoop {
         this.interrupt();
     }
 
+    @Override
+    public synchronized void addInput(String string) {
+        Input input;
+        switch (string) {
+            case "w", "W":
+                input = Input.ACCELERATE;
+                break;
+            case "s", "S":
+                input = Input.STOP_ACCELERATE;
+                break;
+            case "a", "A":
+                input = Input.TURN_LEFT;
+                break;
+            case "d", "D":
+                input = Input.TURN_RIGHT;
+            case " ":
+                input = Input.SHOOT;
+                break;
+            default:
+                return;
+        }
+        this.inputQueue.add(input);
+    }
+
     private void render() {
         this.rendererManager.render();
     }
 
-    // private synchronized void addInput(Input input) {
-    // this.inputQueue.add(input);
-    // }
 }
