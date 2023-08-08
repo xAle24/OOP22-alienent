@@ -35,6 +35,7 @@ public final class GameWorld implements World {
     public void update(double deltaTime) {
         if (this.rendered) {
             this.lastAdded.clear();
+            this.rendered = false;
         }
         this.gameObjects.stream().forEach(o -> {
             if (!o.isAlive()) {
@@ -55,13 +56,12 @@ public final class GameWorld implements World {
     public void addGameObject(GameObject add) {
         this.gameObjects.add(add);
         this.collisionHandler.addHitbox(add.getComponent(HitboxComponent.class));
-        this.rendered = false;
+        this.lastAdded.add(add);
     }
 
     public void addAllGameObjects(GameObject... objects) {
-        this.gameObjects.addAll(List.of(objects));
-        this.lastAdded.addAll(List.of(objects));
-        this.rendered = false;
+        var newObj = List.of(objects);
+        newObj.forEach(o -> this.addGameObject(o));
     }
 
     @Override
