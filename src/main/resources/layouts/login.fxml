@@ -16,10 +16,10 @@
         
         <Separator orientation="HORIZONTAL" valignment="CENTER" fx:id="separator" />
 
-        <Button fx:id="LoginBtn" text="Login" onAction="#handleLogin" styleClass="style" stylesheets="@/css/loginViewStyle.css"/>
+        <Button fx:id="LoginBtn" text="Login" onAction="#handleLogin"/>
 
-        <Label text="Account inesistente o password non corretta" fx:id="Alert" visible="false"/>
+        <Label fx:id="Alert" visible="false"/>
         
-        <Button fx:id="RegisterBtn" text="Sign up now" onAction="#handleRegister" styleClass="style" stylesheets="@/css/loginViewStyle.css"/>
+        <Button fx:id="RegisterBtn" text="Sign up now" onAction="#handleRegister"/>
     </VBox>
 </VBox>

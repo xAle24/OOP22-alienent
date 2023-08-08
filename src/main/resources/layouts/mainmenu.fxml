@@ -1,0 +1,17 @@
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox id="root" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unibo.alienenterprises.view.controllers.MenuControllerImpl"
+    styleClass="style" stylesheets="@/css/gameMenuStyle.css" >
+    
+    <Label text="Alienenterprises" fx:id="title"/>
+
+    <Button fx:id="playBtn" text="Play" onAction="#playPressed" styleClass="gameMenuStyle" stylesheets="@/css/gameMenuStyle.css"/>
+    
+    <Button fx:id="shopBtn" text="Shop" onAction="#shopPressed" styleClass="gameMenuStyle" stylesheets="@/css/gameMenuStyle.css"/>
+
+    <Button fx:id="tutorialBtn" text="Tutorial" onAction="#tutorialPressed" styleClass="gameMenuStyle" stylesheets="@/css/gameMenuStyle.css"/>
+</VBox>

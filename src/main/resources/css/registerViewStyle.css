@@ -10,6 +10,13 @@
     -fx-alignment: center;
 }
 
+#innerBox {
+    -fx-min-width: 400px;
+    min-width: 400px;
+    -fx-min-height: 400px;
+    min-height: 400px;
+}
+
 #RegisterBtn {
     -fx-background-image: url("/images/unlocked.png");
     background-image: url("/images/unlocked.png");

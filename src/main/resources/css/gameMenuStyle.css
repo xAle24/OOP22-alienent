@@ -1,0 +1,23 @@
+#root {
+    -fx-alignment: center;
+}
+
+#text {
+    -fx-pref-width: 500px;
+    -fx-pref-height: 300px;
+}
+
+#playBtn {
+    -fx-pref-width: 200px;
+    -fx-pref-height: 100px;
+}
+
+#shopBtn {
+    -fx-pref-width: 200px;
+    -fx-pref-height: 100px;
+}
+
+#tutorialBtn {
+    -fx-pref-width: 200px;
+    -fx-pref-height: 100px;
+}
