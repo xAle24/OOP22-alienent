@@ -121,7 +121,8 @@ public class UserAccountImpl implements UserAccount {
      */
     @Override
     public void updateInventory(final String id) {
-        this.inventory.merge(id, 1, (k, v) -> v + 1);
+        this.inventory.compute(id,
+                (k, v) -> v == null ? 1 : v + 1);
     }
 
     /**

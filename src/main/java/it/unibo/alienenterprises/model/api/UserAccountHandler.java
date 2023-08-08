@@ -2,8 +2,6 @@ package it.unibo.alienenterprises.model.api;
 
 import java.util.Optional;
 
-import it.unibo.alienenterprises.model.UserAccountImpl;
-
 /**
  * UserAccountHandler.
  */
@@ -20,7 +18,7 @@ public interface UserAccountHandler {
      *         otherwise an optional empty
      * 
      */
-    Optional<UserAccountImpl> login(String nickname, String password);
+    Optional<UserAccount> login(String nickname, String password);
 
     /**
      * 
@@ -33,7 +31,7 @@ public interface UserAccountHandler {
      * @throws IOException
      * 
      */
-    Optional<UserAccountImpl> registration(String nickname, String password);
+    Optional<UserAccount> registration(String nickname, String password);
 
     /**
      * 
@@ -44,6 +42,6 @@ public interface UserAccountHandler {
      * @return
      * 
      */
-    void save(UserAccountImpl account);
+    void save(UserAccount account);
 
 }
