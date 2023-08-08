@@ -100,7 +100,7 @@ public class ShipLoaderImpl implements ShipLoader {
         final var path = GAME_PATH + SEPARATOR + ENEMY_FOLDER + SEPARATOR;
         final Map<String, GameObject> enemyMap = new HashMap<>();
         for (final var id : enemyList) {
-            var obj = loadShip(path,id);
+            var obj = loadShip(path, id);
             if (obj.isPresent()) {
                 enemyMap.put(id, obj.get());
             }
@@ -124,14 +124,14 @@ public class ShipLoaderImpl implements ShipLoader {
      */
     @Override
     public Optional<GameObject> loadShip(final String folder, final String id) {
-        try (final InputStream inputStream = new FileInputStream(folder + id + YAML)) {
+        try (final InputStream inputStream = new FileInputStream(folder + SEPARATOR + id + YAML)) {
             final Yaml yaml = new Yaml();
             final ShipProp obj = yaml.loadAs(inputStream, ShipProp.class);
             final Map<Statistic, Integer> stats = new HashMap<>();
             for (var s : obj.getStats().keySet()) {
                 stats.put(Statistic.valueOf(s), obj.getStats().get(s));
             }
-            final GameObject temp = new GameObjectAbs(Point2D.ORIGIN, Vector2D.NULL_VECTOR, stats,id);
+            final GameObject temp = new GameObjectAbs(Point2D.ORIGIN, Vector2D.NULL_VECTOR, stats, id);
             temp.addAllComponent(fetchComponents(obj.getComponents(), temp));
             return Optional.of(temp);
         } catch (final Exception e) {

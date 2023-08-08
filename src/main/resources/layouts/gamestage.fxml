@@ -16,8 +16,7 @@
     fx:controller="it.unibo.alienenterprises.view.controllers.GameStageController"
     onKeyPressed="#handleKeyPressed">
 
-    <BorderPane fx:id="canvasContainer" 
-        prefHeight="500" prefWidth="500">
+    <BorderPane prefHeight="500" prefWidth="500">
         <top>
             <VBox alignment="TOP_RIGHT">
                 <Label text="SCORE:" textAlignment="RIGHT" alignment="TOP_RIGHT"/>
@@ -25,10 +24,12 @@
             </VBox>
         </top>
         <center>
-            <Canvas alignment="CENTER" maxWidth="1920" maxHeight="1080" fx:id="canvas" id="canvas"/>
+            <BorderPane id="canvasContainer">
+                <Canvas width="1920" height="1080" fx:id="canvas" id="canvas"/>
+            </BorderPane>
         </center>
         <bottom>
-            <VBox alignment="BOTTOM_LEFT">
+            <VBox alignment="BOTTOM_LEFT" maxHeight="200" minWidth="200">
                 <Label text="HEALTH:" textAlignment="LEFT"/>
                 <Label fx:id="healthDisplay"/>
             </VBox>

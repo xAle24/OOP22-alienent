@@ -22,6 +22,7 @@ public class GameOverController implements InitController {
         this.controller.save();
     }
 
+    @FXML
     private void onMainMenu() {
         this.controller.changeScene(ViewType.MAINMENU);
     }

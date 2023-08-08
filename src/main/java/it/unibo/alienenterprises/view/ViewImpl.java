@@ -31,7 +31,7 @@ public final class ViewImpl implements View {
         this.primaryStage.setMinHeight(MIN_HEIGHT);
         this.primaryStage.setMinWidth(MIN_WIDTH);
         this.primaryStage.getIcons().add(new Image(getClass().getResourceAsStream(ICON_PATH)));
-        this.setScene(ViewType.SHOP);
+        this.setScene(ViewType.LOGIN);
     }
 
     @Override

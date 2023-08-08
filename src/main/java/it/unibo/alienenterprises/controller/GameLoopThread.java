@@ -13,6 +13,7 @@ import it.unibo.alienenterprises.model.api.InputSupplier;
 import it.unibo.alienenterprises.model.api.World;
 import it.unibo.alienenterprises.model.api.InputSupplier.Input;
 import it.unibo.alienenterprises.model.api.components.PlayerInputComponent;
+import it.unibo.alienenterprises.model.geometry.Point2D;
 
 /**
  * Implementation of the GameLoop interface.
@@ -44,8 +45,10 @@ public final class GameLoopThread extends Thread implements GameLoop {
         this.inputQueue = new ArrayList<>();
         var player = new PlayerSpawnerImpl(world).getPlayer(playerID).get();
         this.inputSupplier = player.getComponent(PlayerInputComponent.class).get().getInputSupplier();
-        this.enemySpawner = new EnemySpawnerImpl(world, null, null, player);
-        this.rendererManager.addRenderer(player, playerID);
+        var topRight = new Point2D(0, this.world.getWorldDimensions().getBounds().getY());
+        var bottomLeft = new Point2D(this.world.getWorldDimensions().getBounds().getX(), 0);
+        this.enemySpawner = new EnemySpawnerImpl(world, topRight, bottomLeft, player);
+        this.world.addAllGameObjects(player);
         this.stopped = false;
         this.paused = false;
     }
