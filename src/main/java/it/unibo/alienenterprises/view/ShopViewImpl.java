@@ -17,9 +17,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
+
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -27,6 +27,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Popup;
 import javafx.stage.Screen;
 
@@ -47,16 +50,23 @@ public class ShopViewImpl extends BorderPane implements ShopView {
 
     private ShopController controller;
     private BorderPane box = new BorderPane();
+    private Button inventory = new Button();
+    private HBox userInfo = new HBox();
+    private Label score = new Label();
     private ScrollPane scroll = new ScrollPane();
     private BorderPane bottom = new BorderPane();
-    private Label shownScore = new Label();
-    private Button exitButton = new Button();
-    private Popup popUp = new Popup();
+    private BorderPane inventoryPopup = new BorderPane();
+    private Popup attentionPopup = new Popup();
+    private Text inventoryText = new Text();
+    private Text attentionText = new Text();
 
-    private Map<Button, String> buttons = new HashMap<>();
+    private Map<Button, String> pwuButtons = new HashMap<>();
     private List<PowerUpRenderer> pwuInfo = new LinkedList<>();
+    private Map<String, List<CheckBox>> checkBoxesMap = new HashMap<>();
 
-    private Map<String, GridPane> checkBoxesMap = new HashMap<>();
+    private enum ExitCondition {
+        SHOP, ATTENTION, INVENTORY, PWUINFO;
+    }
 
     /**
      * This constructor ensures that the view has always a controller to reference.
@@ -65,14 +75,7 @@ public class ShopViewImpl extends BorderPane implements ShopView {
      */
     public ShopViewImpl(final ShopController controller) {
         this.controller = controller;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void loadPwuInfo(final List<PowerUpRenderer> pwuInfo) {
-        this.pwuInfo.addAll(pwuInfo);
+        pwuInfo.addAll(controller.getPwuInfo());
     }
 
     /**
@@ -97,39 +100,27 @@ public class ShopViewImpl extends BorderPane implements ShopView {
                 .toExternalForm());
 
         box.setId("box");
-        box.setMaxSize(SCREENWIDHT, SCREENHEIGHT);
 
-        // Set shownScore
-        shownScore.setId("shownscore");
-        shownScore.setText(String.valueOf(controller.getUserAccount().getMoney()) + "$");
+        box.setMaxSize(SCREENWIDHT, SCREENHEIGHT);
 
         // Set upper part of the screen
 
         // Set the user info
-        VBox user = new VBox();
-        user.setId("user");
-        user.getChildren().addAll(new Label(controller.getUserAccount().getNickname()),
-                shownScore);
-        BorderPane.setMargin(user, new Insets(widthUnit / 2, widthUnit / 2, widthUnit / 2, widthUnit / 2));
-        user.setPrefSize(widthUnit * 5, heightUnit * 2);
+        setUserInfo();
+        setInventoryPopup();
 
         // Set the title
         Label title = new Label("SHOP");
         title.setId("title");
-        title.setLayoutX((SCREENWIDHT / 2) - title.getPrefWidth());
-
-        // Set the exit button
-        exitButton.setId("exitButton");
-        setExitButton();
 
         // Fill the borderPane in the upper screen with all the elements
         BorderPane top = new BorderPane();
-        top.setLeft(user);
+        top.setLeft(userInfo);
         top.setCenter(title);
-        top.setRight(exitButton);
-        BorderPane.setAlignment(user, Pos.CENTER);
+        top.setRight(setExitButton(ExitCondition.SHOP));
+        BorderPane.setAlignment(userInfo, Pos.CENTER);
         BorderPane.setAlignment(title, Pos.CENTER);
-        BorderPane.setAlignment(exitButton, Pos.TOP_RIGHT);
+        // BorderPane.setAlignment(exitButton, Pos.TOP_RIGHT);
 
         // Set the scroll with a GridPane inside
         setScroll();
@@ -138,13 +129,8 @@ public class ShopViewImpl extends BorderPane implements ShopView {
         box.setTop(top);
         BorderPane.setAlignment(scroll, Pos.TOP_CENTER);
         box.setCenter(scroll);
-        BorderPane.setAlignment(bottom, Pos.TOP_LEFT);
+        BorderPane.setAlignment(bottom, Pos.CENTER);
         box.setBottom(bottom);
-
-        // Set error message
-        setPopUpWindow();
-
-        this.box.setVisible(false);
 
         setCheck();
 
@@ -152,6 +138,33 @@ public class ShopViewImpl extends BorderPane implements ShopView {
 
         return this.box;
 
+    }
+
+    private void setUserInfo() {
+        userInfo.setId("user");
+        inventory.setId("inventory");
+
+        userInfo.setPadding(new Insets(widthUnit / 2, widthUnit / 2, widthUnit / 2, widthUnit / 2));
+
+        score.setText(controller.getUserAccount().getMoney() + "$");
+        score.setId("score");
+
+        inventory.setPrefSize(widthUnit, widthUnit);
+        Insets margins = new Insets(widthUnit / 4, widthUnit / 2, widthUnit / 4, widthUnit / 2);
+        inventory.setPadding(margins);
+
+        BorderPane.setMargin(userInfo, new Insets(widthUnit / 2, widthUnit / 2, widthUnit / 2, widthUnit / 2));
+        userInfo.setPrefSize(widthUnit * 5, heightUnit * 2);
+
+        inventory.setOnAction(inventory -> {
+            double anchorX = userInfo.getPrefWidth() + 10;
+            double anchorY = userInfo.getPrefHeight() + 10;
+            AnchorPane.setTopAnchor(inventoryPopup, anchorY);
+            AnchorPane.setLeftAnchor(inventoryPopup, anchorX);
+            inventoryPopup.setVisible(true);
+        });
+
+        userInfo.getChildren().addAll(inventory, score);
     }
 
     private void setScroll() {
@@ -166,38 +179,51 @@ public class ShopViewImpl extends BorderPane implements ShopView {
 
         while (iter.hasNext()) {
             PowerUpRenderer curr = iter.next();
-            VBox pwuBox = new VBox();
+            BorderPane pwuBox = new BorderPane();
+
+            pwuBox.setPrefSize(widthUnit * 4, widthUnit * 5);
             pwuBox.setId("pwubox");
-            Image image = new Image(
-                    "C:/Users/ginni/Desktop/ProgettoOOP/OOP22-alienent/src/main/resources/examplemvc/"
-                            + curr.getImage());
+
+            String imageURL = new String("/images/" + curr.getImage());
             // GAME_PATH + SEPARATOR + curr.getImage());
 
             Button button = new Button();
-            button.setGraphic(new ImageView(image));
-            buttons.put(button, curr.getId());
+            button.setStyle("-fx-background-image: url(" + imageURL + ");" +
+                    "-fx-background-position: center;" +
+                    "-fx-background-repeat: no-repeat;" +
+                    "-fx-background-size: cover;");
+            button.setPrefSize(widthUnit * 3, widthUnit * 3);
+
+            pwuButtons.put(button, curr.getId());
 
             Label name = new Label(curr.getName());
-            name.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
+            name.setFont(Font.font("Times New Roman", FontWeight.BOLD, 19));
             name.setTextFill(Color.DARKBLUE);
             name.setWrapText(true);
+            name.setPrefWidth(widthUnit * 4);
 
             addAction(curr, button);
 
-            GridPane checkGrid = new GridPane();
+            List<CheckBox> pwuCheckBoxs = new LinkedList<>();
+
+            HBox checkGrid = new HBox();
             for (int i = 0; i < curr.getPwu().getMaxLevel(); i++) {
                 CheckBox check = new CheckBox();
                 check.setDisable(true);
-                checkGrid.add(check, i, 0);
+                checkGrid.getChildren().add(check);
+                pwuCheckBoxs.add(check);
             }
 
-            checkBoxesMap.put(curr.getId(), checkGrid);
+            checkBoxesMap.put(curr.getId(), pwuCheckBoxs);
 
-            pwuBox.getChildren().addAll(button, name, checkGrid);
-            pwuBox.setPrefWidth(200);
-            pwuBox.setAlignment(Pos.CENTER);
+            pwuBox.setTop(button);
+            pwuBox.setCenter(name);
+            pwuBox.setBottom(checkGrid);
+            BorderPane.setAlignment(button, Pos.CENTER);
+            BorderPane.setAlignment(name, Pos.CENTER);
+            BorderPane.setAlignment(checkGrid, Pos.CENTER);
 
-            if (buttons.size() == pwuInfo.size()) {
+            if (pwuButtons.size() == pwuInfo.size()) {
                 grid.add(pwuBox, columNum, rowNum);
                 break;
             } else {
@@ -214,23 +240,27 @@ public class ShopViewImpl extends BorderPane implements ShopView {
 
         }
 
-        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-
         scroll.setId("scroll");
 
-        scroll.setMaxSize((screenBounds.getWidth() / 7) * 6, (screenBounds.getHeight() / 6) * 2);
+        scroll.setMaxSize((SCREENWIDHT / 7) * 6, (SCREENHEIGHT / 6) * 2.5);
         grid.setHgap((scroll.getMaxWidth() / 12));
         grid.setVgap(scroll.getMaxHeight() / 12);
+        grid.setPrefSize(scroll.getPrefWidth(), scroll.getPrefHeight());
         this.scroll.setContent(grid);
     }
 
     private void addAction(PowerUpRenderer curr, Button button) {
         button.setOnAction(event -> {
 
-            ImageView icon = new ImageView(
-                    "C:/Users/ginni/Desktop/ProgettoOOP/OOP22-alienent/src/main/resources/examplemvc/"
-                            + curr.getImage());
+            bottom.setId("bottom");
+            bottom.setPrefSize(SCREENWIDHT - 40, widthUnit * 4);
 
+            VBox icon = new VBox();
+            icon.setAlignment(Pos.CENTER);
+            ImageView image = new ImageView("/images/" + curr.getImage());
+
+            icon.setId("icon");
+            icon.getChildren().add(image);
             bottom.setLeft(icon);
 
             Label newName = new Label(curr.getName());
@@ -238,44 +268,46 @@ public class ShopViewImpl extends BorderPane implements ShopView {
             final StringBuilder stats = new StringBuilder("");
             curr.getPwu().getStatModifiers()
                     .forEach((s, i) -> stats.append(i != 0 ? s + ": " + i + "\n" : ""));
-            TextArea description = new TextArea(curr.getDescription() + stats.toString());
-            description.setWrapText(true);
+
+            Text description = new Text(curr.getDescription() + "\n" + stats.toString());
             description.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
-            description.setEditable(false);
+            TextFlow descContenitor = new TextFlow(description);
 
+            ScrollPane scrollDesc = new ScrollPane();
+            scrollDesc.setId("scrollDesc");
             VBox descBox = new VBox();
+            descBox.setId("descbox");
             descBox.getChildren().add(newName);
-            descBox.getChildren().add(description);
+            descBox.getChildren().add(descContenitor);
+            descBox.setMaxWidth(widthUnit * 20);
+            scrollDesc.setContent(descBox);
+            scrollDesc.setMaxWidth(widthUnit * 20.3);
 
-            bottom.setCenter(descBox);
+            bottom.setCenter(scrollDesc);
+            BorderPane.setAlignment(scrollDesc, Pos.CENTER_LEFT);
 
             Button buyButton = new Button();
+            buyButton.setId("buybutton");
             int cost = 0;
-            if (controller.getUserAccount().getCurrLevel(curr.getPwu().getId()) == 0) {
+            if (controller.getUserAccount().getCurrLevel(curr.getId()) == 0) {
                 cost = curr.getPwu().getCost();
             } else {
                 cost = curr.getPwu().getCost()
-                        * controller.getUserAccount().getCurrLevel(curr.getPwu().getId());
+                        * (controller.getUserAccount().getInventory().get(curr.getId()).intValue() + 1);
             }
             buyButton.setText(String.valueOf(cost));
             buyButton.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
 
             buyButton.setOnAction(e -> {
-                buyEvent(curr);
+                buyEvent(curr, buyButton);
             });
 
-            buyButton.setPrefWidth(300); // Imposta la larghezza preferita a 200
-            buyButton.setPrefHeight(50);
+            buyButton.setPrefSize(widthUnit * 3, heightUnit);
 
             BorderPane rightContainer = new BorderPane();
             rightContainer.setBottom(buyButton);
 
-            Button closeButton = new Button("X");
-            closeButton.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
-            closeButton.setOnAction(closePopup -> {
-                bottom.setVisible(false);
-            });
-            rightContainer.setTop(closeButton);
+            rightContainer.setTop(setExitButton(ExitCondition.PWUINFO));
 
             bottom.setRight(rightContainer);
             bottom.setVisible(true);
@@ -284,54 +316,148 @@ public class ShopViewImpl extends BorderPane implements ShopView {
 
     }
 
-    private void buyEvent(PowerUpRenderer curr) {
+    private void buyEvent(PowerUpRenderer curr, Button buyButton) {
         if (!controller.buy(curr.getId())) {
             Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
             // Imposta l'anchor point al centro dello schermo
             double anchorX = screenBounds.getWidth() / 2 - 100;
             double anchorY = screenBounds.getHeight() / 2 - 200;
-
-            popUp.show(box, anchorX, anchorY);
+            setAttentionPopup();
+            attentionPopup.show(box, anchorX, anchorY);
         } else {
-            shownScore.setText(String.valueOf(controller.getUserAccount().getMoney()));
-            CheckBox checkBox = (CheckBox) checkBoxesMap.get(curr.getId()).getChildren()
-                    .get((controller.getUserAccount().getCurrLevel(curr.getId()) - 1));
-            checkBox.setSelected(true); // HELPPPPPPP
+            score.setText(controller.getUserAccount().getMoney() + "$");
+            if (controller.getUserAccount().getCurrLevel(curr.getId()) == (curr.getPwu().getMaxLevel())) {
+                buyButton.setDisable(true);
+            } else {
+                buyButton.setText(String.valueOf(
+                        (controller.getUserAccount().getInventory().get(curr.getId()) + 1) * curr.getPwu().getCost()));
+            }
+            checkBoxesMap.get(curr.getId()).get(controller.getUserAccount().getCurrLevel(curr.getId()) - 1)
+                    .setSelected(true);
+            updateInventoryPopup();
 
         }
     }
 
-    private void setPopUpWindow() {
-        HBox attention = new HBox();
+    private void setInventoryPopup() {
         VBox button = new VBox();
 
-        Button closeButton = new Button("X");
-        closeButton.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
-        closeButton.setOnAction(closePopup -> {
-            popUp.hide();
-        });
-        button.getChildren().add(closeButton);
+        /*
+         * popUpContent.setStyle(
+         * "-fx-background-image: url('/images/UI_Flat_Frame_Standard.png'); -fx-background-size: cover; -fx-background-position: center;"
+         * );
+         */
+
+        inventoryPopup.setId("inventorypopup");
+
+        inventoryPopup.setMaxSize(widthUnit * 5, heightUnit * 8);
+
+        button.getChildren().add(setExitButton(ExitCondition.INVENTORY));
         button.setAlignment(Pos.TOP_RIGHT);
+        Insets margins = new Insets(widthUnit / 4, widthUnit / 2, widthUnit / 4, widthUnit / 2);
+        button.setPadding(margins);
 
-        TextArea text = new TextArea("ATTENZIONE!\nStai tentando di comprare un powerup senza avere i soldi necessari");
-        text.setWrapText(true);
-        text.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
-        text.setEditable(false);
+        TextFlow textBox = new TextFlow();
 
-        attention.getChildren().addAll(text, button);
+        updateInventoryPopup();
 
-        popUp.getContent().add(attention);
+        inventoryText.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
+
+        textBox.getChildren().add(inventoryText);
+        textBox.setTextAlignment(TextAlignment.LEFT);
+
+        AnchorPane.setLeftAnchor(textBox, 10.0);
+        AnchorPane.setRightAnchor(button, 10.0);
+
+        inventoryPopup.getChildren().addAll(textBox, button);
 
     }
 
-    private void setExitButton() {
+    private void updateInventoryPopup() {
+        Map<String, Integer> inventory = new HashMap<>();
 
-        BorderPane.setMargin(exitButton, new Insets(widthUnit / 4, widthUnit / 2, widthUnit / 4, widthUnit / 4));
+        controller.getUserAccount().getInventory()
+                .forEach((s, l) -> {
+                    pwuInfo.stream().filter(p -> p.getId().equals(s))
+                            .findFirst()
+                            .ifPresent(pwu -> pwu.getPwu().getStatModifiers()
+                                    .forEach((stat, p) -> {
+                                        inventory.compute(s,
+                                                (k, oldValue) -> oldValue == null ? p * l : oldValue + p * l);
+                                    }));
+                });
+        final StringBuilder stats = new StringBuilder("");
+        inventory.forEach((s, i) -> stats.append(s).append(":\t").append(i).append("\n"));
+
+        inventoryText.setText(
+                controller.getUserAccount().getNickname() + "\n" + controller.getUserAccount().getMoney()
+                        + "\n" + stats);
+    }
+
+    private void setAttentionPopup() {
+        HBox popUpContent = new HBox();
+        VBox button = new VBox();
+
+        /*
+         * popUpContent.setStyle(
+         * "-fx-background-image: url('/images/UI_Flat_Frame_Standard.png'); -fx-background-size: cover; -fx-background-position: center;"
+         * );
+         */
+        // popUpContent.setId("popup");
+
+        button.getChildren().add(setExitButton(ExitCondition.ATTENTION));
+        button.setAlignment(Pos.TOP_RIGHT);
+        Insets margins = new Insets(widthUnit / 4, widthUnit / 2, widthUnit / 4, widthUnit / 2);
+        button.setPadding(margins);
+
+        TextFlow textBox = new TextFlow();
+
+        attentionText.setText("ATTENTION!\n You don't have enough money for this powerUp");
+        attentionText.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
+
+        textBox.getChildren().add(attentionText);
+        textBox.setTextAlignment(TextAlignment.LEFT);
+
+        popUpContent.getChildren().addAll(textBox, button);
+
+        attentionPopup.getContent().add(popUpContent);
+
+    }
+
+    private Button setExitButton(ExitCondition condition) {
+
+        Button exitButton = new Button();
+        exitButton.setId("exitButton");
         exitButton.setPrefSize(widthUnit, widthUnit);
+        Insets margins = new Insets(widthUnit / 4, widthUnit / 2, widthUnit / 4, widthUnit / 4);
+        exitButton.setPadding(margins);
 
-        exitButton.setOnAction(closeShop -> {
-            this.box.setVisible(false);
-        });
+        switch (condition) {
+            case ATTENTION:
+                exitButton.setOnAction(closePopUp -> {
+                    this.attentionPopup.hide();
+                });
+                break;
+            case PWUINFO:
+                exitButton.setOnAction(closePwuInfo -> {
+                    this.bottom.setVisible(false);
+                });
+                BorderPane.setAlignment(exitButton, Pos.TOP_RIGHT);
+                break;
+            case SHOP:
+                exitButton.setOnAction(closeShop -> {
+                    this.box.setVisible(false);
+                });
+                break;
+            case INVENTORY:
+                exitButton.setOnAction(closePopUp -> {
+                    this.inventoryPopup.setVisible(false);
+                });
+                break;
+            default:
+                break;
+        }
+        return exitButton;
     }
 
     private void setCheck() {
@@ -339,11 +465,7 @@ public class ShopViewImpl extends BorderPane implements ShopView {
             if (controller.getUserAccount().getInventory().containsKey(s)) {
                 controller.getUserAccount().getCurrLevel(s);
                 for (int i = 0; i < controller.getUserAccount().getCurrLevel(s); i++) {
-                    CheckBox checkBox = (CheckBox) g.getChildren()
-                            .get(i);
-                    System.out.println(checkBox.isSelected());
-                    checkBox.setSelected(true);
-                    System.out.println(checkBox.isSelected());
+                    g.get(i).setSelected(true);
                 }
             }
         });

@@ -11,14 +11,7 @@ import javafx.scene.layout.BorderPane;
 public interface ShopView {
 
     /**
-     * It saves the list containing the pwu info inside a collection.
-     * 
-     * @param pwuInfo
-     */
-    void loadPwuInfo(List<PowerUpRenderer> pwuInfo);
-
-    /**
-     * It returns a list of PowerUpEenderer
+     * It returns a list of PowerUpRenderer
      * 
      * @return
      */

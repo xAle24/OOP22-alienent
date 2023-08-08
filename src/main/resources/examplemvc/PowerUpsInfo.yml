@@ -1,35 +1,35 @@
 ---
 name: "Panacea-Health Module"
 id: "Health"
-description: "Your ship dies too easily, and it's not because you suck? This power up adds the following percentage to your health statistic. Percentage:"
-image: "Health.png"
+description: "Your ship dies too easily? This power up adds the following percentage to your health statistic. Percentage:"
+image: "health.png"
 ---
 name: "Energy Core Booster"
 id: "Speed"
 description: "Scotty, I need warp speed in three minutes or we're dead. This power up adds the following percentage to your speed statistic. Percentage:"
-image: "Speed.png"
+image: "speed.png"
 ---
 name: "Armed War Module"
 id: "Damage"
 description: "I hate the idea of owning a gun, but I love the idea of owning a cannon.  This power up adds the following percentage to your damage statistic. Percentage:"
-image: "Damage.png"
+image: "damage.png"
 ---
 name: "Protecting Shielding Shield Mechanism"
 id: "Defence"
 description: "This new boridium biofilter with promethean subroutine C-47 will strenghten all your shielding shields. This power up adds the following percentage to your defence statistic. Percentage:"
-image: "Defence.png"
+image: "defence.png"
 ---
 name: "Nanowave Frequency Enhancer"
 id: "ProjectileSpeed"
 description: "They won't know what hit them. This power up adds the following percentage to your projectile speed statistic. Percentage:"
-image: "ProjSpeed.png"
+image: "projspeed.png"
 ---
 name: "Zirconium Rubidium Collector"
 id: "Cooldown"
 description: "Tired of waiting to express your inner barbarian instinct? This power up adds the following percentage to your cooldown statistic. Percentage:"
-image: "Cooldown.png"
+image: "cooldown.png"
 ---
 name: "Degaussian Medical Kit-Unit"
 id: "Recovery"
 description: "We are loosing too much fuel, we need to patch up the ship. This power up adds the following percentage to your recovery statistic. Percentage:"
-image: "Recovery.png"
+image: "recovery.png"

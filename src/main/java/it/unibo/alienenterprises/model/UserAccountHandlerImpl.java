@@ -19,6 +19,7 @@ import org.yaml.snakeyaml.constructor.Constructor;
 import org.yaml.snakeyaml.nodes.Tag;
 import org.yaml.snakeyaml.representer.Representer;
 
+import it.unibo.alienenterprises.model.api.UserAccount;
 import it.unibo.alienenterprises.model.api.UserAccountHandler;
 
 /**
@@ -35,7 +36,7 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
      * {@inheritDoc}
      */
     @Override
-    public Optional<UserAccountImpl> login(final String nickname, final String password) {
+    public Optional<UserAccount> login(final String nickname, final String password) {
         if (existingAccount(nickname) && correctPassword(nickname, password)) {
             try (FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + nickname + YML)) {
                 final Constructor constructor = new Constructor(UserAccountImpl.class, new LoaderOptions());
@@ -60,7 +61,7 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
      * {@inheritDoc}
      */
     @Override
-    public Optional<UserAccountImpl> registration(final String nickname, final String password) {
+    public Optional<UserAccount> registration(final String nickname, final String password) {
         if (!existingAccount(nickname)) {
             final File accountFile = new File(GAME_PATH + SEPARATOR + nickname + YML);
             try (FileWriter writer = new FileWriter(GAME_PATH + SEPARATOR + "passwords.yml",
@@ -92,7 +93,7 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
      * {@inheritDoc}
      */
     @Override
-    public void save(final UserAccountImpl account) {
+    public void save(final UserAccount account) {
         final String accountFile = GAME_PATH + SEPARATOR + account.getNickname() + YML;
         try (FileWriter writer = new FileWriter(accountFile, StandardCharsets.UTF_8, false)) {
             final Representer representer = new Representer(new DumperOptions());
