@@ -7,6 +7,7 @@ import it.unibo.alienenterprises.model.api.UserAccount;
 import it.unibo.alienenterprises.view.ViewType;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
@@ -22,7 +23,7 @@ public class LoginControllerImpl implements LoginController,InitController {
     @FXML
     private Label Alert;
     @Override
-    public void init(Controller controller) {
+    public void init(Controller controller, Scene scene) {
         this.controller = controller;
     }
     @FXML

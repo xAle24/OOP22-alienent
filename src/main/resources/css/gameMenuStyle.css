@@ -1,23 +1,58 @@
 #root {
+    -fx-background-image: url('/images/background.png');
+    background-image: url('/images/background.png');
+    -fx-background-repeat: stretch;
+    background-repeat: stretch;
+    -fx-background-position: center;
+    background-position: center;
     -fx-alignment: center;
 }
-
-#text {
-    -fx-pref-width: 500px;
-    -fx-pref-height: 300px;
+#innerBox{
+    -fx-alignment: center;
+    -fx-min-width: 400px;
+    min-width: 400px;
+    -fx-min-height: 400px;
+    min-height: 400px;
+}
+#title {
+    -fx-text-fill: #fca41c;
+    -fx-alignment: center;
+    -fx-font-size: 125;
+    font-size: 125;
 }
 
 #playBtn {
-    -fx-pref-width: 200px;
-    -fx-pref-height: 100px;
+    -fx-text-fill: #fca41c;
+    -fx-background-color: #247cec;
+    background-color: #247cec;
+    -fx-max-width: 100px;
+    max-width: 100px;
+    -fx-max-height: 40px;
+    max-height: 40px;
+    -fx-padding: 20px;
+    padding: 20px;
 }
 
 #shopBtn {
-    -fx-pref-width: 200px;
-    -fx-pref-height: 100px;
+    -fx-text-fill: #fca41c;
+    -fx-background-color: #247cec;
+    background-color: #247cec;
+    -fx-max-width: 100px;
+    max-width: 100px;
+    -fx-pref-height: 40px;
+    max-height: 40px;
+    -fx-padding: 20px;
+    padding: 20px;
 }
 
 #tutorialBtn {
-    -fx-pref-width: 200px;
-    -fx-pref-height: 100px;
+    -fx-text-fill: #fca41c;
+    -fx-background-color: #247cec;
+    background-color: #247cec;
+    -fx-max-width: 100px;
+    max-width: 100px;
+    -fx-pref-height: 40px;
+    max-height: 40px;
+    -fx-padding: 20px;
+    padding: 20px;
 }

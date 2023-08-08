@@ -3,11 +3,12 @@ package it.unibo.alienenterprises.view.controllers;
 import it.unibo.alienenterprises.controller.Controller;
 import it.unibo.alienenterprises.view.ViewType;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 
 public class MenuControllerImpl implements MenuController, InitController{
     private Controller controller; 
     @Override
-    public void init(Controller controller) {
+    public void init(Controller controller, Scene scene) {
         this.controller = controller;
     }
 
