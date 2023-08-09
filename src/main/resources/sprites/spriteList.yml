@@ -2,27 +2,41 @@
 id: sniper 
 file: sniper.png
 scale: 1.0
+height: 64
+width: 64
 ---
 id: standard
 file: standard.png
 scale: 1.0
+height: 64
+width: 64
 ---
 id: tank
 file: tank.png
 scale: 1.0
+height: 64
+width: 64
 ---
 id: simpleProjectile
-file: simple_projectile.gif
-scale: 0.2
+file: pngwing.com.png
+scale: 0.01
+height: 1024
+width: 1024
 ---
 id: enemyTank
 file: enemyTank.png
 scale: 1.0
+height: 64
+width: 64
 ---
 id: enemySniper
 file: enemySniper.png
 scale: 1.0
+height: 64
+width: 64
 ---
 id: enemyBomber
 file: enemyBomber.png
 scale: 1.0
+height: 64
+width: 64
