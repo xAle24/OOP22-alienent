@@ -11,7 +11,7 @@ public class Vector2D {
     private final double angle;
 
     private Vector2D(final double angle, final double module) {
-        this.angle = angle;
+        this.angle = confineAngle(angle);
         this.module = module;
     }
 
@@ -114,9 +114,23 @@ public class Vector2D {
         return fromAngleAndModule(this.angle, this.module * a);
     }
 
+    private double confineAngle(final double angle){
+        double newAngle = angle;
+        while(newAngle>=360){
+            newAngle = newAngle-360;
+        }
+        while(newAngle<=-360){
+            newAngle = newAngle+360;
+        }
+        if(newAngle<0){
+            newAngle = 360-newAngle;
+        }
+        return newAngle;
+    }
+
     @Override
     public String toString() {
-        return "Vector2D [xComp=" + getxComp() + ", yComp=" + getyComp() + "]";
+        return "Vector2D [module=" + this.module + ", angle=" + this.angle + "]";
     }
 
     @Override
