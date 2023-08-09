@@ -16,7 +16,7 @@ import it.unibo.alienenterprises.model.geometry.Point2D;
  * Implementation of the {@link GameLoop} interface.
  */
 public final class GameLoopThread extends Thread implements GameLoop {
-    private static final long MS_PER_FRAME = 1000;
+    private static final long MS_PER_FRAME = 20;
 
     private final World world;
     private final RendererManager rendererManager;
@@ -70,7 +70,7 @@ public final class GameLoopThread extends Thread implements GameLoop {
             long currentStart = System.currentTimeMillis();
             long elapsed = currentStart - previousStart;
             this.processInput();
-            this.updateGame(elapsed / 1000);
+            this.updateGame(elapsed / 1000.0);
             this.render();
             this.waitForNextFrame(System.currentTimeMillis() - currentStart);
             previousStart = currentStart;

@@ -8,6 +8,8 @@ import javafx.scene.Parent;
 
 /**
  * Loads or modifies the current scene according to specifications.
+ * 
+ * @author Giulia Bonifazi
  */
 public class JFXSceneLoader implements SceneLoader {
     private static final String PATH_START = "/layouts/";

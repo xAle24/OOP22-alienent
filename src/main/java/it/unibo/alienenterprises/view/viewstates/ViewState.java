@@ -5,6 +5,8 @@ import javafx.stage.Stage;
 /**
  * This interface is implemented by the various states the view can activate.
  * Only one can be active at once.
+ * 
+ * @author Giulia Bonifazi
  */
 public interface ViewState {
 

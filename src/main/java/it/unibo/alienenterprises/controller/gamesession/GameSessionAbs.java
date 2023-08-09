@@ -44,4 +44,9 @@ public abstract class GameSessionAbs implements GameSession {
         return queue;
     }
 
+    @Override
+    public World getWorld() {
+        return this.world;
+    }
+
 }

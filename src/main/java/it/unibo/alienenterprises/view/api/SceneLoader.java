@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 
 /**
  * Loader for game {@link Scene} scenes.
+ * 
+ * @author Giulia Bonifazi
  */
 public interface SceneLoader {
 
