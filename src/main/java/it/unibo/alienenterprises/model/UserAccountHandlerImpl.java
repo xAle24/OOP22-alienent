@@ -84,8 +84,8 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
 
                 Optional<UserAccount> account = Optional.of(new UserAccountImpl(nickname));
                 save(account.get());
-
                 return account;
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
