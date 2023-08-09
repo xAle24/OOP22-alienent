@@ -4,7 +4,6 @@ public class PlayerClassInfoImpl implements PlayerClassInfo {
 
     private String name;
     private String description;
-    private String spriteFilePath;
 
     public PlayerClassInfoImpl() {
     }
@@ -28,18 +27,8 @@ public class PlayerClassInfoImpl implements PlayerClassInfo {
     }
 
     @Override
-    public String getSpriteFilePath() {
-        return spriteFilePath;
-    }
-
-    public void setSpriteFilePath(final String spriteFilePath) {
-        this.spriteFilePath = spriteFilePath;
-    }
-
-    @Override
     public String toString() {
-        return "PlayerClassInfoImpl [name=" + name + ", description=" + description + ", spriteFilePath="
-                + spriteFilePath + "]";
+        return "PlayerClassInfoImpl [name=" + name + ", description=" + description + "]";
     }
 
 }
