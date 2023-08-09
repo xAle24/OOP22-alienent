@@ -60,11 +60,17 @@ public class Line2D {
         return c;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return getA() + "x" + (getB() > 0 ? "+" : "") + getB() + "y" + (getC() > 0 ? "+" : "") + getC();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -79,6 +85,9 @@ public class Line2D {
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

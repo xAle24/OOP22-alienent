@@ -3,8 +3,11 @@ package it.unibo.alienenterprises.model.geometry;
 /**
  * Describe the functionalities of a Vector.
  */
-public class Vector2D {
+public final class Vector2D {
 
+    /**
+     * A vector with angle and module equals 0
+     */
     public static final Vector2D NULL_VECTOR = new Vector2D(0, 0);
 
     private final double module;
@@ -18,13 +21,13 @@ public class Vector2D {
     /**
      * @param angle  in degrees
      * @param module
-     * @return The vecttor with that angle and module
+     * @return The vector with that angle and module
      */
     public static Vector2D fromAngleAndModule(final double angle, final double module) {
-        return new Vector2D(angle,module);
+        return new Vector2D(angle, module);
     }
 
-    public static Vector2D fromComponents(final double xComp, final double yComp){
+    public static Vector2D fromComponents(final double xComp, final double yComp) {
         final double angle;
         final double module = Math.sqrt(xComp * xComp + yComp * yComp);
         if (xComp == 0) {
@@ -114,25 +117,31 @@ public class Vector2D {
         return fromAngleAndModule(this.angle, this.module * a);
     }
 
-    private double confineAngle(final double angle){
+    private double confineAngle(final double angle) {
         double newAngle = angle;
-        while(newAngle>=360){
-            newAngle = newAngle-360;
+        while (newAngle >= 360) {
+            newAngle = newAngle - 360;
         }
-        while(newAngle<=-360){
-            newAngle = newAngle+360;
+        while (newAngle <= -360) {
+            newAngle = newAngle + 360;
         }
-        if(newAngle<0){
-            newAngle = 360-newAngle;
+        if (newAngle < 0) {
+            newAngle = 360 - newAngle;
         }
         return newAngle;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "Vector2D [module=" + this.module + ", angle=" + this.angle + "]";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -147,20 +156,20 @@ public class Vector2D {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj){
+        if (this == obj) {
             return true;
         }
-        if (obj == null){
+        if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()){
+        if (getClass() != obj.getClass()) {
             return false;
         }
         Vector2D other = (Vector2D) obj;
-        if (Double.doubleToLongBits(module) != Double.doubleToLongBits(other.module)){
+        if (Double.doubleToLongBits(module) != Double.doubleToLongBits(other.module)) {
             return false;
         }
-        if (Double.doubleToLongBits(angle) != Double.doubleToLongBits(other.angle)){
+        if (Double.doubleToLongBits(angle) != Double.doubleToLongBits(other.angle)) {
             return false;
         }
         return true;

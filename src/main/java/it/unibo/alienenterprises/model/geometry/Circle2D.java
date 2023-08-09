@@ -47,11 +47,17 @@ public class Circle2D {
         return this.getRay() > l.distancePoint(this.getCenter());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "Circle2D [center=" + getCenter() + ", r=" + getRay() + "]";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -63,6 +69,9 @@ public class Circle2D {
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj) {
