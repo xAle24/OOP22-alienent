@@ -58,6 +58,7 @@ public class BasicShooterComponent extends ComponentAbs implements ShooterCompon
             p.setVelocity(Vector2D.fromAngleAndModule(getGameObject().getVelocity().getAngle(), speed));
             p.setPosition(getGameObject().getPosition());
         }
+        this.trigger = false;
     }
 
     @Override

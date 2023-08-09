@@ -9,6 +9,7 @@ import it.unibo.alienenterprises.controller.api.ShipLoader;
 import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.view.ShipInfoLoader;
 import it.unibo.alienenterprises.view.ViewType;
+import javafx.scene.Scene;
 
 public class PlayerControllerImpl implements PlayerController {
 
@@ -27,7 +28,7 @@ public class PlayerControllerImpl implements PlayerController {
     }
 
     @Override
-    public void init(final Controller controller) {
+    public void init(final Controller controller, final Scene scene) {
         this.controller = Optional.of(controller);
     }
 
