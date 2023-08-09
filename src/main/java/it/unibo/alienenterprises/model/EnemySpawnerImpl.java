@@ -88,7 +88,6 @@ public class EnemySpawnerImpl implements EnemySpawner {
         if (spawnTime > SPAWNTIME) {
             var id = getIdentifier();
             this.world.addGameObject(getEnemy(id, deltaTime));
-            System.out.println(id);
             spawnTime = 0;
         } else {
             spawnTime = spawnTime + deltaTime;
