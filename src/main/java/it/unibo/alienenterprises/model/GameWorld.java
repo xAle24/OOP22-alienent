@@ -21,7 +21,6 @@ public final class GameWorld implements World {
     private Set<GameObject> lastAdded;
     private int score;
     private Dimensions worldDimensions;
-    private boolean rendered = false;
 
     public GameWorld(Dimensions worldDimensions) {
         this.worldDimensions = worldDimensions;
@@ -33,10 +32,6 @@ public final class GameWorld implements World {
 
     @Override
     public void update(double deltaTime) {
-        if (this.rendered) {
-            this.lastAdded.clear();
-            this.rendered = false;
-        }
         this.gameObjects.stream().forEach(o -> {
             if (!o.isAlive()) {
                 this.deadGameObjects.add(o);
@@ -76,8 +71,9 @@ public final class GameWorld implements World {
 
     @Override
     public Set<GameObject> getLastAdded() {
-        this.rendered = true;
-        return this.lastAdded;
+        var ret = new HashSet<>(this.lastAdded);
+        this.lastAdded.clear();
+        return ret;
     }
 
     /**

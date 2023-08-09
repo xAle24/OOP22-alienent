@@ -4,7 +4,6 @@ import it.unibo.alienenterprises.controller.gamesession.GameSession;
 import it.unibo.alienenterprises.controller.gamesession.SimpleGameSession;
 import it.unibo.alienenterprises.model.GameWorld;
 import it.unibo.alienenterprises.model.UserAccountHandlerImpl;
-import it.unibo.alienenterprises.model.UserAccountImpl;
 import it.unibo.alienenterprises.model.WorldDimensions;
 import it.unibo.alienenterprises.model.api.Dimensions;
 import it.unibo.alienenterprises.model.api.UserAccount;

@@ -1,9 +1,7 @@
 package it.unibo.alienenterprises.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import it.unibo.alienenterprises.controller.api.GameLoop;
+import it.unibo.alienenterprises.controller.gamesession.GameSession;
 import it.unibo.alienenterprises.controller.renderers.RendererManager;
 import it.unibo.alienenterprises.model.EnemySpawnerImpl;
 import it.unibo.alienenterprises.model.PlayerSpawnerImpl;
@@ -11,38 +9,39 @@ import it.unibo.alienenterprises.model.api.EnemySpawner;
 import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.InputSupplier;
 import it.unibo.alienenterprises.model.api.World;
-import it.unibo.alienenterprises.model.api.InputSupplier.Input;
 import it.unibo.alienenterprises.model.api.components.PlayerInputComponent;
 import it.unibo.alienenterprises.model.geometry.Point2D;
 
 /**
- * Implementation of the GameLoop interface.
+ * Implementation of the {@link GameLoop} interface.
  */
 public final class GameLoopThread extends Thread implements GameLoop {
-    private static final long MS_PER_FRAME = 20;
-    // private static final int MAX_INPUT = 5;
+    private static final long MS_PER_FRAME = 1000;
 
     private final World world;
     private final RendererManager rendererManager;
     private final EnemySpawner enemySpawner;
     private final InputSupplier inputSupplier;
+    private final InputQueue inputQueue;
 
-    private List<Input> inputQueue;
     private boolean stopped;
     private boolean paused;
 
     /**
      * Create an instance of the GameLoopThread class.
      * 
+     * @param queue           the {@link InputQueue} that catches the inputs from
+     *                        the GameStage.
      * @param rendererManager the {@link RendererManager} responsible for rendering
      *                        the {@link GameObject} instances.
      * @param world           the {@link World} instance of the {@link GameSession}
      * @param playerID        the ID of the chosen player class.
      */
-    public GameLoopThread(RendererManager rendererManager, final World world, final String playerID) {
+    public GameLoopThread(InputQueue queue, RendererManager rendererManager, final World world,
+            final String playerID) {
+        this.inputQueue = queue;
         this.world = world;
         this.rendererManager = rendererManager;
-        this.inputQueue = new ArrayList<>();
         var player = new PlayerSpawnerImpl(world).getPlayer(playerID).get();
         this.inputSupplier = player.getComponent(PlayerInputComponent.class).get().getInputSupplier();
         var topRight = new Point2D(this.world.getWorldDimensions().getBounds().getX(), 0);
@@ -71,33 +70,11 @@ public final class GameLoopThread extends Thread implements GameLoop {
             long currentStart = System.currentTimeMillis();
             long elapsed = currentStart - previousStart;
             this.processInput();
-            this.updateGame(elapsed);
+            this.updateGame(elapsed / 1000);
             this.render();
             this.waitForNextFrame(System.currentTimeMillis() - currentStart);
             previousStart = currentStart;
         }
-    }
-
-    private void waitForNextFrame(final long delta) {
-        if (delta < MS_PER_FRAME) {
-            try {
-                Thread.sleep(MS_PER_FRAME - delta);
-            } catch (Exception e) {
-            }
-        }
-    }
-
-    private void processInput() {
-        for (Input input : this.inputQueue) {
-            this.inputSupplier.addInput(input);
-        }
-    }
-
-    @Override
-    public void updateGame(final double deltaTime) {
-        this.enemySpawner.update(deltaTime);
-        this.world.update(deltaTime);
-        this.world.getLastAdded().forEach(o -> this.rendererManager.addRenderer(o, o.getId()));
     }
 
     @Override
@@ -117,30 +94,45 @@ public final class GameLoopThread extends Thread implements GameLoop {
         this.interrupt();
     }
 
-    @Override
-    public synchronized void addInput(String string) {
-        Input input;
-        switch (string) {
-            case "w", "W":
-                input = Input.ACCELERATE;
-                break;
-            case "s", "S":
-                input = Input.STOP_ACCELERATE;
-                break;
-            case "a", "A":
-                input = Input.TURN_LEFT;
-                break;
-            case "d", "D":
-                input = Input.TURN_RIGHT;
-            case " ":
-                input = Input.SHOOT;
-                break;
-            default:
-                return;
+    /**
+     * Waits for the next frame if the pre-established time between frames hasn't
+     * already passed.
+     * 
+     * @param delta the time spent completing the frame.
+     */
+    private void waitForNextFrame(final long delta) {
+        if (delta < MS_PER_FRAME) {
+            try {
+                Thread.sleep(MS_PER_FRAME - delta);
+            } catch (Exception e) {
+            }
         }
-        this.inputQueue.add(input);
     }
 
+    /**
+     * Updates the {@link GameWorld} and adds its newest {@link GameObject}
+     * instances to {@link RendererManager}
+     * 
+     * @param deltaTime
+     */
+    private void updateGame(final double deltaTime) {
+        this.enemySpawner.update(deltaTime);
+        this.world.update(deltaTime);
+        this.world.getLastAdded().forEach(o -> this.rendererManager.addRenderer(o, o.getId()));
+    }
+
+    /**
+     * Adds the inputs to the {@link InputSupplier} of the player one at a time.
+     */
+    private void processInput() {
+        while (this.inputQueue.size() != 0) {
+            this.inputSupplier.addInput(this.inputQueue.pollInput());
+        }
+    }
+
+    /**
+     * Renders the {@link GameObject} that are currently alive.
+     */
     private void render() {
         this.rendererManager.render();
     }

@@ -7,6 +7,7 @@ import edu.umd.cs.findbugs.annotations.OverrideMustInvoke;
 import it.unibo.alienenterprises.controller.renderers.Renderer;
 import it.unibo.alienenterprises.view.api.Painter;
 import it.unibo.alienenterprises.view.sprites.Sprite;
+import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -17,6 +18,7 @@ import javafx.scene.transform.Rotate;
  * This class will draw each {@link Sprite} on the {@link Canvas} it contains.
  */
 public final class CanvasPainter implements Painter {
+    private final double DEGREES_TURN = 90.0;
     private GraphicsContext gc;
     private Canvas canvas;
     private Set<Renderer> renderers;
@@ -41,7 +43,7 @@ public final class CanvasPainter implements Painter {
             if (r.isShown()) {
                 r.render();
                 ImageView image = r.getSprite().getImageView();
-                drawRotatedImage(image.getImage(), image.getRotate(), image.getX(), image.getY());
+                drawRotatedImage(image.getImage(), image.getRotate() + DEGREES_TURN, image.getX(), image.getY());
             } else {
                 this.toBeRemoved.add(r);
             }

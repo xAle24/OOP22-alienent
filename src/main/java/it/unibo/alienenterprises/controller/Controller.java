@@ -4,10 +4,6 @@ import it.unibo.alienenterprises.controller.gamesession.GameSession;
 import it.unibo.alienenterprises.model.api.UserAccount;
 import it.unibo.alienenterprises.model.api.UserAccountHandler;
 import it.unibo.alienenterprises.view.ViewType;
-import it.unibo.alienenterprises.view.View;
-import it.unibo.alienenterprises.view.api.Painter;
-import it.unibo.alienenterprises.view.api.SceneController;
-import javafx.scene.Scene;
 
 /**
  * Main controller of the game.
@@ -29,7 +25,7 @@ public interface Controller {
     void initiateGameSession(String playerID);
 
     /**
-     * Changes the {@link Scene} that is being displayed.
+     * Changes the scene that is being displayed.
      */
     void changeScene(ViewType type);
 

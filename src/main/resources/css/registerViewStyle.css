@@ -5,8 +5,6 @@
     background-repeat: stretch;
     -fx-background-position: center;
     background-position: center;
-    -fx-pref-width: 1600px;
-    -fx-pref-height: 900px;
     -fx-alignment: center;
 }
 
