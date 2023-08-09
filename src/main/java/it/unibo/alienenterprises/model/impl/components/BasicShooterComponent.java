@@ -49,7 +49,6 @@ public class BasicShooterComponent extends ComponentAbs implements ShooterCompon
         }
         if (this.trigger && this.counter >= delay) {
             var p = shoot.get();
-            System.out.println(counter);
             p.setStatValue(Statistic.DAMAGE, damage);
             p.setStatValue(Statistic.SPEED, speed);
             var hb = p.getComponent(ProjectileHitboxComponent.class);
