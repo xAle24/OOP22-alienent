@@ -1,18 +1,30 @@
-package it.unibo.alienenterprises.model;
+package it.unibo.alienenterprises.model.world;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
-import it.unibo.alienenterprises.model.api.Dimensions;
+import javax.tools.DocumentationTool.Location;
+
+import it.unibo.alienenterprises.controller.bounds.Dimensions;
 import it.unibo.alienenterprises.model.api.GameObject;
+import it.unibo.alienenterprises.model.api.GameObjectAbs;
 import it.unibo.alienenterprises.model.api.Statistic;
-import it.unibo.alienenterprises.model.api.World;
+import it.unibo.alienenterprises.model.api.components.BoundaryHitboxComponent;
+import it.unibo.alienenterprises.model.api.components.BoundaryHitboxComponent.Locations;
+import it.unibo.alienenterprises.model.api.components.HitboxComponent.Type;
 import it.unibo.alienenterprises.model.api.components.HitboxComponent;
 import it.unibo.alienenterprises.model.collisionhandler.CollisionHandler;
 import it.unibo.alienenterprises.model.collisionhandler.SimpleCollisionHandler;
+import it.unibo.alienenterprises.model.geometry.Point2D;
+import it.unibo.alienenterprises.model.geometry.Vector2D;
+import it.unibo.alienenterprises.model.impl.components.hitbox.BoundaryHitboxComponentImpl;
 import it.unibo.alienenterprises.model.util.DoubleBuffer;
 import it.unibo.alienenterprises.model.util.SetDoubleBuffer;
+import it.unibo.alienenterprises.model.wall.WallBuilder;
+import it.unibo.alienenterprises.model.wall.WallBuilderImpl;
 
 /**
  * Main World of the game. This is where all the objects reside.
@@ -38,6 +50,7 @@ public final class GameWorld implements World {
         this.doubleBuff = new SetDoubleBuffer<>();
         this.collisionHandler = new SimpleCollisionHandler();
         this.lastAdded = new HashSet<>();
+        this.createWalls();
     }
 
     @Override
@@ -104,5 +117,40 @@ public final class GameWorld implements World {
         this.score += remove.getStatValue(Statistic.DAMAGE) * 100;
         this.doubleBuff.getBuff().remove(remove);
         this.collisionHandler.removeHitbox(remove.getComponent(HitboxComponent.class));
+    }
+
+    private void createWalls() {
+        var walls = new HashSet<GameObject>();
+        WallBuilder wallBuilder = new WallBuilderImpl();
+        // Add upper boundary
+        wallBuilder.addBoundaryHitboxComponent(new Point2D(0, 0),
+                new Point2D(worldDimensions.getWidth(), 0));
+        wallBuilder.setLocation(Locations.UP);
+        walls.add(wallBuilder.getWall());
+        wallBuilder.clear();
+        // Add lower boundary
+        wallBuilder.addBoundaryHitboxComponent(new Point2D(0, this.worldDimensions.getHeight()),
+                new Point2D(this.worldDimensions.getWidth(), this.worldDimensions.getHeight()));
+        wallBuilder.setLocation(Locations.DOWN);
+        walls.add(wallBuilder.getWall());
+        wallBuilder.clear();
+        // Add left boundary
+        wallBuilder.addBoundaryHitboxComponent(new Point2D(0, 0),
+                new Point2D(0, this.worldDimensions.getHeight()));
+        wallBuilder.setLocation(Locations.LEFT);
+        walls.add(wallBuilder.getWall());
+        wallBuilder.clear();
+        // Add right boundary
+        wallBuilder.addBoundaryHitboxComponent(new Point2D(this.worldDimensions.getWidth(), 0),
+                new Point2D(worldDimensions.getWidth(), this.worldDimensions.getHeight()));
+        wallBuilder.setLocation(Locations.RIGHT);
+        walls.add(wallBuilder.getWall());
+        wallBuilder.clear();
+
+        // Add all the walls to the buffer. They do not need a renderer.
+        walls.forEach(w -> {
+            this.doubleBuff.getBuff().add(w);
+            this.collisionHandler.addHitbox(w.getComponent(HitboxComponent.class));
+        });
     }
 }

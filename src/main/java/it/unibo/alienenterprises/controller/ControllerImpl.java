@@ -1,13 +1,13 @@
 package it.unibo.alienenterprises.controller;
 
+import it.unibo.alienenterprises.controller.bounds.Dimensions;
+import it.unibo.alienenterprises.controller.bounds.ArenaDimensions;
 import it.unibo.alienenterprises.controller.gamesession.GameSession;
 import it.unibo.alienenterprises.controller.gamesession.SimpleGameSession;
-import it.unibo.alienenterprises.model.GameWorld;
 import it.unibo.alienenterprises.model.UserAccountHandlerImpl;
-import it.unibo.alienenterprises.model.WorldDimensions;
-import it.unibo.alienenterprises.model.api.Dimensions;
 import it.unibo.alienenterprises.model.api.UserAccount;
 import it.unibo.alienenterprises.model.api.UserAccountHandler;
+import it.unibo.alienenterprises.model.world.GameWorld;
 import it.unibo.alienenterprises.view.View;
 import it.unibo.alienenterprises.view.ViewType;
 
@@ -30,7 +30,7 @@ public final class ControllerImpl implements Controller {
 
     @Override
     public void initiateGameSession(String playerID) {
-        Dimensions wd = new WorldDimensions(this.view.getWidthHeight());
+        Dimensions wd = new ArenaDimensions(this.view.getWidthHeight());
         this.currGameSession = new SimpleGameSession(new GameWorld(wd), account, playerID);
     }
 

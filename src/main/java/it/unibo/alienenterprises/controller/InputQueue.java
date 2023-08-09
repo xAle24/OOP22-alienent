@@ -42,7 +42,7 @@ public class InputQueue extends LinkedBlockingQueue<String> {
                 input = Input.SHOOT;
                 break;
             default:
-                return null;
+                input = Input.NOTHING;
         }
         return input;
     }

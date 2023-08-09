@@ -8,9 +8,9 @@ import it.unibo.alienenterprises.model.PlayerSpawnerImpl;
 import it.unibo.alienenterprises.model.api.EnemySpawner;
 import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.InputSupplier;
-import it.unibo.alienenterprises.model.api.World;
 import it.unibo.alienenterprises.model.api.components.PlayerInputComponent;
 import it.unibo.alienenterprises.model.geometry.Point2D;
+import it.unibo.alienenterprises.model.world.World;
 
 /**
  * Implementation of the {@link GameLoop} interface.
@@ -46,8 +46,8 @@ public final class GameLoopThread extends Thread implements GameLoop {
         this.rendererManager = rendererManager;
         var player = new PlayerSpawnerImpl(world).getPlayer(playerID).get();
         this.inputSupplier = player.getComponent(PlayerInputComponent.class).get().getInputSupplier();
-        var topRight = new Point2D(this.world.getWorldDimensions().getBounds().getX(), 0);
-        var bottomLeft = new Point2D(0, this.world.getWorldDimensions().getBounds().getY());
+        var topRight = new Point2D(this.world.getWorldDimensions().getWidth(), 0);
+        var bottomLeft = new Point2D(0, this.world.getWorldDimensions().getHeight());
         this.enemySpawner = new EnemySpawnerImpl(world, bottomLeft, topRight, player);
         this.world.addPlayer(player);
         this.stopped = false;

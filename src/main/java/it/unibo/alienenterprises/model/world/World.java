@@ -1,6 +1,9 @@
-package it.unibo.alienenterprises.model.api;
+package it.unibo.alienenterprises.model.world;
 
 import java.util.Set;
+
+import it.unibo.alienenterprises.controller.bounds.Dimensions;
+import it.unibo.alienenterprises.model.api.GameObject;
 
 /**
  * This class contains model logic for when the {@link GameSession} is running.

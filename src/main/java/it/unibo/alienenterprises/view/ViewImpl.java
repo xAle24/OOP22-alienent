@@ -4,6 +4,7 @@ import it.unibo.alienenterprises.controller.Controller;
 import it.unibo.alienenterprises.model.geometry.Point2D;
 import it.unibo.alienenterprises.view.javafx.JFXSceneController;
 import it.unibo.alienenterprises.view.javafx.SceneController;
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -44,11 +45,13 @@ public final class ViewImpl implements View {
     @Override
     public void setScene(ViewType type) {
         this.sceneController.setCurrentScene(type);
-        this.primaryStage.setScene(this.sceneController.getCurrentScene());
-        this.sceneController.getViewState().init(this.primaryStage);
-        this.primaryStage.show();
-        this.primaryStage.centerOnScreen();
-        this.primaryStage.sizeToScene();
+        Platform.runLater(() -> {
+            this.primaryStage.setScene(this.sceneController.getCurrentScene());
+            this.sceneController.getViewState().init(this.primaryStage);
+            this.primaryStage.show();
+            this.primaryStage.centerOnScreen();
+            this.primaryStage.sizeToScene();
+        });
     }
 
     @Override
