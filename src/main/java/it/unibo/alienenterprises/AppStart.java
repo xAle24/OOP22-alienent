@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 
 /**
  * This class starts the JavaFX thread and launches the game within it.
+ * 
+ * @author Giulia Bonifazi
  */
 public class AppStart extends Application {
 
