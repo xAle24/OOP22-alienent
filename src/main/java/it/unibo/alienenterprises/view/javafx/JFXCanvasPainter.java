@@ -88,7 +88,7 @@ public final class JFXCanvasPainter implements Painter {
      */
     private void drawRotatedImage(Image image, double angle, double topLeftX, double topLeftY) {
         gc.save();
-        rotate(angle, topLeftX + image.getWidth() / 2, topLeftY + image.getHeight() / 2);
+        rotate(angle, topLeftX + image.getRequestedWidth() / 2, topLeftY + image.getRequestedHeight() / 2);
         gc.drawImage(image, topLeftX, topLeftY);
         gc.restore();
     }

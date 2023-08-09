@@ -1,4 +1,32 @@
 #canvasContainer {
-  -fx-background-color: black;
-  background-color: black;
+  -fx-background-image: url("/images/background.png");
+  background-image: url("/images/background.png");
+  -fx-background-repeat: stretch;
+  background-repeat: stretch;
+  -fx-background-position: center;
+  background-position: center;
+  -fx-alignment: center;
+}
+
+.statLabel {
+}
+
+.statLabelContainer {
+  -fx-background-image: url("/images/UI_Flat_Frame_Horizontal_Blue.png");
+  background-image: url("/images/UI_Flat_Frame_Horizontal_Blue.png");
+  -fx-background-repeat: stretch;
+  background-repeat: stretch;
+  -fx-background-position: center;
+  background-position: center;
+  -fx-alignment: center;
+  -fx-min-height: 200px;
+  min-height: 200px;
+  -fx-pref-height: 200px;
+  -fx-max-height: 200px;
+  max-height: 200px;
+  -fx-min-width: 200px;
+  min-width: 200px;
+  -fx-pref-width: 200px;
+  -fx-max-width: 200px;
+  max-width: 200px;
 }
