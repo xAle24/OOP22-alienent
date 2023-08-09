@@ -7,6 +7,8 @@ import it.unibo.alienenterprises.view.ViewType;
 
 /**
  * Main controller of the game.
+ * 
+ * @author Giulia Bonifazi
  */
 public interface Controller {
 
@@ -39,7 +41,7 @@ public interface Controller {
     /**
      * Return the {@link UserAccount} currently logged in.
      * 
-     * @return
+     * @return the user account
      */
     UserAccount getUserAccount();
 
@@ -47,7 +49,7 @@ public interface Controller {
      * Sets the {@link UserAccount} instance in the Controller after logging in or
      * signing up.
      * 
-     * @param account
+     * @param account the newly logged in account
      */
     void setUserAccount(UserAccount account);
 

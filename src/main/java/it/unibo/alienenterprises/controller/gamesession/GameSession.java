@@ -3,11 +3,13 @@ package it.unibo.alienenterprises.controller.gamesession;
 import it.unibo.alienenterprises.controller.InputQueue;
 import it.unibo.alienenterprises.controller.api.GameLoop;
 import it.unibo.alienenterprises.controller.renderers.RendererManager;
-import it.unibo.alienenterprises.model.api.World;
+import it.unibo.alienenterprises.model.world.World;
 
 /**
  * Whenever a "new game" is pressed on the main menu, a new instance of this
  * class will be started.
+ * 
+ * @author Giulia Bonifazi
  */
 public interface GameSession {
 
@@ -33,7 +35,7 @@ public interface GameSession {
     /**
      * Gets the {@link World}.
      * 
-     * @return
+     * @return the world
      */
     World getWorld();
 }

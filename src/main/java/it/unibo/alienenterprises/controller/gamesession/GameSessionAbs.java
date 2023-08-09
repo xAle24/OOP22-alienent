@@ -4,10 +4,12 @@ import it.unibo.alienenterprises.controller.GameLoopThread;
 import it.unibo.alienenterprises.controller.InputQueue;
 import it.unibo.alienenterprises.controller.api.GameLoop;
 import it.unibo.alienenterprises.controller.renderers.RendererManager;
-import it.unibo.alienenterprises.model.api.World;
+import it.unibo.alienenterprises.model.world.World;
 
 /**
  * Generic GameSession.
+ * 
+ * @author Giulia Bonifazi
  */
 public abstract class GameSessionAbs implements GameSession {
     private static final int MAX_INPUT = 5;
@@ -16,6 +18,7 @@ public abstract class GameSessionAbs implements GameSession {
     private GameLoopThread gameLoop;
 
     /**
+     * {@inheritDoc}
      * Create an instance of the GameSessionAbs class.
      * 
      * @param world    the {@link GameWorld}
@@ -26,16 +29,25 @@ public abstract class GameSessionAbs implements GameSession {
         this.playerID = playerID;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final GameLoop getGameLoop() {
         return this.gameLoop;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void gameOver() {
         this.gameLoop.stopLoop();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public InputQueue startSession(RendererManager rendererManager) {
         InputQueue queue = new InputQueue(MAX_INPUT);
@@ -44,6 +56,9 @@ public abstract class GameSessionAbs implements GameSession {
         return queue;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public World getWorld() {
         return this.world;

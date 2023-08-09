@@ -11,6 +11,11 @@ import it.unibo.alienenterprises.model.world.GameWorld;
 import it.unibo.alienenterprises.view.View;
 import it.unibo.alienenterprises.view.ViewType;
 
+/**
+ * Main {@link Controller} of the game.
+ * 
+ * @author Giulia Bonifazi
+ */
 public final class ControllerImpl implements Controller {
     private final UserAccountHandler accHandler;
     private final View view;
@@ -18,6 +23,11 @@ public final class ControllerImpl implements Controller {
 
     private GameSession currGameSession;
 
+    /**
+     * Creates a new instance of this class.
+     * 
+     * @param view the main view of the game
+     */
     public ControllerImpl(final View view) {
         this.accHandler = new UserAccountHandlerImpl();
         this.view = view;
@@ -30,7 +40,7 @@ public final class ControllerImpl implements Controller {
 
     @Override
     public void initiateGameSession(String playerID) {
-        Dimensions wd = new ArenaDimensions(this.view.getWidthHeight());
+        Dimensions wd = new ArenaDimensions();
         this.currGameSession = new SimpleGameSession(new GameWorld(wd), account, playerID);
     }
 

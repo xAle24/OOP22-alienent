@@ -2,11 +2,14 @@ package it.unibo.alienenterprises.view.controllers;
 
 import it.unibo.alienenterprises.controller.Controller;
 import it.unibo.alienenterprises.controller.InputQueue;
+import it.unibo.alienenterprises.controller.bounds.ArenaDimensions;
+import it.unibo.alienenterprises.controller.bounds.Dimensions;
 import it.unibo.alienenterprises.controller.gamesession.GameSession;
 import it.unibo.alienenterprises.controller.renderers.Renderable;
 import it.unibo.alienenterprises.controller.renderers.RendererManager;
 import it.unibo.alienenterprises.view.ViewType;
 import it.unibo.alienenterprises.view.javafx.JFXCanvasPainter;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -29,6 +32,7 @@ public class GameStageController implements InitController, Renderable {
     @FXML
     private StackPane root;
 
+    private final Dimensions arenaDim = new ArenaDimensions();
     private Controller controller;
     private GameSession gameSession;
 
@@ -40,9 +44,8 @@ public class GameStageController implements InitController, Renderable {
         this.root.setPrefWidth(Screen.getPrimary().getBounds().getWidth());
         this.root.setPrefHeight(Screen.getPrimary().getBounds().getHeight());
         this.gameSession = controller.getGameSession();
-        this.canvas.setWidth(this.gameSession.getWorld().getWorldDimensions().getBounds().getX());
-        this.canvas.setHeight(this.gameSession.getWorld().getWorldDimensions().getBounds().getY()
-                - this.currScore.getLayoutBounds().getHeight() - this.healthDisplay.getLayoutBounds().getHeight());
+        this.canvas.setWidth(this.arenaDim.getWidth());
+        this.canvas.setHeight(this.arenaDim.getHeight());
         scene.setOnKeyPressed(e -> {
             try {
                 this.addKeyPressed(e.getText());
@@ -65,9 +68,12 @@ public class GameStageController implements InitController, Renderable {
 
     @Override
     public void render() {
-        if (this.gameSession.getWorld().isOver()) {
-            this.gameSession.gameOver();
-            this.controller.changeScene(ViewType.GAMEOVER);
-        }
+        Platform.runLater(() -> {
+            if (this.gameSession.getWorld().isOver()) {
+                this.gameSession.gameOver();
+                this.controller.changeScene(ViewType.GAMEOVER);
+            }
+            this.currScore.setText(Integer.toString(this.gameSession.getWorld().getScore()));
+        });
     }
 }
