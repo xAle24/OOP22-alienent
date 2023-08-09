@@ -33,6 +33,9 @@ public class PlayerPowerUpComponent extends ComponentAbs implements PowerUpCompo
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<Component> duplicate(final GameObject obj) {
         var ret = new PlayerPowerUpComponent(obj);

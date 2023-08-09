@@ -19,7 +19,6 @@ import it.unibo.alienenterprises.model.api.InputSupplier.Input;
 public class PlayerInputComponentImpl extends ComponentAbs implements PlayerInputComponent {
 
     private static final double ANG_VEL = 150;
-
     private static final double ACC_RATE = 2;
 
     private InputSupplier input;
@@ -38,6 +37,9 @@ public class PlayerInputComponentImpl extends ComponentAbs implements PlayerInpu
         this.shooter = Optional.empty();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update(final double deltatime) {
         var vel = getGameObject().getVelocity();
@@ -84,28 +86,43 @@ public class PlayerInputComponentImpl extends ComponentAbs implements PlayerInpu
         getGameObject().setVelocity(vel);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void start() {
         this.maxSpeed = getGameObject().getStatValue(Statistic.SPEED);
-        this.acc =this.maxSpeed * ACC_RATE;
+        this.acc = this.maxSpeed * ACC_RATE;
         this.shooter = getGameObject().getComponent(ShooterComponent.class);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public InputSupplier getInputSupplier() {
         return this.input;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setInputSupplier(final InputSupplier inputSupplier) {
         this.input = inputSupplier;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<ShooterComponent> getShooterComponent() {
         return this.shooter;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<Component> duplicate(final GameObject obj) {
         try {

@@ -13,6 +13,11 @@ import org.yaml.snakeyaml.Yaml;
 
 import it.unibo.alienenterprises.view.ShipInfoLoader;
 
+/**
+ * PlayerInfoLoaderImpl
+ * Implementation of ShipInfoLoader that is used to load the information of the
+ * players
+ */
 public class PlayerInfoLoaderImpl implements ShipInfoLoader {
     private static final String SEPARATOR = File.separator;
     private static final String GAME_RESOURCES_PATH = "src" + SEPARATOR + "main" + SEPARATOR + "resources" + SEPARATOR
@@ -51,6 +56,9 @@ public class PlayerInfoLoaderImpl implements ShipInfoLoader {
         this.playerIds = IdSet;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void load() {
         if (!this.isLoaded) {
@@ -69,11 +77,17 @@ public class PlayerInfoLoaderImpl implements ShipInfoLoader {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<String> getShipIds() {
         return Set.copyOf(playerIds);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<String> getShipName(String id) {
         this.checkIfLoaded();
@@ -84,6 +98,9 @@ public class PlayerInfoLoaderImpl implements ShipInfoLoader {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<String> getShipDescription(String id) {
         this.checkIfLoaded();
@@ -94,6 +111,9 @@ public class PlayerInfoLoaderImpl implements ShipInfoLoader {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<String> getShipSpriteFile(String id) {
         this.checkIfLoaded();

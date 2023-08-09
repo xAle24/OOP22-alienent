@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * ShipProp
- * This class has the only use of simplify the loading of the ships in memory
+ * This class job is to be a support to load the ships in memory
  */
 public class ShipProp {
     private Map<String, Integer> stats;

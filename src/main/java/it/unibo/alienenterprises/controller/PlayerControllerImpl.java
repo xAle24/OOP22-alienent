@@ -11,6 +11,10 @@ import it.unibo.alienenterprises.view.ShipInfoLoader;
 import it.unibo.alienenterprises.view.ViewType;
 import javafx.scene.Scene;
 
+/**
+ * PlayerControllerImpl
+ * Implemetntation of PlayerController
+ */
 public class PlayerControllerImpl implements PlayerController {
 
     private static final String SEPARATOR = File.separator;
@@ -22,42 +26,66 @@ public class PlayerControllerImpl implements PlayerController {
     private Optional<String> selected = Optional.empty();
     private Optional<Controller> controller = Optional.empty();
 
+    /**
+     * Set up a PlayerController
+     */
     public PlayerControllerImpl() {
         this.info = new PlayerInfoLoaderImpl();
         this.info.load();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void init(final Controller controller, final Scene scene) {
         this.controller = Optional.of(controller);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<String> getPlayerIds() {
         return info.getShipIds();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<Map<Statistic, Integer>> getStats(final String id) {
         return info.getShipIds().contains(id) ? ShipLoader.loadStatsOf(PLAYER_CLASS_PATH + id + YAML)
                 : Optional.empty();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<String> getName(final String id) {
         return this.info.getShipName(id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<String> getDescription(final String id) {
         return this.info.getShipDescription(id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<String> getSpriteFile(final String id) {
         return this.info.getShipSpriteFile(id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void select(final String id) {
         if (this.info.getShipIds().contains(id)) {
@@ -65,6 +93,9 @@ public class PlayerControllerImpl implements PlayerController {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void confirmSelection() {
         if (this.selected.isEmpty()) {

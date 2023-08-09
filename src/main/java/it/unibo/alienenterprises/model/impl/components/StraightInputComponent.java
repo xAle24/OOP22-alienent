@@ -7,6 +7,10 @@ import it.unibo.alienenterprises.model.api.components.Component;
 import it.unibo.alienenterprises.model.api.components.ComponentAbs;
 import it.unibo.alienenterprises.model.api.components.InputComponent;
 
+/**
+ * StraightInputComponent.
+ * An InputComponent that goes in a straight line
+ */
 public class StraightInputComponent extends ComponentAbs implements InputComponent {
 
     public StraightInputComponent(final GameObject object, final boolean enabled) {

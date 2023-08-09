@@ -39,6 +39,9 @@ public class BasicShooterComponent extends ComponentAbs implements ShooterCompon
         this.shoot = shot;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update(final double deltatime) {
         if (!isEnabled()) {
@@ -57,12 +60,15 @@ public class BasicShooterComponent extends ComponentAbs implements ShooterCompon
             }
             p.setVelocity(Vector2D.fromAngleAndModule(getGameObject().getVelocity().getAngle(), speed));
             p.setPosition(getGameObject().getPosition());
-            p.getAllComponent().forEach((c)->c.start());
+            p.getAllComponent().forEach((c) -> c.start());
             this.counter = 0;
         }
         this.trigger = false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void start() {
         this.damage = getGameObject().getStatValue(Statistic.DAMAGE);
@@ -71,21 +77,33 @@ public class BasicShooterComponent extends ComponentAbs implements ShooterCompon
         this.shooterType = getGameObject().getComponent(HitboxComponent.class).get().getType();// TODO
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void shoot() {
         this.trigger = true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Supplier<GameObject> getProjectileSupplier() {
         return shoot;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setProjectileSupplier(final Supplier<GameObject> pSupplier) {
         this.shoot = pSupplier;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<Component> duplicate(final GameObject obj) {
         return Optional.of(new BasicShooterComponent(obj, true, shoot));

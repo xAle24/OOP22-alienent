@@ -21,10 +21,18 @@ public class ProjectileSupplierFactoryImpl implements ProjectileSupplierFactory 
     protected static final String SIMPLE_PROJECTILE = "simpleProjectile";
     private final World world;
 
+    /**
+     * Set up a ProjectileSupplierFactory
+     * 
+     * @param world the world in which the projectile must be spawn
+     */
     public ProjectileSupplierFactoryImpl(final World world) {
         this.world = world;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Supplier<GameObject> getBasicProjectileSupplier() {
         return new Supplier<GameObject>() {
@@ -33,7 +41,8 @@ public class ProjectileSupplierFactoryImpl implements ProjectileSupplierFactory 
             public GameObject get() {
                 final Map<Statistic, Integer> stat = new HashMap<>();
                 stat.put(Statistic.HP, 1);
-                final GameObject basicProjectile = new GameObjectAbs(Point2D.ORIGIN, Vector2D.NULL_VECTOR, stat, SIMPLE_PROJECTILE);
+                final GameObject basicProjectile = new GameObjectAbs(Point2D.ORIGIN, Vector2D.NULL_VECTOR, stat,
+                        SIMPLE_PROJECTILE);
                 final InputComponent input = new StraightInputComponent(basicProjectile, true);
                 final HitboxComponent hitbox = new SimpleProjectileHitboxComponentImpl(basicProjectile, true,
                         HitboxComponent.Type.PROJECTILE, 5);

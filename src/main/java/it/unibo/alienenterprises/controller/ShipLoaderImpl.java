@@ -25,6 +25,7 @@ import it.unibo.alienenterprises.model.geometry.Vector2D;
 
 /**
  * ShipLoaderImpl
+ * Implementation of ShipLoader
  */
 public class ShipLoaderImpl implements ShipLoader {
 
@@ -57,6 +58,12 @@ public class ShipLoaderImpl implements ShipLoader {
         HITBOXTYPE;
     }
 
+    /**
+     * Set Up a ShipLoaderInfo
+     * 
+     * @param factories the factories neded to load the ships that are called by the
+     *                  Parameter FACTORYMETHOD
+     */
     public ShipLoaderImpl(final Object... factories) {
         try (final InputStream inputStream = new FileInputStream(SHIPLIST_FILE)) {
             final Yaml yaml = new Yaml();
@@ -77,6 +84,9 @@ public class ShipLoaderImpl implements ShipLoader {
         this.factories = List.of(factories);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Map<String, GameObject> loadPlayerClasses() {
         final var path = GAME_PATH + SEPARATOR + PLAYER_FOLDER + SEPARATOR;
@@ -90,11 +100,17 @@ public class ShipLoaderImpl implements ShipLoader {
         return playerMap;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<String> getPlayerIds() {
         return Set.copyOf(playerList);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Map<String, GameObject> loadEnemyClasses() {
         final var path = GAME_PATH + SEPARATOR + ENEMY_FOLDER + SEPARATOR;
@@ -108,6 +124,9 @@ public class ShipLoaderImpl implements ShipLoader {
         return enemyMap;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<String> getEnemyIds() {
         return Set.copyOf(enemyList);
@@ -133,7 +152,7 @@ public class ShipLoaderImpl implements ShipLoader {
             }
             final GameObject temp = new GameObjectAbs(Point2D.ORIGIN, Vector2D.NULL_VECTOR, stats, id);
             temp.addAllComponent(fetchComponents(obj.getComponents(), temp));
-            temp.getAllComponent().stream().forEach((c)->c.start());
+            temp.getAllComponent().stream().forEach((c) -> c.start());
             return Optional.of(temp);
         } catch (final Exception e) {
             e.printStackTrace();

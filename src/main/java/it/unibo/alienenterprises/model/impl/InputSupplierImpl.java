@@ -17,16 +17,25 @@ public class InputSupplierImpl implements InputSupplier {
     public InputSupplierImpl() {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Input> getInputSet() {
         return List.copyOf(inputList);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addInput(final Input input) {
         this.inputList.add(input);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void clearInputSet() {
         this.inputList.clear();

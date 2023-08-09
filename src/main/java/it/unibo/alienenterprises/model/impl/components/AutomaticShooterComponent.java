@@ -38,6 +38,9 @@ public class AutomaticShooterComponent extends ComponentAbs implements ShooterCo
         this.shot = shot;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void start() {
         this.delay = getGameObject().getStatValue(Statistic.COOLDOWN);
@@ -46,6 +49,9 @@ public class AutomaticShooterComponent extends ComponentAbs implements ShooterCo
         this.damage = getGameObject().getStatValue(Statistic.DAMAGE);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update(final double deltatime) {
         this.count = this.count + deltatime;
@@ -59,26 +65,38 @@ public class AutomaticShooterComponent extends ComponentAbs implements ShooterCo
             p.setStatValue(Statistic.DAMAGE, this.damage);
             p.setVelocity(Vector2D.fromAngleAndModule(getGameObject().getVelocity().getAngle(), projectileSpeed));
             p.setPosition(getGameObject().getPosition());
-            p.getAllComponent().forEach((c)->c.start());
+            p.getAllComponent().forEach((c) -> c.start());
             this.count = 0;
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void shoot() {
         // this component shoots automatically
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Supplier<GameObject> getProjectileSupplier() {
         return this.shot;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setProjectileSupplier(Supplier<GameObject> pSupplier) {
         this.shot = pSupplier;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<Component> duplicate(final GameObject obj) {
         return Optional.of(new AutomaticShooterComponent(obj, isEnabled(), shot));
