@@ -5,8 +5,13 @@ package it.unibo.alienenterprises.model.geometry;
  */
 public final class Vector2D {
 
+    private static final int ROUND_ANGLE = 360;
+    private static final int FLAT_ANGLE = 180;
+    private static final int POSITIVE_RIGHT = 90;
+    private static final int NEGATIVE_RIGHT = 270;
+
     /**
-     * A vector with angle and module equals 0
+     * A vector with angle and module equals 0.
      */
     public static final Vector2D NULL_VECTOR = new Vector2D(0, 0);
 
@@ -27,6 +32,13 @@ public final class Vector2D {
         return new Vector2D(angle, module);
     }
 
+    /**
+     * Construct a Vector2D from the x and y components
+     * 
+     * @param xComp
+     * @param yComp
+     * @return a new Vector with the given components
+     */
     public static Vector2D fromComponents(final double xComp, final double yComp) {
         final double angle;
         final double module = Math.sqrt(xComp * xComp + yComp * yComp);
@@ -34,11 +46,11 @@ public final class Vector2D {
             if (yComp == 0) {
                 angle = 0;
             } else {
-                angle = yComp < 0 ? 270 : 90;
+                angle = yComp < 0 ? NEGATIVE_RIGHT : POSITIVE_RIGHT;
             }
         } else {
             final var aTan = Math.toDegrees(Math.atan(yComp / xComp));
-            angle = xComp < 0 ? aTan + 180 : aTan;
+            angle = xComp < 0 ? aTan + FLAT_ANGLE : aTan;
         }
         return new Vector2D(angle, module);
     }
@@ -119,14 +131,14 @@ public final class Vector2D {
 
     private double confineAngle(final double angle) {
         double newAngle = angle;
-        while (newAngle >= 360) {
-            newAngle = newAngle - 360;
+        while (newAngle >= ROUND_ANGLE) {
+            newAngle = newAngle - ROUND_ANGLE;
         }
-        while (newAngle <= -360) {
-            newAngle = newAngle + 360;
+        while (newAngle <= -ROUND_ANGLE) {
+            newAngle = newAngle + ROUND_ANGLE;
         }
         if (newAngle < 0) {
-            newAngle = 360 - newAngle;
+            newAngle = ROUND_ANGLE - newAngle;
         }
         return newAngle;
     }
@@ -155,7 +167,7 @@ public final class Vector2D {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }

@@ -1,7 +1,7 @@
 package it.unibo.alienenterprises.model.geometry;
 
 /**
- * represent a Line in a cartesian plane in the form ax+by+c=0
+ * represent a Line in a cartesian plane in the form ax+by+c=0.
  */
 public class Line2D {
 
@@ -14,7 +14,7 @@ public class Line2D {
      * @param b
      * @param c
      */
-    public Line2D(double a, double b, double c) {
+    public Line2D(final double a, final double b, final double c) {
         this.a = a;
         this.b = b;
         this.c = c;
@@ -40,21 +40,21 @@ public class Line2D {
     }
 
     /**
-     * @return
+     * @return the value that multiply x
      */
     public double getA() {
         return a;
     }
 
     /**
-     * @return
+     * @return the value that multiply y
      */
     public double getB() {
         return b;
     }
 
     /**
-     * @return
+     * @return the known value
      */
     public double getC() {
         return c;
@@ -89,7 +89,7 @@ public class Line2D {
      * {@inheritDoc}
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }

@@ -5,12 +5,12 @@ import java.util.function.Supplier;
 import it.unibo.alienenterprises.model.api.GameObject;
 
 /**
- * ShooterComponent
+ * ShooterComponent.
  */
 public interface ShooterComponent extends Component {
 
     /**
-     * Tell the component to shoot in the next frame
+     * Tell the component to shoot in the next frame.
      */
     void shoot();
 
@@ -20,7 +20,7 @@ public interface ShooterComponent extends Component {
     Supplier<GameObject> getProjectileSupplier();
 
     /**
-     * Change the projectile Supplier
+     * Change the projectile Supplier.
      * 
      * @param pSupplier new supplier
      */

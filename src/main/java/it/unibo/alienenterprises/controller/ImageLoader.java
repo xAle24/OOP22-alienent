@@ -3,7 +3,7 @@ package it.unibo.alienenterprises.controller;
 import java.util.Optional;
 
 /**
- * ImageLoader
+ * ImageLoader.
  * Has the job to link an identifier whit his sprite file
  */
 public interface ImageLoader {

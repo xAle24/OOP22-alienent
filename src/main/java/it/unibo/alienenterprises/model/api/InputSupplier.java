@@ -3,11 +3,14 @@ package it.unibo.alienenterprises.model.api;
 import java.util.List;
 
 /**
- * InputSupplier
+ * InputSupplier.
  */
 public interface InputSupplier {
 
-    public enum Input {
+    /**
+     * An enum that descibes the Inputs that can be given through an InputSupplier.
+     */
+    enum Input {
         /**
          * Called when the player must accelerate.
          */
@@ -40,12 +43,14 @@ public interface InputSupplier {
     List<Input> getInputSet();
 
     /**
-     * Add the given input to the input list
+     * Add the given input to the input list.
+     * 
+     * @param input
      */
     void addInput(Input input);
 
     /**
-     * Remove all the previous inputs from the input list
+     * Remove all the previous inputs from the input list.
      */
     void clearInputSet();
 

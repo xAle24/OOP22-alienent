@@ -5,6 +5,9 @@ package it.unibo.alienenterprises.model.geometry;
  */
 public class Point2D {
 
+    /**
+     * The origin point: a point with x and y equals to 0.
+     */
     public static final Point2D ORIGIN = new Point2D(0, 0);
 
     private final double x;

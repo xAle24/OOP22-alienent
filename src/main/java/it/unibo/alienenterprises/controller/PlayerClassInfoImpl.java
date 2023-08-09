@@ -1,7 +1,7 @@
 package it.unibo.alienenterprises.controller;
 
 /**
- * PlayerClassInfoImpl
+ * PlayerClassInfoImpl.
  */
 public class PlayerClassInfoImpl implements PlayerClassInfo {
 
@@ -9,7 +9,7 @@ public class PlayerClassInfoImpl implements PlayerClassInfo {
     private String description;
 
     /**
-     * Void constuctor to be used with yaml
+     * Void constuctor to be used with yaml.
      */
     public PlayerClassInfoImpl() {
     }
@@ -23,7 +23,7 @@ public class PlayerClassInfoImpl implements PlayerClassInfo {
     }
 
     /**
-     * setter for the name
+     * setter for the name.
      * 
      * @param name
      */
@@ -40,7 +40,7 @@ public class PlayerClassInfoImpl implements PlayerClassInfo {
     }
 
     /**
-     * setter for the description
+     * setter for the description.
      * 
      * @param desciption
      */

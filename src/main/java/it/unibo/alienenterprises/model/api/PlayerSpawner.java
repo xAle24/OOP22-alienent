@@ -3,7 +3,7 @@ package it.unibo.alienenterprises.model.api;
 import java.util.Optional;
 
 /**
- * PlayerSpawner
+ * PlayerSpawner.
  */
 public interface PlayerSpawner {
 

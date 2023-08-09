@@ -1,7 +1,7 @@
 package it.unibo.alienenterprises.controller;
 
 /**
- * ImageProp
+ * ImageProp.
  * A class that contains the images of an image
  * It's build to work with snakeyaml
  */
@@ -14,7 +14,7 @@ public final class ImageProp {
     private double width;
 
     /**
-     * Void constructor to work whith yaml
+     * Void constructor to work whith yaml.
      */
     public ImageProp() {
     }
@@ -27,11 +27,11 @@ public final class ImageProp {
     }
 
     /**
-     * Set the id relative to the image
+     * Set the id relative to the image.
      * 
      * @param id
      */
-    public void setId(String id) {
+    public void setId(final String id) {
         this.id = id;
     }
 
@@ -43,7 +43,7 @@ public final class ImageProp {
     }
 
     /**
-     * Set the file name of the image
+     * Set the file name of the image.
      * 
      * @param file
      */
@@ -59,7 +59,7 @@ public final class ImageProp {
     }
 
     /**
-     * set the scale of the image
+     * set the scale of the image.
      * 
      * @param scale
      */
@@ -75,11 +75,11 @@ public final class ImageProp {
     }
 
     /**
-     * set the height of the image
+     * set the height of the image.
      * 
      * @param height
      */
-    public void setHeight(double height) {
+    public void setHeight(final double height) {
         this.height = height;
     }
 
@@ -91,11 +91,11 @@ public final class ImageProp {
     }
 
     /**
-     * the width of the image
+     * the width of the image.
      * 
      * @param width
      */
-    public void setWidth(double width) {
+    public void setWidth(final double width) {
         this.width = width;
     }
 
@@ -118,7 +118,7 @@ public final class ImageProp {
      * {@inheritDoc}
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }

@@ -12,7 +12,7 @@ import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
 /**
- * ImageLoader
+ * ImageLoader.
  * Has the job to link an identifier whit his sprite file
  */
 public class ImageLoaderImpl implements ImageLoader {
@@ -30,7 +30,7 @@ public class ImageLoaderImpl implements ImageLoader {
      * for class or object.
      */
     public ImageLoaderImpl() {
-        try (final InputStream inputStream = new FileInputStream(SPRITE_LIST_PATH)) {
+        try (InputStream inputStream = new FileInputStream(SPRITE_LIST_PATH)) {
             final Constructor constructor = new Constructor(ImageProp.class, new LoaderOptions());
             final Yaml yaml = new Yaml(constructor);
             final var it = yaml.loadAll(inputStream).iterator();

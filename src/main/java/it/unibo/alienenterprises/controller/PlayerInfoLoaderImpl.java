@@ -14,7 +14,7 @@ import org.yaml.snakeyaml.Yaml;
 import it.unibo.alienenterprises.view.ShipInfoLoader;
 
 /**
- * PlayerInfoLoaderImpl
+ * PlayerInfoLoaderImpl.
  * Implementation of ShipInfoLoader that is used to load the information of the
  * players
  */
@@ -34,10 +34,10 @@ public class PlayerInfoLoaderImpl implements ShipInfoLoader {
 
     /**
      * Create a new PlayerInfoLoaderImpl taking the id set from the playerclasses
-     * section of the file shipList
+     * section of the file shipList.
      */
     public PlayerInfoLoaderImpl() {
-        try (final InputStream inputStream = new FileInputStream(SHIP_LIST_FILE_PATH)) {
+        try (InputStream inputStream = new FileInputStream(SHIP_LIST_FILE_PATH)) {
             final Yaml yaml = new Yaml();
             final Map<String, List<String>> map = yaml.load(inputStream);
             this.playerIds = Set.copyOf(map.get(PLAYERS));
@@ -48,12 +48,12 @@ public class PlayerInfoLoaderImpl implements ShipInfoLoader {
     }
 
     /**
-     * Create a new PlayerInfoLoaderImpl of the ships contained in the IdSet
+     * Create a new PlayerInfoLoaderImpl of the ships contained in the IdSet.
      * 
-     * @param IdSet Identifiers of the ships
+     * @param idSet Identifiers of the ships
      */
-    public PlayerInfoLoaderImpl(final Set<String> IdSet) {
-        this.playerIds = IdSet;
+    public PlayerInfoLoaderImpl(final Set<String> idSet) {
+        this.playerIds = idSet;
     }
 
     /**
@@ -63,7 +63,7 @@ public class PlayerInfoLoaderImpl implements ShipInfoLoader {
     public void load() {
         if (!this.isLoaded) {
             for (final var name : this.playerIds) {
-                try (final InputStream inputStream = new FileInputStream(
+                try (InputStream inputStream = new FileInputStream(
                         DESCRIPTIONS_PATH + name + FILE_SUFFIX)) {
                     final Yaml yaml = new Yaml();
                     final PlayerClassInfo pInfo = yaml.loadAs(inputStream, PlayerClassInfoImpl.class);
@@ -89,7 +89,7 @@ public class PlayerInfoLoaderImpl implements ShipInfoLoader {
      * {@inheritDoc}
      */
     @Override
-    public Optional<String> getShipName(String id) {
+    public Optional<String> getShipName(final String id) {
         this.checkIfLoaded();
         if (infoMap.containsKey(id)) {
             return Optional.of(infoMap.get(id).getName());
@@ -102,7 +102,7 @@ public class PlayerInfoLoaderImpl implements ShipInfoLoader {
      * {@inheritDoc}
      */
     @Override
-    public Optional<String> getShipDescription(String id) {
+    public Optional<String> getShipDescription(final String id) {
         this.checkIfLoaded();
         if (infoMap.containsKey(id)) {
             return Optional.of(infoMap.get(id).getDescription());
@@ -115,7 +115,7 @@ public class PlayerInfoLoaderImpl implements ShipInfoLoader {
      * {@inheritDoc}
      */
     @Override
-    public Optional<String> getShipSpriteFile(String id) {
+    public Optional<String> getShipSpriteFile(final String id) {
         this.checkIfLoaded();
         if (infoMap.containsKey(id)) {
             return IMAGE_LOADER.getSpriteFilePathOf(id);

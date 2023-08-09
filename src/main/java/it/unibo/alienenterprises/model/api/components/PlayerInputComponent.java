@@ -5,25 +5,26 @@ import java.util.Optional;
 import it.unibo.alienenterprises.model.api.InputSupplier;
 
 /**
- * PlayerInputComponent
+ * PlayerInputComponent.
  */
 public interface PlayerInputComponent extends InputComponent {
 
     /**
      * @return the input supplier of the component if any
      */
-    public InputSupplier getInputSupplier();
+    InputSupplier getInputSupplier();
 
     /**
-     * Set the given input supplier if neded
+     * Set the given input supplier if neded.
      * 
      * @param inputSupplier
      */
-    public void setInputSupplier(InputSupplier inputSupplier);
+    void setInputSupplier(InputSupplier inputSupplier);
 
     /**
-     * @return
+     * @return the Optional of the ShooterComponent binded whith the InputComponent,
+     *         or an empty Optional if not set
      */
-    public Optional<ShooterComponent> getShooterComponent();
+    Optional<ShooterComponent> getShooterComponent();
 
 }

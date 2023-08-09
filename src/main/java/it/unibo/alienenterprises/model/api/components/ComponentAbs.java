@@ -14,7 +14,7 @@ public abstract class ComponentAbs implements Component {
     private boolean enabled;
 
     /**
-     * Set up the base for a component
+     * Set up the base for a component.
      * 
      * @param object  the object that will be attached to the component
      * @param enabled the initial state of the component
@@ -83,6 +83,6 @@ public abstract class ComponentAbs implements Component {
      * {@inheritDoc}
      */
     @Override
-    public abstract Optional<Component> duplicate(final GameObject obj);
+    public abstract Optional<Component> duplicate(GameObject obj);
 
 }

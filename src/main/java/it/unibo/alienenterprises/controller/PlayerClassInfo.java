@@ -1,7 +1,7 @@
 package it.unibo.alienenterprises.controller;
 
 /**
- * Class that contains the information that need to be shown to the player
+ * Class that contains the information that need to be shown to the player.
  */
 public interface PlayerClassInfo {
 

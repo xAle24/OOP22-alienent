@@ -14,14 +14,14 @@ import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.Statistic;
 
 /**
- * Ship Loader
+ * Ship Loader.
  * It has the job of getting the stats from the files and to load them in memory
  * as GameObjects
  */
 public interface ShipLoader {
 
     /**
-     * Loads the player classes into memory
+     * Loads the player classes into memory.
      * 
      * @return a map of the playerClassesNames and objects
      */
@@ -33,7 +33,7 @@ public interface ShipLoader {
     Set<String> getPlayerIds();
 
     /**
-     * Loads the enemy classes into memory
+     * Loads the enemy classes into memory.
      * 
      * @return a map of the enemyClassesNames and objects
      */
@@ -45,22 +45,24 @@ public interface ShipLoader {
     Set<String> getEnemyIds();
 
     /**
-     * Load the ship identified by the shipFileName in memory
+     * Load the ship with the given id from the given folder.
      * 
-     * @param shipFileName the complete path to the file
-     * @return An Optional containing the GameObject or an empty Optional if there
-     *         was any problem whith the loading
+     * @param folder the folder in which there is the file
+     * @param id     the id of the ship
+     * @return An Optional of the ship or an empty Optional if there was any problem
+     *         in the loading
      */
     Optional<GameObject> loadShip(String folder, String id);
 
     /**
-     * Load the stat map of the ship identified by the shipFileName
+     * Load the stat map of the ship identified by the shipFileName.
      * 
      * @param shipFileName
-     * @return
+     * @return An Optional of the stat map of the ship relative to the given file or
+     *         an empty Optional if there were a problem whith the loading
      */
     static Optional<Map<Statistic, Integer>> loadStatsOf(final String shipFileName) {
-        try (final InputStream inputStream = new FileInputStream(shipFileName)) {
+        try (InputStream inputStream = new FileInputStream(shipFileName)) {
             final Yaml yaml = new Yaml();
             final ShipProp obj = yaml.loadAs(inputStream, ShipProp.class);
             final Map<Statistic, Integer> stats = new HashMap<>();

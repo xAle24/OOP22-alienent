@@ -12,7 +12,7 @@ import it.unibo.alienenterprises.view.ViewType;
 import javafx.scene.Scene;
 
 /**
- * PlayerControllerImpl
+ * PlayerControllerImpl.
  * Implemetntation of PlayerController
  */
 public class PlayerControllerImpl implements PlayerController {
@@ -27,7 +27,7 @@ public class PlayerControllerImpl implements PlayerController {
     private Optional<Controller> controller = Optional.empty();
 
     /**
-     * Set up a PlayerController
+     * Set up a PlayerController.
      */
     public PlayerControllerImpl() {
         this.info = new PlayerInfoLoaderImpl();

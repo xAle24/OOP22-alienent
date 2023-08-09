@@ -24,7 +24,7 @@ import it.unibo.alienenterprises.model.geometry.Point2D;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
 
 /**
- * ShipLoaderImpl
+ * ShipLoaderImpl.
  * Implementation of ShipLoader
  */
 public class ShipLoaderImpl implements ShipLoader {
@@ -59,13 +59,13 @@ public class ShipLoaderImpl implements ShipLoader {
     }
 
     /**
-     * Set Up a ShipLoaderInfo
+     * Set Up a ShipLoaderInfo.
      * 
      * @param factories the factories neded to load the ships that are called by the
      *                  Parameter FACTORYMETHOD
      */
     public ShipLoaderImpl(final Object... factories) {
-        try (final InputStream inputStream = new FileInputStream(SHIPLIST_FILE)) {
+        try (InputStream inputStream = new FileInputStream(SHIPLIST_FILE)) {
             final Yaml yaml = new Yaml();
             final Map<String, List<String>> map = yaml.load(inputStream);
             if (map.get(PLAYER_FOLDER) != null) {
@@ -133,17 +133,19 @@ public class ShipLoaderImpl implements ShipLoader {
     }
 
     /**
-     * {@inhritdoc}
+     * {@inheritDoc}
      * To work needs that all the Components specified by the file have one and only
      * one Constructor, the Constructor have to require at least a GameObject as a
      * parameter.
      * 
-     * @param shipFilePath
-     * @return
+     * @param folder the folder in which there is the file
+     * @param id     the id of the ship
+     * @return An Optional of the ship or an empty Optional if there was any problem
+     *         in the loading
      */
     @Override
     public Optional<GameObject> loadShip(final String folder, final String id) {
-        try (final InputStream inputStream = new FileInputStream(folder + SEPARATOR + id + YAML)) {
+        try (InputStream inputStream = new FileInputStream(folder + SEPARATOR + id + YAML)) {
             final Yaml yaml = new Yaml();
             final ShipProp obj = yaml.loadAs(inputStream, ShipProp.class);
             final Map<Statistic, Integer> stats = new HashMap<>();
