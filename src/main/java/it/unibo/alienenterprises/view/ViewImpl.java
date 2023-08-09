@@ -32,7 +32,6 @@ public final class ViewImpl implements View {
     @Override
     public void init(final Controller controller) {
         this.sceneController = new JFXSceneController(controller);
-        this.primaryStage.centerOnScreen();
         this.primaryStage.setTitle(TITLE);
         this.primaryStage.setMinHeight(MIN_HEIGHT);
         this.primaryStage.setMinWidth(MIN_WIDTH);
@@ -46,6 +45,7 @@ public final class ViewImpl implements View {
         this.sceneController.getViewState().init(this.primaryStage);
         this.primaryStage.setScene(this.sceneController.getCurrentScene());
         this.primaryStage.show();
+        this.primaryStage.centerOnScreen();
     }
 
     @Override

@@ -1,7 +1,6 @@
 package it.unibo.alienenterprises.view.api;
 
 import it.unibo.alienenterprises.controller.renderers.Renderer;
-import it.unibo.alienenterprises.view.javafx.CanvasPainter;
 import it.unibo.alienenterprises.view.sprites.Sprite;
 
 public interface Painter {

@@ -3,6 +3,8 @@ package it.unibo.alienenterprises.view.viewstates;
 import it.unibo.alienenterprises.controller.Controller;
 import it.unibo.alienenterprises.controller.api.GameLoop;
 import it.unibo.alienenterprises.view.ViewType;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -30,6 +32,7 @@ public final class PlayingState extends ViewStateAbs {
 
     @Override
     protected void onCloseRequest() {
+        this.stage.setResizable(true);
         this.controller.getGameSession().gameOver();
         this.controller.changeScene(ViewType.GAMEOVER);
     }

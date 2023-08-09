@@ -4,7 +4,7 @@ import it.unibo.alienenterprises.controller.Controller;
 import it.unibo.alienenterprises.controller.InputQueue;
 import it.unibo.alienenterprises.controller.gamesession.GameSession;
 import it.unibo.alienenterprises.controller.renderers.RendererManager;
-import it.unibo.alienenterprises.view.javafx.CanvasPainter;
+import it.unibo.alienenterprises.view.javafx.JFXCanvasPainter;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -38,7 +38,7 @@ public class GameStageController implements InitController {
                 e1.printStackTrace();
             }
         });
-        this.keyPressQueue = this.gameSession.startSession(new RendererManager(new CanvasPainter(canvas)));
+        this.keyPressQueue = this.gameSession.startSession(new RendererManager(new JFXCanvasPainter(canvas)));
     }
 
     /**

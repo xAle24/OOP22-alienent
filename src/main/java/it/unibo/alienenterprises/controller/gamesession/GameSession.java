@@ -1,7 +1,5 @@
 package it.unibo.alienenterprises.controller.gamesession;
 
-import java.util.concurrent.BlockingQueue;
-
 import it.unibo.alienenterprises.controller.InputQueue;
 import it.unibo.alienenterprises.controller.api.GameLoop;
 import it.unibo.alienenterprises.controller.renderers.RendererManager;
