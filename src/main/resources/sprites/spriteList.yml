@@ -1,4 +1,28 @@
-sniper: sniper.png
-standard: standard.png
-tank: tank.png
-simpleProjectile: simple_projectile.gif
+---
+id: sniper 
+file: sniper.png
+scale: 1.0
+---
+id: standard
+file: standard.png
+scale: 1.0
+---
+id: tank
+file: tank.png
+scale: 1.0
+---
+id: simpleProjectile
+file: simple_projectile.gif
+scale: 0.2
+---
+id: enemyTank
+file: enemyTank.png
+scale: 1.0
+---
+id: enemySniper
+file: enemySniper.png
+scale: 1.0
+---
+id: enemyBomber
+file: enemyBomber.png
+scale: 1.0
