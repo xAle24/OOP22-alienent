@@ -11,7 +11,7 @@ import javafx.scene.Parent;
  * 
  * @author Giulia Bonifazi
  */
-public class JFXSceneLoader implements SceneLoader {
+public final class JFXSceneLoader implements SceneLoader {
     private static final String PATH_START = "/layouts/";
     private static final String PATH_END = ".fxml";
     private FXMLLoader fxmlLoader;

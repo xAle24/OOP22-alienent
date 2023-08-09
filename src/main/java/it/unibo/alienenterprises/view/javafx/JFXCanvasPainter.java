@@ -5,7 +5,6 @@ import java.util.Set;
 
 import it.unibo.alienenterprises.controller.renderers.Renderer;
 import it.unibo.alienenterprises.view.api.Painter;
-import it.unibo.alienenterprises.view.sprites.Sprite;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -18,7 +17,7 @@ import javafx.scene.transform.Rotate;
  * @author Giulia Bonifazi
  */
 public final class JFXCanvasPainter implements Painter {
-    private final double DEGREES_TURN = 90.0;
+    private final double DEGREESTURN = 90.0;
     private GraphicsContext gc;
     private Canvas canvas;
     private Set<Renderer> renderers;
@@ -29,7 +28,7 @@ public final class JFXCanvasPainter implements Painter {
      * 
      * @param canvas the {@link Canvas} on which this class draws.
      */
-    public JFXCanvasPainter(Canvas canvas) {
+    public JFXCanvasPainter(final Canvas canvas) {
         this.canvas = canvas;
         this.gc = canvas.getGraphicsContext2D();
         this.renderers = new HashSet<>();
@@ -43,7 +42,7 @@ public final class JFXCanvasPainter implements Painter {
             if (r.isShown()) {
                 r.render();
                 ImageView image = r.getSprite().getImageView();
-                drawRotatedImage(image.getImage(), image.getRotate() + DEGREES_TURN, image.getX(), image.getY());
+                drawRotatedImage(image.getImage(), image.getRotate() + DEGREESTURN, image.getX(), image.getY());
             } else {
                 this.toBeRemoved.add(r);
             }
@@ -53,7 +52,7 @@ public final class JFXCanvasPainter implements Painter {
     }
 
     @Override
-    public void addAll(Renderer... renderers) {
+    public void addAll(final Renderer... renderers) {
         this.renderers.addAll(Set.of(renderers));
     }
 
@@ -73,7 +72,7 @@ public final class JFXCanvasPainter implements Painter {
      * @param px    the X coordinate of the pivot point
      * @param py    the Y coordinate of the pivot point
      */
-    private void rotate(double angle, double px, double py) {
+    private void rotate(final double angle, final double px, final double py) {
         Rotate r = new Rotate(angle, px, py);
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
@@ -86,7 +85,7 @@ public final class JFXCanvasPainter implements Painter {
      * @param topLeftX the top left X coordinate of the image
      * @param topLeftY the top left Y coordinate of the image
      */
-    private void drawRotatedImage(Image image, double angle, double topLeftX, double topLeftY) {
+    private void drawRotatedImage(final Image image, final double angle, final double topLeftX, final double topLeftY) {
         gc.save();
         rotate(angle, topLeftX + image.getRequestedWidth() / 2, topLeftY + image.getRequestedHeight() / 2);
         gc.drawImage(image, topLeftX, topLeftY);

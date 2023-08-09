@@ -6,6 +6,8 @@ import it.unibo.alienenterprises.model.api.components.HitboxComponent;
 
 /**
  * Handles collisions during the game session.
+ * 
+ * @author Giulia Bonifazi
  */
 public interface CollisionHandler {
 

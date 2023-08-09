@@ -33,7 +33,7 @@ public final class GameWorld implements World {
      * @param worldDimensions the dimensions of the game world; these are fixed and
      *                        cannot be changed.
      */
-    public GameWorld(Dimensions worldDimensions) {
+    public GameWorld(final Dimensions worldDimensions) {
         this.worldDimensions = worldDimensions;
         this.doubleBuff = new SetDoubleBuffer<>();
         this.collisionHandler = new SimpleCollisionHandler();
@@ -41,7 +41,7 @@ public final class GameWorld implements World {
     }
 
     @Override
-    public void update(double deltaTime) {
+    public void update(final double deltaTime) {
         this.score += 1;
         this.doubleBuff.changeBuffer();
         this.doubleBuff.getCurr().stream().forEach(o -> {
@@ -55,14 +55,14 @@ public final class GameWorld implements World {
     }
 
     @Override
-    public void addGameObject(GameObject add) {
+    public void addGameObject(final GameObject add) {
         this.doubleBuff.getBuff().add(add);
         this.collisionHandler.addHitbox(add.getComponent(HitboxComponent.class));
         this.lastAdded.add(add);
     }
 
     @Override
-    public void addAllGameObjects(GameObject... objects) {
+    public void addAllGameObjects(final GameObject... objects) {
         var newObj = List.of(objects);
         newObj.forEach(o -> this.addGameObject(o));
     }
@@ -85,7 +85,7 @@ public final class GameWorld implements World {
     }
 
     @Override
-    public void addPlayer(GameObject player) {
+    public void addPlayer(final GameObject player) {
         this.player = player;
         this.addGameObject(player);
     }
@@ -100,7 +100,7 @@ public final class GameWorld implements World {
      * 
      * @param remove the GameObject that needs to be removed.
      */
-    private void removeGameObject(GameObject remove) {
+    private void removeGameObject(final GameObject remove) {
         this.score += remove.getStatValue(Statistic.DAMAGE) * 100;
         this.doubleBuff.getBuff().remove(remove);
         this.collisionHandler.removeHitbox(remove.getComponent(HitboxComponent.class));

@@ -20,7 +20,7 @@ import javafx.scene.Scene;
  * 
  * @author Giulia Bonifazi
  */
-public class JFXSceneController implements SceneController {
+public final class JFXSceneController implements SceneController {
     private final JFXSceneLoader loader = new JFXSceneLoader();
     private final Controller controller;
 
@@ -28,12 +28,17 @@ public class JFXSceneController implements SceneController {
     private InitController currentController;
     private ViewState viewState;
 
-    public JFXSceneController(Controller controller) {
+    /**
+     * Creates a {@link SceneController} for JavaFX.
+     * 
+     * @param controller the main {@link Controller} of the game.
+     */
+    public JFXSceneController(final Controller controller) {
         this.controller = controller;
     }
 
     @Override
-    public void setCurrentScene(ViewType type) {
+    public void setCurrentScene(final ViewType type) {
         switch (type) {
             case SHOP:
                 this.currentController = new ShopControllerImpl();
@@ -72,7 +77,7 @@ public class JFXSceneController implements SceneController {
         return this.viewState;
     }
 
-    private void setState(ViewType type) {
+    private void setState(final ViewType type) {
         if (type == ViewType.GAMESTAGE) {
             this.viewState = new PlayingState(controller,
                     "Are you sure you want to give up?\n(This will trigger a game over)");

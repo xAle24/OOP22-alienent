@@ -35,8 +35,9 @@ public interface SceneController {
     InitController getCurrentController();
 
     /**
+     * Gets the current ViewState.
      * 
-     * @return
+     * @return the current {@link ViewState}.
      */
     ViewState getViewState();
 }

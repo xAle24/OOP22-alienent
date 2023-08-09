@@ -3,7 +3,11 @@ package it.unibo.alienenterprises.model.util;
 import java.util.Set;
 
 /**
- * Double buffer interface.
+ * DoubleBuffer interface.
+ * 
+ * @param <T> the Object that will be contained in the two sets.
+ * 
+ * @author Giulia Bonifazi
  */
 public interface DoubleBuffer<T> {
 
@@ -16,14 +20,14 @@ public interface DoubleBuffer<T> {
     /**
      * Gets curr Set.
      * 
-     * @return
+     * @return the current active set.
      */
     Set<T> getCurr();
 
     /**
      * Gets buffer Set.
      * 
-     * @return
+     * @return return the current buffer set.
      */
     Set<T> getBuff();
 }

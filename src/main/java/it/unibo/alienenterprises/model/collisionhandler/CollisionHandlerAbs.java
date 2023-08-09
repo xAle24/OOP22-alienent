@@ -6,19 +6,38 @@ import java.util.Optional;
 
 import it.unibo.alienenterprises.model.api.components.HitboxComponent;
 
+/**
+ * Generic implementation of the {@link CollisionHandler} interface.
+ * 
+ * @author Giulia Bonifazi
+ */
 public abstract class CollisionHandlerAbs implements CollisionHandler {
     private List<HitboxComponent> collidables;
 
+    /**
+     * Creates a new instance of this class.
+     */
     protected CollisionHandlerAbs() {
         this.collidables = new ArrayList<>();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void checkCollisions() {
         recCheck(collidables, 0);
     }
 
-    private void recCheck(List<HitboxComponent> list, int num) {
+    /**
+     * {@inheritDoc}
+     * Recursively checks if the {@link HitboxComponents} are colliding.
+     * 
+     * @param list the list of game objects.
+     * @param num  the number of elements to skip to find the first one of the
+     *             current cycle.
+     */
+    private void recCheck(final List<HitboxComponent> list, final int num) {
         if (num > list.size() - 1) {
             return;
         } else {
@@ -28,20 +47,32 @@ public abstract class CollisionHandlerAbs implements CollisionHandler {
         }
     }
 
-    protected abstract void checkPair(HitboxComponent a, HitboxComponent b);
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void addHitbox(Optional<HitboxComponent> toAdd) {
+    public void addHitbox(final Optional<HitboxComponent> toAdd) {
         if (!toAdd.isEmpty()) {
             this.collidables.add(toAdd.get());
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void removeHitbox(Optional<HitboxComponent> toRemove) {
+    public void removeHitbox(final Optional<HitboxComponent> toRemove) {
         if (!toRemove.isEmpty()) {
             this.collidables.remove(toRemove.get());
         }
     }
+
+    /**
+     * Checks if a pair of {@link HitboxComponent} instances are colliding.
+     * 
+     * @param a first component.
+     * @param b second component.
+     */
+    protected abstract void checkPair(HitboxComponent a, HitboxComponent b);
 
 }
