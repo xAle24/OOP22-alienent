@@ -1,7 +1,6 @@
 package it.unibo.alienenterprises.model.api;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * InputSupplier
@@ -28,7 +27,11 @@ public interface InputSupplier {
         /**
          * Called when player must shoot.
          */
-        SHOOT;
+        SHOOT,
+        /**
+         * Called if the input doesn't have a function.
+         */
+        NOTHING;
     }
 
     /**
