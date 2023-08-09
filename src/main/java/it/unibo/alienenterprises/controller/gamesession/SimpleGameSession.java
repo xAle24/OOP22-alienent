@@ -1,7 +1,7 @@
 package it.unibo.alienenterprises.controller.gamesession;
 
 import it.unibo.alienenterprises.model.api.UserAccount;
-import it.unibo.alienenterprises.model.api.World;
+import it.unibo.alienenterprises.model.world.World;
 
 /**
  * Simple {@link GameSession} implementation.

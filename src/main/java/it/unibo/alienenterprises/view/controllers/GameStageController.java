@@ -40,8 +40,8 @@ public class GameStageController implements InitController, Renderable {
         this.root.setPrefWidth(Screen.getPrimary().getBounds().getWidth());
         this.root.setPrefHeight(Screen.getPrimary().getBounds().getHeight());
         this.gameSession = controller.getGameSession();
-        this.canvas.setWidth(this.gameSession.getWorld().getWorldDimensions().getBounds().getX());
-        this.canvas.setHeight(this.gameSession.getWorld().getWorldDimensions().getBounds().getY()
+        this.canvas.setWidth(this.gameSession.getWorld().getWorldDimensions().getWidth());
+        this.canvas.setHeight(this.gameSession.getWorld().getWorldDimensions().getHeight()
                 - this.currScore.getLayoutBounds().getHeight() - this.healthDisplay.getLayoutBounds().getHeight());
         scene.setOnKeyPressed(e -> {
             try {

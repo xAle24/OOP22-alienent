@@ -4,7 +4,7 @@ import it.unibo.alienenterprises.controller.GameLoopThread;
 import it.unibo.alienenterprises.controller.InputQueue;
 import it.unibo.alienenterprises.controller.api.GameLoop;
 import it.unibo.alienenterprises.controller.renderers.RendererManager;
-import it.unibo.alienenterprises.model.api.World;
+import it.unibo.alienenterprises.model.world.World;
 
 /**
  * Generic GameSession.
