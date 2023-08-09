@@ -13,15 +13,27 @@ import it.unibo.alienenterprises.model.api.components.InputComponent;
  */
 public class StraightInputComponent extends ComponentAbs implements InputComponent {
 
+    /**
+     * set Up a StraightInputComponent
+     * @param object
+     * @param enabled
+     */
     public StraightInputComponent(final GameObject object, final boolean enabled) {
         super(object, enabled);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update(final double deltaTime) {
-        getGameObject().setPosition(getGameObject().getVelocity().mul(deltaTime).translate(getGameObject().getPosition()));
+        getGameObject()
+                .setPosition(getGameObject().getVelocity().mul(deltaTime).translate(getGameObject().getPosition()));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<Component> duplicate(final GameObject obj) {
         return Optional.of(new StraightInputComponent(obj, isEnabled()));
