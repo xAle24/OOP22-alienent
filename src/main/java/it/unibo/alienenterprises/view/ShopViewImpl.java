@@ -256,7 +256,7 @@ public class ShopViewImpl implements ShopView {
             // Set description
             ScrollPane scrollDesc = new ScrollPane();
             scrollDesc.setId("scrollDesc");
-            scrollDesc.setMaxWidth(widthUnit * 20);
+            scrollDesc.setMaxWidth(widthUnit * 20.3);
 
             Text description = new Text(curr.getDescription() + "\n" + stats.toString());
             description.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
