@@ -1,6 +1,7 @@
 package it.unibo.alienenterprises.controller.gamesession;
 
 import it.unibo.alienenterprises.model.api.UserAccount;
+import it.unibo.alienenterprises.model.world.GameWorld;
 import it.unibo.alienenterprises.model.world.World;
 
 /**
@@ -10,6 +11,7 @@ public class SimpleGameSession extends GameSessionAbs {
     private final UserAccount account;
 
     /**
+     * {@inheritDoc}
      * Creates a new instance of this class.
      * 
      * @param world    the current {@link GameWorld}
@@ -22,6 +24,9 @@ public class SimpleGameSession extends GameSessionAbs {
         this.account = account;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void gameOver() {
         super.gameOver();

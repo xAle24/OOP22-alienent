@@ -1,10 +1,17 @@
 package it.unibo.alienenterprises.controller.bounds;
 
 import it.unibo.alienenterprises.model.geometry.Point2D;
+import javafx.stage.Screen;
 
+/**
+ * Class that contains the dimensions for the game arena. This application uses
+ * the preset.
+ * 
+ * @author Giulia Bonifazi
+ */
 public class ArenaDimensions implements Dimensions {
-    private final double WIDTH = 1200.0;
-    private final double HEIGHT = 950.0;
+    private final double WIDTH = Screen.getPrimary().getBounds().getWidth();
+    private final double HEIGHT = 600.0;
     private double width;
     private double height;
 

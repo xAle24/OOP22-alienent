@@ -16,17 +16,17 @@
     stylesheets="@/css/gameStageStyle.css">
 
     <VBox>
-        <VBox styleClass="statLabelContainer"  prefWidth="-Infinity">
-            <Label text="SCORE:" textAlignment="RIGHT" alignment="TOP_RIGHT" styleClass="statLabel"/>
-            <Label fx:id="currScore" text="0" alignment="TOP_RIGHT" styleClass="statLabel"/>
+        <VBox alignment="TOP_RIGHT" styleClass="statLabelContainer"  prefWidth="-Infinity">
+            <Label text="SCORE:" textAlignment="RIGHT" styleClass="statLabel"/>
+            <Label fx:id="currScore" text="0" textAlignment="RIGHT" styleClass="statLabel"/>
         </VBox>
         <StackPane id="canvasContainer" alignment="CENTER">
             <Canvas fx:id="canvas" id="canvas"/>
         </StackPane>
-        <VBox maxHeight="200" prefHeight="200" minHeight="200" styleClass="statLabelContainer"
+        <VBox alignment="BOTTOM_LEFT" maxHeight="50" prefHeight="50" minHeight="50" styleClass="statLabelContainer"
             prefWidth="-Infinity">
-            <Label text="HEALTH:" textAlignment="LEFT" styleClass="statLabel"/>
-           <Label fx:id="healthDisplay" styleClass="statLabel"/>
+            <Label text="HEALTH:" textAlignment="LEFT"  styleClass="statLabel"/>
+            <Label fx:id="healthDisplay" textAlignment="LEFT" styleClass="statLabel"/>
         </VBox>
     </VBox>
     

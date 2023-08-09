@@ -1,26 +1,17 @@
 package it.unibo.alienenterprises.model.world;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-
-import javax.tools.DocumentationTool.Location;
 
 import it.unibo.alienenterprises.controller.bounds.Dimensions;
 import it.unibo.alienenterprises.model.api.GameObject;
-import it.unibo.alienenterprises.model.api.GameObjectAbs;
 import it.unibo.alienenterprises.model.api.Statistic;
-import it.unibo.alienenterprises.model.api.components.BoundaryHitboxComponent;
 import it.unibo.alienenterprises.model.api.components.BoundaryHitboxComponent.Locations;
-import it.unibo.alienenterprises.model.api.components.HitboxComponent.Type;
 import it.unibo.alienenterprises.model.api.components.HitboxComponent;
 import it.unibo.alienenterprises.model.collisionhandler.CollisionHandler;
 import it.unibo.alienenterprises.model.collisionhandler.SimpleCollisionHandler;
 import it.unibo.alienenterprises.model.geometry.Point2D;
-import it.unibo.alienenterprises.model.geometry.Vector2D;
-import it.unibo.alienenterprises.model.impl.components.hitbox.BoundaryHitboxComponentImpl;
 import it.unibo.alienenterprises.model.util.DoubleBuffer;
 import it.unibo.alienenterprises.model.util.SetDoubleBuffer;
 import it.unibo.alienenterprises.model.wall.WallBuilder;
@@ -32,6 +23,7 @@ import it.unibo.alienenterprises.model.wall.WallBuilderImpl;
  * @author Giulia Bonifazi
  */
 public final class GameWorld implements World {
+    private static final Set<String> GIVESSCORE = new HashSet<>(Set.of("enemyBomber", "enemySniper", "enemyTank"));
     private final CollisionHandler collisionHandler;
     private final DoubleBuffer<GameObject> doubleBuff;
     private final Set<GameObject> lastAdded;
@@ -55,7 +47,6 @@ public final class GameWorld implements World {
 
     @Override
     public void update(final double deltaTime) {
-        this.score += 1;
         this.doubleBuff.changeBuffer();
         this.doubleBuff.getCurr().stream().forEach(o -> {
             if (!o.isAlive()) {
@@ -114,7 +105,9 @@ public final class GameWorld implements World {
      * @param remove the GameObject that needs to be removed.
      */
     private void removeGameObject(final GameObject remove) {
-        this.score += remove.getStatValue(Statistic.DAMAGE) * 100;
+        if (GIVESSCORE.contains(remove.getId())) {
+            this.score += remove.getStatValue(Statistic.DAMAGE) * 100;
+        }
         this.doubleBuff.getBuff().remove(remove);
         this.collisionHandler.removeHitbox(remove.getComponent(HitboxComponent.class));
     }
