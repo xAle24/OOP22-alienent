@@ -12,7 +12,7 @@ components:
     -
       type: BOOLEAN
       value: "TRUE"
-  BasicShooterComponent:
+  AutomaticShooterComponent:
     -
       type: BOOLEAN
       value: "TRUE"

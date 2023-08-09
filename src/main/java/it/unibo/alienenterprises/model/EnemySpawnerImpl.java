@@ -12,13 +12,14 @@ import it.unibo.alienenterprises.model.api.GameObjectAbs;
 import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.model.api.World;
 import it.unibo.alienenterprises.model.api.components.EnemyInputComponent;
+import it.unibo.alienenterprises.model.api.components.InputComponent;
 import it.unibo.alienenterprises.model.geometry.Point2D;
 import it.unibo.alienenterprises.model.impl.ProjectileSupplierFactoryImpl;
 /**
  * Implementations of enemy spawner.
  */
 public class EnemySpawnerImpl implements EnemySpawner {
-    private static final int SPAWNTIME = 800;
+    private static final int SPAWNTIME = 2;
     private static final int ONEMINUTE = 60000;
     private static final int INCREASESTAT = 15;
     private static final Random RANDOM = new Random();
@@ -50,7 +51,7 @@ public class EnemySpawnerImpl implements EnemySpawner {
      * {@inheritDoc}
      */
     @Override
-    public GameObject getEnemy(String identifier) {
+    public GameObject getEnemy(String identifier, double deltaTime) {
         var enemySpawn = enemy.get(identifier);
         var newEnemy = new GameObjectAbs(null, null, enemySpawn.getAllStats(), enemySpawn.getId());
         enemySpawn.getAllComponent().stream().forEach(e -> newEnemy.addComponent(e.duplicate(newEnemy).get()));
@@ -60,6 +61,7 @@ public class EnemySpawnerImpl implements EnemySpawner {
         var pointX = new Random().nextDouble(topRight.getX() + 1);
         var pointY = new Random().nextDouble(bottomLeft.getY() + 1);
         newEnemy.setPosition(new Point2D(pointX, pointY));
+        newEnemy.getComponent(InputComponent.class).get().update(deltaTime);
         newEnemy.getAllComponent().stream().forEach(e -> e.start());
         return newEnemy;
     }
@@ -85,7 +87,8 @@ public class EnemySpawnerImpl implements EnemySpawner {
     public void update(final double deltaTime) {
         if (spawnTime > SPAWNTIME) {
             var id = getIdentifier();
-            this.world.addGameObject(getEnemy(id));
+            this.world.addGameObject(getEnemy(id, deltaTime));
+            System.out.println(id);
             spawnTime = 0;
         } else {
             spawnTime = spawnTime + deltaTime;

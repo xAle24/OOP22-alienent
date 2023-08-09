@@ -1,4 +1,4 @@
-package it.unibo.alienenterprises.model;
+package it.unibo.alienenterprises.model.component;
 /**
  * Test class for enemy input component.
  */
