@@ -106,7 +106,6 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
 
             final Yaml yaml = new Yaml(representer);
             final String output = yaml.dump(account);
-            System.out.println(output);
             writer.append(output);
         } catch (IOException e) {
             e.printStackTrace();
@@ -118,7 +117,7 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
     }
 
     private boolean correctPassword(final String nickname, final String password) {
-        try (final FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + "passwords.yml")) {
+        try (FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + "passwords.yml")) {
 
             final Map<String, Object> passwordMap = new HashMap<>();
 

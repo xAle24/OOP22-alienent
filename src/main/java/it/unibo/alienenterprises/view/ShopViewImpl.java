@@ -42,6 +42,16 @@ public class ShopViewImpl implements ShopView {
     private static final int MAXLENGHT = 4;
     private static final double SCREENWIDHT = Screen.getPrimary().getVisualBounds().getWidth();
     private static final double SCREENHEIGHT = Screen.getPrimary().getVisualBounds().getHeight();
+    private static final double PAPERWIDTH = 28;
+    private static final double PAPERHEIGHT = 19.5;
+    private static final int FONTSIZE = 19;
+    private static final int TITLEFONTSIZE = 30;
+    private static final int BASICMULTIPLIER = 5;
+    private static final int SCROLLWIDTHMULTIPLIER = 24;
+    private static final double SCROLLHEIGHTMULTIPLIER = 6.21767;
+    private static final int GRIDGAPDIVISOR = 12;
+    private static final int BOTTOMSUBTRACTOR = 40;
+    private static final double DESCWIDTHMULTIPLIER = 20.3;
 
     private Double widthUnit;
     private Double heightUnit;
@@ -70,9 +80,11 @@ public class ShopViewImpl implements ShopView {
     }
 
     /**
-     * This constructor ensures that the view has always a controller to reference.
+     * This constructor ensures that the view has always a controller
+     * and an account to reference.
      * 
      * @param controller
+     * @param account
      */
     public ShopViewImpl(final ShopController controller, final UserAccount account) {
         this.controller = controller;
@@ -85,8 +97,8 @@ public class ShopViewImpl implements ShopView {
     @Override
     public BorderPane showShopView() {
 
-        widthUnit = SCREENWIDHT / 28;
-        heightUnit = SCREENHEIGHT / 19.5;
+        widthUnit = SCREENWIDHT / PAPERWIDTH;
+        heightUnit = SCREENHEIGHT / PAPERHEIGHT;
         margin = widthUnit / 2;
 
         box.getStylesheets().addAll(getClass().getResource(
@@ -148,7 +160,7 @@ public class ShopViewImpl implements ShopView {
         });
 
         userInfo.setId("user");
-        userInfo.setPrefSize(widthUnit * 5, heightUnit * 2);
+        userInfo.setPrefSize(widthUnit * BASICMULTIPLIER, widthUnit);
         userInfo.setPadding(new Insets(margin));
         BorderPane.setMargin(userInfo, new Insets(margin));
         userInfo.getChildren().addAll(inventory, score);
@@ -171,15 +183,17 @@ public class ShopViewImpl implements ShopView {
             // Set the box
             BorderPane pwuBox = new BorderPane();
             pwuBox.setId("pwubox");
-            pwuBox.setPrefSize(widthUnit * 4, widthUnit * 5);
+            pwuBox.setPrefSize(widthUnit * 4, widthUnit * BASICMULTIPLIER);
 
             // Set the button
-            String imageURL = new String("/images/" + curr.getImage());
+            String imageURL = new String("/images/"
+                    + curr.getImage());
             Button button = new Button();
-            button.setStyle("-fx-background-image: url(" + imageURL + ");" +
-                    "-fx-background-position: center;" +
-                    "-fx-background-repeat: no-repeat;" +
-                    "-fx-background-size: cover;");
+            button.setStyle("-fx-background-image: url("
+                    + imageURL + ");"
+                    + "-fx-background-position: center;"
+                    + "-fx-background-repeat: no-repeat;"
+                    + " -fx-background-size: cover;");
             button.setPrefSize(widthUnit * 3, widthUnit * 3);
             pwuButtons.put(button, curr.getId());
             // Add action to the button
@@ -187,7 +201,7 @@ public class ShopViewImpl implements ShopView {
 
             // Set the name
             Label name = new Label(curr.getName());
-            name.setFont(Font.font("Times New Roman", FontWeight.BOLD, 19));
+            name.setFont(Font.font("Times New Roman", FontWeight.BOLD, FONTSIZE));
             name.setTextFill(Color.DARKBLUE);
             name.setWrapText(true);
             name.setPrefWidth(widthUnit * 4);
@@ -220,20 +234,20 @@ public class ShopViewImpl implements ShopView {
         }
 
         scroll.setId("scroll");
-        scroll.setMaxSize((SCREENWIDHT / 7) * 6, (SCREENHEIGHT / 6) * 2.5);
+        scroll.setMaxSize(widthUnit * SCROLLWIDTHMULTIPLIER, widthUnit * SCROLLHEIGHTMULTIPLIER);
 
-        grid.setHgap((scroll.getMaxWidth() / 12));
-        grid.setVgap(scroll.getMaxHeight() / 12);
+        grid.setHgap((scroll.getMaxWidth() / GRIDGAPDIVISOR));
+        grid.setVgap(scroll.getMaxHeight() / GRIDGAPDIVISOR);
         grid.setPrefSize(scroll.getPrefWidth(), scroll.getPrefHeight());
 
         this.scroll.setContent(grid);
     }
 
-    private void addAction(PowerUpRenderer curr, Button button) {
+    private void addAction(final PowerUpRenderer curr, final Button button) {
         button.setOnAction(event -> {
 
             bottom.setId("bottom");
-            bottom.setPrefSize(SCREENWIDHT - 40, widthUnit * 4);
+            bottom.setPrefSize(SCREENWIDHT - BOTTOMSUBTRACTOR, widthUnit * 4);
 
             // Set icon
             VBox icon = new VBox();
@@ -245,7 +259,7 @@ public class ShopViewImpl implements ShopView {
 
             // Set name
             Label name = new Label(curr.getName());
-            name.setFont(Font.font("Times New Roman", FontWeight.BOLD, 30));
+            name.setFont(Font.font("Times New Roman", FontWeight.BOLD, TITLEFONTSIZE));
             final StringBuilder stats = new StringBuilder("");
             curr.getPwu().getStatModifiers()
                     .forEach((s, i) -> stats.append(i != 0 ? s + ": " + i + "\n" : ""));
@@ -253,13 +267,13 @@ public class ShopViewImpl implements ShopView {
             // Set description
             ScrollPane scrollDesc = new ScrollPane();
             scrollDesc.setId("scrollDesc");
-            scrollDesc.setMaxWidth(widthUnit * 20.3);
+            scrollDesc.setMaxWidth(widthUnit * DESCWIDTHMULTIPLIER);
 
             Text description = new Text(curr.getDescription() + "\n" + stats.toString());
-            description.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
-            description.setWrappingWidth(widthUnit * 20);
+            description.setFont(Font.font("Times New Roman", FontWeight.BOLD, FONTSIZE));
+            description.setWrappingWidth(widthUnit * DESCWIDTHMULTIPLIER);
             TextFlow descContenitor = new TextFlow(description);
-            descContenitor.setMaxWidth(widthUnit * 20);
+            descContenitor.setMaxWidth(widthUnit * DESCWIDTHMULTIPLIER);
             VBox descBox = new VBox();
             descBox.setId("descbox");
             descBox.getChildren().add(name);
@@ -279,7 +293,7 @@ public class ShopViewImpl implements ShopView {
                         * (account.getInventory().get(curr.getId()).intValue() + 1);
             }
             buyButton.setText(String.valueOf(cost));
-            buyButton.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
+            buyButton.setFont(Font.font("Helvetica", FontWeight.BOLD, FONTSIZE));
             buyButton.setOnAction(e -> {
                 buyEvent(curr, buyButton);
             });
@@ -297,7 +311,7 @@ public class ShopViewImpl implements ShopView {
 
     }
 
-    private void buyEvent(PowerUpRenderer curr, Button buyButton) {
+    private void buyEvent(final PowerUpRenderer curr, final Button buyButton) {
         if (!controller.buy(curr.getId())) {
             setAttentionPopup();
         } else {
@@ -353,12 +367,12 @@ public class ShopViewImpl implements ShopView {
         attentionPopUp.showAndWait();
     }
 
-    private Button setExitButton(ExitCondition condition) {
+    private Button setExitButton(final ExitCondition condition) {
 
         Button exitButton = new Button();
         exitButton.setId("exitButton");
         exitButton.setPrefSize(widthUnit, widthUnit);
-        exitButton.setPadding(new Insets(margin / 2));
+        // exitButton.setPadding(new Insets(margin / 2));
 
         switch (condition) {
             case PWUINFO:
