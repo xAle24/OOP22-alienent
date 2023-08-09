@@ -56,7 +56,7 @@ public class AutomaticShooterComponent extends ComponentAbs implements ShooterCo
             if (hb.isPresent()) {
                 hb.get().setShooter(this.shooterType);
             }
-            p.setStatValue(Statistic.DAMAGE, damage);
+            p.setStatValue(Statistic.DAMAGE, this.damage);
             p.setVelocity(Vector2D.fromAngleAndModule(getGameObject().getVelocity().getAngle(), projectileSpeed));
             p.setPosition(getGameObject().getPosition());
             this.count = 0;
