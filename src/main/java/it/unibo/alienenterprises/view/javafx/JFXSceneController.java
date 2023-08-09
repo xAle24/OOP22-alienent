@@ -34,7 +34,10 @@ public class JFXSceneController implements SceneController {
             case SHOP:
                 this.currentController = new ShopControllerImpl();
                 var contrShop = (ShopController) this.currentController;
-                this.currentScene = new Scene(new ShopViewImpl(contrShop).showShopView());
+                contrShop.loadPwuYaml();
+                contrShop.loadPwuInfoYaml();
+                this.currentScene = new Scene(
+                        new ShopViewImpl(contrShop, this.controller.getUserAccount()).showShopView());
                 break;
             case SHIPSELECT:
                 this.currentController = new PlayerControllerImpl();
