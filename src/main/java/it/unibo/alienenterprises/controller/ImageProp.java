@@ -5,6 +5,8 @@ public class ImageProp {
     private String id;
     private String file;
     private double scale;
+    private double height;
+    private double width;
 
     public ImageProp() {
     }
@@ -31,6 +33,22 @@ public class ImageProp {
 
     public void setScale(final double scale) {
         this.scale = scale;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
     }
 
     @Override
@@ -76,7 +94,5 @@ public class ImageProp {
         }
         return true;
     }
-
-    
 
 }

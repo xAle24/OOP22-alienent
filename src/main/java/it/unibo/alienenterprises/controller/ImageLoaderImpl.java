@@ -52,6 +52,24 @@ public class ImageLoaderImpl implements ImageLoader {
         return Optional.empty();
     }
 
+    @Override
+    public Optional<Double> getSpriteHeight(final String id) {
+        final var s = getImageProp(id);
+        if (s.isPresent()) {
+            return Optional.of(s.get().getHeight());
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Double> getSpritewidth(final String id) {
+        final var s = getImageProp(id);
+        if (s.isPresent()) {
+            return Optional.of(s.get().getWidth());
+        }
+        return Optional.empty();
+    }
+
     private Optional<ImageProp> getImageProp(final String id) {
         return this.spriteList.stream().filter((i) -> i.getId().equals(id)).findFirst();
     }

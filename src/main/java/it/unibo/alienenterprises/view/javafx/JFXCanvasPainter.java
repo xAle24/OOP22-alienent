@@ -14,6 +14,8 @@ import javafx.scene.transform.Rotate;
 
 /**
  * This class will draw each {@link Sprite} on the {@link Canvas} it contains.
+ * 
+ * @author Giulia Bonifazi
  */
 public final class JFXCanvasPainter implements Painter {
     private final double DEGREES_TURN = 90.0;

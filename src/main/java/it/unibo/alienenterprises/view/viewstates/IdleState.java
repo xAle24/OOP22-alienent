@@ -5,6 +5,8 @@ import it.unibo.alienenterprises.controller.Controller;
 /**
  * This State will be active when the player is sitting in the menu and nothing
  * is interrupted by quitting.
+ * 
+ * @author Giulia Bonifazi
  */
 public class IdleState extends ViewStateAbs {
 

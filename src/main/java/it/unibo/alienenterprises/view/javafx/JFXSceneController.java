@@ -16,6 +16,11 @@ import it.unibo.alienenterprises.view.viewstates.PlayingState;
 import it.unibo.alienenterprises.view.viewstates.ViewState;
 import javafx.scene.Scene;
 
+/**
+ * {@link SceneController} implementation.
+ * 
+ * @author Giulia Bonifazi
+ */
 public class JFXSceneController implements SceneController {
     private final JFXSceneLoader loader = new JFXSceneLoader();
     private final Controller controller;

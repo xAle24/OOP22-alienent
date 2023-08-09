@@ -2,10 +2,12 @@ package it.unibo.alienenterprises.view;
 
 import it.unibo.alienenterprises.controller.Controller;
 import it.unibo.alienenterprises.model.geometry.Point2D;
-import it.unibo.alienenterprises.view.viewstates.ViewState;
+import javafx.stage.Stage;
 
 /**
  * View interface.
+ * 
+ * @author Giulia Bonifazi
  */
 public interface View {
     public static final double MAX_WIDTH = 1920.0;

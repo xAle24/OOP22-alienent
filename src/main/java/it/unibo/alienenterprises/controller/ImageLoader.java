@@ -22,4 +22,16 @@ public interface ImageLoader {
      *         if the identifier is not present
      */
     Optional<Double> getSpriteScaleOf(String id);
+
+    /**
+     * @param id the identifier of the GameObject
+     * @return the image height
+     */
+    Optional<Double> getSpriteHeight(String id);
+
+    /**
+     * @param id the identifier of the GameObject
+     * @return the image width
+     */
+    Optional<Double> getSpritewidth(String id);
 }

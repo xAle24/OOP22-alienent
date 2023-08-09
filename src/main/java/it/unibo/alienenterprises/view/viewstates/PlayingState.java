@@ -3,13 +3,13 @@ package it.unibo.alienenterprises.view.viewstates;
 import it.unibo.alienenterprises.controller.Controller;
 import it.unibo.alienenterprises.controller.api.GameLoop;
 import it.unibo.alienenterprises.view.ViewType;
-import javafx.geometry.Rectangle2D;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
  * This state will be active while a {@link GameSession} is initiated and the
  * {@link GameLoop} is running.
+ * 
+ * @author Giulia Bonifazi
  */
 public final class PlayingState extends ViewStateAbs {
 
@@ -26,7 +26,6 @@ public final class PlayingState extends ViewStateAbs {
     @Override
     public void init(Stage stage) {
         super.init(stage);
-        this.stage.centerOnScreen();
         this.stage.setResizable(false);
     }
 

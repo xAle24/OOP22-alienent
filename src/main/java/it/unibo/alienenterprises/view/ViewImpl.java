@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 
 /**
  * {@link View} implementation, main view of the game.
+ * 
+ * @author Giulia Bonifazi
  */
 public final class ViewImpl implements View {
 
@@ -27,14 +29,14 @@ public final class ViewImpl implements View {
      */
     public ViewImpl(final Stage stage) {
         this.primaryStage = stage;
+        this.primaryStage.setMinHeight(MIN_HEIGHT);
+        this.primaryStage.setMinWidth(MIN_WIDTH);
     }
 
     @Override
     public void init(final Controller controller) {
         this.sceneController = new JFXSceneController(controller);
         this.primaryStage.setTitle(TITLE);
-        this.primaryStage.setMinHeight(MIN_HEIGHT);
-        this.primaryStage.setMinWidth(MIN_WIDTH);
         this.primaryStage.getIcons().add(new Image(getClass().getResourceAsStream(ICON_PATH)));
         this.setScene(ViewType.LOGIN);
     }
@@ -42,10 +44,11 @@ public final class ViewImpl implements View {
     @Override
     public void setScene(ViewType type) {
         this.sceneController.setCurrentScene(type);
-        this.sceneController.getViewState().init(this.primaryStage);
         this.primaryStage.setScene(this.sceneController.getCurrentScene());
+        this.sceneController.getViewState().init(this.primaryStage);
         this.primaryStage.show();
         this.primaryStage.centerOnScreen();
+        this.primaryStage.sizeToScene();
     }
 
     @Override

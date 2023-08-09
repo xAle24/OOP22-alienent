@@ -1,8 +1,14 @@
 package it.unibo.alienenterprises.view.api;
 
 import it.unibo.alienenterprises.controller.renderers.Renderer;
+import it.unibo.alienenterprises.model.GameWorld;
 import it.unibo.alienenterprises.view.sprites.Sprite;
 
+/**
+ * Interface responsible for rendering the {@link GameWorld}.
+ * 
+ * @author Giulia Bonifazi
+ */
 public interface Painter {
 
     /**

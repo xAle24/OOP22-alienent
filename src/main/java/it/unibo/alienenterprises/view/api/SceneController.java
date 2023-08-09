@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 /**
  * Interface for the Scene Controller. This controller will be responsible for
  * setting the necessary Scene in the correct way.
+ * 
+ * @author Giulia Bonifazi
  */
 public interface SceneController {
 
