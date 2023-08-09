@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+//import java.awt.Graphics2D;
 
 import it.unibo.alienenterprises.controller.api.ShopController;
 import it.unibo.alienenterprises.model.api.PowerUpRenderer;
@@ -13,11 +14,13 @@ import it.unibo.alienenterprises.view.api.ShopView;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 //import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -30,7 +33,6 @@ import javafx.scene.text.Text;
 //import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Screen;
-//import javafx.stage.Stage;
 
 /**
  * Implementation fo ShopView.
@@ -52,12 +54,11 @@ public class ShopViewImpl implements ShopView {
     private Label score = new Label();
     private ScrollPane scroll = new ScrollPane();
     private BorderPane bottom = new BorderPane();
-    private Text inventoryText = new Text();
-    // private Text attentionText = new Text();
-    /*
-     * private Stage inventoryStage = new Stage();
-     * private Stage attentionStage = new Stage();
-     */
+    private String inventoryText = "";
+    private Alert attentionPopUp = new Alert(AlertType.WARNING);
+    private Alert inventoryPopup = new Alert(AlertType.INFORMATION);
+    private DialogPane dialog = new DialogPane();
+
     private final UserAccount account;
 
     private Map<Button, String> pwuButtons = new HashMap<>();
@@ -65,7 +66,7 @@ public class ShopViewImpl implements ShopView {
     private Map<String, List<CheckBox>> checkBoxesMap = new HashMap<>();
 
     private enum ExitCondition {
-        SHOP, ATTENTION, INVENTORY, PWUINFO;
+        SHOP, PWUINFO;
     }
 
     /**
@@ -100,8 +101,6 @@ public class ShopViewImpl implements ShopView {
 
         // Set the user info
         setUserInfo();
-        setInventoryPopup();
-        setAttentionPopup();
 
         // Set the title
         Label title = new Label("SHOP");
@@ -141,14 +140,12 @@ public class ShopViewImpl implements ShopView {
         score.setId("score");
 
         inventory.setId("inventory");
-        inventory.setPrefSize(widthUnit, widthUnit);
+        inventory.setPrefSize(widthUnit, widthUnit / 2);
         inventory.setPadding(new Insets(margin));
 
-        /*
-         * inventory.setOnAction(inventory -> {
-         * this.inventoryStage.show();
-         * });
-         */
+        inventory.setOnAction(inventory -> {
+            showInventoryPopup();
+        });
 
         userInfo.setId("user");
         userInfo.setPrefSize(widthUnit * 5, heightUnit * 2);
@@ -260,8 +257,9 @@ public class ShopViewImpl implements ShopView {
 
             Text description = new Text(curr.getDescription() + "\n" + stats.toString());
             description.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
-            description.setWrappingWidth(scrollDesc.getMaxWidth());
+            description.setWrappingWidth(widthUnit * 20);
             TextFlow descContenitor = new TextFlow(description);
+            descContenitor.setMaxWidth(widthUnit * 20);
             VBox descBox = new VBox();
             descBox.setId("descbox");
             descBox.getChildren().add(name);
@@ -301,7 +299,7 @@ public class ShopViewImpl implements ShopView {
 
     private void buyEvent(PowerUpRenderer curr, Button buyButton) {
         if (!controller.buy(curr.getId())) {
-            // attentionStage.show();
+            setAttentionPopup();
         } else {
             score.setText(account.getMoney() + "$");
             if (account.getCurrLevel(curr.getId()) == (curr.getPwu().getMaxLevel())) {
@@ -317,62 +315,42 @@ public class ShopViewImpl implements ShopView {
         }
     }
 
-    private void setInventoryPopup() {
-        /*
-         * inventoryStage.setMaxWidth(widthUnit * 5);
-         * inventoryStage.setMaxHeight(heightUnit * 8);
-         * inventoryStage.setX((SCREENWIDHT / 2) - (inventoryStage.getMaxWidth() / 2));
-         * inventoryStage.setY((SCREENWIDHT / 2) - (inventoryStage.getMaxHeight() / 2));
-         * 
-         * BorderPane pane = new BorderPane();
-         * TextFlow textBox = new TextFlow();
-         * updateInventoryPopup();
-         * inventoryText.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
-         * textBox.getChildren().add(inventoryText);
-         * textBox.setTextAlignment(TextAlignment.LEFT);
-         * pane.setLeft(textBox);
-         * pane.setRight(setExitButton(ExitCondition.INVENTORY));
-         * 
-         * Scene scene = new Scene(pane);
-         * 
-         * inventoryStage.setScene(scene);
-         */
+    private void showInventoryPopup() {
 
+        inventoryPopup.setTitle("Inventory");
+        inventoryPopup.setHeaderText(controller.getUserAccount().getNickname());
+        updateInventoryPopup();
+
+        dialog = inventoryPopup.getDialogPane();
+        dialog.getStylesheets().addAll(getClass().getResource(
+                "/css/ShopGui.css")
+                .toExternalForm());
+        dialog.setId("dialog");
+        inventoryPopup.showAndWait();
     }
 
     private void updateInventoryPopup() {
 
         final StringBuilder stats = new StringBuilder("");
+        stats.append(account.getMoney()).append("\n");
         account.getToAddPwu()
                 .forEach((s, i) -> stats.append(s).append(":\t").append(i).append("\n"));
 
-        inventoryText.setText(
-                account.getNickname() + "\n" + account.getMoney()
-                        + "\n" + stats);
+        inventoryText = stats.toString();
+        inventoryPopup.setContentText(inventoryText);
     }
 
     private void setAttentionPopup() {
-        /*
-         * TextFlow textBox = new TextFlow();
-         * attentionText.
-         * setText("ATTENTION!\n You don't have enough money for this powerUp");
-         * attentionText.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
-         * textBox.getChildren().add(attentionText);
-         * textBox.setTextAlignment(TextAlignment.LEFT);
-         * 
-         * attentionStage.setMaxWidth(widthUnit * 5);
-         * attentionStage.setMaxHeight(heightUnit * 8);
-         * attentionStage.setX((SCREENWIDHT / 2) - (attentionStage.getMaxWidth() / 2));
-         * attentionStage.setY((SCREENWIDHT / 2) - (attentionStage.getMaxHeight() / 2));
-         * 
-         * BorderPane pane = new BorderPane();
-         * pane.setLeft(textBox);
-         * pane.setRight(setExitButton(ExitCondition.ATTENTION));
-         * 
-         * Scene scene = new Scene(pane);
-         * attentionStage.setScene(scene);
-         */
+        attentionPopUp.setTitle("Attention");
+        attentionPopUp.setHeaderText("ATTENTION");
+        attentionPopUp.setContentText("You don't have enough money to buy this powerUp.");
 
+        dialog = inventoryPopup.getDialogPane();
+        dialog.getStylesheets().addAll(getClass().getResource(
+                "/css/ShopGui.css")
+                .toExternalForm());
+        dialog.setId("dialog");
+        attentionPopUp.showAndWait();
     }
 
     private Button setExitButton(ExitCondition condition) {
@@ -383,11 +361,6 @@ public class ShopViewImpl implements ShopView {
         exitButton.setPadding(new Insets(margin / 2));
 
         switch (condition) {
-            case ATTENTION:
-                exitButton.setOnAction(closePopUp -> {
-                    // this.attentionStage.hide();
-                });
-                break;
             case PWUINFO:
                 exitButton.setOnAction(closePwuInfo -> {
                     this.bottom.setVisible(false);
@@ -397,11 +370,6 @@ public class ShopViewImpl implements ShopView {
             case SHOP:
                 exitButton.setOnAction(closePwuInfo -> {
                     this.controller.closeShop();
-                });
-                break;
-            case INVENTORY:
-                exitButton.setOnAction(closePopUp -> {
-                    // this.inventoryStage.hide();
                 });
                 break;
             default:
