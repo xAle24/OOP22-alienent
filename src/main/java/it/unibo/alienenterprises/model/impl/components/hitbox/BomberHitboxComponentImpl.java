@@ -7,17 +7,27 @@ import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.model.api.components.Component;
 import it.unibo.alienenterprises.model.api.components.HitboxComponent;
 import it.unibo.alienenterprises.model.api.components.ProjectileHitboxComponent;
-
-public class BomberHitboxComponentImpl extends CircleHitboxComponentAbs{
+/**
+ * Bomber hitbox component implementations.
+ */
+public class BomberHitboxComponentImpl extends CircleHitboxComponentAbs {
 
     private static final int AUTOKILLDAMAGE = 99;
-
-    public BomberHitboxComponentImpl(GameObject object, boolean enabled, Type objectType, double radius) {
+    /**
+     * Constructor for Bomber enemis.
+     * @param object referenced object.
+     * @param enabled if component is enabled.
+     * @param objectType what type of object is.
+     * @param radius how long is the circle radius.
+     */
+    public BomberHitboxComponentImpl(final GameObject object, final boolean enabled, final Type objectType, final double radius) {
         super(object, enabled, objectType, radius);
     }
-
+    /**
+     * @inheritDoc
+     */
     @Override
-    public void isColliding(HitboxComponent hitbox) {
+    public void isColliding(final HitboxComponent hitbox) {
         if (hitbox.getType() == Type.PLAYER) {
             hitbox.getGameObject().hit(this.getGameObject().getStatValue(Statistic.DAMAGE));
             this.getGameObject().hit(AUTOKILLDAMAGE);
@@ -26,9 +36,11 @@ public class BomberHitboxComponentImpl extends CircleHitboxComponentAbs{
             hitbox.getGameObject().hit(1);
         }
     }
-
+    /**
+     * @inheritDoc
+     */
     @Override
-    public Optional<Component> duplicate(GameObject obj) {
+    public Optional<Component> duplicate(final GameObject obj) {
         return Optional.of(new BomberHitboxComponentImpl(obj, isEnabled(), Type.ENEMY, this.getHitbox().getRay()));
     }
 }

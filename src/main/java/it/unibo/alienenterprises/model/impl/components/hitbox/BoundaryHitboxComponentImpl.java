@@ -10,57 +10,80 @@ import it.unibo.alienenterprises.model.api.components.HitboxComponent;
 import it.unibo.alienenterprises.model.geometry.Line2D;
 import it.unibo.alienenterprises.model.geometry.Point2D;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
-
-public class BoundaryHitboxComponentImpl extends ComponentAbs implements BoundaryHitboxComponent{
+/**
+ * Implementations of buondary hitbox.
+ */
+public class BoundaryHitboxComponentImpl extends ComponentAbs implements BoundaryHitboxComponent {
 
     private static final int DESTROY = 999;
     private Type objectType;
     private Line2D line;
     private Locations location;
-
-    public BoundaryHitboxComponentImpl(GameObject object, boolean enabled, Type objectType, Point2D p1, Point2D p2) {
+    /**
+     * Constructor for boundary hitbox.
+     * @param object referenced object.
+     * @param enabled if component is enabled.
+     * @param objectType what type of object is.
+     * @param p1 where line starts.
+     * @param p2 where line ends.
+     */
+    public BoundaryHitboxComponentImpl(final GameObject object, final boolean enabled, final Type objectType, 
+            final Point2D p1, final Point2D p2) {
         super(object, enabled);
         this.objectType = objectType;
         this.line = Line2D.fromTwoPoints(p1, p2);
     }
-
+    /**
+     * @inheritDoc
+     */
     @Override
-    public void isColliding(HitboxComponent hitbox) {
+    public void isColliding (final HitboxComponent hitbox) {
         if (hitbox.getType() == Type.PROJECTILE) {
             hitbox.getGameObject().hit(DESTROY);
-        } else if((this.location == Locations.UP) || (this.location == Locations.DOWN)) {
+        } else if ((this.location == Locations.UP) || (this.location == Locations.DOWN)) {
             hitbox.getGameObject().setVelocity(Vector2D.fromComponents(hitbox.getGameObject().getVelocity().getxComp(), 0));
         } else {
             hitbox.getGameObject().setVelocity(Vector2D.fromComponents(0, hitbox.getGameObject().getVelocity().getyComp()));
         }
     }
-
+    /**
+     * Set the locations of the boundary.
+     */
     @Override
-    public void setLocations(Locations location) {
+    public void setLocations(final Locations location) {
         this.location = location;
     }
-
+    /**
+     * @inheritDoc
+     */
     @Override
     public Type getType() {
         return this.objectType;
     }
-
+    /**
+     * @inheritDoc
+     */
     @Override
-    public void canCollide(HitboxComponent hitbox) {
-        if(this.objectType != hitbox.getType()) {
-            if (hitbox instanceof CircleHitboxComponentAbs && ((CircleHitboxComponentAbs)hitbox).getHitbox().intersectWhith(this.line)) {
+    public void canCollide(final HitboxComponent hitbox) {
+        if (this.objectType != hitbox.getType()) {
+            if (hitbox instanceof CircleHitboxComponentAbs && 
+                    ((CircleHitboxComponentAbs) hitbox).getHitbox().intersectWhith(this.line)) {
                 this.isColliding(hitbox);
             }
         }
     }
-
+    /**
+     * Returns the line of the boundary.
+     */
     @Override
     public Line2D getLine() {
         return this.line;
     }
-
+    /**
+     * @inheritDoc
+     */
     @Override
-    public Optional<Component> duplicate(GameObject obj) {
+    public Optional<Component> duplicate(final GameObject obj) {
         return Optional.empty();
     }
 }
