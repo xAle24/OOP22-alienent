@@ -29,7 +29,6 @@ public interface HitboxComponent extends Component {
 
     /**
      * Return the object type.
-     * 
      * @return object type
      */
     Type getType();
@@ -44,8 +43,6 @@ public interface HitboxComponent extends Component {
 
     /**
      * Check what happens once the two objects have collided.
-     * 
-     * @return
      */
     void isColliding(HitboxComponent hitbox);
 }

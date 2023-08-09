@@ -3,11 +3,9 @@ package it.unibo.alienenterprises.view.javafx;
 import java.util.HashSet;
 import java.util.Set;
 
-import edu.umd.cs.findbugs.annotations.OverrideMustInvoke;
 import it.unibo.alienenterprises.controller.renderers.Renderer;
 import it.unibo.alienenterprises.view.api.Painter;
 import it.unibo.alienenterprises.view.sprites.Sprite;
-import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -16,8 +14,10 @@ import javafx.scene.transform.Rotate;
 
 /**
  * This class will draw each {@link Sprite} on the {@link Canvas} it contains.
+ * 
+ * @author Giulia Bonifazi
  */
-public final class CanvasPainter implements Painter {
+public final class JFXCanvasPainter implements Painter {
     private final double DEGREES_TURN = 90.0;
     private GraphicsContext gc;
     private Canvas canvas;
@@ -29,7 +29,7 @@ public final class CanvasPainter implements Painter {
      * 
      * @param canvas the {@link Canvas} on which this class draws.
      */
-    public CanvasPainter(Canvas canvas) {
+    public JFXCanvasPainter(Canvas canvas) {
         this.canvas = canvas;
         this.gc = canvas.getGraphicsContext2D();
         this.renderers = new HashSet<>();

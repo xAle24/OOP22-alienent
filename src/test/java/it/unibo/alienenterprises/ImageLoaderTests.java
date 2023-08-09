@@ -1,5 +1,6 @@
 package it.unibo.alienenterprises;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class ImageLoaderTests {
         for(final var id : list){
             final var sprite = this.imageLoader.getSpriteFilePathOf(id);
             assertTrue(sprite.isPresent(),"sprite relative to " + id + " is not preset");
+            assertEquals(id+".png",sprite.get(),"the relative sprite is incorrect");
         }
     }
 

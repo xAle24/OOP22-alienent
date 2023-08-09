@@ -7,6 +7,8 @@ import javafx.stage.Stage;
 
 /**
  * General {@link ViewState} implementation.
+ * 
+ * @author Giulia Bonifazi
  */
 public abstract class ViewStateAbs implements ViewState {
     private final String message;

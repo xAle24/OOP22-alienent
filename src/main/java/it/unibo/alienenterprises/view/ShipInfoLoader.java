@@ -4,9 +4,8 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * PlayerClassInfoLoader
- * The class that have the job to load the information needed fot the
- * PlayerClassMenu
+ * ShipInfoLoader
+ * The class that have the job to load the information needed to represent a ship
  */
 public interface ShipInfoLoader {
 

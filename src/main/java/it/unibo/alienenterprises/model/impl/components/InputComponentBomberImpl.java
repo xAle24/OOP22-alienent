@@ -14,11 +14,17 @@ import it.unibo.alienenterprises.model.geometry.Vector2D;
  */
 public class InputComponentBomberImpl extends ComponentAbs implements EnemyInputComponent {
     private GameObject target;
-
-    public InputComponentBomberImpl(final GameObject object,final boolean enabled) {
+    /**
+     * Constructor for input component of bomber.
+     * @param object referenced object.
+     * @param enabled if component is enabled.
+     */
+    public InputComponentBomberImpl(final GameObject object, final boolean enabled) {
         super(object, enabled);
     }
-
+    /**
+     * @inheritDoc
+     */
     @Override
     public void update(final double deltatime) {
         final Vector2D movement = calculateMovement(); 
@@ -30,11 +36,14 @@ public class InputComponentBomberImpl extends ComponentAbs implements EnemyInput
         return Vector2D.fromTwoPointsAndModule(this.getGameObject().getPosition(), this.target.getPosition(), 
             this.getGameObject().getStatValue(Statistic.SPEED));
     }
+    /**
+     * @inheritDoc
+     */
     public void setTarget(final GameObject target) {
         this.target = target;
     }
     @Override
-    public Optional<Component> duplicate(GameObject obj) {
+    public Optional<Component> duplicate(final GameObject obj) {
         return Optional.of(new InputComponentBomberImpl(obj, isEnabled()));
     }
 }

@@ -13,43 +13,39 @@ import it.unibo.alienenterprises.model.api.World;
 import it.unibo.alienenterprises.model.api.components.HitboxComponent;
 import it.unibo.alienenterprises.model.collisionhandler.CollisionHandler;
 import it.unibo.alienenterprises.model.collisionhandler.SimpleCollisionHandler;
+import it.unibo.alienenterprises.model.util.DoubleBuffer;
+import it.unibo.alienenterprises.model.util.SetDoubleBuffer;
 
 public final class GameWorld implements World {
     private final CollisionHandler collisionHandler;
-    private Set<GameObject> gameObjects;
-    private Set<GameObject> deadGameObjects;
-    private Set<GameObject> lastAdded;
+    private final DoubleBuffer<GameObject> doubleBuff;
+    private final Set<GameObject> lastAdded;
     private int score;
     private Dimensions worldDimensions;
 
     public GameWorld(Dimensions worldDimensions) {
         this.worldDimensions = worldDimensions;
+        this.doubleBuff = new SetDoubleBuffer<>();
         this.collisionHandler = new SimpleCollisionHandler();
-        this.gameObjects = new HashSet<>();
-        this.deadGameObjects = new HashSet<>();
         this.lastAdded = new HashSet<>();
     }
 
     @Override
     public void update(double deltaTime) {
-        this.gameObjects.stream().forEach(o -> {
+        this.doubleBuff.changeBuffer();
+        this.doubleBuff.getCurr().stream().forEach(o -> {
             if (!o.isAlive()) {
-                this.deadGameObjects.add(o);
+                this.removeGameObject(o);
             } else {
                 o.update(deltaTime);
             }
         });
-        this.deadGameObjects.forEach(o -> {
-            this.removeGameObject(o);
-            this.score += o.getStatValue(Statistic.DAMAGE) * 100;
-        });
-        this.deadGameObjects.clear();
         this.collisionHandler.checkCollisions();
     }
 
     @Override
     public void addGameObject(GameObject add) {
-        this.gameObjects.add(add);
+        this.doubleBuff.getBuff().add(add);
         this.collisionHandler.addHitbox(add.getComponent(HitboxComponent.class));
         this.lastAdded.add(add);
     }
@@ -82,7 +78,8 @@ public final class GameWorld implements World {
      * @param remove the GameObject that needs to be removed.
      */
     private void removeGameObject(GameObject remove) {
-        this.gameObjects.remove(remove);
+        this.score += remove.getStatValue(Statistic.DAMAGE) * 100;
+        this.doubleBuff.getBuff().remove(remove);
         this.collisionHandler.removeHitbox(remove.getComponent(HitboxComponent.class));
     }
 }

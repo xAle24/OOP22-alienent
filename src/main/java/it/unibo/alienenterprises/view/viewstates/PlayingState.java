@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 /**
  * This state will be active while a {@link GameSession} is initiated and the
  * {@link GameLoop} is running.
+ * 
+ * @author Giulia Bonifazi
  */
 public final class PlayingState extends ViewStateAbs {
 
@@ -24,12 +26,12 @@ public final class PlayingState extends ViewStateAbs {
     @Override
     public void init(Stage stage) {
         super.init(stage);
-        this.stage.centerOnScreen();
         this.stage.setResizable(false);
     }
 
     @Override
     protected void onCloseRequest() {
+        this.stage.setResizable(true);
         this.controller.getGameSession().gameOver();
         this.controller.changeScene(ViewType.GAMEOVER);
     }

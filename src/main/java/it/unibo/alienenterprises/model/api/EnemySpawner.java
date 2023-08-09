@@ -11,7 +11,7 @@ public interface EnemySpawner {
      * @param identifier of the enemy you want to get.
      * @return a new enemy
      */
-    GameObject getEnemy(String identifier);
+    GameObject getEnemy(String identifier, double deltaTime);
     /**
      * Create a map of percentage stats with which to update those of enemies.
      * @return a map with increase value to apply at enemy's map 

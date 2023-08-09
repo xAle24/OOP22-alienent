@@ -2,6 +2,8 @@ package it.unibo.alienenterprises;
 
 /**
  * Launcher class.
+ * 
+ * @author Giulia Bonifazi
  */
 public final class Alienenterprises {
     /*

@@ -2,6 +2,8 @@ package it.unibo.alienenterprises.view;
 
 /**
  * Different types of scene possible in the game.
+ * 
+ * @author Giulia Bonifazi
  */
 public enum ViewType {
     /**

@@ -1,11 +1,15 @@
 package it.unibo.alienenterprises.view.controllers;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import it.unibo.alienenterprises.controller.Controller;
 import it.unibo.alienenterprises.controller.InputQueue;
 import it.unibo.alienenterprises.controller.gamesession.GameSession;
 import it.unibo.alienenterprises.controller.renderers.RendererManager;
-import it.unibo.alienenterprises.view.javafx.CanvasPainter;
+import it.unibo.alienenterprises.view.javafx.JFXCanvasPainter;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
@@ -13,6 +17,8 @@ import javafx.scene.layout.StackPane;
 
 /**
  * Controller for the GameStage.
+ * 
+ * @author Giulia Bonifazi
  */
 public class GameStageController implements InitController {
     @FXML
@@ -31,6 +37,8 @@ public class GameStageController implements InitController {
     @Override
     public void init(Controller controller, Scene scene) {
         this.gameSession = controller.getGameSession();
+        this.canvas.setWidth(this.gameSession.getWorld().getWorldDimensions().getBounds().getX());
+        this.canvas.setHeight(this.gameSession.getWorld().getWorldDimensions().getBounds().getY());
         scene.setOnKeyPressed(e -> {
             try {
                 this.addKeyPressed(e.getText());
@@ -38,7 +46,7 @@ public class GameStageController implements InitController {
                 e1.printStackTrace();
             }
         });
-        this.keyPressQueue = this.gameSession.startSession(new RendererManager(new CanvasPainter(canvas)));
+        this.keyPressQueue = this.gameSession.startSession(new RendererManager(new JFXCanvasPainter(canvas)));
     }
 
     /**

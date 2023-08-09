@@ -15,11 +15,17 @@ import it.unibo.alienenterprises.model.geometry.Vector2D;
 public class InputComponentTankImpl extends ComponentAbs implements EnemyInputComponent {
     private static final int DISTANCE = 300;
     private GameObject target;
-
+    /**
+     * Constructor for input component of tank.
+     * @param object referenced object.
+     * @param enabled if component is enabled.
+     */
     public InputComponentTankImpl(final GameObject object, final boolean enabled) {
         super(object, enabled);
     }
-
+    /**
+     * @inheritDoc
+     */
     @Override
     public void update(final double deltatime) {
         final Vector2D movement = calculateMovement(); 
@@ -28,20 +34,27 @@ public class InputComponentTankImpl extends ComponentAbs implements EnemyInputCo
     }
 
     private Vector2D calculateMovement() {
-        double distanceTarget = Math.sqrt(Math.pow(this.target.getPosition().getX() - this.getGameObject().getPosition().getX(), 2) + 
-                            Math.pow(this.target.getPosition().getY() - this.getGameObject().getPosition().getY(), 2));
-        if (distanceTarget < DISTANCE){
+        double distanceTarget = Math.sqrt(Math.pow(this.target.getPosition().getX() 
+                - this.getGameObject().getPosition().getX(), 2) 
+                + Math.pow(this.target.getPosition().getY() - this.getGameObject().getPosition().getY(), 2));
+        if (distanceTarget < DISTANCE) {
             return Vector2D.fromTwoPointsAndModule(this.getGameObject().getPosition(), this.target.getPosition(), 0);
         } else {
             return Vector2D.fromTwoPointsAndModule(this.getGameObject().getPosition(), this.target.getPosition(), 
                 this.getGameObject().getStatValue(Statistic.SPEED));
         }
     }
+    /**
+     * @inheritDoc
+     */
     public void setTarget(final GameObject target) {
         this.target = target;
     }
+    /**
+     * @inheritDoc
+     */
     @Override
-    public Optional<Component> duplicate(GameObject obj) {
+    public Optional<Component> duplicate(final GameObject obj) {
         return Optional.of(new InputComponentTankImpl(obj, isEnabled()));
     }
 }

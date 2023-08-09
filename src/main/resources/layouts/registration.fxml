@@ -18,6 +18,6 @@
 
         <Button fx:id="RegisterBtn" text="Sign up now" onAction="#handleRegister"/>
     
-        <Label fx:id="Alert" visible="false"/>
+        <Label fx:id="alert" visible="false"/>
     </VBox>
 </VBox>
