@@ -65,7 +65,7 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
      */
     @Override
     public Optional<UserAccount> registration(final String nickname, final String password) {
-        if (!existingAccount(nickname) && !correctPassword(nickname, password)) {
+        if (!existingAccount(nickname)) {
             final File accountFile = new File(GAME_PATH + SEPARATOR + nickname + YML);
             try (FileWriter writer = new FileWriter(GAME_PATH + SEPARATOR + "passwords.yml",
                     StandardCharsets.UTF_8,

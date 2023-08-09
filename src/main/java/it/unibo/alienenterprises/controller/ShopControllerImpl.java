@@ -16,6 +16,7 @@ import org.yaml.snakeyaml.constructor.Constructor;
 import it.unibo.alienenterprises.controller.api.ShopController;
 import it.unibo.alienenterprises.model.PowerUpImpl;
 import it.unibo.alienenterprises.model.PowerUpRendererImpl;
+import it.unibo.alienenterprises.model.ShopModelImpl;
 import it.unibo.alienenterprises.model.api.PowerUp;
 import it.unibo.alienenterprises.model.api.PowerUpRenderer;
 import it.unibo.alienenterprises.model.api.ShopModel;
@@ -23,6 +24,7 @@ import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.model.api.UserAccount;
 import it.unibo.alienenterprises.view.ViewType;
 import it.unibo.alienenterprises.view.controllers.InitController;
+import javafx.scene.Scene;
 
 /**
  * Shop Controller implementation.
@@ -40,9 +42,11 @@ public class ShopControllerImpl implements ShopController, InitController {
     private List<PowerUpRenderer> pwuInfo = new LinkedList<>();
 
     @Override
-    public void init(Controller controller) {
+    public void init(Controller controller, Scene scene) {
         this.controller = controller;
         this.account = controller.getUserAccount();
+        this.model = new ShopModelImpl(this.controller);
+        this.model.loadPwu(powerUps);
     }
 
     /**
