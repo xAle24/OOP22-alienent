@@ -8,7 +8,7 @@ import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.GameObjectAbs;
 import it.unibo.alienenterprises.model.api.ProjectileSupplierFactory;
 import it.unibo.alienenterprises.model.api.Statistic;
-import it.unibo.alienenterprises.model.api.World;
+import it.unibo.alienenterprises.model.world.World;
 import it.unibo.alienenterprises.model.api.components.HitboxComponent;
 import it.unibo.alienenterprises.model.api.components.InputComponent;
 import it.unibo.alienenterprises.model.geometry.Point2D;

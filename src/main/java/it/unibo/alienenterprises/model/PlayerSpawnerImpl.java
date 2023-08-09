@@ -7,7 +7,7 @@ import it.unibo.alienenterprises.controller.ShipLoaderImpl;
 import it.unibo.alienenterprises.controller.api.ShipLoader;
 import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.PlayerSpawner;
-import it.unibo.alienenterprises.model.api.World;
+import it.unibo.alienenterprises.model.world.World;
 import it.unibo.alienenterprises.model.geometry.Point2D;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
 import it.unibo.alienenterprises.model.impl.ProjectileSupplierFactoryImpl;
@@ -38,7 +38,7 @@ public class PlayerSpawnerImpl implements PlayerSpawner {
             final var opPlayer = this.shipLoader.loadShip(PLAYER_FOLDER, id);
             if(opPlayer.isPresent()){
                 final var player = opPlayer.get();
-                player.setPosition(new Point2D(this.world.getWorldDimensions().getBounds().getX()/2, this.world.getWorldDimensions().getBounds().getY()/2));
+                player.setPosition(new Point2D(this.world.getWorldDimensions().getWidth()/2, this.world.getWorldDimensions().getHeight()/2));
                 player.setVelocity(Vector2D.fromAngleAndModule(RIGHT_ANGLE, 0));
             }
             return opPlayer;
