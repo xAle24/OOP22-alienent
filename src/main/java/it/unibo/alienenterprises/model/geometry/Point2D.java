@@ -41,11 +41,17 @@ public class Point2D {
         return Math.sqrt(Math.pow(this.getX() - p.getX(), 2) + Math.pow(this.getY() - p.getY(), 2));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "Point2D [x=" + getX() + ", y=" + getY() + "]";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -58,6 +64,9 @@ public class Point2D {
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj) {

@@ -6,12 +6,12 @@ package it.unibo.alienenterprises.controller;
 public interface PlayerClassInfo {
 
     /**
-     * @return
+     * @return the player Class name
      */
     String getName();
 
     /**
-     * @return
+     * @return the player Class description
      */
     String getDescription();
 

@@ -11,6 +11,10 @@ import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
+/**
+ * ImageLoader
+ * Has the job to link an identifier whit his sprite file
+ */
 public class ImageLoaderImpl implements ImageLoader {
 
     private static final String SEPARATOR = File.separator;
@@ -20,6 +24,11 @@ public class ImageLoaderImpl implements ImageLoader {
 
     private Set<ImageProp> spriteList = new HashSet<>();
 
+    /**
+     * Creates an instance of ImageLoadeImpl.
+     * It reads a file to create the images so is shold be created only one instance
+     * for class or object.
+     */
     public ImageLoaderImpl() {
         try (final InputStream inputStream = new FileInputStream(SPRITE_LIST_PATH)) {
             final Constructor constructor = new Constructor(ImageProp.class, new LoaderOptions());
@@ -34,6 +43,9 @@ public class ImageLoaderImpl implements ImageLoader {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<String> getSpriteFilePathOf(final String id) {
         final var s = getImageProp(id);
@@ -43,6 +55,9 @@ public class ImageLoaderImpl implements ImageLoader {
         return Optional.empty();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<Double> getSpriteScaleOf(final String id) {
         final var s = getImageProp(id);
@@ -52,6 +67,9 @@ public class ImageLoaderImpl implements ImageLoader {
         return Optional.empty();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<Double> getSpriteHeight(final String id) {
         final var s = getImageProp(id);
@@ -61,6 +79,9 @@ public class ImageLoaderImpl implements ImageLoader {
         return Optional.empty();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<Double> getSpritewidth(final String id) {
         final var s = getImageProp(id);
