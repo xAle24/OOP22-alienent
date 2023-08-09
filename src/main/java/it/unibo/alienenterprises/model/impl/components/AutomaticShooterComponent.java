@@ -50,6 +50,7 @@ public class AutomaticShooterComponent extends ComponentAbs implements ShooterCo
     public void update(final double deltatime) {
         this.count = this.count + deltatime;
         if (this.count >= this.delay) {
+            System.out.println(count);
             var p = this.shot.get();
             p.setStatValue(Statistic.SPEED, projectileSpeed);
             var hb = p.getComponent(ProjectileHitboxComponent.class);
