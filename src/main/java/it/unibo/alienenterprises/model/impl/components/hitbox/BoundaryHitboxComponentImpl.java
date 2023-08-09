@@ -40,10 +40,22 @@ public class BoundaryHitboxComponentImpl extends ComponentAbs implements Boundar
     public void isColliding(final HitboxComponent hitbox) {
         if (hitbox.getType() == Type.PROJECTILE) {
             hitbox.getGameObject().hit(DESTROY);
-        } else if ((this.location == Locations.UP) || (this.location == Locations.DOWN)) {
-            hitbox.getGameObject().setVelocity(Vector2D.fromComponents(hitbox.getGameObject().getVelocity().getxComp(), 0));
-        } else {
-            hitbox.getGameObject().setVelocity(Vector2D.fromComponents(0, hitbox.getGameObject().getVelocity().getyComp()));
+        } else if (this.location == Locations.UP) {
+            hitbox.getGameObject().setPosition(Vector2D.fromComponents(0, 
+            (((CircleHitboxComponentAbs) hitbox).getHitbox().getRay() - line.distancePoint(hitbox.getGameObject().getPosition())))
+            .translate(hitbox.getGameObject().getPosition()));
+        } else if (this.location == Locations.DOWN) {
+            hitbox.getGameObject().setPosition(Vector2D.fromComponents(0, 
+            - (((CircleHitboxComponentAbs) hitbox).getHitbox().getRay() - line.distancePoint(hitbox.getGameObject().getPosition())))
+            .translate(hitbox.getGameObject().getPosition()));
+        } else if (this.location == Locations.RIGHT) {
+            hitbox.getGameObject().setPosition(Vector2D.fromComponents( 
+            - (((CircleHitboxComponentAbs) hitbox).getHitbox().getRay() - line.distancePoint(hitbox.getGameObject().getPosition())), 0)
+            .translate(hitbox.getGameObject().getPosition()));
+        } else if (this.location == Locations.LEFT) {
+            hitbox.getGameObject().setPosition(Vector2D.fromComponents( 
+            (((CircleHitboxComponentAbs) hitbox).getHitbox().getRay() - line.distancePoint(hitbox.getGameObject().getPosition())), 0)
+            .translate(hitbox.getGameObject().getPosition()));
         }
     }
     /**

@@ -48,6 +48,10 @@ public abstract class CircleHitboxComponentAbs extends ComponentAbs implements H
     public void update(final double deltatime) {
         setPosition();
     }
+    @Override
+    public void start(){
+        setPosition();
+    }
     /**
      * @inheritDoc
      */
