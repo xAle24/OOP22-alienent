@@ -51,8 +51,9 @@ public class PlayerInputComponentImpl extends ComponentAbs implements PlayerInpu
                         final double accTime = acc * deltatime;
                         if (module + accTime > maxSpeed) {
                             vel = Vector2D.fromAngleAndModule(vel.getAngle(), maxSpeed);
+                        } else {
+                            vel = Vector2D.fromAngleAndModule(vel.getAngle(), module + accTime);
                         }
-                        vel = Vector2D.fromAngleAndModule(vel.getAngle(), module + accTime);
                     }
                     break;
                 case STOP_ACCELERATE:
@@ -60,8 +61,9 @@ public class PlayerInputComponentImpl extends ComponentAbs implements PlayerInpu
                         final double accTime = acc * deltatime;
                         if (module - accTime < 0) {
                             vel = Vector2D.fromAngleAndModule(vel.getAngle(), 0);
+                        } else {
+                            vel = Vector2D.fromAngleAndModule(vel.getAngle(), module - accTime);
                         }
-                        vel = Vector2D.fromAngleAndModule(vel.getAngle(), module - accTime);
                     }
                     break;
                 case TURN_LEFT:
