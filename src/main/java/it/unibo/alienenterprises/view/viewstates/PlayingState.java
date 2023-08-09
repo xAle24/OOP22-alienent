@@ -26,7 +26,6 @@ public final class PlayingState extends ViewStateAbs {
     @Override
     public void init(Stage stage) {
         super.init(stage);
-        this.stage.centerOnScreen();
         this.stage.setResizable(false);
     }
 

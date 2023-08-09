@@ -29,6 +29,8 @@ public final class ViewImpl implements View {
      */
     public ViewImpl(final Stage stage) {
         this.primaryStage = stage;
+        this.primaryStage.setMinHeight(MIN_HEIGHT);
+        this.primaryStage.setMinWidth(MIN_WIDTH);
     }
 
     @Override
@@ -42,10 +44,11 @@ public final class ViewImpl implements View {
     @Override
     public void setScene(ViewType type) {
         this.sceneController.setCurrentScene(type);
-        this.sceneController.getViewState().init(this.primaryStage);
         this.primaryStage.setScene(this.sceneController.getCurrentScene());
+        this.sceneController.getViewState().init(this.primaryStage);
         this.primaryStage.show();
         this.primaryStage.centerOnScreen();
+        this.primaryStage.sizeToScene();
     }
 
     @Override
