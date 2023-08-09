@@ -21,7 +21,7 @@ components:
       callingClass: it.unibo.alienenterprises.model.impl.ProjectileSupplierFactoryImpl
       value: getBasicProjectileSupplier
   PlayerPowerUpComponent:
-  hitbox.BomberHitboxComponentImpl:
+  hitbox.SimpleShipHitboxComponentImpl:
     -
       type: BOOLEAN
       value: "TRUE"

@@ -57,7 +57,8 @@ public class EnemySpawnerImpl implements EnemySpawner {
         enemySpawn.getAllComponent().stream().forEach(e -> newEnemy.addComponent(e.duplicate(newEnemy).get()));
         newEnemy.getComponent(EnemyInputComponent.class).get().setTarget(player);
         this.getStats().entrySet().stream().forEach(e -> newEnemy.setStatValue(e.getKey(), 
-            newEnemy.getStatValue(e.getKey()) * e.getValue()));
+            newEnemy.getStatValue(e.getKey()) + newEnemy.getStatValue(e.getKey()) * e.getValue()));
+        System.out.println(newEnemy.getStatValue(Statistic.DAMAGE)+ ""+ enemySpawn.getStatValue(Statistic.DAMAGE));
         var pointX = new Random().nextDouble(topRight.getX() + 1);
         var pointY = new Random().nextDouble(bottomLeft.getY() + 1);
         newEnemy.setPosition(new Point2D(pointX, pointY));
@@ -89,6 +90,8 @@ public class EnemySpawnerImpl implements EnemySpawner {
             var id = getIdentifier();
             this.world.addGameObject(getEnemy(id, deltaTime));
             spawnTime = 0;
+            System.out.println(id);
+
         } else {
             spawnTime = spawnTime + deltaTime;
         }
