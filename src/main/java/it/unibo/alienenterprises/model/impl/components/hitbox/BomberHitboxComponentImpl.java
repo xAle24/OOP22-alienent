@@ -32,7 +32,7 @@ public class BomberHitboxComponentImpl extends CircleHitboxComponentAbs {
             hitbox.getGameObject().hit(this.getGameObject().getStatValue(Statistic.DAMAGE));
             this.getGameObject().hit(AUTOKILLDAMAGE);
         }
-        if (hitbox instanceof ProjectileHitboxComponent && ((ProjectileHitboxComponent)hitbox).getShooter() == Type.PLAYER) {
+        if (hitbox instanceof ProjectileHitboxComponent && ((ProjectileHitboxComponent) hitbox).getShooter() == Type.PLAYER) {
             hitbox.getGameObject().hit(1);
         }
     }

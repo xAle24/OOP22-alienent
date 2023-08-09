@@ -60,13 +60,13 @@ public abstract class CircleHitboxComponentAbs extends ComponentAbs implements H
      */
     @Override
     public void canCollide(final HitboxComponent hitbox) {
-        if(this.objectType != hitbox.getType()) {
-            if (hitbox instanceof CircleHitboxComponentAbs && 
-                    this.hitbox.intersectWhith(((CircleHitboxComponentAbs) hitbox).getHitbox())) {
+        if (this.objectType != hitbox.getType()) {
+            if (hitbox instanceof CircleHitboxComponentAbs 
+                    && this.hitbox.intersectWhith(((CircleHitboxComponentAbs) hitbox).getHitbox())) {
                 this.isColliding(hitbox);
                 hitbox.isColliding(this);
-            } else if (hitbox instanceof BoundaryHitboxComponentImpl && 
-                    this.hitbox.intersectWhith(((BoundaryHitboxComponentImpl) hitbox).getLine())) {
+            } else if (hitbox instanceof BoundaryHitboxComponentImpl 
+                    && this.hitbox.intersectWhith(((BoundaryHitboxComponentImpl) hitbox).getLine())) {
                 hitbox.isColliding(this);
             }
         }

@@ -14,22 +14,29 @@ import javafx.util.Duration;
 /**
  * Controls the login view.
  */
-public class LoginControllerImpl implements LoginController,InitController {
+public class LoginControllerImpl implements LoginController, InitController {
+    private static final int ALERTDURATION = 6; 
     private Controller controller; 
     @FXML
     private TextField usernameField;
     @FXML
     private TextField passwordField;
     @FXML
-    private Label Alert;
+    private Label alert;
+    /**
+     * @inheritDoc
+     */
     @Override
-    public void init(Controller controller, Scene scene) {
+    public void init(final Controller controller, final Scene scene) {
         this.controller = controller;
     }
+    /**
+     * @inheritDoc
+     */
     @FXML
     @Override
     public void handleLogin() {
-        if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty()){
+        if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty()) {
             popUp("field");
         } else {
             Optional<UserAccount> account = controller.getUserAccountHandler().login(usernameField.getText(), 
@@ -43,17 +50,20 @@ public class LoginControllerImpl implements LoginController,InitController {
             }
         }
     }
-    private void popUp(String cod){
+    private void popUp(final String cod) {
         if (cod.equals("field")) {
-            Alert.setText("Missing credentials");
+            alert.setText("Missing credentials");
         } else if (cod.equals("incorrect")) {
-            Alert.setText("Incorrect credentials");
+            alert.setText("Incorrect credentials");
         }
-        Alert.setVisible(true);
-        PauseTransition delay = new PauseTransition(Duration.seconds(6));
-        delay.setOnFinished(e -> Alert.setVisible(false));
+        alert.setVisible(true);
+        PauseTransition delay = new PauseTransition(Duration.seconds(ALERTDURATION));
+        delay.setOnFinished(e -> alert.setVisible(false));
         delay.play();
     }
+    /**
+     * @inheritDoc
+     */
     @FXML
     @Override
     public void handleRegister() {

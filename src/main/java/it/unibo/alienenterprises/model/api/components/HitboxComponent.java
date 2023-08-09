@@ -1,9 +1,5 @@
 package it.unibo.alienenterprises.model.api.components;
 
-import java.util.Optional;
-
-import it.unibo.alienenterprises.model.api.GameObject;
-
 /**
  * Hitbox component interface.
  */
@@ -49,11 +45,4 @@ public interface HitboxComponent extends Component {
      * Check what happens once the two objects have collided.
      */
     void isColliding(HitboxComponent hitbox);
-
-    /**
-     * Create a new component equals to him, but that is referring to new object.
-     * @param New object to refer to.
-     * @return Optional with the new component, empty if fails.
-     */
-    Optional<Component> duplicate(final GameObject obj);
 }

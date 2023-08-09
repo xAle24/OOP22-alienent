@@ -37,7 +37,7 @@ public class BoundaryHitboxComponentImpl extends ComponentAbs implements Boundar
      * @inheritDoc
      */
     @Override
-    public void isColliding (final HitboxComponent hitbox) {
+    public void isColliding(final HitboxComponent hitbox) {
         if (hitbox.getType() == Type.PROJECTILE) {
             hitbox.getGameObject().hit(DESTROY);
         } else if ((this.location == Locations.UP) || (this.location == Locations.DOWN)) {
@@ -66,8 +66,8 @@ public class BoundaryHitboxComponentImpl extends ComponentAbs implements Boundar
     @Override
     public void canCollide(final HitboxComponent hitbox) {
         if (this.objectType != hitbox.getType()) {
-            if (hitbox instanceof CircleHitboxComponentAbs && 
-                    ((CircleHitboxComponentAbs) hitbox).getHitbox().intersectWhith(this.line)) {
+            if (hitbox instanceof CircleHitboxComponentAbs 
+                    && ((CircleHitboxComponentAbs) hitbox).getHitbox().intersectWhith(this.line)) {
                 this.isColliding(hitbox);
             }
         }
