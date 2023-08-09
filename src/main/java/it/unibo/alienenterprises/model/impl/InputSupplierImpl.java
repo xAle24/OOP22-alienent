@@ -5,7 +5,7 @@ import java.util.List;
 import it.unibo.alienenterprises.model.api.InputSupplier;
 
 /**
- * InputSupplier standard
+ * InputSupplier standard.
  */
 public class InputSupplierImpl implements InputSupplier {
 

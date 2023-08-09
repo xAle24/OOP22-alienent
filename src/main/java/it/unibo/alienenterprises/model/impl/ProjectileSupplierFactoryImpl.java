@@ -16,13 +16,17 @@ import it.unibo.alienenterprises.model.geometry.Vector2D;
 import it.unibo.alienenterprises.model.impl.components.StraightInputComponent;
 import it.unibo.alienenterprises.model.impl.components.hitbox.SimpleProjectileHitboxComponentImpl;
 
+/**
+ * ProjectileSupplierFactoryImpl.
+ * Implementation of ProjectileSupplierFactory.
+ */
 public class ProjectileSupplierFactoryImpl implements ProjectileSupplierFactory {
 
-    protected static final String SIMPLE_PROJECTILE = "simpleProjectile";
+    private static final String SIMPLE_PROJECTILE = "simpleProjectile";
     private final World world;
 
     /**
-     * Set up a ProjectileSupplierFactory
+     * Set up a ProjectileSupplierFactory.
      * 
      * @param world the world in which the projectile must be spawn
      */

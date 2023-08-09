@@ -9,12 +9,13 @@ import it.unibo.alienenterprises.model.api.components.InputComponent;
 
 /**
  * StraightInputComponent.
- * An InputComponent that goes in a straight line
+ * An InputComponent that goes in a straight line.
  */
 public class StraightInputComponent extends ComponentAbs implements InputComponent {
 
     /**
-     * set Up a StraightInputComponent
+     * set Up a StraightInputComponent.
+     * 
      * @param object
      * @param enabled
      */

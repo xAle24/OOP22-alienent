@@ -33,7 +33,7 @@ public final class Vector2D {
     }
 
     /**
-     * Construct a Vector2D from the x and y components
+     * Construct a Vector2D from the x and y components.
      * 
      * @param xComp
      * @param yComp
@@ -120,7 +120,7 @@ public final class Vector2D {
     }
 
     /**
-     * Multipy the vector for the given number
+     * Multipy the vector for the given number.
      * 
      * @param a
      * @return A new vector equal to the multiplication

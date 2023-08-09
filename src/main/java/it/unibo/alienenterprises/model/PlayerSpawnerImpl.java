@@ -13,7 +13,7 @@ import it.unibo.alienenterprises.model.geometry.Vector2D;
 import it.unibo.alienenterprises.model.impl.ProjectileSupplierFactoryImpl;
 
 /**
- * PlayerSpawnerImpl
+ * PlayerSpawnerImpl.
  */
 public class PlayerSpawnerImpl implements PlayerSpawner {
 

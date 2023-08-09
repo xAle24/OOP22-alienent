@@ -14,8 +14,8 @@ import it.unibo.alienenterprises.model.api.components.HitboxComponent.Type;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
 
 /**
- * AutomaticShooterComponent
- * A shooter component that shoot automatically
+ * AutomaticShooterComponent.
+ * A shooter component that shoot automatically.
  */
 public class AutomaticShooterComponent extends ComponentAbs implements ShooterComponent {
 
@@ -45,7 +45,8 @@ public class AutomaticShooterComponent extends ComponentAbs implements ShooterCo
     public void start() {
         this.delay = getGameObject().getStatValue(Statistic.COOLDOWN);
         this.projectileSpeed = getGameObject().getStatValue(Statistic.PROJECTILESPEED);
-        this.shooterType = getGameObject().getComponent(HitboxComponent.class).get().getType();// TODO
+        this.shooterType = getGameObject().getComponent(HitboxComponent.class).get().getType();
+        // TODO
         this.damage = getGameObject().getStatValue(Statistic.DAMAGE);
     }
 
@@ -90,7 +91,7 @@ public class AutomaticShooterComponent extends ComponentAbs implements ShooterCo
      * {@inheritDoc}
      */
     @Override
-    public void setProjectileSupplier(Supplier<GameObject> pSupplier) {
+    public void setProjectileSupplier(final Supplier<GameObject> pSupplier) {
         this.shot = pSupplier;
     }
 

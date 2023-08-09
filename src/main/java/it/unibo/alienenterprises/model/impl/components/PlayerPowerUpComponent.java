@@ -27,7 +27,7 @@ public class PlayerPowerUpComponent extends ComponentAbs implements PowerUpCompo
      * {@inheritDoc}
      */
     @Override
-    public void setPoweUps(Map<Statistic, Integer> powerUps) {
+    public void setPoweUps(final Map<Statistic, Integer> powerUps) {
         for (var s : powerUps.keySet()) {
             getGameObject().setStatValue(s, (getGameObject().getStatValue(s) * powerUps.get(s)) / 100);
         }

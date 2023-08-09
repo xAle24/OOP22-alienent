@@ -4,13 +4,13 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * ShipInfoLoader
- * The class that have the job to load the information needed to represent a ship
+ * ShipInfoLoader.
+ * The class that have the job to load the information needed to represent a ship.
  */
 public interface ShipInfoLoader {
 
     /**
-     * Load in memory the Informations
+     * Load in memory the Informations.
      */
     void load();
 

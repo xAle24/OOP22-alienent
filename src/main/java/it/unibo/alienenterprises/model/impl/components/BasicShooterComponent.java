@@ -14,8 +14,8 @@ import it.unibo.alienenterprises.model.api.components.HitboxComponent.Type;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
 
 /**
- * BasicShooterComponent
- * A simple implementation of ShooterComponent
+ * BasicShooterComponent.
+ * A simple implementation of ShooterComponent.
  */
 public class BasicShooterComponent extends ComponentAbs implements ShooterComponent {
 
@@ -74,7 +74,8 @@ public class BasicShooterComponent extends ComponentAbs implements ShooterCompon
         this.damage = getGameObject().getStatValue(Statistic.DAMAGE);
         this.speed = getGameObject().getStatValue(Statistic.PROJECTILESPEED);
         this.delay = getGameObject().getStatValue(Statistic.COOLDOWN);
-        this.shooterType = getGameObject().getComponent(HitboxComponent.class).get().getType();// TODO
+        this.shooterType = getGameObject().getComponent(HitboxComponent.class).get().getType();
+        // TODO
     }
 
     /**
