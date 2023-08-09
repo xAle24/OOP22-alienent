@@ -3,10 +3,15 @@ package it.unibo.alienenterprises.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
+import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.constructor.Constructor;
 
 public class ImageLoaderImpl implements ImageLoader {
 
@@ -15,24 +20,42 @@ public class ImageLoaderImpl implements ImageLoader {
             + "sprites" + SEPARATOR;
     private static final String SPRITE_LIST_PATH = SPRITE_PATH + "spriteList.yml";
 
-    private Map<String, String> spriteMap;
+    private Set<ImageProp> spriteList = new HashSet<>();
 
     public ImageLoaderImpl() {
         try (final InputStream inputStream = new FileInputStream(SPRITE_LIST_PATH)) {
-            final Yaml yaml = new Yaml();
-            this.spriteMap = yaml.load(inputStream);
+            final Constructor constructor = new Constructor(ImageProp.class, new LoaderOptions());
+            final Yaml yaml = new Yaml(constructor);
+            final var it = yaml.loadAll(inputStream).iterator();
+            while(it.hasNext()){
+                this.spriteList.add((ImageProp) it.next());
+            }
         } catch (Exception e) {
             // TODO: handle exception
+            e.printStackTrace();
         }
     }
 
     @Override
     public Optional<String> getSpriteFilePathOf(final String id) {
-        final var s = Optional.ofNullable(spriteMap.get(id));
-        if (s.isPresent()) {
-            return Optional.of(new File(SPRITE_PATH + s.get()).getAbsolutePath());
+        final var s = getImageProp(id);
+        if(s.isPresent()){
+            return Optional.of(s.get().getFile());
         }
         return Optional.empty();
+    }
+
+    @Override
+    public Optional<Double> getSpriteScaleOf(final String id){
+        final var s = getImageProp(id);
+        if(s.isPresent()){
+            return Optional.of(s.get().getScale());
+        }
+        return Optional.empty();
+    }
+
+    private Optional<ImageProp> getImageProp(final String id){
+        return this.spriteList.stream().filter((i)->i.getId().equals(id)).findFirst();
     }
 
 }
