@@ -15,9 +15,4 @@ public interface PlayerClassInfo {
      */
     String getDescription();
 
-    /**
-     * @return
-     */
-    String getSpriteFilePath();
-
 }
