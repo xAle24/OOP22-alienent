@@ -27,8 +27,8 @@ public final class Sprite {
     }
 
     public void render(Point2D pos, Vector2D angle) {
-        this.image.setX(pos.getX());
-        this.image.setY(pos.getY());
+        this.image.setX(pos.getX() - this.image.getImage().getRequestedWidth() / 2);
+        this.image.setY(pos.getY() - this.image.getImage().getRequestedHeight() / 2);
         this.image.setRotate(angle.getAngle());
     }
 
