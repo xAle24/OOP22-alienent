@@ -7,14 +7,7 @@ import it.unibo.alienenterprises.view.sprites.Sprite;
  * appropriate informations to the View, so it can render every
  * {@link GameObject} properly.
  */
-public interface Renderer {
-
-    /**
-     * This method will be called every frame and will update the image on screen.
-     * Iit pulls information from the {@link Gameobject} and transfers it to
-     * the View.
-     */
-    void render();
+public interface Renderer extends Renderable {
 
     /**
      * Returns the isAlive value from the {@link GameObject} contained in the

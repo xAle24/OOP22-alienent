@@ -3,6 +3,8 @@ package it.unibo.alienenterprises.controller.api;
 /**
  * Starts when a new {@link GameSession} is started, updates the game
  * periodically.
+ * 
+ * @author Giulia Bonifazi
  */
 public interface GameLoop {
 

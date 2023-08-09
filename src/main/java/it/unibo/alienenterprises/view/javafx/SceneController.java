@@ -1,4 +1,4 @@
-package it.unibo.alienenterprises.view.api;
+package it.unibo.alienenterprises.view.javafx;
 
 import it.unibo.alienenterprises.view.ViewType;
 import it.unibo.alienenterprises.view.controllers.InitController;

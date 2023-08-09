@@ -2,8 +2,8 @@ package it.unibo.alienenterprises.view;
 
 import it.unibo.alienenterprises.controller.Controller;
 import it.unibo.alienenterprises.model.geometry.Point2D;
-import it.unibo.alienenterprises.view.api.SceneController;
 import it.unibo.alienenterprises.view.javafx.JFXSceneController;
+import it.unibo.alienenterprises.view.javafx.SceneController;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 

@@ -14,6 +14,8 @@ import it.unibo.alienenterprises.model.geometry.Point2D;
 
 /**
  * Implementation of the {@link GameLoop} interface.
+ * 
+ * @author Giulia Bonifazi
  */
 public final class GameLoopThread extends Thread implements GameLoop {
     private static final long MS_PER_FRAME = 20;
@@ -47,7 +49,7 @@ public final class GameLoopThread extends Thread implements GameLoop {
         var topRight = new Point2D(this.world.getWorldDimensions().getBounds().getX(), 0);
         var bottomLeft = new Point2D(0, this.world.getWorldDimensions().getBounds().getY());
         this.enemySpawner = new EnemySpawnerImpl(world, bottomLeft, topRight, player);
-        this.world.addAllGameObjects(player);
+        this.world.addPlayer(player);
         this.stopped = false;
         this.paused = false;
     }

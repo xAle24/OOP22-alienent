@@ -8,7 +8,6 @@ import it.unibo.alienenterprises.controller.api.ShopController;
 import it.unibo.alienenterprises.view.PlayerClassMenuImpl;
 import it.unibo.alienenterprises.view.ShopViewImpl;
 import it.unibo.alienenterprises.view.ViewType;
-import it.unibo.alienenterprises.view.api.SceneController;
 import it.unibo.alienenterprises.view.controllers.InitController;
 import it.unibo.alienenterprises.view.viewstates.BaseState;
 import it.unibo.alienenterprises.view.viewstates.IdleState;
