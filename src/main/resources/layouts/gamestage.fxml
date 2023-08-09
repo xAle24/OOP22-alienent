@@ -11,29 +11,23 @@
     fx:id="root"
     xmlns="http://javafx.com/javafx/11.0.1" 
     xmlns:fx="http://javafx.com/fxml/1"
-    minHeight="500" minWidth="500"
-    prefHeight="500" prefWidth="500"
     StackPane.alignment="CENTER"
-    fx:controller="it.unibo.alienenterprises.view.controllers.GameStageController">
+    fx:controller="it.unibo.alienenterprises.view.controllers.GameStageController"
+    stylesheets="@/css/gameStageStyle.css">
 
-    <BorderPane prefHeight="500" prefWidth="500">
-        <top>
-            <VBox alignment="TOP_RIGHT">
-                <Label text="SCORE:" textAlignment="RIGHT" alignment="TOP_RIGHT"/>
-                <Label fx:id="currScore" text="0" alignment="TOP_RIGHT"/>
-            </VBox>
-        </top>
-        <center>
-            <BorderPane id="canvasContainer">
-                <Canvas width="1920" height="1080" fx:id="canvas" id="canvas"/>
-            </BorderPane>
-        </center>
-        <bottom>
-            <VBox alignment="BOTTOM_LEFT" maxHeight="200" minWidth="200">
-                <Label text="HEALTH:" textAlignment="LEFT"/>
-                <Label fx:id="healthDisplay"/>
-            </VBox>
-        </bottom>
-    </BorderPane>
+    <VBox>
+        <VBox styleClass="statLabelContainer"  prefWidth="-Infinity">
+            <Label text="SCORE:" textAlignment="RIGHT" alignment="TOP_RIGHT" styleClass="statLabel"/>
+            <Label fx:id="currScore" text="0" alignment="TOP_RIGHT" styleClass="statLabel"/>
+        </VBox>
+        <StackPane id="canvasContainer" alignment="CENTER">
+            <Canvas fx:id="canvas" id="canvas"/>
+        </StackPane>
+        <VBox maxHeight="200" prefHeight="200" minHeight="200" styleClass="statLabelContainer"
+            prefWidth="-Infinity">
+            <Label text="HEALTH:" textAlignment="LEFT" styleClass="statLabel"/>
+           <Label fx:id="healthDisplay" styleClass="statLabel"/>
+        </VBox>
+    </VBox>
     
 </StackPane>  
