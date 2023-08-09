@@ -41,8 +41,11 @@ public class ShopControllerImpl implements ShopController, InitController {
     private List<PowerUp> powerUps = new LinkedList<>();
     private List<PowerUpRenderer> pwuInfo = new LinkedList<>();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void init(Controller controller, Scene scene) {
+    public void init(final Controller controller, final Scene scene) {
         this.controller = controller;
         this.account = controller.getUserAccount();
         this.model = new ShopModelImpl(this.controller);
