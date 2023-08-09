@@ -72,7 +72,7 @@ public class UserAccountImpl implements UserAccount {
      * {@inheritDoc}
      */
     @Override
-    public void setToAddPwu(Map<Statistic, Integer> toAddPwu) {
+    public void setToAddPwu(final Map<Statistic, Integer> toAddPwu) {
         this.toAddPwu.putAll(toAddPwu);
     }
 
