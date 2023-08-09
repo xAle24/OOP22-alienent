@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-import it.unibo.alienenterprises.controller.api.ShopController;
+import it.unibo.alienenterprises.controller.Controller;
 import it.unibo.alienenterprises.model.api.PowerUp;
 import it.unibo.alienenterprises.model.api.ShopModel;
 import it.unibo.alienenterprises.model.api.UserAccount;
@@ -14,7 +14,7 @@ import it.unibo.alienenterprises.model.api.UserAccount;
  */
 public class ShopModelImpl implements ShopModel {
 
-    private ShopController controller;
+    private Controller controller;
     private final List<PowerUp> powerUps = new LinkedList<>();
 
     /**
@@ -23,7 +23,7 @@ public class ShopModelImpl implements ShopModel {
      * 
      * @param controller
      */
-    public ShopModelImpl(final ShopController controller) {
+    public ShopModelImpl(final Controller controller) {
         this.controller = controller;
     }
 

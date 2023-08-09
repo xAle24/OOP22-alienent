@@ -16,6 +16,7 @@ import org.yaml.snakeyaml.constructor.Constructor;
 import it.unibo.alienenterprises.controller.api.ShopController;
 import it.unibo.alienenterprises.model.PowerUpImpl;
 import it.unibo.alienenterprises.model.PowerUpRendererImpl;
+import it.unibo.alienenterprises.model.ShopModelImpl;
 import it.unibo.alienenterprises.model.api.PowerUp;
 import it.unibo.alienenterprises.model.api.PowerUpRenderer;
 import it.unibo.alienenterprises.model.api.ShopModel;
@@ -43,6 +44,8 @@ public class ShopControllerImpl implements ShopController, InitController {
     public void init(Controller controller) {
         this.controller = controller;
         this.account = controller.getUserAccount();
+        this.model = new ShopModelImpl(this.controller);
+        this.model.loadPwu(powerUps);
     }
 
     /**
