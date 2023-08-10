@@ -35,7 +35,7 @@ public class Circle2D {
      * @param c
      * @return true if the two cicle intersect with eachother, false otherwise
      */
-    public boolean intersectWhith(final Circle2D c) {
+    public boolean intersectWith(final Circle2D c) {
         return (this.getRay() + c.getRay()) > this.getCenter().distanceFrom(c.getCenter());
     }
 
@@ -43,7 +43,7 @@ public class Circle2D {
      * @param l
      * @return true if the circle intersect the line, false otherwise
      */
-    public boolean intersectWhith(final Line2D l) {
+    public boolean intersectWith(final Line2D l) {
         return this.getRay() > l.distancePoint(this.getCenter());
     }
 
