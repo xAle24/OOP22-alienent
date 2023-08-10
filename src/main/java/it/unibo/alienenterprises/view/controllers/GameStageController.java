@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
@@ -34,6 +35,10 @@ public final class GameStageController implements InitController, Renderable {
     private StackPane root;
     @FXML
     private VBox pauseMenu;
+    @FXML
+    private HBox topHbox;
+    @FXML
+    private HBox bottomHbox;
 
     private Dimensions arenaDim;
     private Controller controller;
@@ -45,11 +50,19 @@ public final class GameStageController implements InitController, Renderable {
     public void init(final Controller controller, final Scene scene) {
         this.controller = controller;
         this.arenaDim = this.controller.getArenaDimensions();
+        this.gameSession = controller.getGameSession();
+
+        // View set up
         this.root.setPrefWidth(Screen.getPrimary().getBounds().getWidth());
         this.root.setPrefHeight(Screen.getPrimary().getBounds().getHeight());
-        this.gameSession = controller.getGameSession();
         this.canvas.setWidth(this.arenaDim.getWidth());
         this.canvas.setHeight(this.arenaDim.getHeight());
+        var width = (Screen.getPrimary().getBounds().getWidth() - this.canvas.getWidth()) / 2.0;
+        var height = (Screen.getPrimary().getBounds().getHeight() - this.canvas.getHeight()) / 2.0;
+        this.bottomHbox.setPrefHeight(height);
+        this.bottomHbox.setPrefWidth(width);
+        this.topHbox.setPrefHeight(height);
+        this.topHbox.setPrefWidth(width);
         scene.setOnKeyPressed(e -> {
             try {
                 if (e.getCode() == KeyCode.P) {
@@ -60,6 +73,8 @@ public final class GameStageController implements InitController, Renderable {
             } catch (InterruptedException e1) {
             }
         });
+
+        // Ready to start
         this.keyPressQueue = this.gameSession.startSession(new RendererManager(new JFXCanvasPainter(canvas), this));
     }
 
