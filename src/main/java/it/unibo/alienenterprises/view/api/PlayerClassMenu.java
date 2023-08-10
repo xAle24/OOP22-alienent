@@ -3,7 +3,7 @@ package it.unibo.alienenterprises.view.api;
 import it.unibo.alienenterprises.view.controllers.PlayerController;
 
 /**
- * PlayerClassMenu
+ * PlayerClassMenu.
  */
 public interface PlayerClassMenu {
 

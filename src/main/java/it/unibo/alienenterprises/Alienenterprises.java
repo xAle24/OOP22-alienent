@@ -15,7 +15,7 @@ public final class Alienenterprises {
     }
 
     /**
-     * Main program entry point
+     * Main program entry point.
      * 
      * @param args args
      */
