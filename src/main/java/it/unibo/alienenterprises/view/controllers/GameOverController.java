@@ -29,6 +29,9 @@ public final class GameOverController implements InitController {
         this.scoreDisplay.setText(Integer.toString(this.controller.getGameSession().getScore()));
     }
 
+    /**
+     * Handle when the main menu button is clicked.
+     */
     @FXML
     public void onMainMenu() {
         this.controller.changeScene(ViewType.MAINMENU);
