@@ -1,0 +1,37 @@
+#innerBox {
+    -fx-background-color: #247cec;
+    background-color: #247cec;
+    -fx-alignment: center;
+}
+
+#gameOverLabel {
+    -fx-text-fill: #fca41c;
+    -fx-alignment: center;
+    -fx-font-size: 65;
+    font-size: 65;
+}
+
+#scoreLabel {
+    -fx-text-fill: #fca41c;
+    -fx-alignment: center;
+    -fx-font-size: 65;
+    font-size: 65;
+}
+
+#scoreDisplay {
+    -fx-text-fill: #fca41c;
+    -fx-alignment: center;
+    -fx-font-size: 65;
+    font-size: 65;
+}
+
+#mainmenuButton {
+    -fx-text-fill: #fca41c;
+    -fx-font-size: 25;
+    font-size: 25;
+    -fx-alignment: center;
+    -fx-max-width: 250px;
+    max-width: 250px;
+    -fx-max-height: 40px;
+    max-height: 40px;
+}

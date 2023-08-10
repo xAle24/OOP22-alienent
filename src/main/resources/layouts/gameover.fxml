@@ -12,7 +12,7 @@
     fx:controller="it.unibo.alienenterprises.view.controllers.GameOverController"
     styleClass="background" stylesheets="@/css/gameOverStyle.css">
     <children>
-        <VBox alignment="CENTER">
+        <VBox alignment="CENTER" fx:id="innerBox">
             <Label text="GAME OVER!!! :(" id="gameOverLabel" alignment="CENTER"/>
             <Label text="FINAL SCORE:" id="scoreLabel" textAlignment="CENTER"/>
             <Label textAlignment="CENTER" fx:id="scoreDisplay"/>
