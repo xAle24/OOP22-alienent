@@ -34,7 +34,8 @@ public class InputComponentSniperImpl extends ComponentAbs implements EnemyInput
     }
 
     private Vector2D calculateMovement() {
-        double distanceTarget = Math.sqrt(Math.pow(this.target.getPosition().getX() - this.getGameObject().getPosition().getX(), 2)
+        double distanceTarget = Math.sqrt(Math.pow(this.target.getPosition().getX() 
+                - this.getGameObject().getPosition().getX(), 2)
                 + Math.pow(this.target.getPosition().getY() - this.getGameObject().getPosition().getY(), 2));
         if (distanceTarget > DISTANCE) {
             return Vector2D.fromTwoPointsAndModule(this.getGameObject().getPosition(), this.target.getPosition(), 

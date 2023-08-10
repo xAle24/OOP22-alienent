@@ -52,7 +52,7 @@ public class EnemySpawnerImpl implements EnemySpawner {
      * {@inheritDoc}
      */
     @Override
-    public GameObject getEnemy(String identifier, double deltaTime) {
+    public GameObject getEnemy(final String identifier, final double deltaTime) {
         var enemySpawn = enemy.get(identifier);
         var newEnemy = new GameObjectAbs(null, null, enemySpawn.getAllStats(), enemySpawn.getId());
         enemySpawn.getAllComponent().stream().forEach(e -> newEnemy.addComponent(e.duplicate(newEnemy).get()));
