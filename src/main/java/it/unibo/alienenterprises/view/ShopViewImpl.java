@@ -42,6 +42,8 @@ public class ShopViewImpl implements ShopView {
     private static final int MAXLENGHT = 4;
     private static final double SCREENWIDHT = Screen.getPrimary().getVisualBounds().getWidth();
     private static final double SCREENHEIGHT = Screen.getPrimary().getVisualBounds().getHeight();
+    private static final double SHOPWIDTH = 857;
+    private static final double SHOPHEIGHT = 670;
     private static final double PAPERWIDTH = 28;
     private static final double PAPERHEIGHT = 19.5;
     private static final int FONTSIZE = 19;
@@ -107,7 +109,8 @@ public class ShopViewImpl implements ShopView {
 
         box.setId("box");
 
-        box.setMaxSize(SCREENWIDHT, SCREENHEIGHT); // forse puoi settarlo su css
+        box.setMinSize(SHOPWIDTH, SHOPHEIGHT); // forse puoi settarlo su css
+        box.setPrefSize(SHOPWIDTH, SHOPHEIGHT);
 
         // Set upper part of the screen
 
