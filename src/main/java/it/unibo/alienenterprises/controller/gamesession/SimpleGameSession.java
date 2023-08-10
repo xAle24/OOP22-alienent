@@ -31,7 +31,7 @@ public class SimpleGameSession extends GameSessionAbs {
         super.gameOver();
         var acc = getUserAccount();
         int score = getScore();
-        acc.setMoney(acc.getMoney() + score);
+        acc.setMoney(score);
         if (acc.getHighscore() < score) {
             acc.setHighscore(score);
         }
