@@ -2,6 +2,8 @@ package it.unibo.alienenterprises.controller;
 
 import java.util.Optional;
 
+import javafx.scene.image.Image;
+
 /**
  * ImageLoader.
  * Has the job to link an identifier whit his sprite file
@@ -14,7 +16,7 @@ public interface ImageLoader {
      *         identifier if present
      *         otherwise an empty Optional
      */
-    Optional<String> getSpriteFilePathOf(String id);
+    Optional<Image> getSpriteFilePathOf(String id);
 
     /**
      * @param id the identifier of the GameObject

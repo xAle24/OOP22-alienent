@@ -28,11 +28,7 @@ public class Sprite {
      */
     public Sprite(final String objID, final Point2D pos, final Vector2D vect) {
         var scale = IMG_LOADER.getSpriteScaleOf(objID).get();
-        this.image = new ImageView(new Image(IMG_LOADER.getSpriteFilePathOf(objID).get(),
-                IMG_LOADER.getSpritewidth(objID).get() * scale,
-                IMG_LOADER.getSpriteHeight(objID).get() * scale,
-                true,
-                true));
+        this.image = new ImageView(IMG_LOADER.getSpriteFilePathOf(objID).get());
         this.image.setVisible(true);
         this.render(pos, vect);
     }

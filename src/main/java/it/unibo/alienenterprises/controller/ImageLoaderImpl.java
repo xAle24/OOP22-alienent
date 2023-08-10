@@ -3,13 +3,17 @@ package it.unibo.alienenterprises.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
 import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
+
+import javafx.scene.image.Image;
 
 /**
  * ImageLoader.
@@ -23,6 +27,7 @@ public class ImageLoaderImpl implements ImageLoader {
             + "sprites" + SEPARATOR + "spriteList.yml";
 
     private Set<ImageProp> spriteList = new HashSet<>();
+    private Map<String,Image> imageMap = new HashMap<>();
 
     /**
      * Creates an instance of ImageLoadeImpl.
@@ -47,10 +52,20 @@ public class ImageLoaderImpl implements ImageLoader {
      * {@inheritDoc}
      */
     @Override
-    public Optional<String> getSpriteFilePathOf(final String id) {
+    public Optional<Image> getSpriteFilePathOf(final String id) {
         final var s = getImageProp(id);
+        Image img;
         if (s.isPresent()) {
-            return Optional.of(SPRITE_PATH + s.get().getFile());
+            if(imageMap.containsKey(id)){
+                img = imageMap.get(id);
+            }else{
+                img = new Image(SPRITE_PATH + s.get().getFile(),
+                getSpritewidth(id).get() * getSpriteScaleOf(id).get(),
+                getSpriteHeight(id).get() * getSpriteScaleOf(id).get(),
+                true,
+                true);
+            }
+            return Optional.of(img);
         }
         return Optional.empty();
     }

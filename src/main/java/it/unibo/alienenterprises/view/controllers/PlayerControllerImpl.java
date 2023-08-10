@@ -12,6 +12,7 @@ import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.view.ShipInfoLoader;
 import it.unibo.alienenterprises.view.ViewType;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 
 /**
  * PlayerControllerImpl.
@@ -81,7 +82,7 @@ public class PlayerControllerImpl implements PlayerController {
      * {@inheritDoc}
      */
     @Override
-    public Optional<String> getSpriteFile(final String id) {
+    public Optional<Image> getSpriteFile(final String id) {
         return this.info.getShipSpriteFile(id);
     }
 

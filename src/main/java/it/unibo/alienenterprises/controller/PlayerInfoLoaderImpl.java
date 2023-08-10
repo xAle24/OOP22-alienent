@@ -12,6 +12,7 @@ import java.util.Set;
 import org.yaml.snakeyaml.Yaml;
 
 import it.unibo.alienenterprises.view.ShipInfoLoader;
+import javafx.scene.image.Image;
 
 /**
  * PlayerInfoLoaderImpl.
@@ -115,7 +116,7 @@ public class PlayerInfoLoaderImpl implements ShipInfoLoader {
      * {@inheritDoc}
      */
     @Override
-    public Optional<String> getShipSpriteFile(final String id) {
+    public Optional<Image> getShipSpriteFile(final String id) {
         this.checkIfLoaded();
         if (infoMap.containsKey(id)) {
             return IMAGE_LOADER.getSpriteFilePathOf(id);
