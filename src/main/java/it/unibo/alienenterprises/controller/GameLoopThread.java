@@ -74,6 +74,7 @@ public final class GameLoopThread extends Thread implements GameLoop {
                         }
                     }
                 }
+                previousStart = previousStart - System.currentTimeMillis();
             }
             long currentStart = System.currentTimeMillis();
             long elapsed = currentStart - previousStart;
@@ -98,6 +99,7 @@ public final class GameLoopThread extends Thread implements GameLoop {
 
     @Override
     public synchronized void stopLoop() {
+        this.resumeLoop();
         this.stopped = true;
         this.interrupt();
     }
