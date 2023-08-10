@@ -24,7 +24,7 @@ public class BaseState extends ViewStateAbs {
      */
     @Override
     protected void onCloseRequest() {
-        super.getStage().close();
+        super.onCloseRequest();
     }
 
 }

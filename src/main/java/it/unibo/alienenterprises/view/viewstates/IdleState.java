@@ -26,7 +26,7 @@ public class IdleState extends ViewStateAbs {
     @Override
     protected void onCloseRequest() {
         super.getController().save();
-        super.getStage().close();
+        super.onCloseRequest();
     }
 
 }
