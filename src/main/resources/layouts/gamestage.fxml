@@ -18,20 +18,26 @@
     styleClass="statLabelContainer">
 
     <VBox>
-        <HBox alignment="TOP_RIGHT" prefWidth="-Infinity" fx:id="topHbox">
+        <HBox alignment="TOP_RIGHT" prefWidth="-Infinity" minWidth="50" fx:id="topHbox">
             <Label text="SCORE:" textAlignment="RIGHT" styleClass="statLabel"/>
             <Label fx:id="currScore" text="0" textAlignment="RIGHT" styleClass="statLabel"/>
         </HBox>
-        <StackPane id="canvasContainer" alignment="CENTER">
+        <StackPane id="canvasContainer" alignment="CENTER"
+            prefWidth="-Infinity">
             <Canvas fx:id="canvas" id="canvas"/>
-            <VBox alignment="CENTER" visible="false" fx:id="pauseMenu">
+            <VBox alignment="CENTER" visible="false" fx:id="pauseMenu" id="pauseMenu"
+                    prefWidth="400" prefHeight="300"
+                    minWidth="400" minHeight="300"
+                    maxWidth="400" maxHeight="300">
                 <Label text="PAUSED!"/>
-                <Label text="Are you quitting? (chicken)"/>
-                <Button text="coo coo :( (yes)" onAction="#gameOver"/>
-                <Button text="I AM NO CHICKEN (no)" onAction="#resume"/>
+                <VBox alignment="CENTER">
+                    <Label text="Are you quitting? (chicken)"/>
+                    <Button text="Cluck cluck :( (yes)" onAction="#gameOver"/>
+                    <Button text="I AM NO CHICKEN (no)" onAction="#resume"/>
+                </VBox>
             </VBox>
         </StackPane>
-        <HBox alignment="BOTTOM_LEFT" prefWidth="-Infinity" fx:id="bottomHbox">
+        <HBox alignment="BOTTOM_LEFT" prefWidth="-Infinity" minWidth="50" fx:id="bottomHbox">
             <Label text="HEALTH:" textAlignment="LEFT"  styleClass="statLabel"/>
             <Label fx:id="healthDisplay" textAlignment="LEFT" styleClass="statLabel"/>
         </HBox>
