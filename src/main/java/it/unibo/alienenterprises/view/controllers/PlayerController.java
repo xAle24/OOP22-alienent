@@ -39,7 +39,8 @@ public interface PlayerController extends InitController {
 
     /**
      * @param id the id of the playerClass
-     * @return the absolute path of the sprite of the playerClass
+     * @return the Optional of the requested image or an empty Optional if the id
+     *         doesn't correspond to any sprite
      */
     Optional<Image> getSpriteImage(String id);
 
@@ -51,12 +52,12 @@ public interface PlayerController extends InitController {
     void select(String id);
 
     /**
-     * Confirm the selection of the player and starts the game
+     * Confirm the selection of the player and starts the game.
      */
     void confirmSelection();
 
     /**
-     * exit the selection
+     * exit the selection.
      */
     void exit();
 }

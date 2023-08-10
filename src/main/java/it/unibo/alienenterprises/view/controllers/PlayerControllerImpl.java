@@ -107,19 +107,19 @@ public class PlayerControllerImpl implements PlayerController {
         if (this.controller.isEmpty()) {
             throw new IllegalStateException("the controller has not been initialized");
         }
-        // TODO settare il player
         this.controller.get().initiateGameSession(selected.get());
         this.controller.get().changeScene(ViewType.GAMESTAGE);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void exit(){
+    public void exit() {
         if (this.controller.isEmpty()) {
             throw new IllegalStateException("the controller has not been initialized");
         }
         this.controller.get().changeScene(ViewType.MAINMENU);
     }
-
-    
 
 }
