@@ -107,7 +107,6 @@ public class ShopControllerImpl implements ShopController, InitController {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -134,7 +133,6 @@ public class ShopControllerImpl implements ShopController, InitController {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
         }
 
         Iterator<PowerUpRenderer> iterator = pwuInfo.iterator();

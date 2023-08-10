@@ -24,12 +24,16 @@ import it.unibo.alienenterprises.model.wall.WallBuilderImpl;
  * @author Giulia Bonifazi
  */
 public final class GameWorld implements World {
-    private static final Set<String> GIVESSCORE = new HashSet<>(new ShipLoaderImpl().getEnemyIds());
+    /**
+     * The ids of every enemy type in the game.
+     */
+    private static final Set<String> GIVES_SCORE = new HashSet<>(new ShipLoaderImpl().getEnemyIds());
     private final CollisionHandler collisionHandler;
     private final DoubleBuffer<GameObject> doubleBuff;
     private final Set<GameObject> lastAdded;
     private GameObject player;
     private int score;
+    private int enemyCount;
     private Dimensions worldDimensions;
 
     /**
@@ -40,6 +44,7 @@ public final class GameWorld implements World {
      */
     public GameWorld(final Dimensions worldDimensions) {
         this.worldDimensions = worldDimensions;
+        this.enemyCount = 0;
         this.doubleBuff = new SetDoubleBuffer<>();
         this.collisionHandler = new SimpleCollisionHandler();
         this.lastAdded = new HashSet<>();
@@ -61,6 +66,9 @@ public final class GameWorld implements World {
 
     @Override
     public void addGameObject(final GameObject add) {
+        if (GIVES_SCORE.contains(add.getId())) {
+            this.enemyCount++;
+        }
         this.doubleBuff.getBuff().add(add);
         this.collisionHandler.addHitbox(add.getComponent(HitboxComponent.class));
         this.lastAdded.add(add);
@@ -105,14 +113,20 @@ public final class GameWorld implements World {
         return !this.player.isAlive();
     }
 
+    @Override
+    public int getEnemyCount() {
+        return this.enemyCount;
+    }
+
     /**
      * Removes a GameObject from the list of gameobjects at play.
      * 
      * @param remove the GameObject that needs to be removed.
      */
     private void removeGameObject(final GameObject remove) {
-        if (GIVESSCORE.contains(remove.getId())) {
+        if (GIVES_SCORE.contains(remove.getId())) {
             this.score += remove.getStatValue(Statistic.DAMAGE) * 100;
+            this.enemyCount--;
         }
         this.doubleBuff.getBuff().remove(remove);
         this.collisionHandler.removeHitbox(remove.getComponent(HitboxComponent.class));

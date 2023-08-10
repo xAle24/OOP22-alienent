@@ -5,7 +5,7 @@ import it.unibo.alienenterprises.controller.InputQueue;
 import it.unibo.alienenterprises.controller.bounds.Dimensions;
 import it.unibo.alienenterprises.controller.gamesession.GameSession;
 import it.unibo.alienenterprises.controller.renderers.Renderable;
-import it.unibo.alienenterprises.controller.renderers.RendererManager;
+import it.unibo.alienenterprises.controller.renderers.GameObjectRendererManager;
 import it.unibo.alienenterprises.view.ViewType;
 import it.unibo.alienenterprises.view.javafx.JFXCanvasPainter;
 import javafx.application.Platform;
@@ -58,9 +58,7 @@ public final class GameStageController implements InitController, Renderable {
         this.root.setPrefHeight(screenHeight);
         this.canvas.setWidth(this.arenaDim.getWidth());
         this.canvas.setHeight(this.arenaDim.getHeight());
-        System.out.println("Screen width: " + screenWidth + ", screen height: " + screenHeight);
         var height = (screenHeight - this.canvas.getHeight()) / 2.0;
-        System.out.println("height: " + height);
         Platform.runLater(() -> {
             this.bottomHbox.setPrefHeight(height);
             this.bottomHbox.setMaxHeight(height);
@@ -68,7 +66,6 @@ public final class GameStageController implements InitController, Renderable {
             this.topHbox.setMaxHeight(height);
 
         });
-        System.out.println("box height: " + topHbox.getHeight());
         scene.setOnKeyPressed(e -> {
             try {
                 if (e.getCode() == KeyCode.P) {
@@ -81,7 +78,8 @@ public final class GameStageController implements InitController, Renderable {
         });
 
         // Ready to start
-        this.keyPressQueue = this.gameSession.startSession(new RendererManager(new JFXCanvasPainter(canvas), this));
+        this.keyPressQueue = this.gameSession
+                .startSession(new GameObjectRendererManager(new JFXCanvasPainter(canvas), this));
     }
 
     @Override
