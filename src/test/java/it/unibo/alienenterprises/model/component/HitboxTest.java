@@ -20,7 +20,7 @@ import it.unibo.alienenterprises.model.impl.components.hitbox.SimpleShipHitboxCo
 /**
  * Test for all hitbox component.
  */
-public class HitboxTest {
+class HitboxTest {
     private static final int LIFE85 = 85;
     private static final int LIFE999 = 999;
     private static final int LIFE999N = -999;
@@ -38,12 +38,12 @@ public class HitboxTest {
     private static final GameObject OBJ4 = new GameObjectAbs(new Point2D(10, 10), null, STATMAP2, null);
     @Test
     void canCollides() {
-        var hitbox1 = new BomberHitboxComponentImpl(OBJ1, true, Type.ENEMY, 2);
-        var hitbox2 = new SimpleProjectileHitboxComponentImpl(OBJ2, true, Type.PROJECTILE, 2);
+        final var hitbox1 = new BomberHitboxComponentImpl(OBJ1, true, Type.ENEMY, 2);
+        final var hitbox2 = new SimpleProjectileHitboxComponentImpl(OBJ2, true, Type.PROJECTILE, 2);
         hitbox2.setShooter(Type.PLAYER);
-        var hitbox3 = new BoundaryHitboxComponentImpl(OBJ3, true, Type.BOUNDARY, new Point2D(0, 1), new Point2D(1, 1));
+        final var hitbox3 = new BoundaryHitboxComponentImpl(OBJ3, true, Type.BOUNDARY, new Point2D(0, 1), new Point2D(1, 1));
         hitbox3.setLocations(Locations.DOWN);
-        var hitbox4 = new SimpleProjectileHitboxComponentImpl(OBJ4, true, Type.PROJECTILE, 2);
+        final var hitbox4 = new SimpleProjectileHitboxComponentImpl(OBJ4, true, Type.PROJECTILE, 2);
         hitbox4.setShooter(Type.ENEMY);
         OBJ1.addComponent(hitbox1);
         OBJ2.addComponent(hitbox2);
@@ -64,9 +64,9 @@ public class HitboxTest {
     @Test
     void types() {
         OBJ2.setPosition(new Point2D(NUM5, 0));
-        var hitbox1 = new BomberHitboxComponentImpl(OBJ1, true, Type.ENEMY, 2);
-        var hitbox2 = new SimpleProjectileHitboxComponentImpl(OBJ2, true, Type.PROJECTILE, 2);
-        var hitbox3 = new SimpleShipHitboxComponentImpl(OBJ3, true, Type.PLAYER, 2);
+        final var hitbox1 = new BomberHitboxComponentImpl(OBJ1, true, Type.ENEMY, 2);
+        final var hitbox2 = new SimpleProjectileHitboxComponentImpl(OBJ2, true, Type.PROJECTILE, 2);
+        final var hitbox3 = new SimpleShipHitboxComponentImpl(OBJ3, true, Type.PLAYER, 2);
         OBJ1.addComponent(hitbox1);
         OBJ2.addComponent(hitbox2);
         OBJ3.addComponent(hitbox3);
@@ -89,11 +89,11 @@ public class HitboxTest {
         OBJ4.setPosition(new Point2D(0, 0));
         OBJ1.heal(LIFE15);
         OBJ2.heal(1000);
-        var hitbox1 = new BomberHitboxComponentImpl(OBJ1, true, Type.ENEMY, 2);
-        var hitbox2 = new SimpleProjectileHitboxComponentImpl(OBJ2, true, Type.PROJECTILE, 2);
+        final var hitbox1 = new BomberHitboxComponentImpl(OBJ1, true, Type.ENEMY, 2);
+        final var hitbox2 = new SimpleProjectileHitboxComponentImpl(OBJ2, true, Type.PROJECTILE, 2);
         hitbox2.setShooter(Type.PLAYER);
-        var hitbox3 = new SimpleShipHitboxComponentImpl(OBJ3, true, Type.PLAYER, 2);
-        var hitbox4 = new SimpleProjectileHitboxComponentImpl(OBJ4, true, Type.PROJECTILE, 2);
+        final var hitbox3 = new SimpleShipHitboxComponentImpl(OBJ3, true, Type.PLAYER, 2);
+        final var hitbox4 = new SimpleProjectileHitboxComponentImpl(OBJ4, true, Type.PROJECTILE, 2);
         hitbox4.setShooter(Type.ENEMY);
         OBJ1.addComponent(hitbox1);
         OBJ2.addComponent(hitbox2);
@@ -136,26 +136,29 @@ public class HitboxTest {
 
     @Test
     void collideBoundary() {
-        Map<Statistic, Integer> statmap1 = new HashMap<>();
+        final Map<Statistic, Integer> statmap1 = new HashMap<>();
         statmap1.put(Statistic.HP, 100);
         statmap1.put(Statistic.DAMAGE, 1);
-        var obj1 = new GameObjectAbs(new Point2D(2, 0), null, statmap1, null);
-        var obj2 = new GameObjectAbs(new Point2D(NUM5, 0), null, statmap1, null);
-        var obj3 = new GameObjectAbs(new Point2D(10, 0), null, statmap1, null);
-        var wallUp = new GameObjectAbs(new Point2D(0, 0), null, statmap1, null);
-        var wallRight = new GameObjectAbs(new Point2D(0, 0), null, statmap1, null);
-        var wallDown = new GameObjectAbs(new Point2D(0, 0), null, statmap1, null);
-        var wallLeft = new GameObjectAbs(new Point2D(0, 0), null, statmap1, null);
-        var hitbox1 = new BomberHitboxComponentImpl(obj1, true, Type.ENEMY, 2);
-        var hitbox2 = new SimpleProjectileHitboxComponentImpl(obj2, true, Type.PROJECTILE, 2);
-        var hitbox3 = new SimpleShipHitboxComponentImpl(obj3, true, Type.PLAYER, 2);
-        var hitboxUp = new BoundaryHitboxComponentImpl(wallUp, true, Type.BOUNDARY, new Point2D(0, 0), new Point2D(1, 1));
+        final var obj1 = new GameObjectAbs(new Point2D(2, 0), null, statmap1, null);
+        final var obj2 = new GameObjectAbs(new Point2D(NUM5, 0), null, statmap1, null);
+        final var obj3 = new GameObjectAbs(new Point2D(10, 0), null, statmap1, null);
+        final var wallUp = new GameObjectAbs(new Point2D(0, 0), null, statmap1, null);
+        final var wallRight = new GameObjectAbs(new Point2D(0, 0), null, statmap1, null);
+        final var wallDown = new GameObjectAbs(new Point2D(0, 0), null, statmap1, null);
+        final var wallLeft = new GameObjectAbs(new Point2D(0, 0), null, statmap1, null);
+        final var hitbox1 = new BomberHitboxComponentImpl(obj1, true, Type.ENEMY, 2);
+        final var hitbox2 = new SimpleProjectileHitboxComponentImpl(obj2, true, Type.PROJECTILE, 2);
+        final var hitbox3 = new SimpleShipHitboxComponentImpl(obj3, true, Type.PLAYER, 2);
+        final var hitboxUp = new BoundaryHitboxComponentImpl(wallUp, true, Type.BOUNDARY, new Point2D(0, 0), new Point2D(1, 1));
         hitboxUp.setLocations(Locations.UP);
-        var hitboxRight = new BoundaryHitboxComponentImpl(wallRight, true, Type.BOUNDARY, new Point2D(0, 0), new Point2D(1, 1));
+        final var hitboxRight = new BoundaryHitboxComponentImpl(wallRight, true, Type.BOUNDARY, new Point2D(0, 0), 
+            new Point2D(1, 1));
         hitboxRight.setLocations(Locations.RIGHT);
-        var hitboxDown = new BoundaryHitboxComponentImpl(wallDown, true, Type.BOUNDARY, new Point2D(0, 0), new Point2D(1, 1));
+        final var hitboxDown = new BoundaryHitboxComponentImpl(wallDown, true, Type.BOUNDARY, new Point2D(0, 0), 
+            new Point2D(1, 1));
         hitboxDown.setLocations(Locations.DOWN);
-        var hitboxLeft = new BoundaryHitboxComponentImpl(wallLeft, true, Type.BOUNDARY, new Point2D(0, 0), new Point2D(1, 1));
+        final var hitboxLeft = new BoundaryHitboxComponentImpl(wallLeft, true, Type.BOUNDARY, new Point2D(0, 0), 
+            new Point2D(1, 1));
         hitboxLeft.setLocations(Locations.LEFT);
         obj1.addComponent(hitbox1);
         obj2.addComponent(hitbox2);
