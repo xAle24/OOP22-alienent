@@ -30,7 +30,7 @@ public final class GameOverController implements InitController {
     }
 
     @FXML
-    private void onMainMenu() {
+    public void onMainMenu() {
         this.controller.changeScene(ViewType.MAINMENU);
     }
 }

@@ -1,5 +1,8 @@
 package it.unibo.alienenterprises.view.javafx;
 
+import java.io.IOException;
+import java.util.Locale;
+
 import it.unibo.alienenterprises.view.ViewType;
 import it.unibo.alienenterprises.view.api.SceneLoader;
 import it.unibo.alienenterprises.view.controllers.InitController;
@@ -19,14 +22,12 @@ public final class JFXSceneLoader implements SceneLoader {
     @Override
     public Parent getParent(final ViewType type) {
         this.fxmlLoader = new FXMLLoader();
-        final String path = PATH_START + type.toString().toLowerCase() + PATH_END;
+        final String path = PATH_START + type.toString().toLowerCase(Locale.ROOT) + PATH_END;
         try {
-            var res = getClass().getResource(path);
+            final var res = getClass().getResource(path);
             this.fxmlLoader.setLocation(res);
-            final Parent root = this.fxmlLoader.load();
-            return root;
-        } catch (Exception e) {
-            e.printStackTrace();
+            return this.fxmlLoader.load();
+        } catch (IOException e) {
             return null;
         }
     }

@@ -46,7 +46,7 @@ public abstract class ViewStateAbs implements ViewState {
      * @param message the message on the alert.
      */
     private void generateAlert(final String message) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, message);
+        final Alert alert = new Alert(Alert.AlertType.CONFIRMATION, message);
         alert.initOwner(stage);
         alert.showAndWait().filter(ans -> ans == ButtonType.OK).ifPresent(ans -> onCloseRequest());
     }

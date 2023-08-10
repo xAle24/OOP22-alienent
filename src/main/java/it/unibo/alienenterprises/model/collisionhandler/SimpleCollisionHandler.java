@@ -10,13 +10,6 @@ import it.unibo.alienenterprises.model.api.components.HitboxComponent;
  */
 public final class SimpleCollisionHandler extends CollisionHandlerAbs {
 
-    /**
-     * Creates a new {@link SimpleCollisionHandler} instance.
-     */
-    public SimpleCollisionHandler() {
-        super();
-    }
-
     @Override
     protected void checkPair(final HitboxComponent a, final HitboxComponent b) {
         a.canCollide(b);

@@ -10,6 +10,8 @@ import it.unibo.alienenterprises.model.api.InputSupplier.Input;
  */
 public class InputQueue extends LinkedBlockingQueue<String> {
 
+    static final long serialVersionUID = 42L;
+
     /**
      * Creates new instance of this class.
      * 
@@ -26,7 +28,7 @@ public class InputQueue extends LinkedBlockingQueue<String> {
      */
     public Input pollInput() {
         Input input;
-        var str = this.poll();
+        final var str = this.poll();
         switch (str) {
             case "w":
                 input = Input.ACCELERATE;

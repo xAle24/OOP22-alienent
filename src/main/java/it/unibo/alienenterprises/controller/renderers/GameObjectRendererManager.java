@@ -14,7 +14,7 @@ import it.unibo.alienenterprises.view.api.Painter;
 public class GameObjectRendererManager implements RendererManager<GameObject> {
     private final Painter painter;
     private final Renderable viewRenderable;
-    private List<Renderer> renderers;
+    private final List<Renderer> renderers;
 
     /**
      * Creates a new instance of this class.
@@ -33,7 +33,7 @@ public class GameObjectRendererManager implements RendererManager<GameObject> {
      */
     @Override
     public void addRenderer(final GameObject obj) {
-        var newRenderer = new SimpleRenderer(obj, obj.getId());
+        final var newRenderer = new SimpleRenderer(obj, obj.getId());
         this.renderers.add(newRenderer);
         this.painter.addAll(newRenderer);
     }

@@ -29,36 +29,12 @@ public class SimpleGameSession extends GameSessionAbs {
     @Override
     public void gameOver() {
         super.gameOver();
-        var acc = getUserAccount();
-        int score = getScore();
+        final var acc = getUserAccount();
+        final int score = getScore();
         acc.setMoney(score);
         if (acc.getHighscore() < score) {
             acc.setHighscore(score);
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getPlayerHealth() {
-        return super.getPlayerHealth();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getScore() {
-        return super.getScore();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isOver() {
-        return super.isOver();
     }
 
 }

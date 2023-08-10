@@ -2,7 +2,6 @@ package it.unibo.alienenterprises.view.controllers;
 
 import it.unibo.alienenterprises.controller.Controller;
 import it.unibo.alienenterprises.controller.InputQueue;
-import it.unibo.alienenterprises.controller.bounds.Dimensions;
 import it.unibo.alienenterprises.controller.gamesession.GameSession;
 import it.unibo.alienenterprises.controller.renderers.Renderable;
 import it.unibo.alienenterprises.controller.renderers.GameObjectRendererManager;
@@ -39,8 +38,6 @@ public final class GameStageController implements InitController, Renderable {
     private HBox topHbox;
     @FXML
     private HBox bottomHbox;
-
-    private Dimensions arenaDim;
     private Controller controller;
     private GameSession gameSession;
     private InputQueue keyPressQueue;
@@ -48,17 +45,17 @@ public final class GameStageController implements InitController, Renderable {
     @Override
     public void init(final Controller controller, final Scene scene) {
         this.controller = controller;
-        this.arenaDim = this.controller.getArenaDimensions();
         this.gameSession = controller.getGameSession();
 
         // View set up
-        var screenWidth = Screen.getPrimary().getBounds().getWidth();
-        var screenHeight = Screen.getPrimary().getBounds().getHeight();
+        final var arenaDim = this.controller.getArenaDimensions();
+        final var screenWidth = Screen.getPrimary().getBounds().getWidth();
+        final var screenHeight = Screen.getPrimary().getBounds().getHeight();
         this.root.setPrefWidth(screenWidth);
         this.root.setPrefHeight(screenHeight);
-        this.canvas.setWidth(this.arenaDim.getWidth());
-        this.canvas.setHeight(this.arenaDim.getHeight());
-        var height = (screenHeight - this.canvas.getHeight()) / 2.0;
+        this.canvas.setWidth(arenaDim.getWidth());
+        this.canvas.setHeight(arenaDim.getHeight());
+        final var height = (screenHeight - this.canvas.getHeight()) / 2.0;
         Platform.runLater(() -> {
             this.bottomHbox.setPrefHeight(height);
             this.bottomHbox.setMaxHeight(height);

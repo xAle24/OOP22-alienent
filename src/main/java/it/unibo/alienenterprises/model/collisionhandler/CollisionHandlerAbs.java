@@ -12,7 +12,7 @@ import it.unibo.alienenterprises.model.api.components.HitboxComponent;
  * @author Giulia Bonifazi
  */
 public abstract class CollisionHandlerAbs implements CollisionHandler {
-    private List<HitboxComponent> collidables;
+    private final List<HitboxComponent> collidables;
 
     /**
      * Creates a new instance of this class.
@@ -41,7 +41,7 @@ public abstract class CollisionHandlerAbs implements CollisionHandler {
         if (num > list.size() - 1) {
             return;
         } else {
-            var e = list.stream().skip(num).findFirst().get();
+            final var e = list.stream().skip(num).findFirst().get();
             list.stream().skip(num + 1).forEach(o -> checkPair(o, e));
             recCheck(list, num + 1);
         }

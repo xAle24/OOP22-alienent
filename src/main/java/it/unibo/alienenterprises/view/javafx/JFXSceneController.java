@@ -42,7 +42,7 @@ public final class JFXSceneController implements SceneController {
         switch (type) {
             case SHOP:
                 this.currentController = new ShopControllerImpl();
-                var contrShop = (ShopController) this.currentController;
+                final var contrShop = (ShopController) this.currentController;
                 contrShop.loadPwuYaml();
                 contrShop.loadPwuInfoYaml();
                 this.currentScene = new Scene(
@@ -50,7 +50,7 @@ public final class JFXSceneController implements SceneController {
                 break;
             case SHIPSELECT:
                 this.currentController = new PlayerControllerImpl();
-                var contrPlayer = (PlayerController) this.currentController;
+                final var contrPlayer = (PlayerController) this.currentController;
                 this.currentScene = new Scene(new PlayerClassMenuImpl(contrPlayer));
                 break;
             default:

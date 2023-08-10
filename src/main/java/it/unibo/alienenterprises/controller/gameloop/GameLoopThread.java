@@ -48,14 +48,14 @@ public final class GameLoopThread extends Thread implements GameLoop {
         this.rendererManager = rendererManager;
 
         // Set up the player
-        var player = new PlayerSpawnerImpl(world).getPlayer(playerID).get();
+        final var player = new PlayerSpawnerImpl(world).getPlayer(playerID).get();
         this.inputSupplier = player.getComponent(PlayerInputComponent.class).get().getInputSupplier();
         player.getComponent(PowerUpComponent.class).get().setPoweUps(account.getToAddPwu());
         this.world.addPlayer(player);
 
         // Set up the EnemySpawner
-        var topRight = new Point2D(this.world.getWorldDimensions().getWidth(), 0);
-        var bottomLeft = new Point2D(0, this.world.getWorldDimensions().getHeight());
+        final var topRight = new Point2D(this.world.getWorldDimensions().getWidth(), 0);
+        final var bottomLeft = new Point2D(0, this.world.getWorldDimensions().getHeight());
         this.enemySpawner = new EnemySpawnerImpl(world, bottomLeft, topRight, player);
         this.stopped = false;
         this.paused = false;
@@ -70,15 +70,14 @@ public final class GameLoopThread extends Thread implements GameLoop {
                     while (this.paused) {
                         try {
                             this.wait();
-                        } catch (Exception e) {
-
+                        } catch (InterruptedException e) {
                         }
                     }
                 }
                 previousStart = System.currentTimeMillis();
             }
-            long currentStart = System.currentTimeMillis();
-            long elapsed = currentStart - previousStart;
+            final long currentStart = System.currentTimeMillis();
+            final long elapsed = currentStart - previousStart;
             this.processInput();
             this.updateGame(elapsed / 1000.0);
             this.render();
@@ -115,7 +114,7 @@ public final class GameLoopThread extends Thread implements GameLoop {
         if (delta < MS_PER_FRAME) {
             try {
                 Thread.sleep(MS_PER_FRAME - delta);
-            } catch (Exception e) {
+            } catch (InterruptedException e) {
             }
         }
     }
