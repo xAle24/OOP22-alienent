@@ -26,14 +26,15 @@ public class ImageLoaderImpl implements ImageLoader {
     private static final String SPRITE_LIST_PATH = "src" + SEPARATOR + "main" + SEPARATOR + "resources" + SEPARATOR
             + "sprites" + SEPARATOR + "spriteList.yml";
 
-    private Set<ImageProp> spriteList = new HashSet<>();
-    private Map<String, Image> imageMap = new HashMap<>();
+    private final Set<ImageProp> spriteList = new HashSet<>();
+    private final Map<String, Image> imageMap = new HashMap<>();
 
     /**
      * Creates an instance of ImageLoadeImpl.
      * It reads a file to create the images so is shold be created only one instance
      * for class or object.
      */
+    @SuppressWarnings("all")
     public ImageLoaderImpl() {
         try (InputStream inputStream = new FileInputStream(SPRITE_LIST_PATH)) {
             final Constructor constructor = new Constructor(ImageProp.class, new LoaderOptions());

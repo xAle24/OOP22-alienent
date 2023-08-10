@@ -126,7 +126,7 @@ public class PlayerInputComponentImpl extends ComponentAbs implements PlayerInpu
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings(":PMD")
+    @SuppressWarnings("all")
     public Optional<Component> duplicate(final GameObject obj) {
         try {
             final var retInput = input.getClass().getConstructor().newInstance();

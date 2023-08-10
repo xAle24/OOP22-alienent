@@ -154,7 +154,7 @@ public class PlayerClassMenuImpl extends BorderPane implements PlayerClassMenu {
             buttons.forEach((b) -> b.setDisable(false));
             button.setDisable(true);
             showStats(controller.getStats(id).get());
-            ImageView img = new ImageView(controller.getSpriteImage(id).get());
+            final ImageView img = new ImageView(controller.getSpriteImage(id).get());
             img.setFitHeight(DESCRIPTION_IMAGE_SIZE);
             img.setFitWidth(DESCRIPTION_IMAGE_SIZE);
             bottom.setLeft(img);

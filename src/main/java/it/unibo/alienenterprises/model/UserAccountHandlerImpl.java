@@ -39,6 +39,7 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("all")
     public Optional<UserAccount> login(final String nickname, final String password) {
         if (existingAccount(nickname) && correctPassword(nickname, password)) {
             try (FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + nickname + YML)) {
@@ -66,6 +67,7 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("all")
     public Optional<UserAccount> registration(final String nickname, final String password) {
         if (!existingAccount(nickname)) {
             final File accountFile = new File(GAME_PATH + SEPARATOR + nickname + YML);
@@ -98,6 +100,7 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("all")
     public void save(final UserAccount account) {
         final String accountFile = GAME_PATH + SEPARATOR + account.getNickname() + YML;
         try (FileWriter writer = new FileWriter(accountFile, StandardCharsets.UTF_8, false)) {
@@ -116,6 +119,7 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
         return Files.exists(Paths.get(GAME_PATH + SEPARATOR + nickname + YML));
     }
 
+    @SuppressWarnings("all")
     private boolean correctPassword(final String nickname, final String password) {
         try (FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + "passwords.yml")) {
 

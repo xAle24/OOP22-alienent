@@ -134,7 +134,7 @@ public final class GameWorld implements World {
 
     private void createWalls() {
         final var walls = new HashSet<GameObject>();
-        WallBuilder wallBuilder = new WallBuilderImpl();
+        final WallBuilder wallBuilder = new WallBuilderImpl();
         // Add upper boundary
         wallBuilder.addBoundaryHitboxComponent(new Point2D(0, 0),
                 new Point2D(worldDimensions.getWidth(), 0));

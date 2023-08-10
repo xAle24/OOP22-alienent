@@ -79,6 +79,7 @@ public class ShopControllerImpl implements ShopController, InitController {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("all")
     public void loadPwuYaml() {
         try (FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + "PowerUps.yml")) {
 
@@ -106,6 +107,7 @@ public class ShopControllerImpl implements ShopController, InitController {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("all")
     public void loadPwuInfoYaml() {
         try (FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + "PowerUpsInfo.yml")) {
             final Constructor constructor = new Constructor(PowerUpRendererImpl.class, new LoaderOptions());

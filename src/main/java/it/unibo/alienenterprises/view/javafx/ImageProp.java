@@ -119,6 +119,7 @@ public final class ImageProp {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("all")
     public boolean equals(final Object obj) {
         if (this == obj) {
             return true;

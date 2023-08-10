@@ -29,7 +29,7 @@ public class PlayerInfoLoaderImpl implements ShipInfoLoader {
     private static final String PLAYERS = "playerclasses";
     private static final ImageLoader IMAGE_LOADER = new ImageLoaderImpl();
 
-    private boolean isLoaded = false;
+    private boolean isLoaded;
     private Set<String> playerIds;
     private final Map<String, PlayerClassInfo> infoMap = new HashMap<>();
 

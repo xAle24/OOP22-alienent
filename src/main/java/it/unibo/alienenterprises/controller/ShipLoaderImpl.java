@@ -81,9 +81,9 @@ public class ShipLoaderImpl implements ShipLoader {
             } else {
                 enemyList = List.of();
             }
-        } catch(final FileNotFoundException e){
+        } catch (final FileNotFoundException e) {
 
-        } catch(final IOException e){
+        } catch (final IOException e) {
 
         }
         this.factories = List.of(factories);

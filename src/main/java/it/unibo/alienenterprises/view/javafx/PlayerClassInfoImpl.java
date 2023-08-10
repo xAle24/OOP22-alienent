@@ -3,6 +3,7 @@ package it.unibo.alienenterprises.view.javafx;
 /**
  * PlayerClassInfoImpl.
  */
+@SuppressWarnings("all")
 public class PlayerClassInfoImpl implements PlayerClassInfo {
 
     private String name;
