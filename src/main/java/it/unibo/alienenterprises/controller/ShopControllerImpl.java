@@ -1,6 +1,5 @@
 package it.unibo.alienenterprises.controller;
 
-import java.io.File;
 import java.io.FileInputStream;
 
 import java.util.Iterator;
@@ -31,9 +30,8 @@ import javafx.scene.Scene;
  */
 public class ShopControllerImpl implements ShopController, InitController {
 
-    private static final String SEPARATOR = File.separator;
+    private static final String SEPARATOR = "/";
     private static final String GAME_PATH = "src/main/resources/examplemvc";
-    // System.getProperty("user.home") + SEPARATOR + ".Alien Enterprises";
 
     private Controller controller;
     private UserAccount account;
@@ -50,14 +48,6 @@ public class ShopControllerImpl implements ShopController, InitController {
         this.account = controller.getUserAccount();
         this.model = new ShopModelImpl(this.controller);
         this.model.loadPwu(powerUps);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setModel(final ShopModel model) {
-        this.model = model;
     }
 
     /**

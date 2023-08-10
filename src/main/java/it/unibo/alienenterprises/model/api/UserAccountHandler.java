@@ -4,6 +4,9 @@ import java.util.Optional;
 
 /**
  * UserAccountHandler.
+ * This implements the account login, registration and save methods.
+ * 
+ * @author Ginevra Bartolini
  */
 public interface UserAccountHandler {
 
@@ -14,7 +17,7 @@ public interface UserAccountHandler {
      * @param nickname account's nickname. It is used to differentiate the saving
      *                 files
      * @param password
-     * @return an implementation of UserAccountImpl if everything is right,
+     * @return an optional implementation of UserAccountImpl if everything is right,
      *         otherwise an optional empty
      * 
      */
@@ -27,8 +30,8 @@ public interface UserAccountHandler {
      * @param nickname account's nickname. It is used to differentiate the saving
      *                 files
      * @param password
-     * @return an implementation of UserAccountImpl
-     * @throws IOException
+     * @return an optional implementation of UserAccountImpl if everything is right,
+     *         otherwise an optional empty
      * 
      */
     Optional<UserAccount> registration(String nickname, String password);
@@ -39,7 +42,6 @@ public interface UserAccountHandler {
      * 
      * @param account the account from which the methos takes the information to be
      *                saved
-     * @return
      * 
      */
     void save(UserAccount account);

@@ -10,7 +10,9 @@ import it.unibo.alienenterprises.model.api.ShopModel;
 import it.unibo.alienenterprises.model.api.UserAccount;
 
 /**
- * ShopModelImpl.
+ * The implementation of ShopModel.
+ * 
+ * @author Ginevra Bartolini
  */
 public class ShopModelImpl implements ShopModel {
 

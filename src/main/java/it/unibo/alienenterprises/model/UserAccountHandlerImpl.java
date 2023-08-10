@@ -25,12 +25,13 @@ import it.unibo.alienenterprises.model.api.UserAccountHandler;
 
 /**
  * Implementation of UserAccountHandler.
+ * 
+ * @author Ginevra Bartolini
  */
 public class UserAccountHandlerImpl implements UserAccountHandler {
 
-    private static final String SEPARATOR = File.separator;
+    private static final String SEPARATOR = "/";
     private static final String GAME_PATH = "src/main/resources/examplemvc";
-    // System.getProperty("user.home") + SEPARATOR + ".Alien Enterprises";
     private static final String YML = ".yml";
 
     /**
@@ -141,7 +142,7 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
         } catch (Exception e) {
         }
 
-        return false; // non dovrebbe giungere a questa riga
+        return false;
     }
 
 }

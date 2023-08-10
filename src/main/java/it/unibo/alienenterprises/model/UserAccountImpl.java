@@ -8,21 +8,21 @@ import it.unibo.alienenterprises.model.api.UserAccount;
 
 /**
  * Implementation of UserAccount.
+ * 
+ * @author Ginevra Bartolini
  */
 public class UserAccountImpl implements UserAccount {
 
     private int money;
     private String nickname;
     private int highscore;
-    private final Map<String, Integer> inventory = new HashMap<>(); // contiene l'id e il corrispondente livello di
-                                                                    // acquisto
+    private final Map<String, Integer> inventory = new HashMap<>();
     private final Map<Statistic, Integer> toAddPwu = new HashMap<>();
 
     /**
      * Costructor. It is filled with nothing because otherwise yaml won't work.
      */
     public UserAccountImpl() {
-        // This constructor is intentionally empty.
     }
 
     /**

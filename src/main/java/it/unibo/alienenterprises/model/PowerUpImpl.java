@@ -7,7 +7,9 @@ import it.unibo.alienenterprises.model.api.PowerUp;
 import it.unibo.alienenterprises.model.api.Statistic;
 
 /**
- * PowerUpImpl.
+ * Implementation of PowerUp.
+ * 
+ * @author Ginevra Bartolini
  */
 public class PowerUpImpl implements PowerUp {
 

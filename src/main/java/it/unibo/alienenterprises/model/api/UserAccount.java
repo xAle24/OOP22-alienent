@@ -4,61 +4,59 @@ import java.util.Map;
 
 /**
  * UserAccount.
+ * 
+ * @author Ginevra Bartolini
  */
 public interface UserAccount {
 
     /**
      * 
-     * Set the user money.
+     * Sets the user money.
      * 
-     * @param changeMoney the money positive or negative to be added
-     * @return
+     * @param changeMoney the money, positive or negative, to be added
      * 
      */
     void setMoney(int changeMoney);
 
     /**
      * 
-     * Set the user nickname.
+     * Sets the user nickname.
      * 
      * @param nickname
-     * @return
      * 
      */
     void setNickname(String nickname);
 
     /**
      * 
-     * Set the user highscore.
+     * Sets the user highscore.
      * 
      * @param highscore
-     * @return
      * 
      */
     void setHighscore(int highscore);
 
     /**
      * 
-     * Set the user inventory.
+     * Sets the user inventory, which is a map filled with the ids of the power ups
+     * already bought.
      * 
      * @param newInventory
-     * @return
      * 
      */
     void setInventory(Map<String, Integer> newInventory);
 
     /**
-     * Set the toAddPwu map, which is a map filled with the statistic percentage
+     * Sets the toAddPwu map, which is a map filled with the statistic percentages
      * to add at the start of each game.
      * 
      * @param toAddPwu
-     * @return
      */
     void setToAddPwu(Map<Statistic, Integer> toAddPwu);
 
     /**
      * 
-     * Get the user money.
+     * Gets the user money.
      * 
      * @return the user money
      * 
@@ -67,7 +65,7 @@ public interface UserAccount {
 
     /**
      * 
-     * Get the user nickname.
+     * Gets the user nickname.
      * 
      * @return the user nickname
      * 
@@ -76,7 +74,7 @@ public interface UserAccount {
 
     /**
      * 
-     * Get the user highscore.
+     * Gets the user highscore.
      * 
      * @return the user highscore
      * 
@@ -85,7 +83,8 @@ public interface UserAccount {
 
     /**
      * 
-     * Get the user inventory.
+     * Gets the user inventory, which is a map filled with the ids of the power ups
+     * already bought.
      * 
      * @return the user inventory
      * 
@@ -94,16 +93,16 @@ public interface UserAccount {
 
     /**
      * 
-     * Get the current level of the id corresponding PWU.
+     * Gets the current level of the id corresponding power up.
      * 
-     * @param id the id, corresponding to a PWU
-     * @return current level of the id corresponding PWU
+     * @param id the id, corresponding to a power up
+     * @return current level of the id corresponding power up
      * 
      */
     int getCurrLevel(String id);
 
     /**
-     * Return the toAddPwu map, which is a map filled with the statistic percentage
+     * Returns the toAddPwu map, which is a map filled with the statistic percentage
      * to add at the start of each game.
      * 
      * @return a map filled with the statistic percentage
@@ -113,21 +112,22 @@ public interface UserAccount {
 
     /**
      * 
-     * Add the id, corresponding to a PWU, to the user's inventory.
+     * Adds the id, corresponding to a power up, to the user's inventory.
      * 
-     * @param id the id, corresponding to a PWU
+     * @param id the id, corresponding to a power up
      * @return
      * 
      */
     void updateInventory(String id);
 
     /**
-     * Update the map toAddPwu with the new statistic, after buying a new pwu.
-     * If the map is empty, it fills with just the statistic modifiers of the buoght
-     * pwu,
-     * otherwise it update each statistic, adding the new percentage to the old.
+     * Updates the map toAddPwu with the new statistics, after buying a new power
+     * up.
+     * If the map is empty, it fills with just the statistic modifiers of the bought
+     * power up,
+     * otherwise it updates each statistic, adding the new percentage to the old.
      * 
-     * @param mapToAdd the map of statisics of the bought pwu
+     * @param mapToAdd the map of statistics of the bought power up
      */
     void updateToAddPwu(Map<Statistic, Integer> mapToAdd);
 
