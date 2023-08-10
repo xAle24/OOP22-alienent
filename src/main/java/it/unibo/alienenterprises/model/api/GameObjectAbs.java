@@ -21,6 +21,7 @@ public class GameObjectAbs implements GameObject {
     private Map<Statistic, Integer> stats; 
     private Set<Component> component;
     private String id;
+    private double recoveryCooldown;
     /**
      * Contructor for all objects.
      * @param pos Point2D of the position of the object.
@@ -126,6 +127,12 @@ public class GameObjectAbs implements GameObject {
     @Override
     public void update(final double deltatime) {
         getAllComponent().stream().forEach(e -> e.update(deltatime));
+        if (this.recoveryCooldown > 1){
+            this.heal(stats.get(Statistic.RECOVERY));
+            this.recoveryCooldown = 0;
+        } else {
+            this.recoveryCooldown += deltatime; 
+        }
     }
     /**
      * @inheritDoc
