@@ -56,7 +56,7 @@ public interface GameObject {
      * @param type type of component you want
      * @return The component of the given type
      */
-    default <T extends Component> Optional<T> getComponent(Class<T> type) {
+    default <T extends Component> Optional<T> getComponent(final Class<T> type) {
         return this.getAllComponent().stream().filter(c -> type.isInstance(c)).map(c -> type.cast(c)).findFirst();
     }
 
