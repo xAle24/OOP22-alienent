@@ -21,7 +21,7 @@ import it.unibo.alienenterprises.model.api.UserAccount;
  * 
  * @author Ginevra Bartolini
  */
-public class UserAccountTest {
+class UserAccountTest {
 
   private static final int MONEY = 5000;
   private static final int HIGHSCORE = 80_000;
@@ -60,7 +60,7 @@ public class UserAccountTest {
    * Tests account registration.
    */
   @Test
-  public void testAccountRegistration() {
+  void testAccountRegistration() {
     assertEquals(NICKNAME, account.getNickname());
     assertEquals(0, account.getMoney());
     assertEquals(0, account.getHighscore());
@@ -73,13 +73,13 @@ public class UserAccountTest {
    * Tests save and login methods.
    */
   @Test
-  public void testSaveAndLogin() {
+  void testSaveAndLogin() {
     account = accountHandler.registration(NICKNAME, PASSWORD).get();
 
     accountBuilder();
     accountHandler.save(account);
 
-    UserAccount secondAaccount = accountHandler.login(NICKNAME, PASSWORD).get();
+    final UserAccount secondAaccount = accountHandler.login(NICKNAME, PASSWORD).get();
 
     assertEquals(account.getNickname(), secondAaccount.getNickname());
     assertEquals(account.getMoney(), secondAaccount.getMoney());
@@ -97,7 +97,7 @@ public class UserAccountTest {
    * pwu, or set it 1 if it is 0.
    */
   @Test
-  public void testUpdateInventory() {
+  void testUpdateInventory() {
 
     accountBuilder();
     assertEquals(HEALTH_LEVEL, account.getCurrLevel(HEALTH));
@@ -114,7 +114,7 @@ public class UserAccountTest {
    * added statistic, or simply add the statistic if not present.
    */
   @Test
-  public void testUpdateToAddPwu() {
+  void testUpdateToAddPwu() {
     accountBuilder();
     account.setToAddPwu(new HashMap<Statistic, Integer>());
 
@@ -164,8 +164,9 @@ public class UserAccountTest {
 
   }
 
+  // CPD-OFF
   private void delete() {
-    File deleteFile = new File(GAME_PATH + SEPARATOR + NICKNAME + YML);
+    final File deleteFile = new File(GAME_PATH + SEPARATOR + NICKNAME + YML);
     if (deleteFile.exists()) {
       deleteFile.delete();
     }
@@ -173,8 +174,8 @@ public class UserAccountTest {
 
   private void removePassword() {
     try {
-      List<String> yamlLines = Files.readAllLines(Paths.get(GAME_PATH + SEPARATOR + YAMLPASSWORD + YML));
-      String check = "--- {" + NICKNAME + ": " + PASSWORD + "}";
+      final List<String> yamlLines = Files.readAllLines(Paths.get(GAME_PATH + SEPARATOR + YAMLPASSWORD + YML));
+      final String check = "--- {" + NICKNAME + ": " + PASSWORD + "}";
       if (yamlLines.get(yamlLines.size() - 1).equals(check)) {
         yamlLines.remove(yamlLines.size() - 1);
         Files.write(Paths.get(GAME_PATH + SEPARATOR + YAMLPASSWORD + YML), yamlLines);
@@ -182,4 +183,5 @@ public class UserAccountTest {
     } catch (IOException i) {
     }
   }
+  // CPD-ON
 }

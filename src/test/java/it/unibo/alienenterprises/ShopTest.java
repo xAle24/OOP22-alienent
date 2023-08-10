@@ -40,19 +40,19 @@ import it.unibo.alienenterprises.view.controllers.InitController;
  * 
  * @author Ginevra Bartolini
  */
-public class ShopTest {
+class ShopTest {
 
     private static final String NICKNAME = "AccountTest";
     private static final String PASSWORD = "AccountPass";
-    private static final int MONEY = 2000000;
-    private static final int REMAINING_MONEY = 400000;
+    private static final int MONEY = 200_000_0;
+    private static final int REMAINING_MONEY = 400_000;
     private static final String YAMLPASSWORD = "passwords";
     private static final String HEALTH = "Health";
     private static final String DAMAGE = "Damage";
     private static final String SPEED = "Speed";
-    private static final int HEALTH_COST = 300000;
-    private static final int SPEED_COST = 200000;
-    private static final int DAMAGE_COST = 500000;
+    private static final int HEALTH_COST = 300_000;
+    private static final int SPEED_COST = 200_000;
+    private static final int DAMAGE_COST = 500_000;
     private static final int HEALTH_MAXLEVEL = 5;
     private static final int SPEED_MAXLEVEL = 3;
     private static final int DAMAGE_MAXLEVEL = 2;
@@ -62,8 +62,8 @@ public class ShopTest {
     private static final String YML = ".yml";
 
     private final UserAccountHandlerImpl accountHandler = new UserAccountHandlerImpl();
-    private UserAccount account;
-    private Controller contr = new ControllerImpl(new View() {
+    private final UserAccount account;
+    private final Controller contr = new ControllerImpl(new View() {
 
         @Override
         public void init(final Controller controller) {
@@ -79,11 +79,11 @@ public class ShopTest {
         }
 
     });
-    private InitController controller = new ShopControllerImpl();
-    private ShopController shopController = (ShopController) controller;
-    private ShopModel model = new ShopModelImpl(contr);
-    private List<PowerUp> pwu = new LinkedList<>();
-    private Map<Statistic, Integer> stats = new LinkedHashMap<>();
+    private final InitController controller = new ShopControllerImpl();
+    private final ShopController shopController = (ShopController) controller;
+    private final ShopModel model = new ShopModelImpl(contr);
+    private final List<PowerUp> pwu = new LinkedList<>();
+    private final Map<Statistic, Integer> stats = new LinkedHashMap<>();
 
     /**
      * This costructor ensures that an account is created and its money are setted.
@@ -101,14 +101,14 @@ public class ShopTest {
      * It tests if the shopController load the yaml file correctly.
      */
     @Test
-    public void testLoadPwu() {
+    void testLoadPwu() {
         buildPwuList();
         this.shopController.loadPwuYaml();
 
         this.shopController.getPwu().stream()
                 .filter(sp -> this.pwu.stream().anyMatch(lp -> lp.getId().equals(sp.getId())))
                 .forEach(sp -> {
-                    PowerUp currPwu = this.pwu.stream().filter(lp -> lp.getId().equals(sp.getId())).findFirst()
+                    final PowerUp currPwu = this.pwu.stream().filter(lp -> lp.getId().equals(sp.getId())).findFirst()
                             .orElse(null);
                     assertNotNull(currPwu);
                     assertEquals(currPwu.getCost(), sp.getCost());
@@ -121,7 +121,7 @@ public class ShopTest {
      * It tests if the check function in ShopModel works correctly.
      */
     @Test
-    public void testCheck() {
+    void testCheck() {
         this.shopController.loadPwuYaml();
         this.model.loadPwu(this.shopController.getPwu());
         assertEquals(Optional.of(-HEALTH_COST), model.check(HEALTH));
@@ -138,7 +138,7 @@ public class ShopTest {
      * It tests if updateShop updates user fiels correctly.
      */
     @Test
-    public void testUpdateShop() {
+    void testUpdateShop() {
         this.shopController.loadPwuYaml();
         this.model.loadPwu(this.shopController.getPwu());
 
@@ -159,7 +159,7 @@ public class ShopTest {
      * ShopController.
      */
     @Test
-    public void testBuy() {
+    void testBuy() {
         this.shopController.loadPwuYaml();
         controller.init(contr, null);
 
@@ -189,7 +189,7 @@ public class ShopTest {
     }
 
     private void buildPwuList() {
-        PowerUp health = new PowerUpImpl();
+        final PowerUp health = new PowerUpImpl();
         health.setId(HEALTH);
         health.setCost(HEALTH_COST);
         health.setMaxLevel(HEALTH_MAXLEVEL);
@@ -203,7 +203,7 @@ public class ShopTest {
         health.setStatModifiers(stats);
         pwu.add(health);
 
-        PowerUp speed = new PowerUpImpl();
+        final PowerUp speed = new PowerUpImpl();
         speed.setId(SPEED);
         speed.setCost(SPEED_COST);
         speed.setMaxLevel(SPEED_MAXLEVEL);
@@ -212,7 +212,7 @@ public class ShopTest {
         speed.setStatModifiers(stats);
         pwu.add(speed);
 
-        PowerUp damage = new PowerUpImpl();
+        final PowerUp damage = new PowerUpImpl();
         damage.setId(DAMAGE);
         damage.setCost(DAMAGE_COST);
         damage.setMaxLevel(DAMAGE_MAXLEVEL);
@@ -222,22 +222,28 @@ public class ShopTest {
         pwu.add(damage);
     }
 
+    @SuppressWarnings("CPD-START")
     private void delete() {
-        File deleteFile = new File(GAME_PATH + SEPARATOR + NICKNAME + YML);
+        final File deleteFile = new File(GAME_PATH + SEPARATOR + NICKNAME + YML);
         if (deleteFile.exists()) {
             deleteFile.delete();
         }
     }
 
+    @SuppressWarnings("CPD-END")
+
+    // CPD-OFF
     private void removePassword() {
         try {
-            List<String> yamlLines = Files.readAllLines(Paths.get(GAME_PATH + SEPARATOR + YAMLPASSWORD + YML));
-            String check = "--- {" + NICKNAME + ": " + PASSWORD + "}";
+            final List<String> yamlLines = Files.readAllLines(Paths.get(GAME_PATH + SEPARATOR + YAMLPASSWORD + YML));
+            final String check = "--- {" + NICKNAME + ": " + PASSWORD + "}";
             if (yamlLines.get(yamlLines.size() - 1).equals(check)) {
                 yamlLines.remove(yamlLines.size() - 1);
                 Files.write(Paths.get(GAME_PATH + SEPARATOR + YAMLPASSWORD + YML), yamlLines);
             }
         } catch (IOException i) {
         }
+
     }
+    // CPD-ON
 }

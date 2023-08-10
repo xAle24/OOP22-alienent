@@ -338,7 +338,6 @@ public class ShopViewImpl implements ShopView {
         inventoryPopup.showAndWait();
     }
 
-    @SuppressWarnings("all")
     private void updateInventoryPopup() {
 
         final StringBuilder stats = new StringBuilder("");
