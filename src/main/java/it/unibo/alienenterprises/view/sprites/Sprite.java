@@ -1,10 +1,9 @@
 package it.unibo.alienenterprises.view.sprites;
 
-import it.unibo.alienenterprises.controller.ImageLoader;
-import it.unibo.alienenterprises.controller.ImageLoaderImpl;
 import it.unibo.alienenterprises.model.geometry.Point2D;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
-import javafx.scene.image.Image;
+import it.unibo.alienenterprises.view.javafx.ImageLoader;
+import it.unibo.alienenterprises.view.javafx.ImageLoaderImpl;
 import javafx.scene.image.ImageView;
 
 /**
@@ -27,12 +26,7 @@ public class Sprite {
      * @param vect  the object vector
      */
     public Sprite(final String objID, final Point2D pos, final Vector2D vect) {
-        var scale = IMG_LOADER.getSpriteScaleOf(objID).get();
-        this.image = new ImageView(new Image(IMG_LOADER.getSpriteFilePathOf(objID).get(),
-                IMG_LOADER.getSpritewidth(objID).get() * scale,
-                IMG_LOADER.getSpriteHeight(objID).get() * scale,
-                true,
-                true));
+        this.image = new ImageView(IMG_LOADER.getSpriteImageOf(objID).get());
         this.image.setVisible(true);
         this.render(pos, vect);
     }

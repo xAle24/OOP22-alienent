@@ -117,7 +117,7 @@ public class PlayerClassMenuImpl extends BorderPane implements PlayerClassMenu {
                 button.setMinWidth(125);
                 button.setMinHeight(125);
                 
-                final var img = new ImageView(controller.getSpriteFile(id).get());// TODO
+                final var img = new ImageView(controller.getSpriteImage(id).get());// TODO
                 img.setFitWidth(75);
                 img.setFitHeight(75);
                 final var graphic = new BorderPane();
@@ -143,7 +143,7 @@ public class PlayerClassMenuImpl extends BorderPane implements PlayerClassMenu {
             buttons.forEach((b) -> b.setDisable(false));
             button.setDisable(true);
             showStats(controller.getStats(id).get());
-            ImageView img = new ImageView(controller.getSpriteFile(id).get());// TODO
+            ImageView img = new ImageView(controller.getSpriteImage(id).get());// TODO
             img.setFitHeight(150);
             img.setFitWidth(150);
             bottom.setLeft(img);

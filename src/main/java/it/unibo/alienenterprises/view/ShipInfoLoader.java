@@ -3,6 +3,8 @@ package it.unibo.alienenterprises.view;
 import java.util.Optional;
 import java.util.Set;
 
+import javafx.scene.image.Image;
+
 /**
  * ShipInfoLoader.
  * The class that have the job to load the information needed to represent a ship.
@@ -38,6 +40,6 @@ public interface ShipInfoLoader {
      * @return the SpriteFilePath of the ship, if the id is recognized, or an empty
      *         Optional if not
      */
-    Optional<String> getShipSpriteFile(String id);
+    Optional<Image> getShipImage(String id);
 
 }
