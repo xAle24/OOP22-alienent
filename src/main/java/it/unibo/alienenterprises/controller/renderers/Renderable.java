@@ -8,7 +8,8 @@ package it.unibo.alienenterprises.controller.renderers;
 public interface Renderable {
 
     /**
-     * Renders the object that implements this interface.
+     * Does whatever is necessary to the object that implements this to render
+     * itself or the objects contained within it.
      */
     void render();
 }

@@ -6,7 +6,7 @@
 <?import javafx.scene.control.Separator?>
 
 <VBox id="root" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unibo.alienenterprises.view.controllers.RegistrationControllerImpl"
-    styleClass="style" stylesheets="@/css/loginViewStyle.css" >
+    styleClass="style" stylesheets="@/css/loginViewStyle.css" prefWidth="867" prefHeight="670">
     <VBox id="innerBox" prefWidth="220" prefHeight="225">
         <Label text="Username" fx:id="usernameText"/>
         <TextField fx:id="usernameField" />

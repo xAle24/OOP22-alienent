@@ -10,11 +10,11 @@ import it.unibo.alienenterprises.model.geometry.Point2D;
  */
 public interface View {
     /**
-     * Predef width
+     * Predef width.
      */
     double MAX_WIDTH = 1920.0;
     /**
-     * Predef height
+     * Predef height.
      */
     double MAX_HEIGHT = 1080.0;
 

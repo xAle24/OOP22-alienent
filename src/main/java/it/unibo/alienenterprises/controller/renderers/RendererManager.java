@@ -1,5 +1,12 @@
 package it.unibo.alienenterprises.controller.renderers;
 
+/**
+ * Manages the renderers of the game.
+ * 
+ * @param <T> the selected class
+ * 
+ * @author Giulia Bonifazi
+ */
 public interface RendererManager<T> extends Renderable {
 
     /**
@@ -7,5 +14,5 @@ public interface RendererManager<T> extends Renderable {
      * 
      * @param obj the object to be rendered
      */
-    public void addRenderer(T obj);
+    void addRenderer(T obj);
 }

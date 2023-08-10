@@ -1,5 +1,6 @@
 package it.unibo.alienenterprises.view.api;
 
+import it.unibo.alienenterprises.controller.renderers.Renderable;
 import it.unibo.alienenterprises.controller.renderers.Renderer;
 
 /**
@@ -7,13 +8,7 @@ import it.unibo.alienenterprises.controller.renderers.Renderer;
  * 
  * @author Giulia Bonifazi
  */
-public interface Painter {
-
-    /**
-     * Use each {@link Renderer} to draw its {@link Sprite} on the gamestage.
-     */
-    void render();
-
+public interface Painter extends Renderable {
     /**
      * Add one or more renderers to the {@link Painter}.
      * 
