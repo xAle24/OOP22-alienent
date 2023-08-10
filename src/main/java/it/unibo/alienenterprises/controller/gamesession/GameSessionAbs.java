@@ -2,7 +2,7 @@ package it.unibo.alienenterprises.controller.gamesession;
 
 import it.unibo.alienenterprises.controller.InputQueue;
 import it.unibo.alienenterprises.controller.gameloop.GameLoopThread;
-import it.unibo.alienenterprises.controller.renderers.RendererManager;
+import it.unibo.alienenterprises.controller.renderers.GameObjectRendererManager;
 import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.UserAccount;
 import it.unibo.alienenterprises.model.world.World;
@@ -70,7 +70,7 @@ public abstract class GameSessionAbs implements GameSession {
      * {@inheritDoc}
      */
     @Override
-    public InputQueue startSession(final RendererManager rendererManager) {
+    public InputQueue startSession(final GameObjectRendererManager rendererManager) {
         InputQueue queue = new InputQueue(MAX_INPUT);
         this.gameLoop = new GameLoopThread(queue, rendererManager, this.world, this.playerID, this.account);
         this.player = this.world.getPlayer();
