@@ -75,5 +75,7 @@ public abstract class ViewStateAbs implements ViewState {
      * {@inheritDoc}
      * Reaction to close request.
      */
-    protected abstract void onCloseRequest();
+    protected void onCloseRequest() {
+        this.stage.close();
+    }
 }

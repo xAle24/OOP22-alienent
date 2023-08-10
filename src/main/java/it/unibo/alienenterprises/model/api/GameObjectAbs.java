@@ -40,7 +40,7 @@ public class GameObjectAbs implements GameObject {
      * @inheritDoc
      */
     @Override
-    public boolean isAlive(){
+    public boolean isAlive() {
         return this.gethealth() > 0;
     }
     /**
@@ -110,14 +110,14 @@ public class GameObjectAbs implements GameObject {
      * @inheritDoc
      */
     @Override
-    public void hit(int dmg) {
+    public void hit(final int dmg) {
         this.health = this.health - dmg;
     }
     /**
      * @inheritDoc
      */
     @Override
-    public void heal(int heal) {
+    public void heal(final int heal) {
         this.health = this.health + heal;
     }
     /**
