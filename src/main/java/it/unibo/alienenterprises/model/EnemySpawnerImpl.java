@@ -20,17 +20,17 @@ import it.unibo.alienenterprises.model.impl.ProjectileSupplierFactoryImpl;
  */
 public class EnemySpawnerImpl implements EnemySpawner {
     private static final int SPAWNTIME = 4;
-    private static final int ONEMINUTE = 60000;
+    private static final int ONEMINUTE = 60_000;
     private static final int INCREASESTAT = 15;
     private static final int MAXENEMYINMAP = 50;
     private static final Random RANDOM = new Random();
-    private Map<String, GameObject> enemy;
-    private List<String> enemyList;
+    private final Map<String, GameObject> enemy;
+    private final List<String> enemyList;
     private double spawnTime;
     private double totalTime;
-    private World world;
-    private Point2D bottomLeft;
-    private Point2D topRight;
+    private final World world;
+    private final Point2D bottomLeft;
+    private final Point2D topRight;
     private final GameObject player;
     /**
      * Constructor for the enemy spawner.
@@ -44,8 +44,8 @@ public class EnemySpawnerImpl implements EnemySpawner {
         this.bottomLeft = x1;
         this.topRight = y2;
         this.player = player;
-        var projectileFactory = new ProjectileSupplierFactoryImpl(world);
-        var loader = new ShipLoaderImpl(projectileFactory);
+        final var projectileFactory = new ProjectileSupplierFactoryImpl(world);
+        final var loader = new ShipLoaderImpl(projectileFactory);
         enemy = loader.loadEnemyClasses();
         enemyList = List.copyOf(enemy.keySet());
     }
@@ -54,16 +54,16 @@ public class EnemySpawnerImpl implements EnemySpawner {
      */
     @Override
     public GameObject getEnemy(final String identifier, final double deltaTime) {
-        var enemySpawn = enemy.get(identifier);
-        var newEnemy = new GameObjectAbs(null, null, enemySpawn.getAllStats(), enemySpawn.getId());
+        final var enemySpawn = enemy.get(identifier);
+        final var newEnemy = new GameObjectAbs(null, null, enemySpawn.getAllStats(), enemySpawn.getId());
         enemySpawn.getAllComponent().stream().forEach(e -> newEnemy.addComponent(e.duplicate(newEnemy).get()));
         newEnemy.getComponent(EnemyInputComponent.class).get().setTarget(player);
         this.getStats().entrySet().stream().forEach(e -> newEnemy.setStatValue(e.getKey(), 
             newEnemy.getStatValue(e.getKey()) + newEnemy.getStatValue(e.getKey()) * e.getValue()));
-        var pointX = new Random().nextDouble(topRight.getX() + 1);
-        var pointY = new Random().nextDouble(bottomLeft.getY() + 1);
+        final var pointX = new Random().nextDouble(topRight.getX() + 1);
+        final var pointY = new Random().nextDouble(bottomLeft.getY() + 1);
         newEnemy.setPosition(new Point2D(pointX, pointY));
-        newEnemy    .getComponent(InputComponent.class).get().update(deltaTime);
+        newEnemy.getComponent(InputComponent.class).get().update(deltaTime);
         newEnemy.getAllComponent().stream().forEach(e -> e.start());
         return newEnemy;
     }
@@ -72,8 +72,8 @@ public class EnemySpawnerImpl implements EnemySpawner {
      */
     @Override
     public HashMap<Statistic, Integer> getStats() {
-        var newStats = new HashMap<Statistic, Integer>();
-        Integer increase = (int) (INCREASESTAT * (totalTime / ONEMINUTE));
+        final var newStats = new HashMap<Statistic, Integer>();
+        final Integer increase = (int) (INCREASESTAT * (totalTime / ONEMINUTE));
         newStats.put(Statistic.DAMAGE, increase);
         newStats.put(Statistic.HP, increase);
         newStats.put(Statistic.DEFENCE, increase);
@@ -88,7 +88,7 @@ public class EnemySpawnerImpl implements EnemySpawner {
     @Override
     public void update(final double deltaTime) {
         if (spawnTime > SPAWNTIME && this.world.getEnemyCount() < MAXENEMYINMAP) {
-            var id = getIdentifier();
+            final var id = getIdentifier();
             this.world.addGameObject(getEnemy(id, deltaTime));
             spawnTime = 0;
         } else {

@@ -19,9 +19,9 @@ public class GameObjectAbs implements GameObject {
     private Point2D position;
     private Vector2D velocity;
     private int health;
-    private Map<Statistic, Integer> stats; 
-    private Set<Component> component;
-    private String id;
+    private final Map<Statistic, Integer> stats; 
+    private final Set<Component> component;
+    private final String id;
     private double recoveryCooldown;
     /**
      * Contructor for all objects.
@@ -36,7 +36,7 @@ public class GameObjectAbs implements GameObject {
         this.stats = stat;
         this.health = stat.get(Statistic.HP);
         this.id = id;
-        this.component = new HashSet<Component>();
+        this.component = new HashSet<>();
     }
     /**
      * @inheritDoc
@@ -144,6 +144,7 @@ public class GameObjectAbs implements GameObject {
      * @inheritDoc
      * @param deltatime Time passed since the last cycle.
      */
+    @Override
     public void recovery(final double deltatime) {
         if (this.recoveryCooldown > 1) {
             this.heal(Optional.ofNullable(stats.get(Statistic.RECOVERY)).orElse(0));
