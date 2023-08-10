@@ -17,16 +17,18 @@
 #title {
     -fx-text-fill: #fca41c;
     -fx-alignment: center;
-    -fx-font-size: 125;
-    font-size: 125;
+    -fx-font-size: 115;
+    font-size: 115;
 }
 
 #playBtn {
     -fx-text-fill: #fca41c;
     -fx-background-color: #247cec;
     background-color: #247cec;
-    -fx-max-width: 100px;
-    max-width: 100px;
+    -fx-font-size: 25;
+    font-size: 25;
+    -fx-max-width: 150px;
+    max-width: 150px;
     -fx-max-height: 40px;
     max-height: 40px;
     -fx-padding: 20px;
@@ -37,9 +39,11 @@
     -fx-text-fill: #fca41c;
     -fx-background-color: #247cec;
     background-color: #247cec;
-    -fx-max-width: 100px;
-    max-width: 100px;
-    -fx-pref-height: 40px;
+    -fx-font-size: 25;
+    font-size: 25;
+    -fx-max-width: 150px;
+    max-width: 150px;
+    -fx-max-height: 40px;
     max-height: 40px;
     -fx-padding: 20px;
     padding: 20px;
@@ -49,9 +53,11 @@
     -fx-text-fill: #fca41c;
     -fx-background-color: #247cec;
     background-color: #247cec;
-    -fx-max-width: 100px;
-    max-width: 100px;
-    -fx-pref-height: 40px;
+    -fx-font-size: 25;
+    font-size: 25;
+    -fx-max-width: 150px;
+    max-width: 150px;
+    -fx-max-height: 40px;
     max-height: 40px;
     -fx-padding: 20px;
     padding: 20px;
