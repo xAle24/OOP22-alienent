@@ -7,8 +7,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import it.unibo.alienenterprises.controller.ImageLoader;
-import it.unibo.alienenterprises.controller.ImageLoaderImpl;
+import it.unibo.alienenterprises.view.javafx.ImageLoader;
+import it.unibo.alienenterprises.view.javafx.ImageLoaderImpl;
 
 public class ImageLoaderTests {
 
@@ -22,7 +22,7 @@ public class ImageLoaderTests {
     public void loadingTest(){
         final var list = List.of("sniper","standard","tank");
         for(final var id : list){
-            final var sprite = this.imageLoader.getSpriteFilePathOf(id);
+            final var sprite = this.imageLoader.getSpriteImageOf(id);
             assertTrue(sprite.isPresent(),"sprite relative to " + id + " is not preset");
             assertEquals(id+".png",sprite.get(),"the relative sprite is incorrect");
         }
@@ -32,7 +32,7 @@ public class ImageLoaderTests {
     public void idNotPresentTest(){
         final var list = List.of("snr","standadarddd","taank");
         for(final var id : list){
-            final var sprite = this.imageLoader.getSpriteFilePathOf(id);
+            final var sprite = this.imageLoader.getSpriteImageOf(id);
             assertTrue(sprite.isEmpty(),"something has been loaded");
         }
     }

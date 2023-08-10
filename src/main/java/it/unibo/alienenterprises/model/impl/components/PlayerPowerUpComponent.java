@@ -31,12 +31,12 @@ public class PlayerPowerUpComponent extends ComponentAbs implements PowerUpCompo
         double mod;
         int oldStat;
         for (final var s : powerUps.keySet()) {
-            mod = (powerUps.get(s)/(double) 100) + 1.0;
+            mod = (powerUps.get(s) / (double) 100) + 1.0;
             oldStat = getGameObject().getStatValue(s);
             getGameObject().setStatValue(s, (int) (oldStat * mod));
         }
         var newHp = getGameObject().getStatValue(Statistic.HP);
-        getGameObject().heal(newHp-getGameObject().gethealth());
+        getGameObject().heal(newHp - getGameObject().gethealth());
     }
 
     /**

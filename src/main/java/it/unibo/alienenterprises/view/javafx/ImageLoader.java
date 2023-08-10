@@ -1,6 +1,8 @@
-package it.unibo.alienenterprises.controller;
+package it.unibo.alienenterprises.view.javafx;
 
 import java.util.Optional;
+
+import javafx.scene.image.Image;
 
 /**
  * ImageLoader.
@@ -14,7 +16,7 @@ public interface ImageLoader {
      *         identifier if present
      *         otherwise an empty Optional
      */
-    Optional<String> getSpriteFilePathOf(String id);
+    Optional<Image> getSpriteImageOf(String id);
 
     /**
      * @param id the identifier of the GameObject

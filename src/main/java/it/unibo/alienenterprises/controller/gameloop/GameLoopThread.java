@@ -75,7 +75,7 @@ public final class GameLoopThread extends Thread implements GameLoop {
                         }
                     }
                 }
-                previousStart = previousStart - System.currentTimeMillis();
+                previousStart = System.currentTimeMillis();
             }
             long currentStart = System.currentTimeMillis();
             long elapsed = currentStart - previousStart;

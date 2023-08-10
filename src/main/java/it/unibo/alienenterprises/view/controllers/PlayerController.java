@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import it.unibo.alienenterprises.model.api.Statistic;
+import javafx.scene.image.Image;
 
 /**
  * PlayerController.
@@ -40,7 +41,7 @@ public interface PlayerController extends InitController {
      * @param id the id of the playerClass
      * @return the absolute path of the sprite of the playerClass
      */
-    Optional<String> getSpriteFile(String id);
+    Optional<Image> getSpriteImage(String id);
 
     /**
      * Set the selected player to the given player.

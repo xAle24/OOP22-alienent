@@ -7,7 +7,7 @@ import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.view.api.Painter;
 
 /**
- * Manager for all the {@link Renderable} objects of the game.
+ * {@link RendererManager} for all the {@link GameObjects} of the game.
  * 
  * @author Giulia Bonifazi
  */
