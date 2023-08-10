@@ -131,8 +131,6 @@ public class PlayerInputComponentImpl extends ComponentAbs implements PlayerInpu
             var retInput = input.getClass().getConstructor().newInstance();
             return Optional.of(new PlayerInputComponentImpl(obj, retInput));
         } catch (final Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         }
         return Optional.empty();
     }

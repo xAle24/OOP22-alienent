@@ -45,8 +45,8 @@ public class AutomaticShooterComponent extends ComponentAbs implements ShooterCo
     public void start() {
         this.delay = getGameObject().getStatValue(Statistic.COOLDOWN);
         this.projectileSpeed = getGameObject().getStatValue(Statistic.PROJECTILESPEED);
-        this.shooterType = getGameObject().getComponent(HitboxComponent.class).get().getType();
-        // TODO
+        this.shooterType = getGameObject().getComponent(HitboxComponent.class)
+                .orElseThrow(() -> new IllegalStateException("The hitbox component isn't present")).getType();
         this.damage = getGameObject().getStatValue(Statistic.DAMAGE);
     }
 

@@ -43,8 +43,6 @@ public class PlayerInfoLoaderImpl implements ShipInfoLoader {
             final Map<String, List<String>> map = yaml.load(inputStream);
             this.playerIds = Set.copyOf(map.get(PLAYERS));
         } catch (final Exception e) {
-            // TODO: handle exception
-            e.printStackTrace();
         }
     }
 
@@ -70,8 +68,6 @@ public class PlayerInfoLoaderImpl implements ShipInfoLoader {
                     final PlayerClassInfo pInfo = yaml.loadAs(inputStream, PlayerClassInfoImpl.class);
                     this.infoMap.put(name, pInfo);
                 } catch (final Exception e) {
-                    // TODO: handle exception
-                    e.printStackTrace();
                 }
             }
             this.isLoaded = true;

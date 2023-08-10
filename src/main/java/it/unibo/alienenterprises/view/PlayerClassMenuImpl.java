@@ -125,14 +125,14 @@ public class PlayerClassMenuImpl extends BorderPane implements PlayerClassMenu {
                 button.setMinWidth(SELECTION_BUTTON_SIZE);
                 button.setMinHeight(SELECTION_BUTTON_SIZE);
 
-                final var img = new ImageView(controller.getSpriteImage(id).get());// TODO
+                final var img = new ImageView(controller.getSpriteImage(id).get());
                 img.setFitWidth(SELECTION_IMAGE_SIZE);
                 img.setFitHeight(SELECTION_IMAGE_SIZE);
                 final var graphic = new BorderPane();
                 graphic.setTop(img);
                 BorderPane.setAlignment(graphic.getTop(), Pos.CENTER);
 
-                final Text text = new Text(controller.getName(id).get());// TODO
+                final Text text = new Text(controller.getName(id).get());
                 text.setWrappingWidth(WRAPPING_TEXT_WIDTH);
                 text.setTextAlignment(TextAlignment.CENTER);
                 graphic.setCenter(text);
@@ -151,7 +151,7 @@ public class PlayerClassMenuImpl extends BorderPane implements PlayerClassMenu {
             buttons.forEach((b) -> b.setDisable(false));
             button.setDisable(true);
             showStats(controller.getStats(id).get());
-            ImageView img = new ImageView(controller.getSpriteImage(id).get());// TODO
+            ImageView img = new ImageView(controller.getSpriteImage(id).get());
             img.setFitHeight(DESCRIPTION_IMAGE_SIZE);
             img.setFitWidth(DESCRIPTION_IMAGE_SIZE);
             bottom.setLeft(img);
