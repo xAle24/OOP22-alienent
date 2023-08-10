@@ -105,6 +105,9 @@ public class PlayerClassMenuImpl extends BorderPane implements PlayerClassMenu {
         this.setBottom(confirmButton);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public PlayerController getController() {
         return controller;
