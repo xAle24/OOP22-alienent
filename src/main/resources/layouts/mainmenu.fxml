@@ -6,7 +6,7 @@
 <?import javafx.scene.control.Separator?>
 
 <VBox id="root" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unibo.alienenterprises.view.controllers.MenuControllerImpl"
-    styleClass="style" stylesheets="@/css/gameMenuStyle.css" prefWidth="800" prefHeight="800">
+    styleClass="style" stylesheets="@/css/gameMenuStyle.css" prefWidth="867" prefHeight="670">
     
     <Label text="Alienenterprises" fx:id="title"/>
 
