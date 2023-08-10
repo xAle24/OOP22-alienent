@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -44,6 +45,7 @@ class UserAccountTest {
   private static final String YML = ".yml";
 
   private final UserAccountHandlerImpl accountHandler = new UserAccountHandlerImpl();
+  private Optional<UserAccount> loadAccount;
   private UserAccount account;
 
   /**
@@ -51,7 +53,11 @@ class UserAccountTest {
    * Then it ensures that the file is deleted and so the password.
    */
   UserAccountTest() {
-    account = accountHandler.registration(NICKNAME, PASSWORD).get();
+    loadAccount = accountHandler.registration(NICKNAME, PASSWORD);
+    if (loadAccount.isEmpty()) {
+      loadAccount = accountHandler.login(NICKNAME, PASSWORD);
+    }
+    account = loadAccount.get();
     delete();
     removePassword();
   }
@@ -74,6 +80,8 @@ class UserAccountTest {
    */
   @Test
   void testSaveAndLogin() {
+    delete();
+    removePassword();
     account = accountHandler.registration(NICKNAME, PASSWORD).get();
 
     accountBuilder();

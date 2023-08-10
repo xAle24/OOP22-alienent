@@ -62,6 +62,7 @@ class ShopTest {
     private static final String YML = ".yml";
 
     private final UserAccountHandlerImpl accountHandler = new UserAccountHandlerImpl();
+    private Optional<UserAccount> loadAccount;
     private final UserAccount account;
     private final Controller contr = new ControllerImpl(new View() {
 
@@ -90,7 +91,11 @@ class ShopTest {
      * Then it ensures that the file is deleted and so the password.
      */
     ShopTest() {
-        account = accountHandler.registration(NICKNAME, PASSWORD).get();
+        loadAccount = accountHandler.registration(NICKNAME, PASSWORD);
+        if (loadAccount.isEmpty()) {
+            loadAccount = accountHandler.login(NICKNAME, PASSWORD);
+        }
+        account = loadAccount.get();
         account.setMoney(MONEY);
         contr.setUserAccount(account);
         delete();
