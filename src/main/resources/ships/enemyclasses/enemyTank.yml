@@ -5,8 +5,8 @@ stats:
   DAMAGE: 10
   DEFENCE: 3
   PROJECTILESPEED: 20
-  COOLDOWN: 1
-  RECOVERY: 1
+  COOLDOWN: 5
+  RECOVERY: 0
 components:
   InputComponentTankImpl:
     -

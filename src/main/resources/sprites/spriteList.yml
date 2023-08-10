@@ -1,19 +1,19 @@
 ---
 id: sniper 
 file: sniper.png
-scale: 1.0
+scale: 1.5
 height: 64
 width: 64
 ---
 id: standard
 file: standard.png
-scale: 1.0
+scale: 1.5
 height: 64
 width: 64
 ---
 id: tank
 file: tank.png
-scale: 1.0
+scale: 1.5
 height: 64
 width: 64
 ---
@@ -25,18 +25,18 @@ width: 1024
 ---
 id: enemyTank
 file: enemyTank.png
-scale: 1.0
+scale: 1.5
 height: 64
 width: 64
 ---
 id: enemySniper
 file: enemySniper.png
-scale: 1.0
+scale: 1.5
 height: 64
 width: 64
 ---
 id: enemyBomber
 file: enemyBomber.png
-scale: 1.0
+scale: 1.5
 height: 64
 width: 64

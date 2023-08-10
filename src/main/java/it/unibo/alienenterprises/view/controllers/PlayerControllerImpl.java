@@ -1,10 +1,12 @@
-package it.unibo.alienenterprises.controller;
+package it.unibo.alienenterprises.view.controllers;
 
 import java.io.File;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import it.unibo.alienenterprises.controller.Controller;
+import it.unibo.alienenterprises.controller.PlayerInfoLoaderImpl;
 import it.unibo.alienenterprises.controller.api.ShipLoader;
 import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.view.ShipInfoLoader;
@@ -108,5 +110,15 @@ public class PlayerControllerImpl implements PlayerController {
         this.controller.get().initiateGameSession(selected.get());
         this.controller.get().changeScene(ViewType.GAMESTAGE);
     }
+
+    @Override
+    public void exit(){
+        if (this.controller.isEmpty()) {
+            throw new IllegalStateException("the controller has not been initialized");
+        }
+        this.controller.get().changeScene(ViewType.MAINMENU);
+    }
+
+    
 
 }

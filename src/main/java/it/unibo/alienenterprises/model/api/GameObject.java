@@ -105,6 +105,10 @@ public interface GameObject {
      */
     int gethealth();
     /**
+     * heal the game object every second of the recovery statistic.
+     */
+    void recovery(double deltatime);
+    /**
      * Return the Id of the object.
      * @return string of the Id.
      */

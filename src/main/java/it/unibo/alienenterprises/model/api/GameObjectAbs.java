@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import it.unibo.alienenterprises.model.api.components.Component;
@@ -120,6 +121,9 @@ public class GameObjectAbs implements GameObject {
     @Override
     public void heal(final int heal) {
         this.health = this.health + heal;
+        if (this.health > stats.get(Statistic.HP)) {
+            this.health = stats.get(Statistic.HP);
+        }
     }
     /**
      * @inheritDoc
@@ -127,12 +131,7 @@ public class GameObjectAbs implements GameObject {
     @Override
     public void update(final double deltatime) {
         getAllComponent().stream().forEach(e -> e.update(deltatime));
-        if (this.recoveryCooldown > 1){
-            this.heal(stats.get(Statistic.RECOVERY));
-            this.recoveryCooldown = 0;
-        } else {
-            this.recoveryCooldown += deltatime; 
-        }
+        recovery(deltatime);
     }
     /**
      * @inheritDoc
@@ -140,6 +139,17 @@ public class GameObjectAbs implements GameObject {
     @Override
     public int gethealth() {
         return this.health;
+    }
+    /**
+     * @inheritDoc
+     */
+    public void recovery(final double deltatime) {
+        if (this.recoveryCooldown > 1){
+            this.heal(Optional.ofNullable(stats.get(Statistic.RECOVERY)).orElse(0));
+            this.recoveryCooldown = 0;
+        } else {
+            this.recoveryCooldown += deltatime; 
+        }
     }
     /**
      * @inheritDoc
