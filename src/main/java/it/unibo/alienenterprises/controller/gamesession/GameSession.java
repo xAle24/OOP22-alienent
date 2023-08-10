@@ -2,6 +2,7 @@ package it.unibo.alienenterprises.controller.gamesession;
 
 import it.unibo.alienenterprises.controller.InputQueue;
 import it.unibo.alienenterprises.controller.renderers.RendererManager;
+import it.unibo.alienenterprises.model.api.UserAccount;
 
 /**
  * Whenever a "new game" is pressed on the main menu, a new instance of this
@@ -29,7 +30,8 @@ public interface GameSession {
     /**
      * Start session after receiving the {@link RendererManager}.
      * 
-     * @param rendererManager
+     * @param rendererManager the renderer manager
+     * @return the player's input queue
      */
     InputQueue startSession(RendererManager rendererManager);
 
@@ -46,6 +48,13 @@ public interface GameSession {
      * @return the score.
      */
     int getScore();
+
+    /**
+     * Get the user account.
+     * 
+     * @return the user account
+     */
+    UserAccount getUserAccount();
 
     /**
      * Return if the session is over.

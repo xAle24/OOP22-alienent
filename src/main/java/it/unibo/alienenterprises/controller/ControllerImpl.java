@@ -17,6 +17,7 @@ import it.unibo.alienenterprises.view.ViewType;
  * @author Giulia Bonifazi
  */
 public final class ControllerImpl implements Controller {
+    private final Dimensions wd = new ArenaDimensions();
     private final UserAccountHandler accHandler;
     private final View view;
     private UserAccount account = null;
@@ -34,18 +35,12 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public GameSession getGameSession() {
-        return this.currGameSession;
+    public void initiateGameSession(final String playerID) {
+        this.currGameSession = new SimpleGameSession(new GameWorld(this.wd), account, playerID);
     }
 
     @Override
-    public void initiateGameSession(String playerID) {
-        Dimensions wd = new ArenaDimensions();
-        this.currGameSession = new SimpleGameSession(new GameWorld(wd), account, playerID);
-    }
-
-    @Override
-    public void changeScene(ViewType type) {
+    public void changeScene(final ViewType type) {
         this.view.setScene(type);
     }
 
@@ -55,12 +50,22 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
+    public GameSession getGameSession() {
+        return this.currGameSession;
+    }
+
+    @Override
     public UserAccount getUserAccount() {
         return this.account;
     }
 
     @Override
-    public void setUserAccount(UserAccount account) {
+    public Dimensions getArenaDimensions() {
+        return this.wd;
+    }
+
+    @Override
+    public void setUserAccount(final UserAccount account) {
         this.account = account;
     }
 

@@ -29,9 +29,9 @@ public interface WallBuilder {
      * @param pos   the position
      * @param vect  the velocity
      * @param stats the statistics
-     * @param ID    the ID of the object
+     * @param id    the ID of the object
      */
-    void addGameObject(Point2D pos, Vector2D vect, Map<Statistic, Integer> stats, String ID);
+    void addGameObject(Point2D pos, Vector2D vect, Map<Statistic, Integer> stats, String id);
 
     /**
      * Adds a {@link BoundaryHitboxComponent} to the Wall. The component is

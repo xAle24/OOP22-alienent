@@ -12,11 +12,11 @@ import javafx.stage.Stage;
  */
 public abstract class ViewStateAbs implements ViewState {
     private final String message;
-    protected final Controller controller;
-    protected Stage stage;
+    private final Controller controller;
+    private Stage stage;
 
     /**
-     * Creates an instance of the {@link ViewStateAbs} class
+     * Creates an instance of the {@link ViewStateAbs} class.
      * 
      * @param controller the main {@link Controller} of the game.
      * @param message    the message that will appear in the alert.
@@ -26,6 +26,9 @@ public abstract class ViewStateAbs implements ViewState {
         this.message = message;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void init(final Stage stage) {
         this.stage = stage;
@@ -36,11 +39,41 @@ public abstract class ViewStateAbs implements ViewState {
         });
     }
 
-    private void generateAlert(String message) {
+    /**
+     * {@inheritDoc}
+     * Generates an alert.
+     * 
+     * @param message the message on the alert.
+     */
+    private void generateAlert(final String message) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, message);
         alert.initOwner(stage);
         alert.showAndWait().filter(ans -> ans == ButtonType.OK).ifPresent(ans -> onCloseRequest());
     }
 
+    /**
+     * {@inheritDoc}
+     * Gets the stage.
+     * 
+     * @return the stage
+     */
+    protected Stage getStage() {
+        return this.stage;
+    }
+
+    /**
+     * {@inheritDoc}
+     * Gets the controller.
+     * 
+     * @return the controller.
+     */
+    protected Controller getController() {
+        return this.controller;
+    }
+
+    /**
+     * {@inheritDoc}
+     * Reaction to close request.
+     */
     protected abstract void onCloseRequest();
 }

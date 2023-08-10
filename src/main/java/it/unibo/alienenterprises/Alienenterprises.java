@@ -6,14 +6,21 @@ package it.unibo.alienenterprises;
  * @author Giulia Bonifazi
  */
 public final class Alienenterprises {
-    /*
+
+    /**
+     * Constructor for Alienenterprises.
+     */
+    private Alienenterprises() {
+
+    }
+
+    /**
+     * Main program entry point
      * 
-     * Main application entry-point.
-     * 
-     * @param args
+     * @param args args
      */
     public static void main(final String[] args) {
-        var App = new AppStart();
-        App.init(args);
+        var app = new AppStart();
+        app.init(args);
     }
 }

@@ -1,12 +1,10 @@
 package it.unibo.alienenterprises.controller;
 
 import it.unibo.alienenterprises.controller.api.GameLoop;
-import it.unibo.alienenterprises.controller.gamesession.GameSession;
 import it.unibo.alienenterprises.controller.renderers.RendererManager;
 import it.unibo.alienenterprises.model.EnemySpawnerImpl;
 import it.unibo.alienenterprises.model.PlayerSpawnerImpl;
 import it.unibo.alienenterprises.model.api.EnemySpawner;
-import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.InputSupplier;
 import it.unibo.alienenterprises.model.api.UserAccount;
 import it.unibo.alienenterprises.model.api.components.PlayerInputComponent;
@@ -40,9 +38,10 @@ public final class GameLoopThread extends Thread implements GameLoop {
      *                        the {@link GameObject} instances.
      * @param world           the {@link World} instance of the {@link GameSession}
      * @param playerID        the ID of the chosen player class.
+     * @param account         the {@link UserAccount} of the current user.
      */
     public GameLoopThread(final InputQueue queue, final RendererManager rendererManager, final World world,
-            final String playerID, UserAccount account) {
+            final String playerID, final UserAccount account) {
         this.inputQueue = queue;
         this.world = world;
         this.rendererManager = rendererManager;
@@ -120,7 +119,7 @@ public final class GameLoopThread extends Thread implements GameLoop {
 
     /**
      * Updates the {@link GameWorld} and adds its newest {@link GameObject}
-     * instances to {@link RendererManager}
+     * instances to {@link RendererManager}.
      * 
      * @param deltaTime
      */

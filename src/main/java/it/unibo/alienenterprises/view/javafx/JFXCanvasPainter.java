@@ -17,7 +17,7 @@ import javafx.scene.transform.Rotate;
  * @author Giulia Bonifazi
  */
 public final class JFXCanvasPainter implements Painter {
-    private final double DEGREESTURN = 90.0;
+    private static final double DEGREES_TURN = 90.0;
     private GraphicsContext gc;
     private Canvas canvas;
     private Set<Renderer> renderers;
@@ -42,7 +42,7 @@ public final class JFXCanvasPainter implements Painter {
             if (r.isShown()) {
                 r.render();
                 ImageView image = r.getSprite().getImageView();
-                drawRotatedImage(image.getImage(), image.getRotate() + DEGREESTURN, image.getX(), image.getY());
+                drawRotatedImage(image.getImage(), image.getRotate() + DEGREES_TURN, image.getX(), image.getY());
             } else {
                 this.toBeRemoved.add(r);
             }

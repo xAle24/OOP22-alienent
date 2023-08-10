@@ -12,7 +12,7 @@ import javafx.scene.control.Label;
  * 
  * @author Giulia Bonifazi
  */
-public class GameOverController implements InitController {
+public final class GameOverController implements InitController {
     @FXML
     private Label scoreDisplay;
     @FXML
@@ -23,7 +23,7 @@ public class GameOverController implements InitController {
     private Controller controller;
 
     @Override
-    public void init(Controller controller, Scene scene) {
+    public void init(final Controller controller, final Scene scene) {
         this.controller = controller;
         this.controller.save();
         this.scoreDisplay.setText(Integer.toString(this.controller.getGameSession().getScore()));

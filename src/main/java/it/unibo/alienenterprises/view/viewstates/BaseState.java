@@ -9,13 +9,22 @@ import it.unibo.alienenterprises.controller.Controller;
  */
 public class BaseState extends ViewStateAbs {
 
-    public BaseState(Controller controller, String message) {
+    /**
+     * Creates a new instance of this class.
+     * 
+     * @param controller the main controller
+     * @param message    the message for the alert
+     */
+    public BaseState(final Controller controller, final String message) {
         super(controller, message);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onCloseRequest() {
-        this.stage.close();
+        super.getStage().close();
     }
 
 }

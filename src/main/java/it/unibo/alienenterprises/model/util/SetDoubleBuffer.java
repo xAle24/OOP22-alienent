@@ -15,7 +15,6 @@ public class SetDoubleBuffer<T> implements DoubleBuffer<T> {
     private Set<T> curr;
 
     /**
-     * {@inheritDoc}
      * 
      * Creates new instance of this class.
      */

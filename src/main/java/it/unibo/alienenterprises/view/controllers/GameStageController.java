@@ -2,7 +2,6 @@ package it.unibo.alienenterprises.view.controllers;
 
 import it.unibo.alienenterprises.controller.Controller;
 import it.unibo.alienenterprises.controller.InputQueue;
-import it.unibo.alienenterprises.controller.bounds.ArenaDimensions;
 import it.unibo.alienenterprises.controller.bounds.Dimensions;
 import it.unibo.alienenterprises.controller.gamesession.GameSession;
 import it.unibo.alienenterprises.controller.renderers.Renderable;
@@ -23,7 +22,7 @@ import javafx.stage.Screen;
  * 
  * @author Giulia Bonifazi
  */
-public class GameStageController implements InitController, Renderable {
+public final class GameStageController implements InitController, Renderable {
     @FXML
     private Label currScore;
     @FXML
@@ -35,15 +34,16 @@ public class GameStageController implements InitController, Renderable {
     @FXML
     private VBox pauseMenu;
 
-    private final Dimensions arenaDim = new ArenaDimensions();
+    private Dimensions arenaDim;
     private Controller controller;
     private GameSession gameSession;
 
     private InputQueue keyPressQueue;
 
     @Override
-    public void init(Controller controller, Scene scene) {
+    public void init(final Controller controller, final Scene scene) {
         this.controller = controller;
+        this.arenaDim = this.controller.getArenaDimensions();
         this.root.setPrefWidth(Screen.getPrimary().getBounds().getWidth());
         this.root.setPrefHeight(Screen.getPrimary().getBounds().getHeight());
         this.gameSession = controller.getGameSession();
@@ -63,25 +63,34 @@ public class GameStageController implements InitController, Renderable {
     public void render() {
         Platform.runLater(() -> {
             if (this.gameSession.isOver()) {
-                this.gameSession.gameOver();
-                this.controller.changeScene(ViewType.GAMEOVER);
+                this.gameOver();
             }
             this.currScore.setText(Integer.toString(this.gameSession.getScore()));
             this.healthDisplay.setText(Integer.toString(this.gameSession.getPlayerHealth()));
         });
     }
 
+    /**
+     * Handle the game over.
+     */
     @FXML
     public void gameOver() {
         this.gameSession.gameOver();
+        this.controller.changeScene(ViewType.GAMEOVER);
     }
 
+    /**
+     * Handle the pause button press.
+     */
     @FXML
     public void pause() {
         this.pauseMenu.setVisible(true);
         this.gameSession.pause();
     }
 
+    /**
+     * Handle resume button click.
+     */
     @FXML
     public void resume() {
         this.pauseMenu.setVisible(false);
@@ -94,7 +103,7 @@ public class GameStageController implements InitController, Renderable {
      * @param s the text of the key that was pressed
      * @throws InterruptedException
      */
-    private void addKeyPressed(String s) throws InterruptedException {
+    private void addKeyPressed(final String s) throws InterruptedException {
         this.keyPressQueue.put(s);
     }
 
