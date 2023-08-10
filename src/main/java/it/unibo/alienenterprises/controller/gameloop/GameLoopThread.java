@@ -1,6 +1,6 @@
-package it.unibo.alienenterprises.controller;
+package it.unibo.alienenterprises.controller.gameloop;
 
-import it.unibo.alienenterprises.controller.api.GameLoop;
+import it.unibo.alienenterprises.controller.InputQueue;
 import it.unibo.alienenterprises.controller.renderers.RendererManager;
 import it.unibo.alienenterprises.model.EnemySpawnerImpl;
 import it.unibo.alienenterprises.model.PlayerSpawnerImpl;

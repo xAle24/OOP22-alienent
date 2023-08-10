@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import it.unibo.alienenterprises.controller.ShipLoaderImpl;
 import it.unibo.alienenterprises.controller.bounds.Dimensions;
 import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.Statistic;
@@ -23,7 +24,7 @@ import it.unibo.alienenterprises.model.wall.WallBuilderImpl;
  * @author Giulia Bonifazi
  */
 public final class GameWorld implements World {
-    private static final Set<String> GIVESSCORE = new HashSet<>(Set.of("enemyBomber", "enemySniper", "enemyTank"));
+    private static final Set<String> GIVESSCORE = new HashSet<>(new ShipLoaderImpl().getEnemyIds());
     private final CollisionHandler collisionHandler;
     private final DoubleBuffer<GameObject> doubleBuff;
     private final Set<GameObject> lastAdded;

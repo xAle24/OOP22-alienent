@@ -10,7 +10,8 @@ import javafx.stage.Screen;
  * @author Giulia Bonifazi
  */
 public class ArenaDimensions implements Dimensions {
-    private static final double PRESETHEIGHT = 600.0;
+    private static final double SCREEN_WIDTH_PERCENT = 1.0;
+    private static final double SCREEN_HEIGHT_PERCENT = 0.8;
     private double width;
     private double height;
 
@@ -36,12 +37,11 @@ public class ArenaDimensions implements Dimensions {
     }
 
     /**
-     * Creates a new instance of this class with preset values.
+     * Creates a new instance of this class by using the screen bounds.
      */
     public ArenaDimensions() {
-        this.width = Screen.getPrimary().getBounds().getWidth();
-
-        this.height = PRESETHEIGHT;
+        this.width = Screen.getPrimary().getBounds().getWidth() * SCREEN_WIDTH_PERCENT;
+        this.height = Screen.getPrimary().getBounds().getHeight() * SCREEN_HEIGHT_PERCENT;
     }
 
     /**

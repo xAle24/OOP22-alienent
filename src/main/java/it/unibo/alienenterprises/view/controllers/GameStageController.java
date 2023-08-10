@@ -43,7 +43,6 @@ public final class GameStageController implements InitController, Renderable {
     private Dimensions arenaDim;
     private Controller controller;
     private GameSession gameSession;
-
     private InputQueue keyPressQueue;
 
     @Override
@@ -53,16 +52,23 @@ public final class GameStageController implements InitController, Renderable {
         this.gameSession = controller.getGameSession();
 
         // View set up
-        this.root.setPrefWidth(Screen.getPrimary().getBounds().getWidth());
-        this.root.setPrefHeight(Screen.getPrimary().getBounds().getHeight());
+        var screenWidth = Screen.getPrimary().getBounds().getWidth();
+        var screenHeight = Screen.getPrimary().getBounds().getHeight();
+        this.root.setPrefWidth(screenWidth);
+        this.root.setPrefHeight(screenHeight);
         this.canvas.setWidth(this.arenaDim.getWidth());
         this.canvas.setHeight(this.arenaDim.getHeight());
-        var width = (Screen.getPrimary().getBounds().getWidth() - this.canvas.getWidth()) / 2.0;
-        var height = (Screen.getPrimary().getBounds().getHeight() - this.canvas.getHeight()) / 2.0;
-        this.bottomHbox.setPrefHeight(height);
-        this.bottomHbox.setPrefWidth(width);
-        this.topHbox.setPrefHeight(height);
-        this.topHbox.setPrefWidth(width);
+        System.out.println("Screen width: " + screenWidth + ", screen height: " + screenHeight);
+        var height = (screenHeight - this.canvas.getHeight()) / 2.0;
+        System.out.println("height: " + height);
+        Platform.runLater(() -> {
+            this.bottomHbox.setPrefHeight(height);
+            this.bottomHbox.setMaxHeight(height);
+            this.topHbox.setPrefHeight(height);
+            this.topHbox.setMaxHeight(height);
+
+        });
+        System.out.println("box height: " + topHbox.getHeight());
         scene.setOnKeyPressed(e -> {
             try {
                 if (e.getCode() == KeyCode.P) {
