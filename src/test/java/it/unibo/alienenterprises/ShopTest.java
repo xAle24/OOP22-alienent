@@ -44,7 +44,7 @@ class ShopTest {
 
     private static final String NICKNAME = "AccountTest";
     private static final String PASSWORD = "AccountPass";
-    private static final int MONEY = 200_000_0;
+    private static final int MONEY = 2_000_000;
     private static final int REMAINING_MONEY = 400_000;
     private static final String YAMLPASSWORD = "passwords";
     private static final String HEALTH = "Health";
@@ -89,7 +89,7 @@ class ShopTest {
      * This costructor ensures that an account is created and its money are setted.
      * Then it ensures that the file is deleted and so the password.
      */
-    public ShopTest() {
+    ShopTest() {
         account = accountHandler.registration(NICKNAME, PASSWORD).get();
         account.setMoney(MONEY);
         contr.setUserAccount(account);
@@ -222,6 +222,7 @@ class ShopTest {
         pwu.add(damage);
     }
 
+    // CPD-OFF
     @SuppressWarnings("CPD-START")
     private void delete() {
         final File deleteFile = new File(GAME_PATH + SEPARATOR + NICKNAME + YML);
@@ -229,9 +230,9 @@ class ShopTest {
             deleteFile.delete();
         }
     }
+    // CPD-ON
 
-    @SuppressWarnings("CPD-END")
-
+    @SuppressWarnings("all")
     // CPD-OFF
     private void removePassword() {
         try {
