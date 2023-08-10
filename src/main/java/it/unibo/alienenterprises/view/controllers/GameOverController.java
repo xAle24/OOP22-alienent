@@ -7,6 +7,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
+/**
+ * Controls the game over screen.
+ * 
+ * @author Giulia Bonifazi
+ */
 public class GameOverController implements InitController {
     @FXML
     private Label scoreDisplay;
@@ -21,6 +26,7 @@ public class GameOverController implements InitController {
     public void init(Controller controller, Scene scene) {
         this.controller = controller;
         this.controller.save();
+        this.scoreDisplay.setText(Integer.toString(this.controller.getGameSession().getScore()));
     }
 
     @FXML

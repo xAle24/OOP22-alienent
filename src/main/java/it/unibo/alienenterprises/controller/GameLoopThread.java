@@ -8,7 +8,9 @@ import it.unibo.alienenterprises.model.PlayerSpawnerImpl;
 import it.unibo.alienenterprises.model.api.EnemySpawner;
 import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.InputSupplier;
+import it.unibo.alienenterprises.model.api.UserAccount;
 import it.unibo.alienenterprises.model.api.components.PlayerInputComponent;
+import it.unibo.alienenterprises.model.api.components.PowerUpComponent;
 import it.unibo.alienenterprises.model.geometry.Point2D;
 import it.unibo.alienenterprises.model.world.World;
 
@@ -39,17 +41,22 @@ public final class GameLoopThread extends Thread implements GameLoop {
      * @param world           the {@link World} instance of the {@link GameSession}
      * @param playerID        the ID of the chosen player class.
      */
-    public GameLoopThread(InputQueue queue, RendererManager rendererManager, final World world,
-            final String playerID) {
+    public GameLoopThread(final InputQueue queue, final RendererManager rendererManager, final World world,
+            final String playerID, UserAccount account) {
         this.inputQueue = queue;
         this.world = world;
         this.rendererManager = rendererManager;
+
+        // Set up the player
         var player = new PlayerSpawnerImpl(world).getPlayer(playerID).get();
         this.inputSupplier = player.getComponent(PlayerInputComponent.class).get().getInputSupplier();
+        player.getComponent(PowerUpComponent.class).get().setPoweUps(account.getToAddPwu());
+        this.world.addPlayer(player);
+
+        // Set up the EnemySpawner
         var topRight = new Point2D(this.world.getWorldDimensions().getWidth(), 0);
         var bottomLeft = new Point2D(0, this.world.getWorldDimensions().getHeight());
         this.enemySpawner = new EnemySpawnerImpl(world, bottomLeft, topRight, player);
-        this.world.addPlayer(player);
         this.stopped = false;
         this.paused = false;
     }

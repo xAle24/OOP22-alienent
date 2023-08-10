@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 
 /**
@@ -31,6 +32,8 @@ public class GameStageController implements InitController, Renderable {
     private Canvas canvas;
     @FXML
     private StackPane root;
+    @FXML
+    private VBox pauseMenu;
 
     private final Dimensions arenaDim = new ArenaDimensions();
     private Controller controller;
@@ -56,6 +59,35 @@ public class GameStageController implements InitController, Renderable {
         this.keyPressQueue = this.gameSession.startSession(new RendererManager(new JFXCanvasPainter(canvas), this));
     }
 
+    @Override
+    public void render() {
+        Platform.runLater(() -> {
+            if (this.gameSession.isOver()) {
+                this.gameSession.gameOver();
+                this.controller.changeScene(ViewType.GAMEOVER);
+            }
+            this.currScore.setText(Integer.toString(this.gameSession.getScore()));
+            this.healthDisplay.setText(Integer.toString(this.gameSession.getPlayerHealth()));
+        });
+    }
+
+    @FXML
+    public void gameOver() {
+        this.gameSession.gameOver();
+    }
+
+    @FXML
+    public void pause() {
+        this.pauseMenu.setVisible(true);
+        this.gameSession.pause();
+    }
+
+    @FXML
+    public void resume() {
+        this.pauseMenu.setVisible(false);
+        this.gameSession.resume();
+    }
+
     /**
      * Adds a String to the {@link InputQueue}.
      * 
@@ -66,14 +98,4 @@ public class GameStageController implements InitController, Renderable {
         this.keyPressQueue.put(s);
     }
 
-    @Override
-    public void render() {
-        Platform.runLater(() -> {
-            if (this.gameSession.getWorld().isOver()) {
-                this.gameSession.gameOver();
-                this.controller.changeScene(ViewType.GAMEOVER);
-            }
-            this.currScore.setText(Integer.toString(this.gameSession.getWorld().getScore()));
-        });
-    }
 }

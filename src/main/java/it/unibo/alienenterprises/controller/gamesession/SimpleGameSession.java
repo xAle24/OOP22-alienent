@@ -8,7 +8,6 @@ import it.unibo.alienenterprises.model.world.World;
  * Simple {@link GameSession} implementation.
  */
 public class SimpleGameSession extends GameSessionAbs {
-    private final UserAccount account;
 
     /**
      * {@inheritDoc}
@@ -20,8 +19,7 @@ public class SimpleGameSession extends GameSessionAbs {
      */
     public SimpleGameSession(final World world, final UserAccount account,
             final String playerID) {
-        super(world, playerID);
-        this.account = account;
+        super(world, account, playerID);
     }
 
     /**
@@ -35,6 +33,26 @@ public class SimpleGameSession extends GameSessionAbs {
         if (this.account.getHighscore() < score) {
             this.account.setHighscore(score);
         }
+    }
+
+    @Override
+    public int getPlayerHealth() {
+        var health = this.player.gethealth();
+        if (health <= 0) {
+            return 0;
+        } else {
+            return health;
+        }
+    }
+
+    @Override
+    public int getScore() {
+        return this.world.getScore();
+    }
+
+    @Override
+    public boolean isOver() {
+        return this.world.isOver();
     }
 
 }

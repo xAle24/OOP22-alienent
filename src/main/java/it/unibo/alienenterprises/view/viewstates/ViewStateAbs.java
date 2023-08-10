@@ -29,6 +29,7 @@ public abstract class ViewStateAbs implements ViewState {
     @Override
     public void init(final Stage stage) {
         this.stage = stage;
+        this.stage.setResizable(true);
         this.stage.setOnCloseRequest(e -> {
             generateAlert(message);
             e.consume();
