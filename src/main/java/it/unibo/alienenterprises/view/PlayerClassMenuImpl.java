@@ -38,8 +38,6 @@ public class PlayerClassMenuImpl extends BorderPane implements PlayerClassMenu {
     private static final String SELECTION_BUTTON = "button_selection";
     private static final String TITLE = "title";
     private static final String EXIT = "exit_button";
-    private static final String BUTTONS_GRID = "buttonsGrid";
-
     private final PlayerController controller;
 
     private final VBox left = new VBox();

@@ -50,12 +50,6 @@ public interface PlayerController extends InitController {
     void select(String id);
 
     /**
-<<<<<<< HEAD:src/main/java/it/unibo/alienenterprises/controller/PlayerController.java
-     * Confirm the selection of the player adding it to the world if necessary.
-     */
-    void confirmSelection();
-}
-=======
      * Confirm the selection of the player and starts the game
      */
     void confirmSelection();
@@ -65,4 +59,3 @@ public interface PlayerController extends InitController {
      */
     void exit();
 }
->>>>>>> prittierMenu:src/main/java/it/unibo/alienenterprises/view/controllers/PlayerController.java
