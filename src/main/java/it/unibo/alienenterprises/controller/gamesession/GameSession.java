@@ -1,7 +1,7 @@
 package it.unibo.alienenterprises.controller.gamesession;
 
 import it.unibo.alienenterprises.controller.InputQueue;
-import it.unibo.alienenterprises.controller.renderers.RendererManager;
+import it.unibo.alienenterprises.controller.renderers.GameObjectRendererManager;
 import it.unibo.alienenterprises.model.api.UserAccount;
 
 /**
@@ -28,12 +28,12 @@ public interface GameSession {
     void gameOver();
 
     /**
-     * Start session after receiving the {@link RendererManager}.
+     * Start session after receiving the {@link GameObjectRendererManager}.
      * 
      * @param rendererManager the renderer manager
      * @return the player's input queue
      */
-    InputQueue startSession(RendererManager rendererManager);
+    InputQueue startSession(GameObjectRendererManager rendererManager);
 
     /**
      * Get the player's health to display.
