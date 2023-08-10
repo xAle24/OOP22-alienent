@@ -16,7 +16,9 @@ import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.model.api.UserAccount;
 
 /**
- * UserAccountTest.
+ * This tests all the methods of UserAccount and UserAccountHandler.
+ * 
+ * @author Ginevra Bartolini
  */
 public class UserAccountTest {
 
@@ -43,19 +45,21 @@ public class UserAccountTest {
   private final UserAccountHandlerImpl accountHandler = new UserAccountHandlerImpl();
   private UserAccount account;
 
+  /**
+   * This costructor ensures that an account is created.
+   * Then it ensures that the file is deleted and so the password.
+   */
   public UserAccountTest() {
     account = accountHandler.registration(NICKNAME, PASSWORD).get();
     delete();
     removePassword();
   }
 
+  /**
+   * Tests account registration.
+   */
   @Test
   public void testAccountRegistration() {
-    /*
-     * An account is registered. The only information available should be
-     * its nickname, its money, equals 0, and its highscore, equals 0.
-     * Other info should be 0 or empty HashMaps.
-     */
     assertEquals(NICKNAME, account.getNickname());
     assertEquals(0, account.getMoney());
     assertEquals(0, account.getHighscore());
@@ -64,15 +68,14 @@ public class UserAccountTest {
     assertEquals(0, account.getCurrLevel(HEALTH));
   }
 
+  /**
+   * Tests save and login methods.
+   */
   @Test
   public void testSaveAndLogin() {
-    /*
-     * We test save and login. If the account is the same before and after
-     * login, they work as they should.
-     */
     account = accountHandler.registration(NICKNAME, PASSWORD).get();
 
-    account = accountBuilder(account);
+    accountBuilder();
     accountHandler.save(account);
 
     UserAccount secondAaccount = accountHandler.login(NICKNAME, PASSWORD).get();
@@ -88,13 +91,14 @@ public class UserAccountTest {
     removePassword();
   }
 
+  /**
+   * Tests updateInventory. UpdateInventory should increase by one the level of a
+   * pwu, or set it 1 if it is 0.
+   */
   @Test
   public void testUpdateInventory() {
-    /*
-     * UpdateInventory should increase by one the level of a pwu, or set it 1 if it
-     * is 0.
-     */
-    account = accountBuilder(account);
+
+    accountBuilder();
     assertEquals(HEALTH_LEVEL, account.getCurrLevel(HEALTH));
     assertEquals(0, account.getCurrLevel(DEFENCE));
 
@@ -104,13 +108,13 @@ public class UserAccountTest {
     assertEquals(1, account.getCurrLevel(DEFENCE));
   }
 
+  /**
+   * Tests UpdateToAddPwu.UpdateToAddPwu should increase the percentage of the
+   * added statistic, or simply add the statistic if not present.
+   */
   @Test
   public void testUpdateToAddPwu() {
-    /*
-     * UpdateToAddPwu should increase the percentage of the added statistic, or
-     * simply add the statistic if not present.
-     */
-    account = accountBuilder(account);
+    accountBuilder();
     account.setToAddPwu(new HashMap<Statistic, Integer>());
 
     final Map<Statistic, Integer> toAddMap = new HashMap<>();
@@ -137,7 +141,7 @@ public class UserAccountTest {
 
   }
 
-  private UserAccount accountBuilder(UserAccount account) {
+  private void accountBuilder() {
     final Map<String, Integer> inventoryMap = new HashMap<>();
     inventoryMap.put(HEALTH, HEALTH_LEVEL);
     inventoryMap.put(DAMAGE, DAMAGE_LEVEL);
@@ -157,9 +161,9 @@ public class UserAccountTest {
     account.setInventory(inventoryMap);
     account.setToAddPwu(toAddMap);
 
-    return account;
   }
 
+  @SuppressWarnings("all")
   private void delete() {
     File deleteFile = new File(GAME_PATH + SEPARATOR + NICKNAME + YML);
     if (deleteFile.exists()) {
@@ -170,6 +174,7 @@ public class UserAccountTest {
     }
   }
 
+  @SuppressWarnings("all")
   private void removePassword() {
     try {
       List<String> yamlLines = Files.readAllLines(Paths.get(GAME_PATH + SEPARATOR + YAMLPASSWORD + YML));
@@ -181,48 +186,4 @@ public class UserAccountTest {
     } catch (Exception e) {
     }
   }
-
-  /*
-   * account.setMoney(MONEY);
-   * account.setHighscore(HIGHSCORE);
-   * assertEquals(MONEY, account.getMoney());
-   * assertEquals(HIGHSCORE, account.getHighscore());
-   * /*
-   * L'account dovrebbe essere riempito con i dati passati
-   * 
-   * 
-   * accountHandler.save(account);
-   * 
-   * account = accountHandler.login(NICKNAME, PASSWORD).get();
-   * 
-   * assertEquals(NICKNAME, account.getNickname());
-   * assertEquals(MONEY, account.getMoney());
-   * assertEquals(HIGHSCORE, account.getHighscore());
-   * 
-   * assertEquals(Optional.of(HEALTH_COST), shop.check(HEALTH));
-   * assertEquals(Optional.of(SPEED_COST), shop.check(SPEED));
-   * assertEquals(Optional.of(SPEED_COST), shop.check(SPEED));
-   * shop.updateShop(HEALTH, HEALTH_COST);
-   * shop.updateShop(SPEED, SPEED_COST);
-   * shop.updateShop(SPEED, SPEED_COST);
-   * 
-   * final Map<String, Integer> map = new HashMap<>();
-   * map.put(HEALTH, 1);
-   * map.put(SPEED, 2);
-   * assertEquals(map, account.getInventory());
-   * 
-   * assertEquals(MONEY + HEALTH_COST + SPEED_COST + SPEED_COST,
-   * account.getMoney());
-   * 
-   * final Map<Statistic, Integer> map2 = new HashMap<>();
-   * map2.put(Statistic.HP, HEALTH_STAT);
-   * map2.put(Statistic.DAMAGE, 0);
-   * map2.put(Statistic.SPEED, SPEED_STAT);
-   * map2.put(Statistic.DEFENCE, 0);
-   * map2.put(Statistic.PROJECTILESPEED, 0);
-   * map2.put(Statistic.COOLDOWN, 0);
-   * map2.put(Statistic.RECOVERY, 0);
-   * assertEquals(map2, account.getToAddPwu());
-   * }
-   */
 }

@@ -1,5 +1,10 @@
 package it.unibo.alienenterprises.view.controllers;
 
+/**
+ * Interface for tutorial menu controller.
+ * 
+ * @author Ginevra Bartolini
+ */
 public interface TutorialController {
 
     /**

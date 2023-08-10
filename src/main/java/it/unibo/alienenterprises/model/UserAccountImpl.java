@@ -20,8 +20,9 @@ public class UserAccountImpl implements UserAccount {
     private final Map<Statistic, Integer> toAddPwu = new HashMap<>();
 
     /**
-     * Costructor. It is filled with nothing because otherwise yaml won't work.
+     * Costructor. It is filled with nothing because otherwise YAML won't work.
      */
+    @SuppressWarnings("all")
     public UserAccountImpl() {
     }
 
