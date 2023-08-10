@@ -83,7 +83,7 @@ public class BoundaryHitboxComponentImpl extends ComponentAbs implements Boundar
     public void canCollide(final HitboxComponent hitbox) {
         if (this.objectType != hitbox.getType()) {
             if (hitbox instanceof CircleHitboxComponentAbs 
-                    && ((CircleHitboxComponentAbs) hitbox).getHitbox().intersectWhith(this.line)) {
+                    && ((CircleHitboxComponentAbs) hitbox).getHitbox().intersectWith(this.line)) {
                 this.isColliding(hitbox);
             }
         }
