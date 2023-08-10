@@ -294,6 +294,9 @@ public class ShopViewImpl implements ShopView {
             }
             buyButton.setText(String.valueOf(cost));
             buyButton.setFont(Font.font("Helvetica", FontWeight.BOLD, FONTSIZE));
+            if (controller.getUserAccount().getCurrLevel(curr.getId()) == curr.getPwu().getMaxLevel()) {
+                buyButton.setDisable(true);
+            }
             buyButton.setOnAction(e -> {
                 buyEvent(curr, buyButton);
             });
