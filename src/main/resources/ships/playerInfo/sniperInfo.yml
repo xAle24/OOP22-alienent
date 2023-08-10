@@ -1,5 +1,5 @@
 !it.unibo.alienenterprises.view.PlayerClassInfoImpl
-name: "Corvetta"
+name: "Fighter Pod"
 description: |
-  Nave veloce e dal grande potenziale offensivo,
-  ma dalla difesa carente
+  A powerfull and fast ship,
+  but it's weak to damage.
