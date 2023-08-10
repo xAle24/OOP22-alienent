@@ -29,7 +29,7 @@ public final class ShipProp {
      * @param stats
      */
     public void setStats(final Map<String, Integer> stats) {
-        this.stats = Map.copyOf(stats);
+        this.stats = stats;
     }
 
     /**
@@ -43,7 +43,7 @@ public final class ShipProp {
      * @param components
      */
     public void setComponents(final Map<String, List<Map<String, String>>> components) {
-        this.components = Map.copyOf(components);
+        this.components = components;
     }
 
     /**
