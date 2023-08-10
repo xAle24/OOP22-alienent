@@ -1,7 +1,8 @@
 package it.unibo.alienenterprises.controller;
 
 import java.io.FileInputStream;
-
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -77,7 +78,6 @@ public class ShopControllerImpl implements ShopController, InitController {
     /**
      * {@inheritDoc}
      */
-    @SuppressWarnings("all")
     @Override
     public void loadPwuYaml() {
         try (FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + "PowerUps.yml")) {
@@ -97,14 +97,14 @@ public class ShopControllerImpl implements ShopController, InitController {
                 powerUps.add((PowerUp) object);
             }
 
-        } catch (Exception e) {
+        } catch (FileNotFoundException e) {
+        } catch (IOException i) {
         }
     }
 
     /**
      * {@inheritDoc}
      */
-    @SuppressWarnings("all")
     @Override
     public void loadPwuInfoYaml() {
         try (FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + "PowerUpsInfo.yml")) {
@@ -124,7 +124,8 @@ public class ShopControllerImpl implements ShopController, InitController {
                 pwuInfo.add((PowerUpRenderer) object);
             }
 
-        } catch (Exception e) {
+        } catch (FileNotFoundException e) {
+        } catch (IOException i) {
         }
 
         final Iterator<PowerUpRenderer> iterator = pwuInfo.iterator();

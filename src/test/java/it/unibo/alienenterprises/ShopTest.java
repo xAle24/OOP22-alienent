@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.LinkedHashMap;
@@ -221,18 +222,13 @@ public class ShopTest {
         pwu.add(damage);
     }
 
-    @SuppressWarnings("all")
     private void delete() {
         File deleteFile = new File(GAME_PATH + SEPARATOR + NICKNAME + YML);
         if (deleteFile.exists()) {
-            try {
-                deleteFile.delete();
-            } catch (Exception e) {
-            }
+            deleteFile.delete();
         }
     }
 
-    @SuppressWarnings("all")
     private void removePassword() {
         try {
             List<String> yamlLines = Files.readAllLines(Paths.get(GAME_PATH + SEPARATOR + YAMLPASSWORD + YML));
@@ -241,7 +237,7 @@ public class ShopTest {
                 yamlLines.remove(yamlLines.size() - 1);
                 Files.write(Paths.get(GAME_PATH + SEPARATOR + YAMLPASSWORD + YML), yamlLines);
             }
-        } catch (Exception e) {
+        } catch (IOException i) {
         }
     }
 }

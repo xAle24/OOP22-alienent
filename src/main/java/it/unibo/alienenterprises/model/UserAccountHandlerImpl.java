@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
@@ -37,7 +38,6 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
     /**
      * {@inheritDoc}
      */
-    @SuppressWarnings("all")
     @Override
     public Optional<UserAccount> login(final String nickname, final String password) {
         if (existingAccount(nickname) && correctPassword(nickname, password)) {
@@ -54,7 +54,8 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
 
                 return Optional.of(userAccount);
 
-            } catch (Exception e) {
+            } catch (FileNotFoundException e) {
+            } catch (IOException i) {
             }
         }
         return Optional.empty();
@@ -64,7 +65,6 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
     /**
      * {@inheritDoc}
      */
-    @SuppressWarnings("all")
     @Override
     public Optional<UserAccount> registration(final String nickname, final String password) {
         if (!existingAccount(nickname)) {
@@ -88,7 +88,7 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
                 save(account.get());
                 return account;
 
-            } catch (Exception e) {
+            } catch (IOException i) {
             }
         }
         return Optional.empty();
@@ -97,7 +97,6 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
     /**
      * {@inheritDoc}
      */
-    @SuppressWarnings("all")
     @Override
     public void save(final UserAccount account) {
         final String accountFile = GAME_PATH + SEPARATOR + account.getNickname() + YML;
@@ -117,7 +116,6 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
         return Files.exists(Paths.get(GAME_PATH + SEPARATOR + nickname + YML));
     }
 
-    @SuppressWarnings("all")
     private boolean correctPassword(final String nickname, final String password) {
         try (FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + "passwords.yml")) {
 
@@ -143,7 +141,8 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
 
             return passwordMap.get(nickname).equals(password);
 
-        } catch (Exception e) {
+        } catch (FileNotFoundException e) {
+        } catch (IOException i) {
         }
 
         return false;
