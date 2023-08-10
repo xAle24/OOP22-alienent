@@ -10,11 +10,17 @@ public class Line2D {
     private final double c;
 
     /**
+     * A constructor that creates a line from the given components.
+     * To have a geometrical meaning at least one of a and b must be != 0.
+     * 
      * @param a
      * @param b
      * @param c
      */
     public Line2D(final double a, final double b, final double c) {
+        if (a == 0 && b == 0) {
+            throw new IllegalArgumentException("ERROR: the components (0,0," + c + ") doesn't represent a Line");
+        }
         this.a = a;
         this.b = b;
         this.c = c;
@@ -100,13 +106,18 @@ public class Line2D {
             return false;
         }
         Line2D other = (Line2D) obj;
-        if (Double.doubleToLongBits(a) != Double.doubleToLongBits(other.a)) {
+        if (this.getB() == 0) {
+            if (other.getB() == 0) {
+                if (this.getC() / this.getA() == other.getC() / other.getA()) {
+                    return true;
+                }
+                return false;
+            }
+        }
+        if (this.getA() / this.getB() != other.getA() / other.getB()) {
             return false;
         }
-        if (Double.doubleToLongBits(b) != Double.doubleToLongBits(other.b)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(c) != Double.doubleToLongBits(other.c)) {
+        if (this.getC() / this.getB() != other.getC() / other.getB()) {
             return false;
         }
         return true;

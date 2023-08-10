@@ -138,7 +138,7 @@ public final class Vector2D {
             newAngle = newAngle + ROUND_ANGLE;
         }
         if (newAngle < 0) {
-            newAngle = ROUND_ANGLE - newAngle;
+            newAngle = ROUND_ANGLE + newAngle;
         }
         return newAngle;
     }
