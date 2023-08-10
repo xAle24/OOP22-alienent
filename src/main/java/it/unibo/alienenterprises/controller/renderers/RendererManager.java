@@ -14,5 +14,5 @@ public interface RendererManager<T> extends Renderable {
      * 
      * @param obj the object to be rendered
      */
-    public void addRenderer(T obj);
+    void addRenderer(T obj);
 }
