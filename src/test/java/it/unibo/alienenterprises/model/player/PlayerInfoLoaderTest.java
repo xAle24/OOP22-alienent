@@ -4,8 +4,8 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import it.unibo.alienenterprises.controller.PlayerInfoLoaderImpl;
 import it.unibo.alienenterprises.view.ShipInfoLoader;
+import it.unibo.alienenterprises.view.javafx.PlayerInfoLoaderImpl;
 
 public class PlayerInfoLoaderTest {
 

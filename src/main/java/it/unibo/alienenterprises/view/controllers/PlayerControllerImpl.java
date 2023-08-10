@@ -6,11 +6,11 @@ import java.util.Optional;
 import java.util.Set;
 
 import it.unibo.alienenterprises.controller.Controller;
-import it.unibo.alienenterprises.controller.PlayerInfoLoaderImpl;
 import it.unibo.alienenterprises.controller.api.ShipLoader;
 import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.view.ShipInfoLoader;
 import it.unibo.alienenterprises.view.ViewType;
+import it.unibo.alienenterprises.view.javafx.PlayerInfoLoaderImpl;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 

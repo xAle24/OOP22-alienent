@@ -1,4 +1,4 @@
-package it.unibo.alienenterprises.controller;
+package it.unibo.alienenterprises.view.javafx;
 
 import java.io.File;
 import java.io.FileInputStream;

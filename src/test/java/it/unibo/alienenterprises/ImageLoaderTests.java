@@ -7,8 +7,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import it.unibo.alienenterprises.controller.ImageLoader;
-import it.unibo.alienenterprises.controller.ImageLoaderImpl;
+import it.unibo.alienenterprises.view.javafx.ImageLoader;
+import it.unibo.alienenterprises.view.javafx.ImageLoaderImpl;
 
 public class ImageLoaderTests {
 

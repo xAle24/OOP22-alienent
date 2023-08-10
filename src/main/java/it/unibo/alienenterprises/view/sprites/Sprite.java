@@ -1,9 +1,9 @@
 package it.unibo.alienenterprises.view.sprites;
 
-import it.unibo.alienenterprises.controller.ImageLoader;
-import it.unibo.alienenterprises.controller.ImageLoaderImpl;
 import it.unibo.alienenterprises.model.geometry.Point2D;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
+import it.unibo.alienenterprises.view.javafx.ImageLoader;
+import it.unibo.alienenterprises.view.javafx.ImageLoaderImpl;
 import javafx.scene.image.ImageView;
 
 /**
