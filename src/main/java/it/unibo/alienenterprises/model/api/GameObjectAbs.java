@@ -142,9 +142,10 @@ public class GameObjectAbs implements GameObject {
     }
     /**
      * @inheritDoc
+     * @param deltatime Time passed since the last cycle.
      */
     public void recovery(final double deltatime) {
-        if (this.recoveryCooldown > 1){
+        if (this.recoveryCooldown > 1) {
             this.heal(Optional.ofNullable(stats.get(Statistic.RECOVERY)).orElse(0));
             this.recoveryCooldown = 0;
         } else {

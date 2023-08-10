@@ -8,7 +8,7 @@ public interface BoundaryHitboxComponent extends HitboxComponent {
     /**
      * Identify the position of the boundary.
      */
-    public enum Locations{
+    enum Locations {
         /**
          * Identify upper boundary.
          */
