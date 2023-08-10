@@ -46,6 +46,7 @@ public class InputComponentTankImpl extends ComponentAbs implements EnemyInputCo
     }
     /**
      * @inheritDoc
+     * @param target what the enemy follow.
      */
     public void setTarget(final GameObject target) {
         this.target = target;
