@@ -8,7 +8,7 @@ public interface HitboxComponent extends Component {
     /**
      * Different game objects available.
      */
-    public enum Type {
+    enum Type {
         /**
          * Identify the enemis of the game.
          */
@@ -35,14 +35,14 @@ public interface HitboxComponent extends Component {
 
     /**
      * Checks if the object can collide.
-     * 
-     * @param type
+     * @param hitbox hitbox of the object it is colliding with.
      * @return true if can collide, false otherwise
      */
     void canCollide(HitboxComponent hitbox);
 
     /**
      * Check what happens once the two objects have collided.
+     * @param hitbox hitbox of the object it is colliding with.
      */
     void isColliding(HitboxComponent hitbox);
 }
