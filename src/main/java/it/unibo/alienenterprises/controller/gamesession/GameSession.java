@@ -1,9 +1,8 @@
 package it.unibo.alienenterprises.controller.gamesession;
 
 import it.unibo.alienenterprises.controller.InputQueue;
-import it.unibo.alienenterprises.controller.api.GameLoop;
 import it.unibo.alienenterprises.controller.renderers.RendererManager;
-import it.unibo.alienenterprises.model.world.World;
+import it.unibo.alienenterprises.model.api.UserAccount;
 
 /**
  * Whenever a "new game" is pressed on the main menu, a new instance of this
@@ -14,11 +13,14 @@ import it.unibo.alienenterprises.model.world.World;
 public interface GameSession {
 
     /**
-     * Get the current session's {@link GameLoop}.
-     * 
-     * @return the current session's GameLoop.
+     * Pauses the game.
      */
-    GameLoop getGameLoop();
+    void pause();
+
+    /**
+     * Resumes the game.
+     */
+    void resume();
 
     /**
      * Handle the game over.
@@ -28,14 +30,36 @@ public interface GameSession {
     /**
      * Start session after receiving the {@link RendererManager}.
      * 
-     * @param rendererManager
+     * @param rendererManager the renderer manager
+     * @return the player's input queue
      */
     InputQueue startSession(RendererManager rendererManager);
 
     /**
-     * Gets the {@link World}.
+     * Get the player's health to display.
      * 
-     * @return the world
+     * @return the player's health
      */
-    World getWorld();
+    int getPlayerHealth();
+
+    /**
+     * Get the current score to display.
+     * 
+     * @return the score.
+     */
+    int getScore();
+
+    /**
+     * Get the user account.
+     * 
+     * @return the user account
+     */
+    UserAccount getUserAccount();
+
+    /**
+     * Return if the session is over.
+     * 
+     * @return whether the session is over.
+     */
+    boolean isOver();
 }

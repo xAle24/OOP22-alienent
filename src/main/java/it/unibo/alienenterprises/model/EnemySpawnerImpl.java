@@ -36,6 +36,7 @@ public class EnemySpawnerImpl implements EnemySpawner {
      * @param world
      * @param x1 bottom-left value 
      * @param y2 top-right value
+     * @param player target for enemis
      */
     public EnemySpawnerImpl(final World world, final Point2D x1, final Point2D y2, final GameObject player) {
         this.world = world;
@@ -51,18 +52,17 @@ public class EnemySpawnerImpl implements EnemySpawner {
      * {@inheritDoc}
      */
     @Override
-    public GameObject getEnemy(String identifier, double deltaTime) {
+    public GameObject getEnemy(final String identifier, final double deltaTime) {
         var enemySpawn = enemy.get(identifier);
         var newEnemy = new GameObjectAbs(null, null, enemySpawn.getAllStats(), enemySpawn.getId());
         enemySpawn.getAllComponent().stream().forEach(e -> newEnemy.addComponent(e.duplicate(newEnemy).get()));
         newEnemy.getComponent(EnemyInputComponent.class).get().setTarget(player);
         this.getStats().entrySet().stream().forEach(e -> newEnemy.setStatValue(e.getKey(), 
             newEnemy.getStatValue(e.getKey()) + newEnemy.getStatValue(e.getKey()) * e.getValue()));
-        System.out.println(newEnemy.getStatValue(Statistic.DAMAGE)+ ""+ enemySpawn.getStatValue(Statistic.DAMAGE));
         var pointX = new Random().nextDouble(topRight.getX() + 1);
         var pointY = new Random().nextDouble(bottomLeft.getY() + 1);
         newEnemy.setPosition(new Point2D(pointX, pointY));
-        newEnemy.getComponent(InputComponent.class).get().update(deltaTime);
+        newEnemy    .getComponent(InputComponent.class).get().update(deltaTime);
         newEnemy.getAllComponent().stream().forEach(e -> e.start());
         return newEnemy;
     }
@@ -90,8 +90,6 @@ public class EnemySpawnerImpl implements EnemySpawner {
             var id = getIdentifier();
             this.world.addGameObject(getEnemy(id, deltaTime));
             spawnTime = 0;
-            System.out.println(id);
-
         } else {
             spawnTime = spawnTime + deltaTime;
         }

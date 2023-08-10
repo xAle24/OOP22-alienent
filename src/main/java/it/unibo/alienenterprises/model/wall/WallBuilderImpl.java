@@ -12,7 +12,6 @@ import it.unibo.alienenterprises.model.api.components.HitboxComponent.Type;
 import it.unibo.alienenterprises.model.geometry.Point2D;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
 import it.unibo.alienenterprises.model.impl.components.hitbox.BoundaryHitboxComponentImpl;
-import javafx.scene.effect.Light.Point;
 
 /**
  * Simple implementation of the {@link WallBuilder} interface.
@@ -27,8 +26,6 @@ public class WallBuilderImpl implements WallBuilder {
     private BoundaryHitboxComponent hitbox;
 
     /**
-     * {@inheritDoc}
-     * 
      * Creates new instance of this class.
      */
     public WallBuilderImpl() {
@@ -48,23 +45,23 @@ public class WallBuilderImpl implements WallBuilder {
      */
     @Override
     public void addGameObject(final Point2D pos, final Vector2D vect, final Map<Statistic, Integer> stats,
-            final String ID) {
+            final String id) {
         var statsRequested = stats;
-        var IDRequested = ID;
+        var idRequested = id;
         if (statsRequested == null) {
             statsRequested = PLACEHOLDERSTATS;
         }
-        if (IDRequested == null) {
-            IDRequested = PLACEHOLDERID;
+        if (idRequested == null) {
+            idRequested = PLACEHOLDERID;
         }
-        this.obj = new GameObjectAbs(pos, vect, statsRequested, IDRequested);
+        this.obj = new GameObjectAbs(pos, vect, statsRequested, idRequested);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void addBoundaryHitboxComponent(Point2D p1, Point2D p2) {
+    public void addBoundaryHitboxComponent(final Point2D p1, final Point2D p2) {
         this.hitbox = new BoundaryHitboxComponentImpl(this.obj, true, TYPE, p1, p2);
         this.obj.addComponent(this.hitbox);
         this.hitbox.start();
@@ -74,7 +71,7 @@ public class WallBuilderImpl implements WallBuilder {
      * {@inheritDoc}
      */
     @Override
-    public void setPosition(Point2D position) {
+    public void setPosition(final Point2D position) {
         if (position == null) {
             this.obj.setPosition(Point2D.ORIGIN);
         } else {
@@ -86,7 +83,7 @@ public class WallBuilderImpl implements WallBuilder {
      * {@inheritDoc}
      */
     @Override
-    public void setLocation(Locations location) {
+    public void setLocation(final Locations location) {
         this.hitbox.setLocations(location);
     }
 

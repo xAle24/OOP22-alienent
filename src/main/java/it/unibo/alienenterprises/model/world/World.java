@@ -56,6 +56,13 @@ public interface World {
     int getScore();
 
     /**
+     * Get the player.
+     * 
+     * @return the player.
+     */
+    GameObject getPlayer();
+
+    /**
      * Adds the player to the game world.
      * 
      * @param player

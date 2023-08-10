@@ -43,7 +43,7 @@ public final class ViewImpl implements View {
     }
 
     @Override
-    public void setScene(ViewType type) {
+    public void setScene(final ViewType type) {
         this.sceneController.setCurrentScene(type);
         Platform.runLater(() -> {
             this.primaryStage.setScene(this.sceneController.getCurrentScene());

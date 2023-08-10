@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+
+<StackPane prefWidth="640" prefHeight="480" 
+    xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="it.unibo.alienenterprises.view.controllers.GameOverController"
+    styleClass="background" stylesheets="@/css/gameOverStyle.css">
+    <children>
+        <VBox alignment="CENTER">
+            <Label text="GAME OVER!!! :(" id="gameOverLabel" alignment="CENTER"/>
+            <Label text="FINAL SCORE:" id="scoreLabel" textAlignment="CENTER"/>
+            <Label textAlignment="CENTER" fx:id="scoreDisplay"/>
+            <Button text="Main Menu" fx:id="mainmenuButton" alignment="BOTTOM_LEFT" onAction="#onMainMenu"/>
+        </VBox>
+    </children>
+</StackPane>

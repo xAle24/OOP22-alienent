@@ -1,7 +1,6 @@
 package it.unibo.alienenterprises.view.viewstates;
 
 import it.unibo.alienenterprises.controller.Controller;
-import it.unibo.alienenterprises.controller.api.GameLoop;
 import it.unibo.alienenterprises.view.ViewType;
 import javafx.stage.Stage;
 
@@ -11,7 +10,7 @@ import javafx.stage.Stage;
  * 
  * @author Giulia Bonifazi
  */
-public final class PlayingState extends ViewStateAbs {
+public class PlayingState extends ViewStateAbs {
 
     /**
      * Creates a {@link PlayingState} instance.
@@ -23,17 +22,23 @@ public final class PlayingState extends ViewStateAbs {
         super(controller, message);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void init(Stage stage) {
+    public void init(final Stage stage) {
         super.init(stage);
-        this.stage.setResizable(false);
+        super.getStage().setResizable(false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onCloseRequest() {
-        this.stage.setResizable(true);
-        this.controller.getGameSession().gameOver();
-        this.controller.changeScene(ViewType.GAMEOVER);
+        super.getStage().setResizable(true);
+        super.getController().getGameSession().gameOver();
+        super.getController().changeScene(ViewType.GAMEOVER);
     }
 
 }

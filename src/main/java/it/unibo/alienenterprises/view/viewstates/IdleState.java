@@ -16,14 +16,17 @@ public class IdleState extends ViewStateAbs {
      * @param controller the main {@link Controller} of the game.
      * @param message    the message that will appear in the alert.
      */
-    public IdleState(Controller controller, final String message) {
+    public IdleState(final Controller controller, final String message) {
         super(controller, message);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onCloseRequest() {
-        this.controller.save();
-        this.stage.close();
+        super.getController().save();
+        super.onCloseRequest();
     }
 
 }

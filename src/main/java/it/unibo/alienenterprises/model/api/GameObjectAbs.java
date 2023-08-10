@@ -23,9 +23,10 @@ public class GameObjectAbs implements GameObject {
     private String id;
     /**
      * Contructor for all objects.
-     * @param pos
-     * @param vector
-     * @param stat
+     * @param pos Point2D of the position of the object.
+     * @param vector Vector2D of the position of the object
+     * @param stat a map with all the basic statistics of the object.
+     * @param id the string id of the object.
      */
     public GameObjectAbs(final Point2D pos, final Vector2D vector, final Map<Statistic, Integer> stat, final String id) {
         this.position = pos;
@@ -35,110 +36,116 @@ public class GameObjectAbs implements GameObject {
         this.id = id;
         this.component = new HashSet<Component>();
     }
-
+    /**
+     * @inheritDoc
+     */
     @Override
     public boolean isAlive(){
         return this.gethealth() > 0;
     }
     /**
-     * return the position of the object.
-     * @return the object position 
+     * @inheritDoc
      */
     @Override
     public Point2D getPosition() {
         return position;
     }
     /**
-     * set the position of the object.
-     * @param point
+     * @inheritDoc
      */
     @Override
     public void setPosition(final Point2D point) {
         position = point;
     }
     /**
-     * return the velocity vector.
-     * @return the object velocity vector 
+     * @inheritDoc
      */
     @Override
     public Vector2D getVelocity() {
         return velocity;
     }
     /**
-     * set the velocity of the object.
-     * @param vector
+     * @inheritDoc
      */
     @Override
     public void setVelocity(final Vector2D vector) {
         velocity = vector;
     }
     /**
-     * return a list of all components.
-     * @return a list with all the objects component
+     * @inheritDoc
      */
     @Override
     public List<Component> getAllComponent() {
         return component.stream().toList();
     }
     /**
-     * Return the input stat value.
-     * @param stat
-     * @return int of the input stat value
+     * @inheritDoc
      */
     @Override
     public int getStatValue(final Statistic stat) {
         return stats.get(stat);
     }
     /**
-     * Return a map with all stats.
-     * @return map of with their stats value 
+     * @inheritDoc
      */
     @Override
     public Map<Statistic, Integer> getAllStats() {
         return new HashMap<Statistic, Integer>(stats);
     }
     /**
-     * Insert the given value in the corresponding stat.
+     * @inheritDoc
      */
     @Override
     public void setStatValue(final Statistic stat, final int value) {
         stats.put(stat, value);
     }
     /**
-     * Add a component to the object.
-     * @param component
+     * @inheritDoc
      */
     @Override
     public void addComponent(final Component component) {
         this.component.add(component);
     }
-
+    /**
+     * @inheritDoc
+     */
     @Override
     public void hit(int dmg) {
         this.health = this.health - dmg;
     }
-
+    /**
+     * @inheritDoc
+     */
     @Override
     public void heal(int heal) {
         this.health = this.health + heal;
     }
     /**
-     * Update the game object.
+     * @inheritDoc
      */
     @Override
     public void update(final double deltatime) {
         getAllComponent().stream().forEach(e -> e.update(deltatime));
     }
-
+    /**
+     * @inheritDoc
+     */
     @Override
     public int gethealth() {
         return this.health;
     }
+    /**
+     * @inheritDoc
+     */
+    @Override
     public String getId() {
         return id;
     }
+    /**
+     * @inheritDoc
+     */
     @Override
-    public void addAllComponent(Collection<Component> components) {
+    public void addAllComponent(final Collection<Component> components) {
         this.component.addAll(components);
     }
 }

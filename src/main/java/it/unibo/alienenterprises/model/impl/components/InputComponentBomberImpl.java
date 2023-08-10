@@ -42,6 +42,9 @@ public class InputComponentBomberImpl extends ComponentAbs implements EnemyInput
     public void setTarget(final GameObject target) {
         this.target = target;
     }
+    /**
+     * @inheritDoc
+     */
     @Override
     public Optional<Component> duplicate(final GameObject obj) {
         return Optional.of(new InputComponentBomberImpl(obj, isEnabled()));

@@ -5,6 +5,8 @@ import it.unibo.alienenterprises.model.api.InputSupplier.Input;
 
 /**
  * {@link LinkedBlockingQueue} extended to accommodate {@link Inputs}.
+ * 
+ * @author Giulia Bonifazi
  */
 public class InputQueue extends LinkedBlockingQueue<String> {
 
