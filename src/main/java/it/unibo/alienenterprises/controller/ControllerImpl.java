@@ -17,10 +17,10 @@ import it.unibo.alienenterprises.view.ViewType;
  * @author Giulia Bonifazi
  */
 public final class ControllerImpl implements Controller {
-    private final Dimensions wd = new ArenaDimensions();
     private final UserAccountHandler accHandler;
     private final View view;
     private UserAccount account = null;
+    private Dimensions wd;
 
     private GameSession currGameSession;
 
@@ -36,6 +36,7 @@ public final class ControllerImpl implements Controller {
 
     @Override
     public void initiateGameSession(final String playerID) {
+        this.wd = new ArenaDimensions();
         this.currGameSession = new SimpleGameSession(new GameWorld(this.wd), account, playerID);
     }
 
