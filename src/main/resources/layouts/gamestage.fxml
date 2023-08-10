@@ -35,6 +35,5 @@
             <Label text="HEALTH:" textAlignment="LEFT"  styleClass="statLabel"/>
             <Label fx:id="healthDisplay" textAlignment="LEFT" styleClass="statLabel"/>
         </VBox>
-        <Button text="Pause" alignment="BOTTOM_RIGHT" onAction="#pause"/>
     </VBox>
 </StackPane>

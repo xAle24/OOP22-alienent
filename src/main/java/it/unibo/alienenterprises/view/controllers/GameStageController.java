@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
@@ -51,9 +52,12 @@ public final class GameStageController implements InitController, Renderable {
         this.canvas.setHeight(this.arenaDim.getHeight());
         scene.setOnKeyPressed(e -> {
             try {
+                if (e.getCode() == KeyCode.P) {
+                    this.pause();
+                }
                 this.addKeyPressed(e.getText());
+                e.consume();
             } catch (InterruptedException e1) {
-                e1.printStackTrace();
             }
         });
         this.keyPressQueue = this.gameSession.startSession(new RendererManager(new JFXCanvasPainter(canvas), this));
