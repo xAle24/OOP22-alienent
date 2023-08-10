@@ -116,10 +116,10 @@ public class PlayerInfoLoaderImpl implements ShipInfoLoader {
      * {@inheritDoc}
      */
     @Override
-    public Optional<Image> getShipSpriteFile(final String id) {
+    public Optional<Image> getShipImage(final String id) {
         this.checkIfLoaded();
         if (infoMap.containsKey(id)) {
-            return IMAGE_LOADER.getSpriteFilePathOf(id);
+            return IMAGE_LOADER.getSpriteImageOf(id);
         } else {
             return Optional.empty();
         }

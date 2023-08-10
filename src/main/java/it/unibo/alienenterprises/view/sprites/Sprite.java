@@ -4,7 +4,6 @@ import it.unibo.alienenterprises.controller.ImageLoader;
 import it.unibo.alienenterprises.controller.ImageLoaderImpl;
 import it.unibo.alienenterprises.model.geometry.Point2D;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
@@ -27,8 +26,7 @@ public class Sprite {
      * @param vect  the object vector
      */
     public Sprite(final String objID, final Point2D pos, final Vector2D vect) {
-        var scale = IMG_LOADER.getSpriteScaleOf(objID).get();
-        this.image = new ImageView(IMG_LOADER.getSpriteFilePathOf(objID).get());
+        this.image = new ImageView(IMG_LOADER.getSpriteImageOf(objID).get());
         this.image.setVisible(true);
         this.render(pos, vect);
     }

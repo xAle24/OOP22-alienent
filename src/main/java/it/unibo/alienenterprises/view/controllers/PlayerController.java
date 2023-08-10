@@ -41,7 +41,7 @@ public interface PlayerController extends InitController {
      * @param id the id of the playerClass
      * @return the absolute path of the sprite of the playerClass
      */
-    Optional<Image> getSpriteFile(String id);
+    Optional<Image> getSpriteImage(String id);
 
     /**
      * Set the selected player to the given player.

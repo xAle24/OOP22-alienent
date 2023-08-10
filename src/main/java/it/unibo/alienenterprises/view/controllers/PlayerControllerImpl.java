@@ -82,8 +82,8 @@ public class PlayerControllerImpl implements PlayerController {
      * {@inheritDoc}
      */
     @Override
-    public Optional<Image> getSpriteFile(final String id) {
-        return this.info.getShipSpriteFile(id);
+    public Optional<Image> getSpriteImage(final String id) {
+        return this.info.getShipImage(id);
     }
 
     /**

@@ -40,6 +40,6 @@ public interface ShipInfoLoader {
      * @return the SpriteFilePath of the ship, if the id is recognized, or an empty
      *         Optional if not
      */
-    Optional<Image> getShipSpriteFile(String id);
+    Optional<Image> getShipImage(String id);
 
 }

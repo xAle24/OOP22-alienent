@@ -16,7 +16,7 @@ public interface ImageLoader {
      *         identifier if present
      *         otherwise an empty Optional
      */
-    Optional<Image> getSpriteFilePathOf(String id);
+    Optional<Image> getSpriteImageOf(String id);
 
     /**
      * @param id the identifier of the GameObject

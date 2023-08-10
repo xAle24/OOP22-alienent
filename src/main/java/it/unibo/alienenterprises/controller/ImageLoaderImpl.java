@@ -52,7 +52,7 @@ public class ImageLoaderImpl implements ImageLoader {
      * {@inheritDoc}
      */
     @Override
-    public Optional<Image> getSpriteFilePathOf(final String id) {
+    public Optional<Image> getSpriteImageOf(final String id) {
         final var s = getImageProp(id);
         Image img;
         if (s.isPresent()) {
