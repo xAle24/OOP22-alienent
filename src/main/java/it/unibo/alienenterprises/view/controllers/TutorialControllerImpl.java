@@ -5,6 +5,11 @@ import it.unibo.alienenterprises.view.ViewType;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 
+/**
+ * Implementation of TutorialController.
+ * 
+ * @author Ginevra Bartolini
+ */
 public class TutorialControllerImpl implements TutorialController, InitController {
     private Controller controller;
 

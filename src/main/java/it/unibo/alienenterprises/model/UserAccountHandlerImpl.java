@@ -37,6 +37,7 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
     /**
      * {@inheritDoc}
      */
+    @SuppressWarnings("all")
     @Override
     public Optional<UserAccount> login(final String nickname, final String password) {
         if (existingAccount(nickname) && correctPassword(nickname, password)) {
@@ -63,6 +64,7 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
     /**
      * {@inheritDoc}
      */
+    @SuppressWarnings("all")
     @Override
     public Optional<UserAccount> registration(final String nickname, final String password) {
         if (!existingAccount(nickname)) {
@@ -82,7 +84,7 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
                 final String output = yaml.dump(map);
                 writer.append(output);
 
-                Optional<UserAccount> account = Optional.of(new UserAccountImpl(nickname));
+                final Optional<UserAccount> account = Optional.of(new UserAccountImpl(nickname));
                 save(account.get());
                 return account;
 
@@ -95,6 +97,7 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
     /**
      * {@inheritDoc}
      */
+    @SuppressWarnings("all")
     @Override
     public void save(final UserAccount account) {
         final String accountFile = GAME_PATH + SEPARATOR + account.getNickname() + YML;
@@ -114,6 +117,7 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
         return Files.exists(Paths.get(GAME_PATH + SEPARATOR + nickname + YML));
     }
 
+    @SuppressWarnings("all")
     private boolean correctPassword(final String nickname, final String password) {
         try (FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + "passwords.yml")) {
 
@@ -126,10 +130,10 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
 
             final Iterable<Object> document = yaml.loadAll(inputStream);
 
-            for (Object obj : document) {
+            for (final Object obj : document) {
                 if (obj instanceof Map) {
-                    Map<?, ?> map = (Map<?, ?>) obj;
-                    for (Map.Entry<?, ?> entry : map.entrySet()) {
+                    final Map<?, ?> map = (Map<?, ?>) obj;
+                    for (final Map.Entry<?, ?> entry : map.entrySet()) {
                         if (entry.getKey() instanceof String && entry.getValue() instanceof String) {
                             passwordMap.put((String) entry.getKey(), (String) entry.getValue());
                         }

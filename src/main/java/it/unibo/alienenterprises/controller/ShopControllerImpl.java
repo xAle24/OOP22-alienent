@@ -36,8 +36,8 @@ public class ShopControllerImpl implements ShopController, InitController {
     private Controller controller;
     private UserAccount account;
     private ShopModel model;
-    private List<PowerUp> powerUps = new LinkedList<>();
-    private List<PowerUpRenderer> pwuInfo = new LinkedList<>();
+    private final List<PowerUp> powerUps = new LinkedList<>();
+    private final List<PowerUpRenderer> pwuInfo = new LinkedList<>();
 
     /**
      * {@inheritDoc}
@@ -77,6 +77,7 @@ public class ShopControllerImpl implements ShopController, InitController {
     /**
      * {@inheritDoc}
      */
+    @SuppressWarnings("all")
     @Override
     public void loadPwuYaml() {
         try (FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + "PowerUps.yml")) {
@@ -103,6 +104,7 @@ public class ShopControllerImpl implements ShopController, InitController {
     /**
      * {@inheritDoc}
      */
+    @SuppressWarnings("all")
     @Override
     public void loadPwuInfoYaml() {
         try (FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + "PowerUpsInfo.yml")) {
@@ -125,10 +127,10 @@ public class ShopControllerImpl implements ShopController, InitController {
         } catch (Exception e) {
         }
 
-        Iterator<PowerUpRenderer> iterator = pwuInfo.iterator();
+        final Iterator<PowerUpRenderer> iterator = pwuInfo.iterator();
         while (iterator.hasNext()) {
-            PowerUpRenderer curr = iterator.next();
-            List<PowerUp> pwu = powerUps.stream().filter(p -> p.getId().equals(curr.getId())).toList();
+            final PowerUpRenderer curr = iterator.next();
+            final List<PowerUp> pwu = powerUps.stream().filter(p -> p.getId().equals(curr.getId())).toList();
             curr.setPwu(pwu.get(0));
         }
     }
@@ -138,7 +140,7 @@ public class ShopControllerImpl implements ShopController, InitController {
      */
     @Override
     public boolean buy(final String id) {
-        Optional<Integer> changeMoney = this.model.check(id);
+        final Optional<Integer> changeMoney = this.model.check(id);
         if (!changeMoney.isEmpty()) {
             this.model.updateShop(id, changeMoney.get());
             return true;

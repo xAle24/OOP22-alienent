@@ -33,6 +33,12 @@ import it.unibo.alienenterprises.model.api.UserAccount;
 import it.unibo.alienenterprises.view.ViewType;
 import it.unibo.alienenterprises.view.controllers.InitController;
 
+/**
+ * This tests all the methods of ShopModel and those that are related to the buy
+ * action.
+ * 
+ * @author Ginevra Bartolini
+ */
 public class ShopTest {
 
     private static final String NICKNAME = "AccountTest";
@@ -59,11 +65,11 @@ public class ShopTest {
     private Controller contr = new ControllerImpl(new View() {
 
         @Override
-        public void init(Controller controller) {
+        public void init(final Controller controller) {
         }
 
         @Override
-        public void setScene(ViewType type) {
+        public void setScene(final ViewType type) {
         }
 
         @Override
@@ -78,6 +84,10 @@ public class ShopTest {
     private List<PowerUp> pwu = new LinkedList<>();
     private Map<Statistic, Integer> stats = new LinkedHashMap<>();
 
+    /**
+     * This costructor ensures that an account is created and its money are setted.
+     * Then it ensures that the file is deleted and so the password.
+     */
     public ShopTest() {
         account = accountHandler.registration(NICKNAME, PASSWORD).get();
         account.setMoney(MONEY);
@@ -86,6 +96,9 @@ public class ShopTest {
         removePassword();
     }
 
+    /**
+     * It tests if the shopController load the yaml file correctly.
+     */
     @Test
     public void testLoadPwu() {
         buildPwuList();
@@ -103,6 +116,9 @@ public class ShopTest {
                 });
     }
 
+    /**
+     * It tests if the check function in ShopModel works correctly.
+     */
     @Test
     public void testCheck() {
         this.shopController.loadPwuYaml();
@@ -117,6 +133,9 @@ public class ShopTest {
         assertEquals(Optional.empty(), model.check(DAMAGE));
     }
 
+    /**
+     * It tests if updateShop updates user fiels correctly.
+     */
     @Test
     public void testUpdateShop() {
         this.shopController.loadPwuYaml();
@@ -134,6 +153,10 @@ public class ShopTest {
         assertEquals(buildToAddPwu(), account.getToAddPwu());
     }
 
+    /**
+     * Test if everything works given the starting point is the buy method in
+     * ShopController.
+     */
     @Test
     public void testBuy() {
         this.shopController.loadPwuYaml();
@@ -198,6 +221,7 @@ public class ShopTest {
         pwu.add(damage);
     }
 
+    @SuppressWarnings("all")
     private void delete() {
         File deleteFile = new File(GAME_PATH + SEPARATOR + NICKNAME + YML);
         if (deleteFile.exists()) {
@@ -208,6 +232,7 @@ public class ShopTest {
         }
     }
 
+    @SuppressWarnings("all")
     private void removePassword() {
         try {
             List<String> yamlLines = Files.readAllLines(Paths.get(GAME_PATH + SEPARATOR + YAMLPASSWORD + YML));

@@ -48,7 +48,7 @@ public class ShopViewImpl implements ShopView {
     private static final int TITLEFONTSIZE = 30;
     private static final int BASICMULTIPLIER = 5;
     private static final int SCROLLWIDTHMULTIPLIER = 24;
-    private static final double SCROLLHEIGHTMULTIPLIER = 6.21767;
+    private static final double SCROLLHEIGHTMULTIPLIER = 6.217_67;
     private static final int GRIDGAPDIVISOR = 12;
     private static final int BOTTOMSUBTRACTOR = 40;
     private static final double DESCWIDTHMULTIPLIER = 20.3;
@@ -57,20 +57,19 @@ public class ShopViewImpl implements ShopView {
     private Double heightUnit;
     private Double margin;
 
-    private ShopController controller;
-    private BorderPane box = new BorderPane();
-    private Button inventory = new Button();
-    private HBox userInfo = new HBox();
-    private Label score = new Label();
-    private ScrollPane scroll = new ScrollPane();
-    private BorderPane bottom = new BorderPane();
-    private String inventoryText = "";
-    private Alert attentionPopUp = new Alert(AlertType.WARNING);
-    private Alert inventoryPopup = new Alert(AlertType.INFORMATION);
+    private final ShopController controller;
+    private final BorderPane box = new BorderPane();
+    private final Button inventory = new Button();
+    private final HBox userInfo = new HBox();
+    private final Label score = new Label();
+    private final ScrollPane scroll = new ScrollPane();
+    private final BorderPane bottom = new BorderPane();
+    private final Alert attentionPopUp = new Alert(AlertType.WARNING);
+    private final Alert inventoryPopup = new Alert(AlertType.INFORMATION);
 
     private final UserAccount account;
-    private Map<Button, String> pwuButtons = new HashMap<>();
-    private Map<String, List<CheckBox>> checkBoxesMap = new HashMap<>();
+    private final Map<Button, String> pwuButtons = new HashMap<>();
+    private final Map<String, List<CheckBox>> checkBoxesMap = new HashMap<>();
 
     private enum ExitCondition {
         SHOP, PWUINFO;
@@ -113,14 +112,14 @@ public class ShopViewImpl implements ShopView {
         setUserInfo();
 
         // Set the title
-        Label title = new Label("SHOP");
+        final Label title = new Label("SHOP");
         title.setId("title");
 
         // Fill the borderPane in the upper screen with all the elements
-        BorderPane top = new BorderPane();
+        final BorderPane top = new BorderPane();
         top.setLeft(userInfo);
         top.setCenter(title);
-        top.setRight(setExitButton(ExitCondition.SHOP));
+        top.setRight(getExitButton(ExitCondition.SHOP));
 
         BorderPane.setAlignment(userInfo, Pos.CENTER);
         BorderPane.setAlignment(title, Pos.CENTER);
@@ -166,27 +165,27 @@ public class ShopViewImpl implements ShopView {
 
     private void setScroll() {
 
-        GridPane grid = new GridPane();
+        final GridPane grid = new GridPane();
         grid.setId("grid");
 
         int columNum = 0;
         int rowNum = 0;
 
-        Iterator<PowerUpRenderer> iter = controller.getPwuInfo().iterator();
+        final Iterator<PowerUpRenderer> iter = controller.getPwuInfo().iterator();
 
         while (iter.hasNext()) {
 
-            PowerUpRenderer curr = iter.next();
+            final PowerUpRenderer curr = iter.next();
 
             // Set the box
-            BorderPane pwuBox = new BorderPane();
+            final BorderPane pwuBox = new BorderPane();
             pwuBox.setId("pwubox");
             pwuBox.setPrefSize(widthUnit * 4, widthUnit * BASICMULTIPLIER);
 
             // Set the button
-            String imageURL = new String("/images/"
+            final String imageURL = new String("/images/"
                     + curr.getImage());
-            Button button = new Button();
+            final Button button = new Button();
             button.setStyle("-fx-background-image: url("
                     + imageURL + ");"
                     + "-fx-background-position: center;"
@@ -198,17 +197,17 @@ public class ShopViewImpl implements ShopView {
             addAction(curr, button);
 
             // Set the name
-            Label name = new Label(curr.getName());
+            final Label name = new Label(curr.getName());
             name.setFont(Font.font("Times New Roman", FontWeight.BOLD, FONTSIZE));
             name.setTextFill(Color.DARKBLUE);
             name.setWrapText(true);
             name.setPrefWidth(widthUnit * 4);
 
             // Set the checkboxes
-            List<CheckBox> pwuCheckBoxs = new LinkedList<>();
-            HBox checkGrid = new HBox();
+            final List<CheckBox> pwuCheckBoxs = new LinkedList<>();
+            final HBox checkGrid = new HBox();
             for (int i = 0; i < curr.getPwu().getMaxLevel(); i++) {
-                CheckBox check = new CheckBox();
+                final CheckBox check = new CheckBox();
                 check.setDisable(true);
                 checkGrid.getChildren().add(check);
                 pwuCheckBoxs.add(check);
@@ -234,7 +233,7 @@ public class ShopViewImpl implements ShopView {
         scroll.setId("scroll");
         scroll.setMaxSize(widthUnit * SCROLLWIDTHMULTIPLIER, widthUnit * SCROLLHEIGHTMULTIPLIER);
 
-        grid.setHgap((scroll.getMaxWidth() / GRIDGAPDIVISOR));
+        grid.setHgap(scroll.getMaxWidth() / GRIDGAPDIVISOR);
         grid.setVgap(scroll.getMaxHeight() / GRIDGAPDIVISOR);
         grid.setPrefSize(scroll.getPrefWidth(), scroll.getPrefHeight());
 
@@ -248,31 +247,31 @@ public class ShopViewImpl implements ShopView {
             bottom.setPrefSize(SCREENWIDHT - BOTTOMSUBTRACTOR, widthUnit * 4);
 
             // Set icon
-            VBox icon = new VBox();
+            final VBox icon = new VBox();
             icon.setAlignment(Pos.CENTER);
-            ImageView image = new ImageView("/images/" + curr.getImage());
+            final ImageView image = new ImageView("/images/" + curr.getImage());
             icon.setId("icon");
             icon.getChildren().add(image);
             bottom.setLeft(icon);
 
             // Set name
-            Label name = new Label(curr.getName());
+            final Label name = new Label(curr.getName());
             name.setFont(Font.font("Times New Roman", FontWeight.BOLD, TITLEFONTSIZE));
             final StringBuilder stats = new StringBuilder("");
             curr.getPwu().getStatModifiers()
                     .forEach((s, i) -> stats.append(i != 0 ? s + ": " + i + "\n" : ""));
 
             // Set description
-            ScrollPane scrollDesc = new ScrollPane();
+            final ScrollPane scrollDesc = new ScrollPane();
             scrollDesc.setId("scrollDesc");
             scrollDesc.setMaxWidth(widthUnit * DESCWIDTHMULTIPLIER);
 
-            Text description = new Text(curr.getDescription() + "\n" + stats.toString());
+            final Text description = new Text(curr.getDescription() + "\n" + stats.toString());
             description.setFont(Font.font("Times New Roman", FontWeight.BOLD, FONTSIZE));
             description.setWrappingWidth(widthUnit * DESCWIDTHMULTIPLIER);
-            TextFlow descContenitor = new TextFlow(description);
+            final TextFlow descContenitor = new TextFlow(description);
             descContenitor.setMaxWidth(widthUnit * DESCWIDTHMULTIPLIER);
-            VBox descBox = new VBox();
+            final VBox descBox = new VBox();
             descBox.setId("descbox");
             descBox.getChildren().add(name);
             descBox.getChildren().add(descContenitor);
@@ -280,10 +279,10 @@ public class ShopViewImpl implements ShopView {
             scrollDesc.setContent(descBox);
 
             // Set the buybutton
-            Button buyButton = new Button();
+            final Button buyButton = new Button();
             buyButton.setId("buybutton");
             buyButton.setPrefSize(widthUnit * 3, heightUnit);
-            int cost = 0;
+            int cost;
             if (account.getCurrLevel(curr.getId()) == 0) {
                 cost = curr.getPwu().getCost();
             } else {
@@ -299,9 +298,9 @@ public class ShopViewImpl implements ShopView {
                 buyEvent(curr, buyButton);
             });
 
-            BorderPane rightContainer = new BorderPane();
+            final BorderPane rightContainer = new BorderPane();
             rightContainer.setBottom(buyButton);
-            rightContainer.setTop(setExitButton(ExitCondition.PWUINFO));
+            rightContainer.setTop(getExitButton(ExitCondition.PWUINFO));
 
             bottom.setCenter(scrollDesc);
             bottom.setRight(rightContainer);
@@ -317,7 +316,7 @@ public class ShopViewImpl implements ShopView {
             setAttentionPopup();
         } else {
             score.setText(account.getMoney() + "$");
-            if (account.getCurrLevel(curr.getId()) == (curr.getPwu().getMaxLevel())) {
+            if (account.getCurrLevel(curr.getId()) == curr.getPwu().getMaxLevel()) {
                 buyButton.setDisable(true);
             } else {
                 buyButton.setText(String.valueOf(
@@ -339,6 +338,7 @@ public class ShopViewImpl implements ShopView {
         inventoryPopup.showAndWait();
     }
 
+    @SuppressWarnings("all")
     private void updateInventoryPopup() {
 
         final StringBuilder stats = new StringBuilder("");
@@ -347,8 +347,7 @@ public class ShopViewImpl implements ShopView {
         account.getToAddPwu()
                 .forEach((s, i) -> stats.append(s).append(":\t").append(i).append("\n"));
 
-        inventoryText = stats.toString();
-        inventoryPopup.setContentText(inventoryText);
+        inventoryPopup.setContentText(stats.toString());
     }
 
     private void setAttentionPopup() {
@@ -359,12 +358,11 @@ public class ShopViewImpl implements ShopView {
         attentionPopUp.showAndWait();
     }
 
-    private Button setExitButton(final ExitCondition condition) {
+    private Button getExitButton(final ExitCondition condition) {
 
-        Button exitButton = new Button();
+        final Button exitButton = new Button();
         exitButton.setId("exitButton");
         exitButton.setPrefSize(widthUnit, widthUnit);
-
         switch (condition) {
             case PWUINFO:
                 exitButton.setOnAction(closePwuInfo -> {
