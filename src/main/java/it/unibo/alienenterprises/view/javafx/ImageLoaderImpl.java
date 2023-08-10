@@ -27,7 +27,7 @@ public class ImageLoaderImpl implements ImageLoader {
             + "sprites" + SEPARATOR + "spriteList.yml";
 
     private Set<ImageProp> spriteList = new HashSet<>();
-    private Map<String,Image> imageMap = new HashMap<>();
+    private Map<String, Image> imageMap = new HashMap<>();
 
     /**
      * Creates an instance of ImageLoadeImpl.
@@ -56,14 +56,14 @@ public class ImageLoaderImpl implements ImageLoader {
         final var s = getImageProp(id);
         Image img;
         if (s.isPresent()) {
-            if(imageMap.containsKey(id)){
+            if (imageMap.containsKey(id)) {
                 img = imageMap.get(id);
-            }else{
+            } else {
                 img = new Image(SPRITE_PATH + s.get().getFile(),
-                getSpritewidth(id).get() * getSpriteScaleOf(id).get(),
-                getSpriteHeight(id).get() * getSpriteScaleOf(id).get(),
-                true,
-                true);
+                        getSpritewidth(id).get() * getSpriteScaleOf(id).get(),
+                        getSpriteHeight(id).get() * getSpriteScaleOf(id).get(),
+                        true,
+                        true);
             }
             return Optional.of(img);
         }
