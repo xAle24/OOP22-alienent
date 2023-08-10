@@ -77,6 +77,11 @@ public final class GameWorld implements World {
     }
 
     @Override
+    public GameObject getPlayer() {
+        return this.player;
+    }
+
+    @Override
     public Dimensions getWorldDimensions() {
         return this.worldDimensions;
     }

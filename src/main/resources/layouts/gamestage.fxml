@@ -13,21 +13,27 @@
     xmlns:fx="http://javafx.com/fxml/1"
     StackPane.alignment="CENTER"
     fx:controller="it.unibo.alienenterprises.view.controllers.GameStageController"
-    stylesheets="@/css/gameStageStyle.css">
+    stylesheets="@/css/gameStageStyle.css"
+    styleClass="statLabelContainer">
 
     <VBox>
-        <VBox alignment="TOP_RIGHT" styleClass="statLabelContainer"  prefWidth="-Infinity">
+        <VBox alignment="TOP_RIGHT" prefWidth="-Infinity">
             <Label text="SCORE:" textAlignment="RIGHT" styleClass="statLabel"/>
             <Label fx:id="currScore" text="0" textAlignment="RIGHT" styleClass="statLabel"/>
         </VBox>
         <StackPane id="canvasContainer" alignment="CENTER">
             <Canvas fx:id="canvas" id="canvas"/>
+            <VBox alignment="CENTER" visible="false" fx:id="pauseMenu">
+                <Label text="PAUSED!"/>
+                <Label text="Are you quitting? (chicken)"/>
+                <Button text="coo coo :( (yes)" onAction="#gameOver"/>
+                <Button text="I AM NO CHICKEN (no)" onAction="#resume"/>
+            </VBox>
         </StackPane>
-        <VBox alignment="BOTTOM_LEFT" maxHeight="50" prefHeight="50" minHeight="50" styleClass="statLabelContainer"
+        <VBox alignment="BOTTOM_LEFT" maxHeight="50" prefHeight="50" minHeight="50"
             prefWidth="-Infinity">
             <Label text="HEALTH:" textAlignment="LEFT"  styleClass="statLabel"/>
             <Label fx:id="healthDisplay" textAlignment="LEFT" styleClass="statLabel"/>
         </VBox>
     </VBox>
-    
-</StackPane>  
+</StackPane>

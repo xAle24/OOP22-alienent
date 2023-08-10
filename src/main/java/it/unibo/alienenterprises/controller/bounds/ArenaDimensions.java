@@ -10,31 +10,51 @@ import javafx.stage.Screen;
  * @author Giulia Bonifazi
  */
 public class ArenaDimensions implements Dimensions {
-    private final double WIDTH = Screen.getPrimary().getBounds().getWidth();
-    private final double HEIGHT = 600.0;
+    private static final double PRESETHEIGHT = 600.0;
     private double width;
     private double height;
 
-    public ArenaDimensions(Point2D dimensions) {
-        this.width = dimensions.getX();
-        this.height = dimensions.getY();
-    }
-
-    public ArenaDimensions(double width, double height) {
+    /**
+     * Creates a new instance of this class.
+     * 
+     * @param width  the width of the arena
+     * @param height the height of the arena
+     */
+    public ArenaDimensions(final double width, final double height) {
         this.width = width;
         this.height = height;
     }
 
-    public ArenaDimensions() {
-        this.width = WIDTH;
-        this.height = HEIGHT;
+    /**
+     * Creates a new instance of this class.
+     * 
+     * @param dimensions the dimensions of the arena, where the x coordinate is the
+     *                   width and the y coordinate is the height
+     */
+    public ArenaDimensions(final Point2D dimensions) {
+        this(dimensions.getX(), dimensions.getY());
     }
 
+    /**
+     * Creates a new instance of this class with preset values.
+     */
+    public ArenaDimensions() {
+        this.width = Screen.getPrimary().getBounds().getWidth();
+
+        this.height = PRESETHEIGHT;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double getWidth() {
         return this.width;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double getHeight() {
         return this.height;

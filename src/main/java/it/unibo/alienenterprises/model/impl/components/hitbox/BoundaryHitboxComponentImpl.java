@@ -42,19 +42,23 @@ public class BoundaryHitboxComponentImpl extends ComponentAbs implements Boundar
             hitbox.getGameObject().hit(DESTROY);
         } else if (this.location == Locations.UP) {
             hitbox.getGameObject().setPosition(Vector2D.fromComponents(0, 
-            (((CircleHitboxComponentAbs) hitbox).getHitbox().getRay() - line.distancePoint(hitbox.getGameObject().getPosition())))
+            (((CircleHitboxComponentAbs) hitbox).getHitbox().getRay() 
+            -line.distancePoint(hitbox.getGameObject().getPosition())))
             .translate(hitbox.getGameObject().getPosition()));
         } else if (this.location == Locations.DOWN) {
             hitbox.getGameObject().setPosition(Vector2D.fromComponents(0, 
-            - (((CircleHitboxComponentAbs) hitbox).getHitbox().getRay() - line.distancePoint(hitbox.getGameObject().getPosition())))
+            -(((CircleHitboxComponentAbs) hitbox).getHitbox().getRay() 
+            -line.distancePoint(hitbox.getGameObject().getPosition())))
             .translate(hitbox.getGameObject().getPosition()));
         } else if (this.location == Locations.RIGHT) {
             hitbox.getGameObject().setPosition(Vector2D.fromComponents( 
-            - (((CircleHitboxComponentAbs) hitbox).getHitbox().getRay() - line.distancePoint(hitbox.getGameObject().getPosition())), 0)
+            -(((CircleHitboxComponentAbs) hitbox).getHitbox().getRay() 
+            -line.distancePoint(hitbox.getGameObject().getPosition())), 0)
             .translate(hitbox.getGameObject().getPosition()));
         } else if (this.location == Locations.LEFT) {
-            hitbox.getGameObject().setPosition(Vector2D.fromComponents( 
-            (((CircleHitboxComponentAbs) hitbox).getHitbox().getRay() - line.distancePoint(hitbox.getGameObject().getPosition())), 0)
+            hitbox.getGameObject().setPosition(Vector2D.fromComponents(
+            (((CircleHitboxComponentAbs) hitbox).getHitbox().getRay() 
+            -line.distancePoint(hitbox.getGameObject().getPosition())), 0)
             .translate(hitbox.getGameObject().getPosition()));
         }
     }

@@ -8,6 +8,8 @@ import it.unibo.alienenterprises.view.api.Painter;
 
 /**
  * Manager for all the {@link Renderable} objects of the game.
+ * 
+ * @author Giulia Bonifazi
  */
 public class RendererManager implements Renderable {
     private final Painter painter;
@@ -29,15 +31,18 @@ public class RendererManager implements Renderable {
     /**
      * Adds one {@link GameObject} to the list by creating its {@link Renderer}.
      * 
-     * @param obj
+     * @param obj   the object
      * @param objID the object's ID, necessary for the renderer creation.
      */
-    public void addRenderer(GameObject obj, String objID) {
+    public void addRenderer(final GameObject obj, final String objID) {
         var newRenderer = new SimpleRenderer(obj, objID);
         this.renderers.add(newRenderer);
         this.painter.addAll(newRenderer);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void render() {
         this.viewRenderable.render();

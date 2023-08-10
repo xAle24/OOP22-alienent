@@ -9,6 +9,8 @@
 }
 
 .statLabel {
+  -fx-background-image: url("/images/UI_Flat_Frame_Horizontal_Yellow.png");
+  background-image: url("/images/UI_Flat_Frame_Horizontal_Yellow.png");
 }
 
 .statLabelContainer {
@@ -19,14 +21,4 @@
   -fx-background-position: center;
   background-position: center;
   -fx-alignment: center;
-  -fx-min-height: 200px;
-  min-height: 200px;
-  -fx-pref-height: 200px;
-  -fx-max-height: 200px;
-  max-height: 200px;
-  -fx-min-width: 200px;
-  min-width: 200px;
-  -fx-pref-width: 200px;
-  -fx-max-width: 200px;
-  max-width: 200px;
 }

@@ -12,10 +12,10 @@ import javafx.stage.Stage;
  * 
  * @author Giulia Bonifazi
  */
-public class AppStart extends Application {
+public final class AppStart extends Application {
 
     /**
-     * Initialize the {@link Application}
+     * Initialize the {@link Application}.
      * 
      * @param args
      */
@@ -24,7 +24,7 @@ public class AppStart extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(final Stage primaryStage) throws Exception {
         final View view = new ViewImpl(primaryStage);
         final Controller controller = new ControllerImpl(view);
         view.init(controller);

@@ -6,6 +6,8 @@ import it.unibo.alienenterprises.view.sprites.Sprite;
  * Renderer interface. The Renderer will be responsible for communicating the
  * appropriate informations to the View, so it can render every
  * {@link GameObject} properly.
+ * 
+ * @author Giulia Bonifazi
  */
 public interface Renderer extends Renderable {
 
@@ -19,6 +21,8 @@ public interface Renderer extends Renderable {
 
     /**
      * Gets the {@link Sprite} from the Renderer.
+     * 
+     * @return the sprite
      */
     Sprite getSprite();
 }

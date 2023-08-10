@@ -9,6 +9,7 @@ public interface EnemySpawner {
     /**
      * Creates a new enemy ready to be spawned.
      * @param identifier of the enemy you want to get.
+     * @param deltaTime Time passed since the last cycle.
      * @return a new enemy
      */
     GameObject getEnemy(String identifier, double deltaTime);
