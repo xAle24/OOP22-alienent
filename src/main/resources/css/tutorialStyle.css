@@ -1,0 +1,26 @@
+#root {
+  -fx-background-image: url("/images/menu_tutorial.png");
+  background-image: url("/images/menu_tutorial.png");
+  -fx-background-color: #247cec;
+  background-color: #247cec;
+  -fx-background-repeat: stretch;
+  background-repeat: stretch;
+  -fx-background-size: contain;
+  background-size: contain;
+  -fx-background-position: center;
+  background-position: center;
+  -fx-alignment: center;
+}
+
+#exitButton {
+  -fx-background-image: url("/examplemvc/cross.png");
+  background-image: url("/examplemvc/cross.png");
+  -fx-background-size: cover;
+  background-size: cover;
+  -fx-background-position: center;
+  background-position: center;
+  -fx-max-width: 48;
+  max-width: 48;
+  -fx-max-height: 48;
+  max-height: 48;
+}

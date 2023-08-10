@@ -1,0 +1,11 @@
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.Button?>
+
+<BorderPane id="root" prefWidth="500" prefHeight="500" 
+    xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="it.unibo.alienenterprises.view.controllers.TutorialControllerImpl"
+    styleClass="style" stylesheets="@/css/tutorialStyle.css">
+    <children>
+            <Button fx:id="exitButton" alignment="TOP_RIGHT" onAction="#exitPressed"/>
+    </children>
+</BorderPane>
