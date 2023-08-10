@@ -36,7 +36,6 @@ public class InputComponentSniperImpl extends ComponentAbs implements EnemyInput
         getGameObject().setPosition(movement.mul(deltatime).translate(getGameObject().getPosition()));
         getGameObject().setVelocity(movement);
     }
-    // CPD-ON
 
     private Vector2D calculateMovement() {
         final double distanceTarget = Math.sqrt(Math.pow(this.target.getPosition().getX()
@@ -51,6 +50,7 @@ public class InputComponentSniperImpl extends ComponentAbs implements EnemyInput
         }
     }
 
+    // CPD-ON
     /**
      * @inheritDoc
      */

@@ -36,7 +36,6 @@ public class InputComponentTankImpl extends ComponentAbs implements EnemyInputCo
         getGameObject().setPosition(movement.mul(deltatime).translate(getGameObject().getPosition()));
         getGameObject().setVelocity(movement);
     }
-    // CPD-ON
 
     private Vector2D calculateMovement() {
         final double distanceTarget = Math.sqrt(Math.pow(this.target.getPosition().getX()
@@ -49,6 +48,7 @@ public class InputComponentTankImpl extends ComponentAbs implements EnemyInputCo
                     this.getGameObject().getStatValue(Statistic.SPEED));
         }
     }
+    // CPD-ON
 
     /**
      * @inheritDoc
