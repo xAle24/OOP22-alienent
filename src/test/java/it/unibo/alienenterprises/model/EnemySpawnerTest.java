@@ -18,9 +18,9 @@ import it.unibo.alienenterprises.model.world.GameWorld;
 /**
  * Test class for enemySpawner.
  */
-public class EnemySpawnerTest {
-    private static final int UPDATETIME61 = 61000;
-    private static final int UPDATETIME60 = 60000;
+class EnemySpawnerTest {
+    private static final int UPDATETIME61 = 61_000;
+    private static final int UPDATETIME60 = 60_000;
     private static final int STAT15 = 15;
     private static final int STAT30 = 30;
     private static final int DELTATIME = 80;
@@ -30,12 +30,11 @@ public class EnemySpawnerTest {
      * Test to check if the map creation happens correctly.
      */
     @Test
-    public void checkMap() {
-        var world = new GameWorld(new ArenaDimensions(10.0, 10.0));
-        var enemySpawner = new EnemySpawnerImpl(world, new Point2D(0, 0), new Point2D(10, 10), PLAYER);
+    void checkMap() {
+        final var world = new GameWorld(new ArenaDimensions(10.0, 10.0));
+        final var enemySpawner = new EnemySpawnerImpl(world, new Point2D(0, 0), new Point2D(10, 10), PLAYER);
         enemySpawner.update(UPDATETIME61);
-        var map = new HashMap<Statistic, Integer>();
-        map = enemySpawner.getStats();
+        var map = new HashMap<Statistic, Integer>(enemySpawner.getStats());
         assertEquals(STAT15, map.get(Statistic.HP));
         assertEquals(STAT15, map.get(Statistic.DEFENCE));
         assertEquals(STAT15, map.get(Statistic.DAMAGE));
@@ -49,10 +48,10 @@ public class EnemySpawnerTest {
      * Test to check if Game Object creation happens correctly.
      */
     @Test
-    public void checkGameObject() {
-        var world = new GameWorld(new ArenaDimensions(10.0, 10.0));
-        var enemySpawner = new EnemySpawnerImpl(world, new Point2D(0, 0), new Point2D(10, 10), PLAYER);
-        var enemy = enemySpawner.getEnemy("enemySniper", DELTATIME);
+    void checkGameObject() {
+        final var world = new GameWorld(new ArenaDimensions(10.0, 10.0));
+        final var enemySpawner = new EnemySpawnerImpl(world, new Point2D(0, 0), new Point2D(10, 10), PLAYER);
+        final var enemy = enemySpawner.getEnemy("enemySniper", DELTATIME);
         assertEquals(enemy, enemy.getComponent(HitboxComponent.class).get().getGameObject());
         assertEquals(enemy, enemy.getComponent(InputComponent.class).get().getGameObject());
     }

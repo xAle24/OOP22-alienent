@@ -19,7 +19,7 @@ import it.unibo.alienenterprises.model.impl.components.InputComponentTankImpl;
 /**
  * Test for enemis input.
  */
-public class InputComponentEnemyTest {
+class InputComponentEnemyTest {
     private static final int UPDATETIME = 30;
     private static final int POS50 = 50;
     private static final int POS950 = 950;
@@ -33,7 +33,7 @@ public class InputComponentEnemyTest {
      * Test if sniper input works correctly.
      */
     @Test
-    public void sniperTest() {
+    void sniperTest() {
         final InputComponentSniperImpl inputSniper = new InputComponentSniperImpl(SNIPER, true);
         SNIPER.addComponent(inputSniper);
         inputSniper.setTarget(PLAYER);
@@ -49,7 +49,7 @@ public class InputComponentEnemyTest {
      * Test if tank input works correctly.
      */
     @Test
-    public void tankTest() {
+    void tankTest() {
         final InputComponentTankImpl inputTank = new InputComponentTankImpl(TANK, true);
         TANK.addComponent(inputTank);
         inputTank.setTarget(PLAYER);
@@ -65,7 +65,7 @@ public class InputComponentEnemyTest {
      * Test if bomber input works correctly.
      */
     @Test
-    public void bomberTest() {
+    void bomberTest() {
         final InputComponentBomberImpl inputBomber = new InputComponentBomberImpl(BOMBER, true);
         BOMBER.addComponent(inputBomber);
         inputBomber.setTarget(PLAYER);
