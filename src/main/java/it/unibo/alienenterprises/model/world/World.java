@@ -77,4 +77,11 @@ public interface World {
      */
     boolean isOver();
 
+    /**
+     * Get the number of enemies that are currently alive.
+     * 
+     * @return enemy count.
+     */
+    int getEnemyCount();
+
 }
