@@ -53,7 +53,6 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
                 return Optional.of(userAccount);
 
             } catch (Exception e) {
-                e.printStackTrace();
             }
         }
         return Optional.empty();
@@ -87,7 +86,6 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
                 return account;
 
             } catch (Exception e) {
-                e.printStackTrace();
             }
         }
         return Optional.empty();
@@ -108,7 +106,6 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
             final String output = yaml.dump(account);
             writer.append(output);
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -142,7 +139,6 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
             return passwordMap.get(nickname).equals(password);
 
         } catch (Exception e) {
-            e.printStackTrace();
         }
 
         return false; // non dovrebbe giungere a questa riga

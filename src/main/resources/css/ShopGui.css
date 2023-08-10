@@ -71,9 +71,8 @@
 
 #exitButton {
   -fx-background-image: url("/images/UI_Flat_Button.png"),
-    url("/examplemvc/cross.png");
-  background-image: url("/images/UI_Flat_Button.png"),
-    url("/examplemvc/cross.png");
+    url("/images/cross.png");
+  background-image: url("/images/UI_Flat_Button.png"), url("/images/cross.png");
   -fx-background-position: center, center;
   background-position: center, center;
   -fx-background-repeat: no-repeat;

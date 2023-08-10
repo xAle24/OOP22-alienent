@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.LinkedHashMap;
@@ -225,7 +224,7 @@ public class ShopTest {
                 yamlLines.remove(yamlLines.size() - 1);
                 Files.write(Paths.get(GAME_PATH + SEPARATOR + YAMLPASSWORD + YML), yamlLines);
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
         }
     }
 }
