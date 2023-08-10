@@ -19,9 +19,10 @@ import it.unibo.alienenterprises.model.impl.ProjectileSupplierFactoryImpl;
  * Implementations of enemy spawner.
  */
 public class EnemySpawnerImpl implements EnemySpawner {
-    private static final int SPAWNTIME = 2;
+    private static final int SPAWNTIME = 4;
     private static final int ONEMINUTE = 60000;
     private static final int INCREASESTAT = 15;
+    private static final int MAXENEMYINMAP = 50;
     private static final Random RANDOM = new Random();
     private Map<String, GameObject> enemy;
     private List<String> enemyList;
@@ -86,7 +87,7 @@ public class EnemySpawnerImpl implements EnemySpawner {
      */
     @Override
     public void update(final double deltaTime) {
-        if (spawnTime > SPAWNTIME) {
+        if (spawnTime > SPAWNTIME && this.world.getEnemyCount() < MAXENEMYINMAP) {
             var id = getIdentifier();
             this.world.addGameObject(getEnemy(id, deltaTime));
             spawnTime = 0;
