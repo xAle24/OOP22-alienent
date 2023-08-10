@@ -4,74 +4,73 @@ import java.util.Map;
 
 /**
  * PowerUp.
+ * This stores the basic information about the power up.
+ * 
+ * @author Ginevra Bartolini
  */
 public interface PowerUp {
 
     /**
      * 
-     * set the PWU corresponding id.
+     * Sets the power up corresponding id.
      * 
-     * @param id the id of the PWU
-     * @return
+     * @param id the id of the power up
      */
     void setId(String id);
 
     /**
      * 
-     * set the PWU cost.
+     * Sets the power up cost.
      * 
-     * @param cost the PWU cost
-     * @return
+     * @param cost the power up cost
      */
     void setCost(int cost);
 
     /**
      * 
-     * set the PWU maximum level.
+     * Sets the power up maximum level.
      * 
-     * @param maxLevel the PWU maximum level
-     * @return
+     * @param maxLevel the power up maximum level
      */
     void setMaxLevel(int maxLevel);
 
     /**
      * 
-     * set the PWU map of statistics.
+     * Sets the power up map of statistics.
      * 
-     * @param statModifiers the PWU map of statistics
-     * @return
+     * @param statModifiers the power up map of statistics
      */
     void setStatModifiers(Map<Statistic, Integer> statModifiers);
 
     /**
      * 
-     * get the PWU corresponding id.
+     * Gets the power up corresponding id.
      * 
-     * @return the PWU corresponding id
+     * @return the power up corresponding id
      */
     String getId();
 
     /**
      * 
-     * get the PWU cost.
+     * Gets the power up cost.
      * 
-     * @return the PWU cost
+     * @return the power up cost
      */
     int getCost();
 
     /**
      * 
-     * get the PWU maximum level.
+     * Gets the power up maximum level.
      * 
-     * @return the PWU maximum level
+     * @return the power up maximum level
      */
     int getMaxLevel();
 
     /**
      * 
-     * get the PWU map of statistics.
+     * Gets the power up map of statistics.
      * 
-     * @return the PWU map of statistics
+     * @return the power up map of statistics
      */
     Map<Statistic, Integer> getStatModifiers();
 }

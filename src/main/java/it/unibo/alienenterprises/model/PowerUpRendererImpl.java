@@ -5,6 +5,8 @@ import it.unibo.alienenterprises.model.api.PowerUpRenderer;
 
 /**
  * Implementation of PowerUpRenderer.
+ * 
+ * @author Ginevra Bartolini
  */
 public class PowerUpRendererImpl implements PowerUpRenderer {
 

@@ -53,7 +53,7 @@ public class ShopTest {
     private static final int SPEED_MAXLEVEL = 3;
     private static final int DAMAGE_MAXLEVEL = 2;
     private static final int STAT = 5;
-    private static final String SEPARATOR = File.separator;
+    private static final String SEPARATOR = "/";
     private static final String GAME_PATH = "src/main/resources/examplemvc";
     private static final String YML = ".yml";
 

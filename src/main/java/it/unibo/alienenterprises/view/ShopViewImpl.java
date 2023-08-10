@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-//import java.awt.Graphics2D;
 
 import it.unibo.alienenterprises.controller.api.ShopController;
 import it.unibo.alienenterprises.model.api.PowerUpRenderer;
@@ -13,7 +12,6 @@ import it.unibo.alienenterprises.model.api.UserAccount;
 import it.unibo.alienenterprises.view.api.ShopView;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-//import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -30,12 +28,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-//import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Screen;
 
 /**
- * Implementation fo ShopView.
+ * Implementation of ShopView.
+ * 
+ * @author Ginevra Bartolini
  */
 public class ShopViewImpl implements ShopView {
 
@@ -72,9 +71,7 @@ public class ShopViewImpl implements ShopView {
     private DialogPane dialog = new DialogPane();
 
     private final UserAccount account;
-
     private Map<Button, String> pwuButtons = new HashMap<>();
-
     private Map<String, List<CheckBox>> checkBoxesMap = new HashMap<>();
 
     private enum ExitCondition {
@@ -109,7 +106,7 @@ public class ShopViewImpl implements ShopView {
 
         box.setId("box");
 
-        box.setMinSize(SHOPWIDTH, SHOPHEIGHT); // forse puoi settarlo su css
+        box.setMinSize(SHOPWIDTH, SHOPHEIGHT);
         box.setPrefSize(SHOPWIDTH, SHOPHEIGHT);
 
         // Set upper part of the screen
@@ -378,7 +375,6 @@ public class ShopViewImpl implements ShopView {
         Button exitButton = new Button();
         exitButton.setId("exitButton");
         exitButton.setPrefSize(widthUnit, widthUnit);
-        // exitButton.setPadding(new Insets(margin / 2));
 
         switch (condition) {
             case PWUINFO:
