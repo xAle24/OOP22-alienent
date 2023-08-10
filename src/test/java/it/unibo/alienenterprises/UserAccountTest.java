@@ -50,7 +50,7 @@ class UserAccountTest {
    * This costructor ensures that an account is created.
    * Then it ensures that the file is deleted and so the password.
    */
-  public UserAccountTest() {
+  UserAccountTest() {
     account = accountHandler.registration(NICKNAME, PASSWORD).get();
     delete();
     removePassword();
@@ -172,6 +172,7 @@ class UserAccountTest {
     }
   }
 
+  @SuppressWarnings("all")
   private void removePassword() {
     try {
       final List<String> yamlLines = Files.readAllLines(Paths.get(GAME_PATH + SEPARATOR + YAMLPASSWORD + YML));
@@ -183,5 +184,6 @@ class UserAccountTest {
     } catch (IOException i) {
     }
   }
+
   // CPD-ON
 }
