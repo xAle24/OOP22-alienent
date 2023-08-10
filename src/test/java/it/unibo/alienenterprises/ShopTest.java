@@ -34,21 +34,18 @@ import it.unibo.alienenterprises.view.ViewType;
 import it.unibo.alienenterprises.view.controllers.InitController;
 
 public class ShopTest {
-    /*
-     * private static final int MONEY = 5000;
-     * private static final int HIGHSCORE = 80_000;
-     */
+
     private static final String NICKNAME = "AccountTest";
     private static final String PASSWORD = "AccountPass";
-    private static final int MONEY = 2000;
-    private static final int REMAINING_MONEY = 400;
+    private static final int MONEY = 2000000;
+    private static final int REMAINING_MONEY = 400000;
     private static final String YAMLPASSWORD = "passwords";
     private static final String HEALTH = "Health";
     private static final String DAMAGE = "Damage";
     private static final String SPEED = "Speed";
-    private static final int HEALTH_COST = 300;
-    private static final int SPEED_COST = 200;
-    private static final int DAMAGE_COST = 500;
+    private static final int HEALTH_COST = 300000;
+    private static final int SPEED_COST = 200000;
+    private static final int DAMAGE_COST = 500000;
     private static final int HEALTH_MAXLEVEL = 5;
     private static final int SPEED_MAXLEVEL = 3;
     private static final int DAMAGE_MAXLEVEL = 2;
@@ -63,20 +60,15 @@ public class ShopTest {
 
         @Override
         public void init(Controller controller) {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'init'");
         }
 
         @Override
         public void setScene(ViewType type) {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'setScene'");
         }
 
         @Override
         public Point2D getWidthHeight() {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'getWidthHeight'");
+            return null;
         }
 
     });

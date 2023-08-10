@@ -15,7 +15,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Alert.AlertType;
@@ -68,7 +67,6 @@ public class ShopViewImpl implements ShopView {
     private String inventoryText = "";
     private Alert attentionPopUp = new Alert(AlertType.WARNING);
     private Alert inventoryPopup = new Alert(AlertType.INFORMATION);
-    private DialogPane dialog = new DialogPane();
 
     private final UserAccount account;
     private Map<Button, String> pwuButtons = new HashMap<>();
@@ -338,18 +336,14 @@ public class ShopViewImpl implements ShopView {
         inventoryPopup.setHeaderText(controller.getUserAccount().getNickname());
         updateInventoryPopup();
 
-        dialog = inventoryPopup.getDialogPane();
-        dialog.getStylesheets().addAll(getClass().getResource(
-                "/css/ShopGui.css")
-                .toExternalForm());
-        dialog.setId("dialog");
         inventoryPopup.showAndWait();
     }
 
     private void updateInventoryPopup() {
 
         final StringBuilder stats = new StringBuilder("");
-        stats.append(account.getMoney()).append("\n");
+        stats.append("Money: ").append(account.getMoney()).append("\n").append("HighScore: ")
+                .append(account.getHighscore()).append("\n");
         account.getToAddPwu()
                 .forEach((s, i) -> stats.append(s).append(":\t").append(i).append("\n"));
 
@@ -362,11 +356,6 @@ public class ShopViewImpl implements ShopView {
         attentionPopUp.setHeaderText("ATTENTION");
         attentionPopUp.setContentText("You don't have enough money to buy this powerUp.");
 
-        dialog = inventoryPopup.getDialogPane();
-        dialog.getStylesheets().addAll(getClass().getResource(
-                "/css/ShopGui.css")
-                .toExternalForm());
-        dialog.setId("dialog");
         attentionPopUp.showAndWait();
     }
 

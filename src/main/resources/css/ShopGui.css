@@ -94,35 +94,6 @@
   background-size: contain;
 }
 
-#dialog {
-  -fx-background-color: #fca41c;
-  background-color: #fca41c;
-
-  -fx-background-position: center;
-  background-position: center;
-  -fx-background-repeat: no-repeat;
-  background-repeat: no repeat;
-  -fx-background-size: cover;
-  background-size: cover;
-
-  -fx-border-color: black;
-  border-color: black;
-  -fx-border-width: 2px;
-  border-width: 2px;
-}
-
-.dialog:header *.header-panel {
-  -fx-background-color: #fca41c;
-  background-color: #fca41c;
-}
-
-.dialo:header *.header-panel *.label {
-  -fx-font-size: 20px;
-  font-size: 20px;
-  -fx-font-family: fantasy;
-  font-family: fantasy;
-}
-
 #scroll {
   -fx-background-color: #fca41c;
   background-color: #fca41c;
