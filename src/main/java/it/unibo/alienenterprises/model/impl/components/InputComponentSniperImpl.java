@@ -13,7 +13,7 @@ import it.unibo.alienenterprises.model.geometry.Vector2D;
  * Sniper behaviour.
  */
 public class InputComponentSniperImpl extends ComponentAbs implements EnemyInputComponent {
-    private static final int DISTANCE = 900;
+    private static final int DISTANCE = 550;
     private GameObject target;
     /**
      * Constructor for input component of sniper.
