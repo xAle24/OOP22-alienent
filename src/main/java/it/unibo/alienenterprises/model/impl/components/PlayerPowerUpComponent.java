@@ -28,9 +28,15 @@ public class PlayerPowerUpComponent extends ComponentAbs implements PowerUpCompo
      */
     @Override
     public void setPoweUps(final Map<Statistic, Integer> powerUps) {
-        for (var s : powerUps.keySet()) {
-            getGameObject().setStatValue(s, (getGameObject().getStatValue(s) * powerUps.get(s)) / 100);
+        double mod;
+        int oldStat;
+        for (final var s : powerUps.keySet()) {
+            mod = (powerUps.get(s)/(double) 100) + 1.0;
+            oldStat = getGameObject().getStatValue(s);
+            getGameObject().setStatValue(s, (int) (oldStat * mod));
         }
+        var newHp = getGameObject().getStatValue(Statistic.HP);
+        getGameObject().heal(newHp-getGameObject().gethealth());
     }
 
     /**
