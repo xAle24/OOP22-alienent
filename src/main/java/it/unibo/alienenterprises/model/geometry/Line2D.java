@@ -107,10 +107,7 @@ public class Line2D {
         }
         final Line2D other = (Line2D) obj;
         if (this.getB() == 0 && other.getB() == 0) {
-            if (this.getC() / this.getA() == other.getC() / other.getA()) {
-                return true;
-            }
-            return false;
+            return this.getC() / this.getA() == other.getC() / other.getA();
         }
         return this.getA() / this.getB() == other.getA() / other.getB()
                 && this.getC() / this.getB() == other.getC() / other.getB();

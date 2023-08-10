@@ -43,7 +43,7 @@ public class PlayerInputComponentImpl extends ComponentAbs implements PlayerInpu
     @Override
     public void update(final double deltatime) {
         var vel = getGameObject().getVelocity();
-        for (Input in : input.getInputSet()) {
+        for (final Input in : input.getInputSet()) {
             final var module = vel.getModule();
             switch (in) {
                 case ACCELERATE:
@@ -126,11 +126,13 @@ public class PlayerInputComponentImpl extends ComponentAbs implements PlayerInpu
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings(":PMD")
     public Optional<Component> duplicate(final GameObject obj) {
         try {
-            var retInput = input.getClass().getConstructor().newInstance();
+            final var retInput = input.getClass().getConstructor().newInstance();
             return Optional.of(new PlayerInputComponentImpl(obj, retInput));
-        } catch (final Exception e) {
+        } catch (Exception e) {
+
         }
         return Optional.empty();
     }
