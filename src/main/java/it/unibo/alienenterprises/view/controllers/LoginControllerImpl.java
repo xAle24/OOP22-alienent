@@ -15,7 +15,9 @@ import javafx.util.Duration;
  * Controls the login view.
  */
 public class LoginControllerImpl implements LoginController, InitController {
-    private static final int ALERTDURATION = 6; 
+    private static final int ALERTDURATION = 6;
+    private static final String FIELD = "field";
+    private static final String INCORRECT = "incorrect";
     private Controller controller; 
     @FXML
     private TextField usernameField;
@@ -39,7 +41,7 @@ public class LoginControllerImpl implements LoginController, InitController {
         if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty()) {
             popUp("field");
         } else {
-            Optional<UserAccount> account = controller.getUserAccountHandler().login(usernameField.getText(), 
+            final Optional<UserAccount> account = controller.getUserAccountHandler().login(usernameField.getText(), 
                 passwordField.getText());
             if (!account.isEmpty()) {
                 controller.setUserAccount(account.get());
@@ -51,13 +53,13 @@ public class LoginControllerImpl implements LoginController, InitController {
         }
     }
     private void popUp(final String cod) {
-        if (cod.equals("field")) {
+        if (FIELD.equals(cod)) {
             alert.setText("Missing credentials");
-        } else if (cod.equals("incorrect")) {
+        } else if (INCORRECT.equals(cod)) {
             alert.setText("Incorrect credentials");
         }
         alert.setVisible(true);
-        PauseTransition delay = new PauseTransition(Duration.seconds(ALERTDURATION));
+        final PauseTransition delay = new PauseTransition(Duration.seconds(ALERTDURATION));
         delay.setOnFinished(e -> alert.setVisible(false));
         delay.play();
     }

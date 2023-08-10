@@ -16,8 +16,8 @@ import it.unibo.alienenterprises.model.geometry.Vector2D;
 public class BoundaryHitboxComponentImpl extends ComponentAbs implements BoundaryHitboxComponent {
 
     private static final int DESTROY = 999;
-    private Type objectType;
-    private Line2D line;
+    private final Type objectType;
+    private final Line2D line;
     private Locations location;
     /**
      * Constructor for boundary hitbox.
@@ -42,8 +42,8 @@ public class BoundaryHitboxComponentImpl extends ComponentAbs implements Boundar
             hitbox.getGameObject().hit(DESTROY);
         } else if (this.location == Locations.UP) {
             hitbox.getGameObject().setPosition(Vector2D.fromComponents(0, 
-            (((CircleHitboxComponentAbs) hitbox).getHitbox().getRay() 
-            - line.distancePoint(hitbox.getGameObject().getPosition())))
+            ((CircleHitboxComponentAbs) hitbox).getHitbox().getRay() 
+            - line.distancePoint(hitbox.getGameObject().getPosition()))
             .translate(hitbox.getGameObject().getPosition()));
         } else if (this.location == Locations.DOWN) {
             hitbox.getGameObject().setPosition(Vector2D.fromComponents(0, 
@@ -57,8 +57,8 @@ public class BoundaryHitboxComponentImpl extends ComponentAbs implements Boundar
             .translate(hitbox.getGameObject().getPosition()));
         } else if (this.location == Locations.LEFT) {
             hitbox.getGameObject().setPosition(Vector2D.fromComponents(
-            (((CircleHitboxComponentAbs) hitbox).getHitbox().getRay() 
-            - line.distancePoint(hitbox.getGameObject().getPosition())), 0)
+            ((CircleHitboxComponentAbs) hitbox).getHitbox().getRay() 
+            - line.distancePoint(hitbox.getGameObject().getPosition()), 0)
             .translate(hitbox.getGameObject().getPosition()));
         }
     }
@@ -81,11 +81,9 @@ public class BoundaryHitboxComponentImpl extends ComponentAbs implements Boundar
      */
     @Override
     public void canCollide(final HitboxComponent hitbox) {
-        if (this.objectType != hitbox.getType()) {
-            if (hitbox instanceof CircleHitboxComponentAbs 
-                    && ((CircleHitboxComponentAbs) hitbox).getHitbox().intersectWith(this.line)) {
+        if (this.objectType != hitbox.getType() && hitbox instanceof CircleHitboxComponentAbs 
+            && ((CircleHitboxComponentAbs) hitbox).getHitbox().intersectWith(this.line)) {
                 this.isColliding(hitbox);
-            }
         }
     }
     /**

@@ -12,9 +12,9 @@ import it.unibo.alienenterprises.model.geometry.Circle2D;
  */
 public abstract class CircleHitboxComponentAbs extends ComponentAbs implements HitboxComponent {
 
-    private Type objectType; 
+    private final Type objectType; 
     private Circle2D hitbox;
-    private double radius;
+    private final double radius;
     /**
      * Constructor for all circle hitbox.
      * @param object referenced object.

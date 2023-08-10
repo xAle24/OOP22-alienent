@@ -38,8 +38,8 @@ public class InputComponentBomberImpl extends ComponentAbs implements EnemyInput
     }
     /**
      * @inheritDoc
-     * @param target what the enemy follow.
      */
+    @Override
     public void setTarget(final GameObject target) {
         this.target = target;
     }
