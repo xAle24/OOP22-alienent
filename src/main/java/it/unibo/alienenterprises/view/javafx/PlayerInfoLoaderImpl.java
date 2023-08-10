@@ -52,13 +52,14 @@ public class PlayerInfoLoaderImpl implements ShipInfoLoader {
      * @param idSet Identifiers of the ships
      */
     public PlayerInfoLoaderImpl(final Set<String> idSet) {
-        this.playerIds = idSet;
+        this.playerIds = Set.copyOf(idSet);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("all")
     public void load() {
         if (!this.isLoaded) {
             for (final var name : this.playerIds) {

@@ -18,13 +18,14 @@ import it.unibo.alienenterprises.model.world.GameWorld;
  */
 public final class ShipLoaderTest {
 
+    private static final GameWorld WORLD = new GameWorld(new ArenaDimensions(20, 20));
     private final ShipLoader shipLoader;
     private final Set<String> playerIds;
     private final Set<String> enemyIds;
 
-    public ShipLoaderTest() {
+    private ShipLoaderTest() {
         this.shipLoader = new ShipLoaderImpl(
-                new ProjectileSupplierFactoryImpl(new GameWorld(new ArenaDimensions(20, 20))));
+                new ProjectileSupplierFactoryImpl(WORLD));
         this.playerIds = this.shipLoader.getPlayerIds();
         this.enemyIds = this.shipLoader.getEnemyIds();
     }
