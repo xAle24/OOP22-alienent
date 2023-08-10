@@ -13,7 +13,10 @@ import it.unibo.alienenterprises.controller.bounds.ArenaDimensions;
 import it.unibo.alienenterprises.model.impl.ProjectileSupplierFactoryImpl;
 import it.unibo.alienenterprises.model.world.GameWorld;
 
-public class ShipLoaderTest {
+/**
+ * Test Class for ShipLoader..
+ */
+public final class ShipLoaderTest {
 
     private final ShipLoader shipLoader;
     private final Set<String> playerIds;
@@ -26,8 +29,11 @@ public class ShipLoaderTest {
         this.enemyIds = this.shipLoader.getEnemyIds();
     }
 
+    /**
+     * Test if the players are loaded correctly.
+     */
     @Test
-    public void LoadPlayersTest() {
+    public void loadPlayersTest() {
         var map = this.shipLoader.loadPlayerClasses();
         for (var ship : this.playerIds) {
             assertNotNull(map.get(ship), "the following ship didn't load: " + ship);
@@ -35,8 +41,11 @@ public class ShipLoaderTest {
         }
     }
 
+    /**
+     * Test if the players are loaded correctly.
+     */
     @Test
-    public void LoadEnemiesTest() {
+    public void loadEnemiesTest() {
         var map = this.shipLoader.loadEnemyClasses();
         for (var ship : this.enemyIds) {
             assertNotNull(map.get(ship), "the following ship didn't load: " + ship);

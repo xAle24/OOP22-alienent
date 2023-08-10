@@ -5,7 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-public class Line2DTest {
+/**
+ * Test Class for Line2D.
+ */
+public final class Line2DTest {
 
     private final Line2D line1 = new Line2D(-1, 1, 0);
     private final Line2D line2 = new Line2D(0, 1, 0);
@@ -13,12 +16,18 @@ public class Line2DTest {
     private Line2DTest() {
     }
 
+    /**
+     * Test if the constructor throws the correct Exeption.
+     */
     @Test
     public void constructorTest() {
         assertThrows(IllegalArgumentException.class, () -> new Line2D(0, 0, 0));
         assertThrows(IllegalArgumentException.class, () -> new Line2D(0, 0, 1));
     }
 
+    /**
+     * Test the construction from two Points.
+     */
     @Test
     public void fromTwoPointsTest() {
         final Point2D p1 = new Point2D(0, 0);
