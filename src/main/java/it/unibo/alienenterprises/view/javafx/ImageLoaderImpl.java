@@ -43,8 +43,6 @@ public class ImageLoaderImpl implements ImageLoader {
                 this.spriteList.add((ImageProp) it.next());
             }
         } catch (Exception e) {
-            // TODO: handle exception
-            e.printStackTrace();
         }
     }
 

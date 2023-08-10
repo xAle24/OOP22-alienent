@@ -36,7 +36,6 @@ public interface HitboxComponent extends Component {
     /**
      * Checks if the object can collide.
      * @param hitbox hitbox of the object it is colliding with.
-     * @return true if can collide, false otherwise
      */
     void canCollide(HitboxComponent hitbox);
 

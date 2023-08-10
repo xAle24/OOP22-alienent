@@ -74,8 +74,8 @@ public class BasicShooterComponent extends ComponentAbs implements ShooterCompon
         this.damage = getGameObject().getStatValue(Statistic.DAMAGE);
         this.speed = getGameObject().getStatValue(Statistic.PROJECTILESPEED);
         this.delay = getGameObject().getStatValue(Statistic.COOLDOWN);
-        this.shooterType = getGameObject().getComponent(HitboxComponent.class).get().getType();
-        // TODO
+        this.shooterType = getGameObject().getComponent(HitboxComponent.class)
+                .orElseThrow(() -> new IllegalStateException("The hitbox component isn't present")).getType();
     }
 
     /**

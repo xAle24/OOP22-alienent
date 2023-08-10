@@ -16,45 +16,65 @@ import it.unibo.alienenterprises.model.geometry.Vector2D;
 import it.unibo.alienenterprises.model.impl.components.InputComponentBomberImpl;
 import it.unibo.alienenterprises.model.impl.components.InputComponentSniperImpl;
 import it.unibo.alienenterprises.model.impl.components.InputComponentTankImpl;
-
+/**
+ * Test for enemis input.
+ */
 public class InputComponentEnemyTest {
-    private static final Map<Statistic, Integer> stat = Map.of(Statistic.HP, 5, Statistic.SPEED, 5);
-    private static final GameObject player = new GameObjectAbs(new Point2D(0, 0), null, stat, "a");
-    private static final GameObject sniper = new GameObjectAbs(new Point2D(950, 0), null, stat, "b");
-    private static final GameObject tank = new GameObjectAbs(new Point2D(450, 0), null, stat, "c");
-    private static final GameObject bomber = new GameObjectAbs(new Point2D(450, 0), null, stat, "d");
-
+    private static final int UPDATETIME = 30;
+    private static final int POS50 = 50;
+    private static final int POS950 = 950;
+    private static final int POS450 = 450;
+    private static final Map<Statistic, Integer> STAT = Map.of(Statistic.HP, 5, Statistic.SPEED, 5);
+    private static final GameObject PLAYER = new GameObjectAbs(new Point2D(0, 0), null, STAT, "a");
+    private static final GameObject SNIPER = new GameObjectAbs(new Point2D(POS950, 0), null, STAT, "b");
+    private static final GameObject TANK = new GameObjectAbs(new Point2D(POS450, 0), null, STAT, "c");
+    private static final GameObject BOMBER = new GameObjectAbs(new Point2D(POS450, 0), null, STAT, "d");
+    /**
+     * Test if sniper input works correctly.
+     */
     @Test
-    public void SniperTest() {
-        final InputComponentSniperImpl inputSniper = new InputComponentSniperImpl(sniper, true);
-        sniper.addComponent(inputSniper);
-        inputSniper.setTarget(player);
-        inputSniper.update(30);
-        assertEquals(Vector2D.fromTwoPointsAndModule(new Point2D(950, 0), new Point2D(0, 0), sniper.getStatValue(Statistic.SPEED)), sniper.getVelocity());
-        sniper.setPosition(new Point2D(50, 50));
-        inputSniper.update(30);
-        assertEquals(Vector2D.fromTwoPointsAndModule(new Point2D(50, 50), new Point2D(0, 0), -sniper.getStatValue(Statistic.SPEED)), sniper.getVelocity());
+    public void sniperTest() {
+        final InputComponentSniperImpl inputSniper = new InputComponentSniperImpl(SNIPER, true);
+        SNIPER.addComponent(inputSniper);
+        inputSniper.setTarget(PLAYER);
+        inputSniper.update(UPDATETIME);
+        assertEquals(Vector2D.fromTwoPointsAndModule(new Point2D(POS950, 0), new Point2D(0, 0), 
+            SNIPER.getStatValue(Statistic.SPEED)), SNIPER.getVelocity());
+        SNIPER.setPosition(new Point2D(POS50, POS50));
+        inputSniper.update(UPDATETIME);
+        assertEquals(Vector2D.fromTwoPointsAndModule(new Point2D(POS50, POS50), new Point2D(0, 0), 
+            -SNIPER.getStatValue(Statistic.SPEED)), SNIPER.getVelocity());
     }
+    /**
+     * Test if tank input works correctly.
+     */
     @Test
-    public void TankTest() {
-        final InputComponentTankImpl inputTank = new InputComponentTankImpl(tank, true);
-        tank.addComponent(inputTank);
-        inputTank.setTarget(player);
-        inputTank.update(30);
-        assertEquals(Vector2D.fromTwoPointsAndModule(new Point2D(450, 0), new Point2D(0, 0), tank.getStatValue(Statistic.SPEED)), tank.getVelocity());
-        tank.setPosition(new Point2D(50, 50));
-        inputTank.update(30);
-        assertEquals(Vector2D.fromTwoPointsAndModule(new Point2D(50, 50), new Point2D(0, 0), 0), tank.getVelocity());
+    public void tankTest() {
+        final InputComponentTankImpl inputTank = new InputComponentTankImpl(TANK, true);
+        TANK.addComponent(inputTank);
+        inputTank.setTarget(PLAYER);
+        inputTank.update(UPDATETIME);
+        assertEquals(Vector2D.fromTwoPointsAndModule(new Point2D(POS450, 0), new Point2D(0, 0), 
+            TANK.getStatValue(Statistic.SPEED)), TANK.getVelocity());
+        TANK.setPosition(new Point2D(POS50, POS50));
+        inputTank.update(UPDATETIME);
+        assertEquals(Vector2D.fromTwoPointsAndModule(new Point2D(POS50, POS50), new Point2D(0, 0), 0), 
+            TANK.getVelocity());
     }
+    /**
+     * Test if bomber input works correctly.
+     */
     @Test
-    public void BomberTest() {
-        final InputComponentBomberImpl inputBomber = new InputComponentBomberImpl(bomber, true);
-        bomber.addComponent(inputBomber);
-        inputBomber.setTarget(player);
-        inputBomber.update(30);
-        assertEquals(Vector2D.fromTwoPointsAndModule(new Point2D(450, 0), new Point2D(0, 0), bomber.getStatValue(Statistic.SPEED)), bomber.getVelocity());
-        bomber.setPosition(new Point2D(50, 50));
-        inputBomber.update(30);
-        assertEquals(Vector2D.fromTwoPointsAndModule(new Point2D(50, 50), new Point2D(0, 0), bomber.getStatValue(Statistic.SPEED)), bomber.getVelocity());
+    public void bomberTest() {
+        final InputComponentBomberImpl inputBomber = new InputComponentBomberImpl(BOMBER, true);
+        BOMBER.addComponent(inputBomber);
+        inputBomber.setTarget(PLAYER);
+        inputBomber.update(UPDATETIME);
+        assertEquals(Vector2D.fromTwoPointsAndModule(new Point2D(POS450, 0), new Point2D(0, 0), 
+            BOMBER.getStatValue(Statistic.SPEED)), BOMBER.getVelocity());
+        BOMBER.setPosition(new Point2D(POS50, POS50));
+        inputBomber.update(UPDATETIME);
+        assertEquals(Vector2D.fromTwoPointsAndModule(new Point2D(POS50, POS50), new Point2D(0, 0), 
+            BOMBER.getStatValue(Statistic.SPEED)), BOMBER.getVelocity());
     }
 }

@@ -5,22 +5,37 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-public class Point2DTest {
+/**
+ * Test Class for Point2D.
+ */
+public final class Point2DTest {
 
-    private Point2DTest(){
+    private static final double TOLL = 0.01;
+    private static final Point2D P1 = new Point2D(0, 0);
+    private static final Point2D P2 = new Point2D(3, 4);
+    private static final Point2D P3 = new Point2D(10, 0);
+    private static final int D4 = 10;
+    private static final int D3 = 5;
+    private static final int D2 = 8;
+    private static final int D1 = 9;
+
+    private Point2DTest() {
 
     }
 
+    /**
+     * Test the distanceFrom method.
+     */
     @Test
-    public void distanceTest(){
-        var p1 = new Point2D(0, 0);
-        var p2 = new Point2D(3, 4);
-        var p3 = new Point2D(10, 0);
+    public void distanceTest() {
+        var p1 = P1;
+        var p2 = P2;
+        var p3 = P3;
 
-        assertEquals(5, p1.distanceFrom(p2), 0.01);
-        assertEquals(10, p1.distanceFrom(p3),0.01);
-        assertTrue(p2.distanceFrom(p3) < 9);
-        assertTrue(p2.distanceFrom(p3) > 8);
+        assertEquals(D3, p1.distanceFrom(p2), TOLL);
+        assertEquals(D4, p1.distanceFrom(p3), TOLL);
+        assertTrue(p2.distanceFrom(p3) < D1);
+        assertTrue(p2.distanceFrom(p3) > D2);
     }
-    
+
 }

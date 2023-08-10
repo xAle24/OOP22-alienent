@@ -106,6 +106,7 @@ public interface GameObject {
     int gethealth();
     /**
      * heal the game object every second of the recovery statistic.
+     * @param deltatime Time passed since the last cycle.
      */
     void recovery(double deltatime);
     /**

@@ -186,8 +186,6 @@ public class ShipLoaderImpl implements ShipLoader {
                 final Component component = (Component) c[0].newInstance(constructorParameters.toArray());
                 out.add(component);
             } catch (final Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
             }
         }
         return out;
@@ -202,8 +200,6 @@ public class ShipLoaderImpl implements ShipLoader {
                     final Object obj = parameterClass.getConstructor().newInstance();
                     return Optional.ofNullable(obj);
                 } catch (final Exception e) {
-                    // TODO
-                    e.printStackTrace();
                 }
                 break;
             case DOUBLE:
@@ -217,8 +213,6 @@ public class ShipLoaderImpl implements ShipLoader {
                     final Object obj = method.invoke(methodClass.getConstructor().newInstance());
                     return Optional.ofNullable(obj);
                 } catch (final Exception e) {
-                    // TODO
-                    e.printStackTrace();
                 }
                 break;
             case FACTORYMETHOD:

@@ -1,5 +1,6 @@
 package it.unibo.alienenterprises.model.geometry;
 
+
 /**
  * Describe the functionalities of a Vector.
  */
@@ -131,11 +132,15 @@ public final class Vector2D {
 
     private double confineAngle(final double angle) {
         double newAngle = angle;
-        while (newAngle >= ROUND_ANGLE) {
+        var bool = newAngle >= ROUND_ANGLE;
+        while (bool) {
             newAngle = newAngle - ROUND_ANGLE;
+            bool = newAngle >= ROUND_ANGLE;
         }
-        while (newAngle <= -ROUND_ANGLE) {
+        bool = newAngle <= -ROUND_ANGLE;
+        while (bool) {
             newAngle = newAngle + ROUND_ANGLE;
+            bool = newAngle <= -ROUND_ANGLE;
         }
         if (newAngle < 0) {
             newAngle = ROUND_ANGLE + newAngle;
