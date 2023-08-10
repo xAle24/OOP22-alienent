@@ -38,6 +38,7 @@ import javafx.stage.Screen;
 public class ShopViewImpl implements ShopView {
 
     private static final int MAXLENGHT = 4;
+    private static final int STRINGLENGTH = 2000;
     private static final double SCREENWIDHT = Screen.getPrimary().getVisualBounds().getWidth();
     private static final double SCREENHEIGHT = Screen.getPrimary().getVisualBounds().getHeight();
     private static final double SHOPWIDTH = 857;
@@ -340,13 +341,14 @@ public class ShopViewImpl implements ShopView {
 
     private void updateInventoryPopup() {
 
-        final StringBuilder stats = new StringBuilder("");
-        stats.append("Money: ").append(account.getMoney()).append("\n").append("HighScore: ")
-                .append(account.getHighscore()).append("\n");
+        final StringBuilder stats = new StringBuilder(STRINGLENGTH);
+        final StringBuilder start = new StringBuilder(STRINGLENGTH);
+        start.append("Money: " + account.getMoney() + "\nHighScore: " + account.getHighscore() + "\n");
         account.getToAddPwu()
-                .forEach((s, i) -> stats.append(s).append(":\t").append(i).append("\n"));
+                .forEach((s, i) -> stats.append(s.toString()).append(':' + '\t' + i.toString() + '\n'));
+        start.append(stats.toString());
 
-        inventoryPopup.setContentText(stats.toString());
+        inventoryPopup.setContentText(start.toString());
     }
 
     private void setAttentionPopup() {
