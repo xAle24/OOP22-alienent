@@ -1,14 +1,14 @@
 package it.unibo.alienenterprises.view.javafx;
 
 import it.unibo.alienenterprises.controller.Controller;
-import it.unibo.alienenterprises.controller.PlayerController;
-import it.unibo.alienenterprises.controller.PlayerControllerImpl;
 import it.unibo.alienenterprises.controller.ShopControllerImpl;
 import it.unibo.alienenterprises.controller.api.ShopController;
 import it.unibo.alienenterprises.view.PlayerClassMenuImpl;
 import it.unibo.alienenterprises.view.ShopViewImpl;
 import it.unibo.alienenterprises.view.ViewType;
 import it.unibo.alienenterprises.view.controllers.InitController;
+import it.unibo.alienenterprises.view.controllers.PlayerController;
+import it.unibo.alienenterprises.view.controllers.PlayerControllerImpl;
 import it.unibo.alienenterprises.view.viewstates.BaseState;
 import it.unibo.alienenterprises.view.viewstates.IdleState;
 import it.unibo.alienenterprises.view.viewstates.PlayingState;
