@@ -37,6 +37,7 @@ public class PlayerInfoLoaderImpl implements ShipInfoLoader {
      * Create a new PlayerInfoLoaderImpl taking the id set from the playerclasses
      * section of the file shipList.
      */
+    @SuppressWarnings("all")
     public PlayerInfoLoaderImpl() {
         try (InputStream inputStream = new FileInputStream(SHIP_LIST_FILE_PATH)) {
             final Yaml yaml = new Yaml();

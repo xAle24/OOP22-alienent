@@ -2,6 +2,8 @@ package it.unibo.alienenterprises.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -64,6 +66,7 @@ public class ShipLoaderImpl implements ShipLoader {
      * @param factories the factories neded to load the ships that are called by the
      *                  Parameter FACTORYMETHOD
      */
+    @SuppressWarnings("all")
     public ShipLoaderImpl(final Object... factories) {
         try (InputStream inputStream = new FileInputStream(SHIPLIST_FILE)) {
             final Yaml yaml = new Yaml();
@@ -78,8 +81,10 @@ public class ShipLoaderImpl implements ShipLoader {
             } else {
                 enemyList = List.of();
             }
-        } catch (final Exception e) {
-            e.printStackTrace();
+        } catch(final FileNotFoundException e){
+
+        } catch(final IOException e){
+
         }
         this.factories = List.of(factories);
     }
@@ -92,7 +97,7 @@ public class ShipLoaderImpl implements ShipLoader {
         final var path = GAME_PATH + SEPARATOR + PLAYER_FOLDER + SEPARATOR;
         final Map<String, GameObject> playerMap = new HashMap<>();
         for (final var id : playerList) {
-            var obj = loadShip(path, id);
+            final var obj = loadShip(path, id);
             if (obj.isPresent()) {
                 playerMap.put(id, obj.get());
             }
@@ -116,7 +121,7 @@ public class ShipLoaderImpl implements ShipLoader {
         final var path = GAME_PATH + SEPARATOR + ENEMY_FOLDER + SEPARATOR;
         final Map<String, GameObject> enemyMap = new HashMap<>();
         for (final var id : enemyList) {
-            var obj = loadShip(path, id);
+            final var obj = loadShip(path, id);
             if (obj.isPresent()) {
                 enemyMap.put(id, obj.get());
             }
@@ -143,13 +148,14 @@ public class ShipLoaderImpl implements ShipLoader {
      * @return An Optional of the ship or an empty Optional if there was any problem
      *         in the loading
      */
+    @SuppressWarnings("all")
     @Override
     public Optional<GameObject> loadShip(final String folder, final String id) {
         try (InputStream inputStream = new FileInputStream(folder + SEPARATOR + id + YAML)) {
             final Yaml yaml = new Yaml();
             final ShipProp obj = yaml.loadAs(inputStream, ShipProp.class);
             final Map<Statistic, Integer> stats = new HashMap<>();
-            for (var s : obj.getStats().keySet()) {
+            for (final var s : obj.getStats().keySet()) {
                 stats.put(Statistic.valueOf(s), obj.getStats().get(s));
             }
             final GameObject temp = new GameObjectAbs(Point2D.ORIGIN, Vector2D.NULL_VECTOR, stats, id);
@@ -162,6 +168,7 @@ public class ShipLoaderImpl implements ShipLoader {
         }
     }
 
+    @SuppressWarnings("all")
     private List<Component> fetchComponents(final Map<String, List<Map<String, String>>> componentMap,
             final GameObject obj) {
         final List<Component> out = new ArrayList<>();
@@ -191,6 +198,7 @@ public class ShipLoaderImpl implements ShipLoader {
         return out;
     }
 
+    @SuppressWarnings("all")
     private Optional<Object> fetchParameter(final Map<String, String> parameter) {
         final ParameterTypes type = ParameterTypes.valueOf(parameter.get(TYPE));
         switch (type) {

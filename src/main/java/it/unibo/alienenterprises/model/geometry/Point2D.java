@@ -81,14 +81,9 @@ public class Point2D {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Point2D other = (Point2D) obj;
-        if (Double.doubleToLongBits(x) != Double.doubleToLongBits(other.x)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(y) != Double.doubleToLongBits(other.y)) {
-            return false;
-        }
-        return true;
+        final Point2D other = (Point2D) obj;
+        return Double.doubleToLongBits(x) == Double.doubleToLongBits(other.x)
+                && Double.doubleToLongBits(y) == Double.doubleToLongBits(other.y);
     }
 
 }

@@ -12,12 +12,6 @@ public class InputSupplierImpl implements InputSupplier {
     private final List<Input> inputList = new ArrayList<>();
 
     /**
-     * 
-     */
-    public InputSupplierImpl() {
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override

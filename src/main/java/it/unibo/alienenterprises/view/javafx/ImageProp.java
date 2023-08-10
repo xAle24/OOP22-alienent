@@ -16,6 +16,7 @@ public final class ImageProp {
     /**
      * Void constructor to work whith yaml.
      */
+    @SuppressWarnings("all")
     public ImageProp() {
     }
 
@@ -128,7 +129,7 @@ public final class ImageProp {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        ImageProp other = (ImageProp) obj;
+        final ImageProp other = (ImageProp) obj;
         if (id == null) {
             if (other.id != null) {
                 return false;

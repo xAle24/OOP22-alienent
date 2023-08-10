@@ -7,6 +7,7 @@ import java.util.Map;
  * ShipProp.
  * This class job is to be a support to load the ships in memory
  */
+@SuppressWarnings("all")
 public final class ShipProp {
     private Map<String, Integer> stats;
     private Map<String, List<Map<String, String>>> components;

@@ -24,7 +24,7 @@ public class AutomaticShooterComponent extends ComponentAbs implements ShooterCo
     private Type shooterType;
     private int damage;
 
-    private double count = 0;
+    private double count;
 
     private Supplier<GameObject> shot;
 
@@ -57,9 +57,9 @@ public class AutomaticShooterComponent extends ComponentAbs implements ShooterCo
     public void update(final double deltatime) {
         this.count = this.count + deltatime;
         if (this.count >= this.delay) {
-            var p = this.shot.get();
+            final var p = this.shot.get();
             p.setStatValue(Statistic.SPEED, projectileSpeed);
-            var hb = p.getComponent(ProjectileHitboxComponent.class);
+            final var hb = p.getComponent(ProjectileHitboxComponent.class);
             if (hb.isPresent()) {
                 hb.get().setShooter(this.shooterType);
             }

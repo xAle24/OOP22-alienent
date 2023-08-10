@@ -61,17 +61,17 @@ public interface ShipLoader {
      * @return An Optional of the stat map of the ship relative to the given file or
      *         an empty Optional if there were a problem whith the loading
      */
+    @SuppressWarnings("all")
     static Optional<Map<Statistic, Integer>> loadStatsOf(final String shipFileName) {
         try (InputStream inputStream = new FileInputStream(shipFileName)) {
             final Yaml yaml = new Yaml();
             final ShipProp obj = yaml.loadAs(inputStream, ShipProp.class);
             final Map<Statistic, Integer> stats = new HashMap<>();
-            for (var s : obj.getStats().keySet()) {
+            for (final var s : obj.getStats().keySet()) {
                 stats.put(Statistic.valueOf(s), obj.getStats().get(s));
             }
             return Optional.of(stats);
         } catch (Exception e) {
-            e.printStackTrace();
             return Optional.empty();
         }
     }

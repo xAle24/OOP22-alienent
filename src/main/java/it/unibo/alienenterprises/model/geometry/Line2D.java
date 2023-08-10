@@ -105,22 +105,15 @@ public class Line2D {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Line2D other = (Line2D) obj;
-        if (this.getB() == 0) {
-            if (other.getB() == 0) {
-                if (this.getC() / this.getA() == other.getC() / other.getA()) {
-                    return true;
-                }
-                return false;
+        final Line2D other = (Line2D) obj;
+        if (this.getB() == 0 && other.getB() == 0) {
+            if (this.getC() / this.getA() == other.getC() / other.getA()) {
+                return true;
             }
-        }
-        if (this.getA() / this.getB() != other.getA() / other.getB()) {
             return false;
         }
-        if (this.getC() / this.getB() != other.getC() / other.getB()) {
-            return false;
-        }
-        return true;
+        return this.getA() / this.getB() == other.getA() / other.getB()
+                && this.getC() / this.getB() == other.getC() / other.getB();
     }
 
 }

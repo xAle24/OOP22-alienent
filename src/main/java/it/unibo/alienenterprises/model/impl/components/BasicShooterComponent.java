@@ -21,13 +21,13 @@ public class BasicShooterComponent extends ComponentAbs implements ShooterCompon
 
     private Supplier<GameObject> shoot;
     private int delay;
-    private double counter = 0;
+    private double counter;
 
     private int damage;
     private int speed;
     private Type shooterType;
 
-    private boolean trigger = false;
+    private boolean trigger;
 
     /**
      * @param object  the referenced object

@@ -1,6 +1,5 @@
 package it.unibo.alienenterprises.model.geometry;
 
-
 /**
  * Describe the functionalities of a Vector.
  */
@@ -72,7 +71,7 @@ public final class Vector2D {
      * @return the vector with the direction from a to b and the given module
      */
     public static Vector2D fromTwoPointsAndModule(final Point2D a, final Point2D b, final double module) {
-        var vet = fromTwoPoints(a, b);
+        final var vet = fromTwoPoints(a, b);
         return fromAngleAndModule(vet.getAngle(), module);
     }
 
@@ -182,14 +181,9 @@ public final class Vector2D {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Vector2D other = (Vector2D) obj;
-        if (Double.doubleToLongBits(module) != Double.doubleToLongBits(other.module)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(angle) != Double.doubleToLongBits(other.angle)) {
-            return false;
-        }
-        return true;
+        final Vector2D other = (Vector2D) obj;
+        return Double.doubleToLongBits(module) == Double.doubleToLongBits(other.module)
+                && Double.doubleToLongBits(angle) == Double.doubleToLongBits(other.angle);
     }
 
 }

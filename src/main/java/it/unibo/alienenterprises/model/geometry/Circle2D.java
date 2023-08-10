@@ -73,6 +73,7 @@ public class Circle2D {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("all")
     public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
@@ -83,7 +84,7 @@ public class Circle2D {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Circle2D other = (Circle2D) obj;
+        final Circle2D other = (Circle2D) obj;
         if (center == null) {
             if (other.center != null) {
                 return false;
@@ -91,10 +92,7 @@ public class Circle2D {
         } else if (!center.equals(other.center)) {
             return false;
         }
-        if (Double.doubleToLongBits(r) != Double.doubleToLongBits(other.r)) {
-            return false;
-        }
-        return true;
+        return Double.doubleToLongBits(r) == Double.doubleToLongBits(other.r);
     }
 
 }
