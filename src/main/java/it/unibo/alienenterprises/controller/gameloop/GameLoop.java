@@ -1,4 +1,4 @@
-package it.unibo.alienenterprises.controller.api;
+package it.unibo.alienenterprises.controller.gameloop;
 
 /**
  * Starts when a new {@link GameSession} is started, updates the game
