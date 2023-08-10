@@ -46,6 +46,8 @@ public class UserAccountTest {
 
   public UserAccountTest() {
     account = accountHandler.registration(NICKNAME, PASSWORD).get();
+    delete();
+    removePassword();
   }
 
   @Test
@@ -61,8 +63,6 @@ public class UserAccountTest {
     assertEquals(new HashMap<>(), account.getInventory());
     assertEquals(new HashMap<>(), account.getToAddPwu());
     assertEquals(0, account.getCurrLevel(HEALTH));
-    delete();
-    removePassword();
   }
 
   @Test
@@ -71,6 +71,8 @@ public class UserAccountTest {
      * We test save and login. If the account is the same before and after
      * login, they work as they should.
      */
+    account = accountHandler.registration(NICKNAME, PASSWORD).get();
+
     account = accountBuilder(account);
     accountHandler.save(account);
 
@@ -82,6 +84,7 @@ public class UserAccountTest {
     assertEquals(account.getInventory(), secondAaccount.getInventory());
     assertEquals(account.getToAddPwu(), secondAaccount.getToAddPwu());
     assertEquals(account.getCurrLevel(HEALTH), secondAaccount.getCurrLevel(HEALTH));
+
     delete();
     removePassword();
   }
@@ -100,8 +103,6 @@ public class UserAccountTest {
     account.updateInventory(DEFENCE);
     assertEquals(HEALTH_LEVEL + 1, account.getCurrLevel(HEALTH));
     assertEquals(1, account.getCurrLevel(DEFENCE));
-    delete();
-    removePassword();
   }
 
   @Test
@@ -134,8 +135,7 @@ public class UserAccountTest {
     toAddMap.replace(Statistic.HP, HEALTH_STAT * 2 + 2);
     toAddMap.replace(Statistic.DEFENCE, DEFENCE_STAT * 2);
     assertEquals(toAddMap, account.getToAddPwu());
-    delete();
-    removePassword();
+
   }
 
   private UserAccount accountBuilder(UserAccount account) {
@@ -167,7 +167,6 @@ public class UserAccountTest {
       try {
         deleteFile.delete();
       } catch (Exception e) {
-        e.printStackTrace();
       }
     }
   }
@@ -181,7 +180,6 @@ public class UserAccountTest {
         Files.write(Paths.get(GAME_PATH + SEPARATOR + YAMLPASSWORD + YML), yamlLines);
       }
     } catch (IOException e) {
-      e.printStackTrace();
     }
   }
 
