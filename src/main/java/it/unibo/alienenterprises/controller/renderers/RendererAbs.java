@@ -10,7 +10,7 @@ import it.unibo.alienenterprises.view.sprites.Sprite;
  */
 public abstract class RendererAbs implements Renderer {
     private final GameObject obj;
-    private Sprite sprite;
+    private final Sprite sprite;
 
     /**
      * RendererAbs constructor.

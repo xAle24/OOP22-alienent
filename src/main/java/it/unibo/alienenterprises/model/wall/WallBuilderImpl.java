@@ -21,7 +21,7 @@ import it.unibo.alienenterprises.model.impl.components.hitbox.BoundaryHitboxComp
 public class WallBuilderImpl implements WallBuilder {
     private static final String PLACEHOLDERID = "Mexico_border";
     private static final Type TYPE = Type.BOUNDARY;
-    private static final Map<Statistic, Integer> PLACEHOLDERSTATS = new HashMap<>(Map.of(Statistic.HP, 9999999));
+    private static final Map<Statistic, Integer> PLACEHOLDERSTATS = new HashMap<>(Map.of(Statistic.HP, 9_999_999));
     private GameObject obj;
     private BoundaryHitboxComponent hitbox;
 
@@ -29,7 +29,7 @@ public class WallBuilderImpl implements WallBuilder {
      * Creates new instance of this class.
      */
     public WallBuilderImpl() {
-        this.clear();
+        this.obj = new GameObjectAbs(Point2D.ORIGIN, Vector2D.NULL_VECTOR, PLACEHOLDERSTATS, PLACEHOLDERID);
     }
 
     /**

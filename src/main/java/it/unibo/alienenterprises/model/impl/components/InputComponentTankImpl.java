@@ -39,7 +39,7 @@ public class InputComponentTankImpl extends ComponentAbs implements EnemyInputCo
     // CPD-ON
 
     private Vector2D calculateMovement() {
-        double distanceTarget = Math.sqrt(Math.pow(this.target.getPosition().getX()
+        final double distanceTarget = Math.sqrt(Math.pow(this.target.getPosition().getX()
                 - this.getGameObject().getPosition().getX(), 2)
                 + Math.pow(this.target.getPosition().getY() - this.getGameObject().getPosition().getY(), 2));
         if (distanceTarget < DISTANCE) {
@@ -52,8 +52,8 @@ public class InputComponentTankImpl extends ComponentAbs implements EnemyInputCo
 
     /**
      * @inheritDoc
-     * @param target what the enemy follow.
      */
+    @Override
     public void setTarget(final GameObject target) {
         this.target = target;
     }

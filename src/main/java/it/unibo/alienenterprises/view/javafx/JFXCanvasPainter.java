@@ -18,10 +18,10 @@ import javafx.scene.transform.Rotate;
  */
 public final class JFXCanvasPainter implements Painter {
     private static final double DEGREES_TURN = 90.0;
-    private GraphicsContext gc;
-    private Canvas canvas;
-    private Set<Renderer> renderers;
-    private Set<Renderer> toBeRemoved;
+    private final GraphicsContext gc;
+    private final Canvas canvas;
+    private final Set<Renderer> renderers;
+    private final Set<Renderer> toBeRemoved;
 
     /**
      * CanvasPainter constructor.
@@ -41,7 +41,7 @@ public final class JFXCanvasPainter implements Painter {
         this.renderers.forEach(r -> {
             if (r.isShown()) {
                 r.render();
-                ImageView image = r.getSprite().getImageView();
+                final ImageView image = r.getSprite().getImageView();
                 drawRotatedImage(image.getImage(), image.getRotate() + DEGREES_TURN, image.getX(), image.getY());
             } else {
                 this.toBeRemoved.add(r);
@@ -73,7 +73,7 @@ public final class JFXCanvasPainter implements Painter {
      * @param py    the Y coordinate of the pivot point
      */
     private void rotate(final double angle, final double px, final double py) {
-        Rotate r = new Rotate(angle, px, py);
+        final Rotate r = new Rotate(angle, px, py);
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
 

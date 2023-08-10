@@ -12,7 +12,9 @@ import javafx.util.Duration;
  * Implementations of controller for view registration.
  */
 public class RegistrationControllerImpl implements RegistrationController, InitController {
-    private static final int ALERTDURATION = 6; 
+    private static final int ALERTDURATION = 6;
+    private static final String FIELD = "field";
+    private static final String INCORRECT = "incorrect";
     private Controller controller; 
     @FXML
     private TextField usernameField;
@@ -40,13 +42,13 @@ public class RegistrationControllerImpl implements RegistrationController, InitC
         }
     }
     private void popUp(final String cod) {
-        if (cod.equals("field")) {
+        if (FIELD.equals(cod)) {
             alert.setText("Missing credentials");
-        } else if (cod.equals("incorrect")) {
+        } else if (INCORRECT.equals(cod)) {
             alert.setText("Incorrect credentials");
         }
         alert.setVisible(true);
-        PauseTransition delay = new PauseTransition(Duration.seconds(ALERTDURATION));
+        final PauseTransition delay = new PauseTransition(Duration.seconds(ALERTDURATION));
         delay.setOnFinished(e -> alert.setVisible(false));
         delay.play();
     }

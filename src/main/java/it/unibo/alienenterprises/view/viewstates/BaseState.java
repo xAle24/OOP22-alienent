@@ -18,13 +18,4 @@ public class BaseState extends ViewStateAbs {
     public BaseState(final Controller controller, final String message) {
         super(controller, message);
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void onCloseRequest() {
-        super.onCloseRequest();
-    }
-
 }

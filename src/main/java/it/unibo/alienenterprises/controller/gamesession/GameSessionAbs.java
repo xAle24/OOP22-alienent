@@ -71,7 +71,7 @@ public abstract class GameSessionAbs implements GameSession {
      */
     @Override
     public InputQueue startSession(final GameObjectRendererManager rendererManager) {
-        InputQueue queue = new InputQueue(MAX_INPUT);
+        final InputQueue queue = new InputQueue(MAX_INPUT);
         this.gameLoop = new GameLoopThread(queue, rendererManager, this.world, this.playerID, this.account);
         this.player = this.world.getPlayer();
         this.gameLoop.start();
@@ -83,7 +83,7 @@ public abstract class GameSessionAbs implements GameSession {
      */
     @Override
     public int getPlayerHealth() {
-        var health = this.player.gethealth();
+        final var health = this.player.gethealth();
         if (health <= 0) {
             return 0;
         } else {

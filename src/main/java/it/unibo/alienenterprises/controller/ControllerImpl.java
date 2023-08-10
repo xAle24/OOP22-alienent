@@ -19,7 +19,7 @@ import it.unibo.alienenterprises.view.ViewType;
 public final class ControllerImpl implements Controller {
     private final UserAccountHandler accHandler;
     private final View view;
-    private UserAccount account = null;
+    private UserAccount account;
     private Dimensions wd;
 
     private GameSession currGameSession;

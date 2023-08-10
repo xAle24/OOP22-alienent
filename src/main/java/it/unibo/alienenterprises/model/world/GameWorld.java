@@ -31,10 +31,10 @@ public final class GameWorld implements World {
     private final CollisionHandler collisionHandler;
     private final DoubleBuffer<GameObject> doubleBuff;
     private final Set<GameObject> lastAdded;
+    private final Dimensions worldDimensions;
     private GameObject player;
     private int score;
     private int enemyCount;
-    private Dimensions worldDimensions;
 
     /**
      * Creates new instance of this class.
@@ -76,7 +76,7 @@ public final class GameWorld implements World {
 
     @Override
     public void addAllGameObjects(final GameObject... objects) {
-        var newObj = List.of(objects);
+        final var newObj = List.of(objects);
         newObj.forEach(o -> this.addGameObject(o));
     }
 
@@ -97,7 +97,7 @@ public final class GameWorld implements World {
 
     @Override
     public Set<GameObject> getLastAdded() {
-        var ret = new HashSet<>(this.lastAdded);
+        final var ret = new HashSet<>(this.lastAdded);
         this.lastAdded.clear();
         return ret;
     }
@@ -133,7 +133,7 @@ public final class GameWorld implements World {
     }
 
     private void createWalls() {
-        var walls = new HashSet<GameObject>();
+        final var walls = new HashSet<GameObject>();
         WallBuilder wallBuilder = new WallBuilderImpl();
         // Add upper boundary
         wallBuilder.addBoundaryHitboxComponent(new Point2D(0, 0),
