@@ -10,7 +10,7 @@
     
     <Label text="Alienenterprises" fx:id="title"/>
 
-    <VBox id="innerBox" >
+    <VBox id="innerBox" spacing="20" >
 
         <Button fx:id="playBtn" text="Play" onAction="#playPressed"/>
     
