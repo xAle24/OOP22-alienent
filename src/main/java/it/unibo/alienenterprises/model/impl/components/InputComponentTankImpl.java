@@ -13,7 +13,7 @@ import it.unibo.alienenterprises.model.geometry.Vector2D;
  * Tank behaviour.
  */
 public class InputComponentTankImpl extends ComponentAbs implements EnemyInputComponent {
-    private static final int DISTANCE = 300;
+    private static final int DISTANCE = 250;
     private GameObject target;
     /**
      * Constructor for input component of tank.
