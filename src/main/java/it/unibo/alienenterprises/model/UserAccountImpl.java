@@ -65,6 +65,7 @@ public class UserAccountImpl implements UserAccount {
      */
     @Override
     public void setInventory(final Map<String, Integer> newInventory) {
+        this.inventory.clear();
         this.inventory.putAll(newInventory);
     }
 
@@ -73,6 +74,7 @@ public class UserAccountImpl implements UserAccount {
      */
     @Override
     public void setToAddPwu(final Map<Statistic, Integer> toAddPwu) {
+        this.toAddPwu.clear();
         this.toAddPwu.putAll(toAddPwu);
     }
 
