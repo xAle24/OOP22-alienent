@@ -46,7 +46,7 @@ class UserAccountTest {
   private static final int SPEED_STAT = 15;
   private static final int DEFENCE_STAT = 5;
   private static final String SEPARATOR = "/";
-  private static final String GAME_PATH = "src/main/resources/examplemvc";
+  private static final String GAME_PATH = "src/main/resources/yaml";
   private static final String YML = ".yml";
 
   private final UserAccountHandlerImpl accountHandler = new UserAccountHandlerImpl();
