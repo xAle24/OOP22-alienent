@@ -9,10 +9,10 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.alienenterprises.model.api.GameObject;
-import it.unibo.alienenterprises.model.api.GameObjectAbs;
 import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.model.geometry.Point2D;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
+import it.unibo.alienenterprises.model.impl.GameObjectImpl;
 import it.unibo.alienenterprises.model.impl.components.InputComponentBomberImpl;
 import it.unibo.alienenterprises.model.impl.components.InputComponentSniperImpl;
 import it.unibo.alienenterprises.model.impl.components.InputComponentTankImpl;
@@ -25,10 +25,10 @@ class InputComponentEnemyTest {
     private static final int POS950 = 950;
     private static final int POS450 = 450;
     private static final Map<Statistic, Integer> STAT = Map.of(Statistic.HP, 5, Statistic.SPEED, 5);
-    private static final GameObject PLAYER = new GameObjectAbs(new Point2D(0, 0), null, STAT, "a");
-    private static final GameObject SNIPER = new GameObjectAbs(new Point2D(POS950, 0), null, STAT, "b");
-    private static final GameObject TANK = new GameObjectAbs(new Point2D(POS450, 0), null, STAT, "c");
-    private static final GameObject BOMBER = new GameObjectAbs(new Point2D(POS450, 0), null, STAT, "d");
+    private static final GameObject PLAYER = new GameObjectImpl(new Point2D(0, 0), null, STAT, "a");
+    private static final GameObject SNIPER = new GameObjectImpl(new Point2D(POS950, 0), null, STAT, "b");
+    private static final GameObject TANK = new GameObjectImpl(new Point2D(POS450, 0), null, STAT, "c");
+    private static final GameObject BOMBER = new GameObjectImpl(new Point2D(POS450, 0), null, STAT, "d");
     /**
      * Test if sniper input works correctly.
      */

@@ -1,4 +1,4 @@
-package it.unibo.alienenterprises.model.api;
+package it.unibo.alienenterprises.model.impl;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import it.unibo.alienenterprises.model.api.GameObject;
+import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.model.api.components.Component;
 import it.unibo.alienenterprises.model.geometry.Point2D;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
@@ -15,7 +17,7 @@ import it.unibo.alienenterprises.model.geometry.Vector2D;
 /**
  * Implements methods common to all objects.
  */
-public class GameObjectAbs implements GameObject {
+public class GameObjectImpl implements GameObject {
     private Point2D position;
     private Vector2D velocity;
     private int health;
@@ -30,7 +32,7 @@ public class GameObjectAbs implements GameObject {
      * @param stat a map with all the basic statistics of the object.
      * @param id the string id of the object.
      */
-    public GameObjectAbs(final Point2D pos, final Vector2D vector, final Map<Statistic, Integer> stat, final String id) {
+    public GameObjectImpl(final Point2D pos, final Vector2D vector, final Map<Statistic, Integer> stat, final String id) {
         this.position = pos;
         this.velocity = vector;
         this.stats = stat;

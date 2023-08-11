@@ -18,12 +18,12 @@ import org.yaml.snakeyaml.Yaml;
 
 import it.unibo.alienenterprises.controller.api.ShipLoader;
 import it.unibo.alienenterprises.model.api.GameObject;
-import it.unibo.alienenterprises.model.api.GameObjectAbs;
 import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.model.api.components.Component;
 import it.unibo.alienenterprises.model.api.components.HitboxComponent;
 import it.unibo.alienenterprises.model.geometry.Point2D;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
+import it.unibo.alienenterprises.model.impl.GameObjectImpl;
 
 /**
  * ShipLoaderImpl.
@@ -157,7 +157,7 @@ public class ShipLoaderImpl implements ShipLoader {
             for (final var s : obj.getStats().keySet()) {
                 stats.put(Statistic.valueOf(s), obj.getStats().get(s));
             }
-            final GameObject temp = new GameObjectAbs(Point2D.ORIGIN, Vector2D.NULL_VECTOR, stats, id);
+            final GameObject temp = new GameObjectImpl(Point2D.ORIGIN, Vector2D.NULL_VECTOR, stats, id);
             temp.addAllComponent(fetchComponents(obj.getComponents(), temp));
             temp.getAllComponent().stream().forEach((c) -> c.start());
             return Optional.of(temp);

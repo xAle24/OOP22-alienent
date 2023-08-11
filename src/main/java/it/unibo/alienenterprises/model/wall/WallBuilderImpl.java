@@ -4,13 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import it.unibo.alienenterprises.model.api.GameObject;
-import it.unibo.alienenterprises.model.api.GameObjectAbs;
 import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.model.api.components.BoundaryHitboxComponent;
 import it.unibo.alienenterprises.model.api.components.BoundaryHitboxComponent.Locations;
 import it.unibo.alienenterprises.model.api.components.HitboxComponent.Type;
 import it.unibo.alienenterprises.model.geometry.Point2D;
 import it.unibo.alienenterprises.model.geometry.Vector2D;
+import it.unibo.alienenterprises.model.impl.GameObjectImpl;
 import it.unibo.alienenterprises.model.impl.components.hitbox.BoundaryHitboxComponentImpl;
 
 /**
@@ -29,7 +29,7 @@ public class WallBuilderImpl implements WallBuilder {
      * Creates new instance of this class.
      */
     public WallBuilderImpl() {
-        this.obj = new GameObjectAbs(Point2D.ORIGIN, Vector2D.NULL_VECTOR, PLACEHOLDERSTATS, PLACEHOLDERID);
+        this.obj = new GameObjectImpl(Point2D.ORIGIN, Vector2D.NULL_VECTOR, PLACEHOLDERSTATS, PLACEHOLDERID);
     }
 
     /**
@@ -37,7 +37,7 @@ public class WallBuilderImpl implements WallBuilder {
      */
     @Override
     public void addPresetGameObject() {
-        this.obj = new GameObjectAbs(Point2D.ORIGIN, Vector2D.NULL_VECTOR, PLACEHOLDERSTATS, PLACEHOLDERID);
+        this.obj = new GameObjectImpl(Point2D.ORIGIN, Vector2D.NULL_VECTOR, PLACEHOLDERSTATS, PLACEHOLDERID);
     }
 
     /**
@@ -54,7 +54,7 @@ public class WallBuilderImpl implements WallBuilder {
         if (idRequested == null) {
             idRequested = PLACEHOLDERID;
         }
-        this.obj = new GameObjectAbs(pos, vect, statsRequested, idRequested);
+        this.obj = new GameObjectImpl(pos, vect, statsRequested, idRequested);
     }
 
     /**

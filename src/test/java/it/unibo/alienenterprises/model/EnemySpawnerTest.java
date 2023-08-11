@@ -9,11 +9,11 @@ import org.junit.jupiter.api.Test;
 
 import it.unibo.alienenterprises.controller.bounds.ArenaDimensions;
 import it.unibo.alienenterprises.model.api.GameObject;
-import it.unibo.alienenterprises.model.api.GameObjectAbs;
 import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.model.api.components.HitboxComponent;
 import it.unibo.alienenterprises.model.api.components.InputComponent;
 import it.unibo.alienenterprises.model.geometry.Point2D;
+import it.unibo.alienenterprises.model.impl.GameObjectImpl;
 import it.unibo.alienenterprises.model.world.GameWorld;
 /**
  * Test class for enemySpawner.
@@ -25,7 +25,7 @@ class EnemySpawnerTest {
     private static final int STAT30 = 30;
     private static final int DELTATIME = 80;
     private static final Map<Statistic, Integer> STATMAP = Map.of(Statistic.HP, 100, Statistic.DAMAGE, 1);
-    private static final GameObject PLAYER = new GameObjectAbs(new Point2D(2, 0), null, STATMAP, null);
+    private static final GameObject PLAYER = new GameObjectImpl(new Point2D(2, 0), null, STATMAP, null);
     /**
      * Test to check if the map creation happens correctly.
      */

@@ -8,12 +8,12 @@ import java.util.Random;
 import it.unibo.alienenterprises.controller.ShipLoaderImpl;
 import it.unibo.alienenterprises.model.api.EnemySpawner;
 import it.unibo.alienenterprises.model.api.GameObject;
-import it.unibo.alienenterprises.model.api.GameObjectAbs;
 import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.model.world.World;
 import it.unibo.alienenterprises.model.api.components.EnemyInputComponent;
 import it.unibo.alienenterprises.model.api.components.InputComponent;
 import it.unibo.alienenterprises.model.geometry.Point2D;
+import it.unibo.alienenterprises.model.impl.GameObjectImpl;
 import it.unibo.alienenterprises.model.impl.ProjectileSupplierFactoryImpl;
 /**
  * Implementations of enemy spawner.
@@ -55,7 +55,7 @@ public class EnemySpawnerImpl implements EnemySpawner {
     @Override
     public GameObject getEnemy(final String identifier, final double deltaTime) {
         final var enemySpawn = enemy.get(identifier);
-        final var newEnemy = new GameObjectAbs(null, null, enemySpawn.getAllStats(), enemySpawn.getId());
+        final var newEnemy = new GameObjectImpl(null, null, enemySpawn.getAllStats(), enemySpawn.getId());
         enemySpawn.getAllComponent().stream().forEach(e -> newEnemy.addComponent(e.duplicate(newEnemy).get()));
         newEnemy.getComponent(EnemyInputComponent.class).get().setTarget(player);
         this.getStats().entrySet().stream().forEach(e -> newEnemy.setStatValue(e.getKey(), 

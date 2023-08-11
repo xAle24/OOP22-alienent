@@ -8,11 +8,11 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.alienenterprises.model.api.GameObject;
-import it.unibo.alienenterprises.model.api.GameObjectAbs;
 import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.model.api.components.BoundaryHitboxComponent.Locations;
 import it.unibo.alienenterprises.model.api.components.HitboxComponent.Type;
 import it.unibo.alienenterprises.model.geometry.Point2D;
+import it.unibo.alienenterprises.model.impl.GameObjectImpl;
 import it.unibo.alienenterprises.model.impl.components.hitbox.BomberHitboxComponentImpl;
 import it.unibo.alienenterprises.model.impl.components.hitbox.BoundaryHitboxComponentImpl;
 import it.unibo.alienenterprises.model.impl.components.hitbox.SimpleProjectileHitboxComponentImpl;
@@ -32,10 +32,10 @@ class HitboxTest {
     private static final Map<Statistic, Integer> STATMAP1 = Map.of(Statistic.HP, 100, Statistic.DAMAGE, 50);
     private static final Map<Statistic, Integer> STATMAP2 = Map.of(Statistic.HP, 1, Statistic.DAMAGE, 15);
     private static final Map<Statistic, Integer> STATMAP3 = Map.of(Statistic.HP, 100, Statistic.DAMAGE, 1);
-    private static final GameObject OBJ1 = new GameObjectAbs(new Point2D(2, 0), null, STATMAP1, null);
-    private static final GameObject OBJ2 = new GameObjectAbs(new Point2D(2, 0), null, STATMAP2, null);
-    private static final GameObject OBJ3 = new GameObjectAbs(new Point2D(10, 0), null, STATMAP3, null);
-    private static final GameObject OBJ4 = new GameObjectAbs(new Point2D(10, 10), null, STATMAP2, null);
+    private static final GameObject OBJ1 = new GameObjectImpl(new Point2D(2, 0), null, STATMAP1, null);
+    private static final GameObject OBJ2 = new GameObjectImpl(new Point2D(2, 0), null, STATMAP2, null);
+    private static final GameObject OBJ3 = new GameObjectImpl(new Point2D(10, 0), null, STATMAP3, null);
+    private static final GameObject OBJ4 = new GameObjectImpl(new Point2D(10, 10), null, STATMAP2, null);
     @Test
     void canCollides() {
         final var hitbox1 = new BomberHitboxComponentImpl(OBJ1, true, Type.ENEMY, 2);
@@ -139,13 +139,13 @@ class HitboxTest {
         final Map<Statistic, Integer> statmap1 = new HashMap<>();
         statmap1.put(Statistic.HP, 100);
         statmap1.put(Statistic.DAMAGE, 1);
-        final var obj1 = new GameObjectAbs(new Point2D(2, 0), null, statmap1, null);
-        final var obj2 = new GameObjectAbs(new Point2D(NUM5, 0), null, statmap1, null);
-        final var obj3 = new GameObjectAbs(new Point2D(10, 0), null, statmap1, null);
-        final var wallUp = new GameObjectAbs(new Point2D(0, 0), null, statmap1, null);
-        final var wallRight = new GameObjectAbs(new Point2D(0, 0), null, statmap1, null);
-        final var wallDown = new GameObjectAbs(new Point2D(0, 0), null, statmap1, null);
-        final var wallLeft = new GameObjectAbs(new Point2D(0, 0), null, statmap1, null);
+        final var obj1 = new GameObjectImpl(new Point2D(2, 0), null, statmap1, null);
+        final var obj2 = new GameObjectImpl(new Point2D(NUM5, 0), null, statmap1, null);
+        final var obj3 = new GameObjectImpl(new Point2D(10, 0), null, statmap1, null);
+        final var wallUp = new GameObjectImpl(new Point2D(0, 0), null, statmap1, null);
+        final var wallRight = new GameObjectImpl(new Point2D(0, 0), null, statmap1, null);
+        final var wallDown = new GameObjectImpl(new Point2D(0, 0), null, statmap1, null);
+        final var wallLeft = new GameObjectImpl(new Point2D(0, 0), null, statmap1, null);
         final var hitbox1 = new BomberHitboxComponentImpl(obj1, true, Type.ENEMY, 2);
         final var hitbox2 = new SimpleProjectileHitboxComponentImpl(obj2, true, Type.PROJECTILE, 2);
         final var hitbox3 = new SimpleShipHitboxComponentImpl(obj3, true, Type.PLAYER, 2);
