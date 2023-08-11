@@ -27,6 +27,8 @@ import javafx.scene.text.TextAlignment;
  */
 public class PlayerClassMenuImpl extends BorderPane implements PlayerClassMenu {
 
+    private static final int PREF_WIDTH = 867;
+    private static final int PREF_HEIGHT = 671;
     private static final int PROP_FONT = 30;
     private static final int PROP_HEIGHT = 20;
     private static final int DESCRIPTION_IMAGE_SIZE = 150;
@@ -65,6 +67,8 @@ public class PlayerClassMenuImpl extends BorderPane implements PlayerClassMenu {
         this.getStylesheets().add(getClass().getResource(CSS_FILE).toExternalForm());
         this.setId(BOX);
         this.controller = controller;
+        this.setPrefWidth(PREF_WIDTH);
+        this.setPrefHeight(PREF_HEIGHT);
         this.setMaxHeight(SCREEN_HEIGHT);
         this.setMaxWidth(SCREEN_WIDTH);
 
