@@ -5,7 +5,7 @@ stats:
   DAMAGE: 25
   DEFENCE: 3
   PROJECTILESPEED: 170
-  COOLDOWN: 7
+  COOLDOWN: 12
   RECOVERY: 0
 components:
   InputComponentSniperImpl:

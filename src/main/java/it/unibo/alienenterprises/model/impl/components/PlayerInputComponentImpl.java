@@ -25,7 +25,7 @@ public class PlayerInputComponentImpl extends ComponentAbs implements PlayerInpu
     private static final Logger LOGGER = LoggerFactory.getLogger(PlayerInputComponentImpl.class);
 
     private static final double ANG_VEL = 360;
-    private static final double ACC_RATE = 2;
+    private static final double ACC_RATE = 3;
 
     private InputSupplier input;
     private Optional<ShooterComponent> shooter;
@@ -53,7 +53,6 @@ public class PlayerInputComponentImpl extends ComponentAbs implements PlayerInpu
             final var module = vel.getModule();
             switch (in) {
                 case ACCELERATE:
-                    System.out.println("acc");
                     if (module < maxSpeed) {
                         final double accTime = acc * deltatime;
                         if (module + accTime > maxSpeed) {
