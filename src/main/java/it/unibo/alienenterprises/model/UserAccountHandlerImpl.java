@@ -32,7 +32,7 @@ import it.unibo.alienenterprises.model.api.UserAccountHandler;
 public class UserAccountHandlerImpl implements UserAccountHandler {
 
     private static final String SEPARATOR = "/";
-    private static final String GAME_PATH = "src/main/resources/examplemvc";
+    private static final String GAME_PATH = "/yaml";
     private static final String YML = ".yml";
 
     /**

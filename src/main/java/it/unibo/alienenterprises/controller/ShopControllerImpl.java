@@ -32,7 +32,7 @@ import javafx.scene.Scene;
 public class ShopControllerImpl implements ShopController, InitController {
 
     private static final String SEPARATOR = "/";
-    private static final String GAME_PATH = "src/main/resources/examplemvc";
+    private static final String GAME_PATH = "/yaml";
 
     private Controller controller;
     private UserAccount account;
