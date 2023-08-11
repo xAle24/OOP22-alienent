@@ -33,6 +33,15 @@ dependencies {
     // Example library: Guava. Add what you need (and remove Guava if you don't use it)
     // implementation("com.google.guava:guava:28.1-jre")
 
+    /*
+     * Simple Logging Facade for Java (SLF4J) with Apache Log4j
+     * See: http://www.slf4j.org/
+     */
+    val slf4jVersion = "2.0.6"
+    implementation("org.slf4j:slf4j-api:$slf4jVersion")
+    // Logback backend for SLF4J
+    runtimeOnly("ch.qos.logback:logback-classic:1.4.5")
+
     // JavaFX: comment out if you do not need them
     val javaFxVersion = 20
     for (platform in supportedPlatforms) {
