@@ -13,6 +13,9 @@ import it.unibo.alienenterprises.model.api.UserAccount;
  */
 public class UserAccountImpl implements UserAccount {
 
+    private static final int LIMIT = 1000;
+    private static final int MAX_MONEY = Integer.MAX_VALUE - LIMIT;
+
     private int money;
     private String nickname;
     private int highscore;
@@ -43,7 +46,9 @@ public class UserAccountImpl implements UserAccount {
      */
     @Override
     public void setMoney(final int changeMoney) {
-        this.money += changeMoney;
+        if ((double) this.money + changeMoney < MAX_MONEY) {
+            this.money += changeMoney;
+        }
     }
 
     /**

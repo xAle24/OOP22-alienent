@@ -1,6 +1,6 @@
 ---
 id: "Health"
-cost: 300000
+cost: 30000
 maxLevel: 5
 statModifiers:
   HP: 5
@@ -12,7 +12,7 @@ statModifiers:
   RECOVERY: 0
 ---
 id: "Speed"
-cost: 200000
+cost: 20000
 maxLevel: 3
 statModifiers:
   HP: 0
@@ -24,7 +24,7 @@ statModifiers:
   RECOVERY: 0
 ---
 id: "Damage"
-cost: 500000
+cost: 50000
 maxLevel: 2
 statModifiers:
   HP: 0
@@ -36,7 +36,7 @@ statModifiers:
   RECOVERY: 0
 ---
 id: "Defence"
-cost: 400000
+cost: 40000
 maxLevel: 4
 statModifiers:
   HP: 0
@@ -48,7 +48,7 @@ statModifiers:
   RECOVERY: 0
 ---
 id: "ProjectileSpeed"
-cost: 700000
+cost: 70000
 maxLevel: 5
 statModifiers:
   HP: 0
@@ -60,7 +60,7 @@ statModifiers:
   RECOVERY: 0
 ---
 id: "Cooldown"
-cost: 100000
+cost: 10000
 maxLevel: 2
 statModifiers:
   HP: 0
