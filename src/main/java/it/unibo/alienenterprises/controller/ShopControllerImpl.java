@@ -1,13 +1,14 @@
 package it.unibo.alienenterprises.controller;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.Yaml;
@@ -17,6 +18,7 @@ import it.unibo.alienenterprises.controller.api.ShopController;
 import it.unibo.alienenterprises.model.PowerUpImpl;
 import it.unibo.alienenterprises.model.PowerUpRendererImpl;
 import it.unibo.alienenterprises.model.ShopModelImpl;
+import it.unibo.alienenterprises.model.UserAccountHandlerImpl;
 import it.unibo.alienenterprises.model.api.PowerUp;
 import it.unibo.alienenterprises.model.api.PowerUpRenderer;
 import it.unibo.alienenterprises.model.api.ShopModel;
@@ -31,8 +33,11 @@ import javafx.scene.Scene;
  */
 public class ShopControllerImpl implements ShopController, InitController {
 
-    private static final String SEPARATOR = "/";
-    private static final String GAME_PATH = "/yaml";
+    private static final String YML = ".yml";
+    private static final String PWU = "/PowerUps";
+    private static final String PWUREN = "/PowerUpsInfo";
+    private static final String DIRYML = "/yaml";
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserAccountHandlerImpl.class);
 
     private Controller controller;
     private UserAccount account;
@@ -79,9 +84,8 @@ public class ShopControllerImpl implements ShopController, InitController {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("all")
     public void loadPwuYaml() {
-        try (FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + "PowerUps.yml")) {
+        try (InputStream inputStream = getClass().getResourceAsStream(DIRYML + PWU + YML)) {
 
             final Constructor constructor = new Constructor(PowerUpImpl.class, new LoaderOptions());
             final TypeDescription accountDescription = new TypeDescription(PowerUpImpl.class);
@@ -98,8 +102,8 @@ public class ShopControllerImpl implements ShopController, InitController {
                 powerUps.add((PowerUp) object);
             }
 
-        } catch (FileNotFoundException e) {
-        } catch (IOException i) {
+        } catch (IOException e) {
+            LOGGER.error("Could not open power ups file", e);
         }
     }
 
@@ -107,9 +111,8 @@ public class ShopControllerImpl implements ShopController, InitController {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("all")
     public void loadPwuInfoYaml() {
-        try (FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + "PowerUpsInfo.yml")) {
+        try (InputStream inputStream = getClass().getResourceAsStream(DIRYML + PWUREN + YML)) {
             final Constructor constructor = new Constructor(PowerUpRendererImpl.class, new LoaderOptions());
             final TypeDescription accountDescription = new TypeDescription(PowerUpRendererImpl.class);
             accountDescription.addPropertyParameters("name", String.class);
@@ -126,8 +129,8 @@ public class ShopControllerImpl implements ShopController, InitController {
                 pwuInfo.add((PowerUpRenderer) object);
             }
 
-        } catch (FileNotFoundException e) {
-        } catch (IOException i) {
+        } catch (IOException e) {
+            LOGGER.error("Could not open power up renderers file", e);
         }
 
         final Iterator<PowerUpRenderer> iterator = pwuInfo.iterator();

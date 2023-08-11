@@ -5,12 +5,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import it.unibo.alienenterprises.model.UserAccountHandlerImpl;
 import it.unibo.alienenterprises.model.api.Statistic;
@@ -33,7 +36,6 @@ class UserAccountTest {
   private static final String PASSWORD3 = "T3";
   private static final String NICKNAME4 = "pasljsas";
   private static final String PASSWORD4 = "T4";
-  private static final String YAMLPASSWORD = "passwords";
   private static final String HEALTH = "Health";
   private static final String DAMAGE = "Damage";
   private static final String SPEED = "Speed";
@@ -45,12 +47,17 @@ class UserAccountTest {
   private static final int DAMAGE_STAT = 10;
   private static final int SPEED_STAT = 15;
   private static final int DEFENCE_STAT = 5;
-  private static final String SEPARATOR = "/";
-  private static final String GAME_PATH = "src/main/resources/yaml";
+
+  private static final String SEP = File.separator;
   private static final String YML = ".yml";
+  private static final Logger LOGGER = LoggerFactory.getLogger(UserAccountTest.class);
 
   private final UserAccountHandlerImpl accountHandler = new UserAccountHandlerImpl();
   private UserAccount account;
+
+  UserAccountTest() {
+    Installer.init();
+  }
 
   /**
    * Tests account registration.
@@ -170,31 +177,33 @@ class UserAccountTest {
 
   }
 
-  // CPD-OFF
+  /*
+   * This warning is suppressed since the code needs to be duplicated among the
+   * two tests, ShopTest and this one
+   */
   @SuppressWarnings("CPD-START")
   private void delete(final String nickname) {
-    final File deleteFile = new File(GAME_PATH + SEPARATOR + nickname + YML);
-    if (deleteFile.exists()) {
+    final File deleteFile = new File(Installer.DIRECTORY_PATH + SEP + nickname + YML);
+    if (Installer.doesFileExist(nickname + YML)) {
       deleteFile.delete();
     }
   }
-  // CPD-ON
 
-  @SuppressWarnings("all")
-  // CPD-OFF
   private void removePassword(final String nickname, final String password) {
     try {
-      final List<String> yamlLines = Files.readAllLines(Paths.get(GAME_PATH + SEPARATOR + YAMLPASSWORD + YML));
+      final List<String> yamlLines = Files
+          .readAllLines(Path.of(Installer.DIRECTORY_PATH + SEP + Installer.PASSWORD_FILE));
       final String check = "--- {" + nickname + ": " + password + "}";
       for (int i = 0; i < yamlLines.size(); i++) {
         if (yamlLines.get(i).equals(check)) {
           yamlLines.remove(i);
         }
       }
-      Files.write(Paths.get(GAME_PATH + SEPARATOR + YAMLPASSWORD + YML), yamlLines);
-    } catch (IOException i) {
+      Files.write(Paths.get(Installer.DIRECTORY_PATH + SEP + Installer.PASSWORD_FILE), yamlLines);
+    } catch (IOException e) {
+      LOGGER.error("Could not open password file", e);
     }
 
   }
-  // CPD-ON
+
 }

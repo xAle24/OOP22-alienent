@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -16,6 +17,8 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import it.unibo.alienenterprises.controller.Controller;
 import it.unibo.alienenterprises.controller.ControllerImpl;
@@ -52,7 +55,6 @@ class ShopTest {
     private static final String PASSWORD4 = "T4";
     private static final int MONEY = 2_000_000;
     private static final int REMAINING_MONEY = 400_000;
-    private static final String YAMLPASSWORD = "passwords";
     private static final String HEALTH = "Health";
     private static final String DAMAGE = "Damage";
     private static final String SPEED = "Speed";
@@ -63,9 +65,10 @@ class ShopTest {
     private static final int SPEED_MAXLEVEL = 3;
     private static final int DAMAGE_MAXLEVEL = 2;
     private static final int STAT = 5;
-    private static final String SEPARATOR = "/";
-    private static final String GAME_PATH = "src/main/resources/yaml";
+
+    private static final String SEP = File.separator;
     private static final String YML = ".yml";
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserAccountTest.class);
 
     private final UserAccountHandlerImpl accountHandler = new UserAccountHandlerImpl();
     private UserAccount account;
@@ -90,6 +93,10 @@ class ShopTest {
     private final ShopModel model = new ShopModelImpl(contr);
     private final List<PowerUp> pwu = new LinkedList<>();
     private final Map<Statistic, Integer> stats = new LinkedHashMap<>();
+
+    ShopTest() {
+        Installer.init();
+    }
 
     /**
      * It tests if the shopController load the yaml file correctly.
@@ -239,31 +246,33 @@ class ShopTest {
         pwu.add(damage);
     }
 
-    // CPD-OFF
     @SuppressWarnings("CPD-START")
     private void delete(final String nickname) {
-        final File deleteFile = new File(GAME_PATH + SEPARATOR + nickname + YML);
-        if (deleteFile.exists()) {
+        final File deleteFile = new File(Installer.DIRECTORY_PATH + SEP + nickname + YML);
+        if (Installer.doesFileExist(nickname + YML)) {
             deleteFile.delete();
         }
     }
-    // CPD-ON
 
-    @SuppressWarnings("all")
-    // CPD-OFF
+    /*
+     * This warning is suppressed since the code needs to be duplicated among the
+     * two tests, UserAccountTest and this one
+     */
     private void removePassword(final String nickname, final String password) {
         try {
-            final List<String> yamlLines = Files.readAllLines(Paths.get(GAME_PATH + SEPARATOR + YAMLPASSWORD + YML));
+            final List<String> yamlLines = Files
+                    .readAllLines(Path.of(Installer.DIRECTORY_PATH + SEP + Installer.PASSWORD_FILE));
             final String check = "--- {" + nickname + ": " + password + "}";
             for (int i = 0; i < yamlLines.size(); i++) {
                 if (yamlLines.get(i).equals(check)) {
                     yamlLines.remove(i);
                 }
             }
-            Files.write(Paths.get(GAME_PATH + SEPARATOR + YAMLPASSWORD + YML), yamlLines);
-        } catch (IOException i) {
+            Files.write(Paths.get(Installer.DIRECTORY_PATH + SEP + Installer.PASSWORD_FILE), yamlLines);
+        } catch (IOException e) {
+            LOGGER.error("Could not open password file", e);
         }
 
     }
-    // CPD-ON
+
 }

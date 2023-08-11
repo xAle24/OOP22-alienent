@@ -117,7 +117,6 @@
   background-color: #f2b00c;
 }
 
-/* Customize the scrollbar thumb */
 .scroll-bar:horizontal .thumb,
 .scroll-bar:vertical .thumb {
   -fx-background-color: #fcecc4;

@@ -2,16 +2,15 @@ package it.unibo.alienenterprises.model;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.TypeDescription;
@@ -20,6 +19,7 @@ import org.yaml.snakeyaml.constructor.Constructor;
 import org.yaml.snakeyaml.nodes.Tag;
 import org.yaml.snakeyaml.representer.Representer;
 
+import it.unibo.alienenterprises.Installer;
 import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.model.api.UserAccount;
 import it.unibo.alienenterprises.model.api.UserAccountHandler;
@@ -31,18 +31,17 @@ import it.unibo.alienenterprises.model.api.UserAccountHandler;
  */
 public class UserAccountHandlerImpl implements UserAccountHandler {
 
-    private static final String SEPARATOR = "/";
-    private static final String GAME_PATH = "/yaml";
+    private static final String SEP = File.separator;
     private static final String YML = ".yml";
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserAccountHandlerImpl.class);
 
     /**
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("all")
     public Optional<UserAccount> login(final String nickname, final String password) {
-        if (existingAccount(nickname) && correctPassword(nickname, password)) {
-            try (FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + nickname + YML)) {
+        if (Installer.doesFileExist(nickname + YML) && correctPassword(nickname, password)) {
+            try (FileInputStream inputStream = new FileInputStream(Installer.DIRECTORY_PATH + SEP + nickname + YML)) {
 
                 final Constructor constructor = new Constructor(UserAccountImpl.class, new LoaderOptions());
                 final TypeDescription accountDescription = new TypeDescription(UserAccountImpl.class);
@@ -55,8 +54,8 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
 
                 return Optional.of(userAccount);
 
-            } catch (FileNotFoundException e) {
-            } catch (IOException i) {
+            } catch (IOException e) {
+                LOGGER.error("Could not open user file", e);
             }
         }
         return Optional.empty();
@@ -67,11 +66,10 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("all")
     public Optional<UserAccount> registration(final String nickname, final String password) {
-        if (!existingAccount(nickname)) {
-            final File accountFile = new File(GAME_PATH + SEPARATOR + nickname + YML);
-            try (FileWriter writer = new FileWriter(GAME_PATH + SEPARATOR + "passwords.yml",
+        if (!Installer.doesFileExist(nickname + YML)) {
+            final File accountFile = new File(Installer.DIRECTORY_PATH + SEP + nickname + YML);
+            try (FileWriter writer = new FileWriter(Installer.DIRECTORY_PATH + SEP + Installer.PASSWORD_FILE,
                     StandardCharsets.UTF_8,
                     true);) {
 
@@ -83,14 +81,14 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
                 final Yaml yaml = new Yaml(option);
                 final Map<String, String> map = new HashMap<>();
                 map.put(nickname, password);
-                final String output = yaml.dump(map);
-                writer.append(output);
+                yaml.dump(map, writer);
 
                 final Optional<UserAccount> account = Optional.of(new UserAccountImpl(nickname));
                 save(account.get());
                 return account;
 
-            } catch (IOException i) {
+            } catch (IOException e) {
+                LOGGER.error("Could not create user file", e);
             }
         }
         return Optional.empty();
@@ -100,28 +98,24 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("all")
     public void save(final UserAccount account) {
-        final String accountFile = GAME_PATH + SEPARATOR + account.getNickname() + YML;
-        try (FileWriter writer = new FileWriter(accountFile, StandardCharsets.UTF_8, false)) {
+        try (FileWriter writer = new FileWriter(Installer.DIRECTORY_PATH + SEP + account.getNickname() + YML,
+                StandardCharsets.UTF_8,
+                false)) {
 
             final Representer representer = new Representer(new DumperOptions());
             representer.addClassTag(UserAccountImpl.class, new Tag("!UserAccountImpl"));
 
             final Yaml yaml = new Yaml(representer);
-            final String output = yaml.dump(account);
-            writer.append(output);
+            yaml.dump(account, writer);
         } catch (IOException e) {
+            LOGGER.error("Could not save user file", e);
         }
     }
 
-    private boolean existingAccount(final String nickname) {
-        return Files.exists(Paths.get(GAME_PATH + SEPARATOR + nickname + YML));
-    }
-
-    @SuppressWarnings("all")
     private boolean correctPassword(final String nickname, final String password) {
-        try (FileInputStream inputStream = new FileInputStream(GAME_PATH + SEPARATOR + "passwords.yml")) {
+        try (FileInputStream inputStream = new FileInputStream(
+                Installer.DIRECTORY_PATH + SEP + Installer.PASSWORD_FILE)) {
 
             final Map<String, Object> passwordMap = new HashMap<>();
 
@@ -145,10 +139,9 @@ public class UserAccountHandlerImpl implements UserAccountHandler {
 
             return passwordMap.get(nickname).equals(password);
 
-        } catch (FileNotFoundException e) {
-        } catch (IOException i) {
+        } catch (IOException e) {
+            LOGGER.error("Could not open password file", e);
         }
-
         return false;
     }
 
