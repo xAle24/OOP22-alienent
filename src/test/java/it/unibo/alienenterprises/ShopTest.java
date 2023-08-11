@@ -54,13 +54,13 @@ class ShopTest {
     private static final String NICKNAME4 = "asclco";
     private static final String PASSWORD4 = "T4";
     private static final int MONEY = 2_000_000;
-    private static final int REMAINING_MONEY = 400_000;
+    private static final int REMAINING_MONEY = 1_840_000;
     private static final String HEALTH = "Health";
     private static final String DAMAGE = "Damage";
     private static final String SPEED = "Speed";
-    private static final int HEALTH_COST = 300_000;
-    private static final int SPEED_COST = 200_000;
-    private static final int DAMAGE_COST = 500_000;
+    private static final int HEALTH_COST = 30_000;
+    private static final int SPEED_COST = 20_000;
+    private static final int DAMAGE_COST = 50_000;
     private static final int HEALTH_MAXLEVEL = 5;
     private static final int SPEED_MAXLEVEL = 3;
     private static final int DAMAGE_MAXLEVEL = 2;
@@ -198,6 +198,7 @@ class ShopTest {
         assertEquals(REMAINING_MONEY, account.getMoney());
         assertEquals(buildToAddPwu(), account.getToAddPwu());
 
+        account.setMoney(-REMAINING_MONEY);
         assertFalse(shopController.buy(DAMAGE));
     }
 
