@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
@@ -20,6 +22,8 @@ import javafx.scene.image.Image;
  */
 public class ImageLoaderImpl implements ImageLoader {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ImageLoaderImpl.class);
+
     private static final String SPRITE_PATH = "/sprites/";
     private static final String SPRITE_LIST_PATH = SPRITE_PATH + "spriteList.yml";
 
@@ -31,7 +35,6 @@ public class ImageLoaderImpl implements ImageLoader {
      * It reads a file to create the images so is shold be created only one instance
      * for class or object.
      */
-    @SuppressWarnings("PMD.EmptyCatchBlock")
     public ImageLoaderImpl() {
         try (InputStream inputStream = getClass().getResourceAsStream(SPRITE_LIST_PATH)) {
             final Constructor constructor = new Constructor(ImageProp.class, new LoaderOptions());
@@ -41,6 +44,7 @@ public class ImageLoaderImpl implements ImageLoader {
                 this.spriteList.add((ImageProp) it.next());
             }
         } catch (final IOException e) {
+            LOGGER.error("Couldn't load Sprite list", e);
         }
     }
 

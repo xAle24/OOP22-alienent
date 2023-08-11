@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.yaml.snakeyaml.Yaml;
 
 import it.unibo.alienenterprises.view.ShipInfoLoader;
@@ -18,8 +20,10 @@ import javafx.scene.image.Image;
  * Implementation of ShipInfoLoader that is used to load the information of the
  * players
  */
-@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class PlayerInfoLoaderImpl implements ShipInfoLoader {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(PlayerInfoLoaderImpl.class);
+
     private static final String GAME_RESOURCES_PATH = "/ships/";
     private static final String DESCRIPTIONS_PATH = GAME_RESOURCES_PATH + "playerInfo/";
     private static final String SHIP_LIST_FILE_PATH = GAME_RESOURCES_PATH + "shipList.yml";
@@ -35,13 +39,13 @@ public class PlayerInfoLoaderImpl implements ShipInfoLoader {
      * Create a new PlayerInfoLoaderImpl taking the id set from the playerclasses
      * section of the file shipList.
      */
-    @SuppressWarnings("PMD.EmptyCatchBlock")
     public PlayerInfoLoaderImpl() {
         try (InputStream inputStream = getClass().getResourceAsStream(SHIP_LIST_FILE_PATH)) {
             final Yaml yaml = new Yaml();
             final Map<String, List<String>> map = yaml.load(inputStream);
             this.playerIds = Set.copyOf(map.get(PLAYERS));
         } catch (final IOException e) {
+            LOGGER.error("Couldn't load : " + SHIP_LIST_FILE_PATH, e);
         }
     }
 
@@ -58,7 +62,6 @@ public class PlayerInfoLoaderImpl implements ShipInfoLoader {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("PMD.EmptyCatchBlock")
     public void load() {
         if (!this.isLoaded) {
             for (final var name : this.playerIds) {
@@ -67,6 +70,7 @@ public class PlayerInfoLoaderImpl implements ShipInfoLoader {
                     final PlayerClassInfo pInfo = yaml.loadAs(inputStream, PlayerClassInfoImpl.class);
                     this.infoMap.put(name, pInfo);
                 } catch (final IOException e) {
+                    LOGGER.error("Load of the Informations about " + name + " failed.", e);
                 }
             }
             this.isLoaded = true;

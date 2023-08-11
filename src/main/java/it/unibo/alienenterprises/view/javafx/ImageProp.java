@@ -16,7 +16,6 @@ public final class ImageProp {
     /**
      * Void constructor to work whith yaml.
      */
-    @SuppressWarnings("all")
     public ImageProp() {
     }
 
@@ -119,7 +118,6 @@ public final class ImageProp {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("all")
     public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
@@ -145,10 +143,7 @@ public final class ImageProp {
         } else if (!file.equals(other.file)) {
             return false;
         }
-        if (Double.doubleToLongBits(scale) != Double.doubleToLongBits(other.scale)) {
-            return false;
-        }
-        return true;
+        return Double.doubleToLongBits(scale) == Double.doubleToLongBits(other.scale);
     }
 
 }

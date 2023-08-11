@@ -2,6 +2,9 @@ package it.unibo.alienenterprises.model.impl.components;
 
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.InputSupplier;
 import it.unibo.alienenterprises.model.api.Statistic;
@@ -17,6 +20,8 @@ import it.unibo.alienenterprises.model.api.InputSupplier.Input;
  * Handle the movements of the player.
  */
 public class PlayerInputComponentImpl extends ComponentAbs implements PlayerInputComponent {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(PlayerInputComponentImpl.class);
 
     private static final double ANG_VEL = 150;
     private static final double ACC_RATE = 2;
@@ -126,13 +131,12 @@ public class PlayerInputComponentImpl extends ComponentAbs implements PlayerInpu
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("all")
     public Optional<Component> duplicate(final GameObject obj) {
         try {
             final var retInput = input.getClass().getConstructor().newInstance();
             return Optional.of(new PlayerInputComponentImpl(obj, retInput));
         } catch (Exception e) {
-
+            LOGGER.error("Couldn't duplicate :" + getClass().getName(), e);
         }
         return Optional.empty();
     }

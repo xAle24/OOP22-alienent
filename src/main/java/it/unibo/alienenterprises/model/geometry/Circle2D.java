@@ -73,7 +73,6 @@ public class Circle2D {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("all")
     public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
