@@ -54,6 +54,8 @@ public class ShopViewImpl implements ShopView {
     private static final int BOTTOMSUBTRACTOR = 40;
     private static final double DESCWIDTHMULTIPLIER = 20.3;
 
+    private static final String DIRIMG = "/images/";
+
     private Double widthUnit;
     private Double heightUnit;
     private Double margin;
@@ -184,7 +186,7 @@ public class ShopViewImpl implements ShopView {
             pwuBox.setPrefSize(widthUnit * 4, widthUnit * BASICMULTIPLIER);
 
             // Set the button
-            final String imageURL = new String("/images/"
+            final String imageURL = new String(DIRIMG
                     + curr.getImage());
             final Button button = new Button();
             button.setStyle("-fx-background-image: url("
@@ -250,7 +252,7 @@ public class ShopViewImpl implements ShopView {
             // Set icon
             final VBox icon = new VBox();
             icon.setAlignment(Pos.CENTER);
-            final ImageView image = new ImageView("/images/" + curr.getImage());
+            final ImageView image = new ImageView(DIRIMG + curr.getImage());
             icon.setId("icon");
             icon.getChildren().add(image);
             bottom.setLeft(icon);

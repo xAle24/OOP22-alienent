@@ -21,6 +21,7 @@ public class UserAccountImpl implements UserAccount {
 
     /**
      * Costructor. It is filled with nothing because otherwise YAML won't work.
+     * For this precise reason I had to suppress the warning.
      */
     @SuppressWarnings("all")
     public UserAccountImpl() {
