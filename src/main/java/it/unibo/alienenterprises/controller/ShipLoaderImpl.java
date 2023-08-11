@@ -159,7 +159,7 @@ public class ShipLoaderImpl implements ShipLoader {
             }
             final GameObject temp = new GameObjectImpl(Point2D.ORIGIN, Vector2D.NULL_VECTOR, stats, id);
             temp.addAllComponent(fetchComponents(obj.getComponents(), temp));
-            temp.getAllComponent().stream().forEach((c) -> c.start());
+            temp.getAllComponent().forEach((c) -> c.start());
             return Optional.of(temp);
         } catch (final IOException e) {
             LOGGER.error("Error couldn't load the given ship: " + folder + id + YAML, e);
