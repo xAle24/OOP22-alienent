@@ -18,10 +18,10 @@ height: 64
 width: 64
 ---
 id: simpleProjectile
-file: pngwing.com.png
-scale: 0.01
-height: 1024
-width: 1024
+file: spr_bullet_strip.png
+scale: 1.0
+height: 39
+width: 39
 ---
 id: enemyTank
 file: enemyTank.png
