@@ -241,7 +241,7 @@ class ShopTest {
 
     // CPD-OFF
     @SuppressWarnings("CPD-START")
-    private void delete(String nickname) {
+    private void delete(final String nickname) {
         final File deleteFile = new File(GAME_PATH + SEPARATOR + nickname + YML);
         if (deleteFile.exists()) {
             deleteFile.delete();
@@ -251,7 +251,7 @@ class ShopTest {
 
     @SuppressWarnings("all")
     // CPD-OFF
-    private void removePassword(String nickname, String password) {
+    private void removePassword(final String nickname, final String password) {
         try {
             final List<String> yamlLines = Files.readAllLines(Paths.get(GAME_PATH + SEPARATOR + YAMLPASSWORD + YML));
             final String check = "--- {" + nickname + ": " + password + "}";
