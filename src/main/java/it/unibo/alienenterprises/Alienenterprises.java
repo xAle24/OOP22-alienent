@@ -20,7 +20,7 @@ public final class Alienenterprises {
      * @param args args
      */
     public static void main(final String[] args) {
-        Installer.setUp();
+        Installer.init();
         final var app = new AppStart();
         app.init(args);
     }

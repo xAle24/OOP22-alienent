@@ -14,8 +14,9 @@ public final class ShipProp {
     /**
      * Void Constructor to work with yaml.
      */
+    @SuppressWarnings("PMD.UnnecessaryConstructor")
     public ShipProp() {
-
+        // Constructor necessary to work with snakeyaml
     }
 
     /**

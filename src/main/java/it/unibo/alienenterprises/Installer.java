@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Class that set ups the forders needed to save accounts and passwords.
  */
-public class Installer {
+public final class Installer {
 
     private static final String SEP = File.separator;
     private static final Logger LOGGER = LoggerFactory.getLogger(Installer.class);
@@ -44,7 +44,7 @@ public class Installer {
     /**
      * Set up the folders needed to start the program.
      */
-    public static void setUp() {
+    public static void init() {
         if (!doesDirectoryExist()) {
             try {
                 final File directory = new File(DIRECTORY_PATH);
@@ -58,7 +58,7 @@ public class Installer {
         }
         if (!doesFileExist(PASSWORD_FILE)) {
             final File passwordFile = new File(DIRECTORY_PATH + SEP + PASSWORD_FILE);
-            try (final FileWriter writer = new FileWriter(passwordFile)) {
+            try (FileWriter writer = new FileWriter(passwordFile)) {
                 LOGGER.info("password file succesfully created at:" + DIRECTORY_PATH);
             } catch (final IOException e) {
                 LOGGER.error("Cannot create password file:", e);

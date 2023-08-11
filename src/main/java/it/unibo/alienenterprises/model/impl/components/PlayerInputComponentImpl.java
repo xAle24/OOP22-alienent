@@ -1,5 +1,6 @@
 package it.unibo.alienenterprises.model.impl.components;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -135,7 +136,8 @@ public class PlayerInputComponentImpl extends ComponentAbs implements PlayerInpu
         try {
             final var retInput = input.getClass().getConstructor().newInstance();
             return Optional.of(new PlayerInputComponentImpl(obj, retInput));
-        } catch (Exception e) {
+        } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException
+                | InvocationTargetException | NoSuchMethodException | SecurityException e) {
             LOGGER.error("Couldn't duplicate :" + getClass().getName(), e);
         }
         return Optional.empty();

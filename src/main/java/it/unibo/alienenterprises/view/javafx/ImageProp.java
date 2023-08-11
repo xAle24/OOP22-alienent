@@ -16,7 +16,9 @@ public final class ImageProp {
     /**
      * Void constructor to work whith yaml.
      */
+    @SuppressWarnings("PMD.UnnecessaryConstructor")
     public ImageProp() {
+        // this Constructor is needed to work whith snakeyaml
     }
 
     /**

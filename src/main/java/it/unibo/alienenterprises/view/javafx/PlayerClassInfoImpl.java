@@ -11,7 +11,9 @@ public class PlayerClassInfoImpl implements PlayerClassInfo {
     /**
      * Void constuctor to be used with yaml.
      */
+    @SuppressWarnings("PMD.UnnecessaryConstructor")
     public PlayerClassInfoImpl() {
+        // this Constructor is needed to work whith snakeyaml
     }
 
     /**
