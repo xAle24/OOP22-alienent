@@ -30,9 +30,6 @@ val javaFXModules = listOf(
 val supportedPlatforms = listOf("linux", "mac", "win") // All required for OOP
 
 dependencies {
-    // Suppressions for SpotBugs
-    compileOnly("com.github.spotbugs:spotbugs-annotations:4.7.3")
-
     // Example library: Guava. Add what you need (and remove Guava if you don't use it)
     // implementation("com.google.guava:guava:28.1-jre")
 
@@ -51,14 +48,42 @@ dependencies {
 
     // Snakeyaml
     implementation("org.yaml:snakeyaml:2.0")
+
+    // spotbugs
+    compileOnly("com.github.spotbugs:spotbugs-annotations:4.7.3")
 }
+
+  
 
 tasks.withType<Test> {
     // Enables JUnit 5 Jupiter module
     useJUnitPlatform()
 }
 
+tasks {
+    spotbugsTest {
+        onlyIf { false }
+    }
+    spotbugsMain {
+        onlyIf { false }
+    }
+}
+
+spotbugs {
+    ignoreFailures.set(true)
+    showStackTraces.set(false)
+}
+
 application {
     // Define the main class for the application
     mainClass.set("it.unibo.alienenterprises.Alienenterprises")
+}
+
+val test by tasks.getting(Test::class) {
+    // Use junit platform for unit tests
+    useJUnitPlatform()
+    testLogging {
+        events(*(org.gradle.api.tasks.testing.logging.TestLogEvent.values())) // events("passed", "skipped", "failed")
+    }
+    testLogging.showStandardStreams = true    
 }

@@ -14,11 +14,10 @@
     xmlns:fx="http://javafx.com/fxml/1"
     StackPane.alignment="CENTER"
     fx:controller="it.unibo.alienenterprises.view.controllers.GameStageController"
-    stylesheets="@/css/gameStageStyle.css"
-    styleClass="statLabelContainer">
+    stylesheets="@/css/gameStageStyle.css">
 
     <VBox>
-        <HBox alignment="TOP_RIGHT" prefWidth="-Infinity" minWidth="50" fx:id="topHbox">
+        <HBox alignment="TOP_RIGHT" prefWidth="-Infinity" minWidth="50" fx:id="topHbox" styleClass="statsLabelContainer">
             <Label text="SCORE:" textAlignment="RIGHT" styleClass="statLabel"/>
             <Label fx:id="currScore" text="0" textAlignment="RIGHT" styleClass="statLabel"/>
         </HBox>
@@ -37,7 +36,7 @@
                 </VBox>
             </VBox>
         </StackPane>
-        <HBox alignment="BOTTOM_LEFT" prefWidth="-Infinity" minWidth="50" fx:id="bottomHbox">
+        <HBox alignment="BOTTOM_LEFT" prefWidth="-Infinity" minWidth="50" fx:id="bottomHbox" styleClass="statsLabelContainer">
             <Label text="HEALTH:" textAlignment="LEFT"  styleClass="statLabel"/>
             <Label fx:id="healthDisplay" textAlignment="LEFT" styleClass="statLabel"/>
         </HBox>
