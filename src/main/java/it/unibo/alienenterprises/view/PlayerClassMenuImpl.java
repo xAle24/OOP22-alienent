@@ -8,9 +8,6 @@ import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.view.api.PlayerClassMenu;
 import it.unibo.alienenterprises.view.controllers.PlayerController;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -29,7 +26,7 @@ public class PlayerClassMenuImpl extends BorderPane implements PlayerClassMenu {
 
     private static final int PREF_WIDTH = 867;
     private static final int PREF_HEIGHT = 671;
-    private static final int PROP_FONT = 30;
+    private static final int PROP_FONT = 20;
     private static final int PROP_HEIGHT = 20;
     private static final int DESCRIPTION_IMAGE_SIZE = 150;
     private static final int WRAPPING_TEXT_WIDTH = 100;
@@ -38,10 +35,6 @@ public class PlayerClassMenuImpl extends BorderPane implements PlayerClassMenu {
     private static final int EXIT_BUTTON_SIZE = 50;
     private static final String CONFIRM_BUTTON = "Confirm Selection";
     private static final String FX_FONT_SIZE = "-fx-font-size: ";
-
-    private static final Dimension SCREEN_DIMENSION = Toolkit.getDefaultToolkit().getScreenSize();
-    private static final double SCREEN_WIDTH = SCREEN_DIMENSION.getWidth();
-    private static final double SCREEN_HEIGHT = SCREEN_DIMENSION.getHeight();
 
     private static final String CSS_FILE = "/css/ShipSelectMenu.css";
 
@@ -69,15 +62,13 @@ public class PlayerClassMenuImpl extends BorderPane implements PlayerClassMenu {
         this.controller = controller;
         this.setPrefWidth(PREF_WIDTH);
         this.setPrefHeight(PREF_HEIGHT);
-        this.setMaxHeight(SCREEN_HEIGHT);
-        this.setMaxWidth(SCREEN_WIDTH);
 
         final BorderPane up = new BorderPane();
-        up.setMaxHeight(SCREEN_HEIGHT / PROP_HEIGHT);
+        up.setMaxHeight(PREF_HEIGHT / PROP_HEIGHT);
         up.setId(TITLE);
         this.setTop(up);
         final var title = new Text(TITLE_TEXT);
-        title.setStyle(FX_FONT_SIZE + SCREEN_HEIGHT / PROP_FONT);
+        title.setStyle(FX_FONT_SIZE + PREF_HEIGHT / PROP_FONT);
         up.setCenter(title);
 
         final Button exitButton = new Button();
@@ -95,18 +86,19 @@ public class PlayerClassMenuImpl extends BorderPane implements PlayerClassMenu {
         this.setCentralPane();
         buttons.get(0).fire();
 
-        this.center.setMaxHeight(SCREEN_HEIGHT / 2);
-        this.center.setMaxWidth(SCREEN_WIDTH / 2);
         container.setCenter(this.center);
 
         container.setBottom(this.bottom);
 
         this.setCenter(container);
+        final var confirmBox = new VBox();
         final Button confirmButton = new Button(CONFIRM_BUTTON);
+        confirmBox.getChildren().add(confirmButton);
+        confirmBox.setAlignment(Pos.CENTER);
         confirmButton.setOnAction((e) -> {
             controller.confirmSelection();
         });
-        this.setBottom(confirmButton);
+        this.setBottom(confirmBox);
     }
 
     /**
