@@ -1,11 +1,9 @@
 package it.unibo.alienenterprises.controller;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,13 +27,15 @@ import it.unibo.alienenterprises.model.geometry.Vector2D;
  * ShipLoaderImpl.
  * Implementation of ShipLoader
  */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class ShipLoaderImpl implements ShipLoader {
 
-    private static final String SEPARATOR = File.separator;
-    private static final String GAME_PATH = "src" + SEPARATOR + "main" + SEPARATOR + "resources" + SEPARATOR + "ships";
-    private static final String SHIPLIST_FILE = GAME_PATH + SEPARATOR + "shipList.yml";
-    private static final String PLAYER_FOLDER = "playerclasses";
-    private static final String ENEMY_FOLDER = "enemyclasses";
+    private static final String GAME_PATH = "/ships";
+    private static final String SHIPLIST_FILE = GAME_PATH + "/shipList.yml";
+    private static final String PLAYER_IDS = "playerclasses";
+    private static final String PLAYER_FOLDER = "/" + PLAYER_IDS + "/";
+    private static final String ENEMY_IDS = "enemyclasses";
+    private static final String ENEMY_FOLDER = "/" + ENEMY_IDS + "/";
 
     private static final String COMPONENT_PAKAGE = "it.unibo.alienenterprises.model.impl.components.";
     private static final String YAML = ".yml";
@@ -66,25 +66,22 @@ public class ShipLoaderImpl implements ShipLoader {
      * @param factories the factories neded to load the ships that are called by the
      *                  Parameter FACTORYMETHOD
      */
-    @SuppressWarnings("all")
+    @SuppressWarnings("PMD.EmptyCatchBlock")
     public ShipLoaderImpl(final Object... factories) {
-        try (InputStream inputStream = new FileInputStream(SHIPLIST_FILE)) {
+        try (InputStream inputStream = getClass().getResourceAsStream(SHIPLIST_FILE)) {
             final Yaml yaml = new Yaml();
             final Map<String, List<String>> map = yaml.load(inputStream);
-            if (map.get(PLAYER_FOLDER) != null) {
-                playerList = map.get(PLAYER_FOLDER);
+            if (map.get(PLAYER_IDS) != null) {
+                playerList = map.get(PLAYER_IDS);
             } else {
                 playerList = List.of();
             }
-            if (map.get(ENEMY_FOLDER) != null) {
-                enemyList = map.get(ENEMY_FOLDER);
+            if (map.get(ENEMY_IDS) != null) {
+                enemyList = map.get(ENEMY_IDS);
             } else {
                 enemyList = List.of();
             }
-        } catch (final FileNotFoundException e) {
-
         } catch (final IOException e) {
-
         }
         this.factories = List.of(factories);
     }
@@ -94,7 +91,7 @@ public class ShipLoaderImpl implements ShipLoader {
      */
     @Override
     public Map<String, GameObject> loadPlayerClasses() {
-        final var path = GAME_PATH + SEPARATOR + PLAYER_FOLDER + SEPARATOR;
+        final var path = GAME_PATH + PLAYER_FOLDER;
         final Map<String, GameObject> playerMap = new HashMap<>();
         for (final var id : playerList) {
             final var obj = loadShip(path, id);
@@ -118,7 +115,7 @@ public class ShipLoaderImpl implements ShipLoader {
      */
     @Override
     public Map<String, GameObject> loadEnemyClasses() {
-        final var path = GAME_PATH + SEPARATOR + ENEMY_FOLDER + SEPARATOR;
+        final var path = GAME_PATH + ENEMY_FOLDER;
         final Map<String, GameObject> enemyMap = new HashMap<>();
         for (final var id : enemyList) {
             final var obj = loadShip(path, id);
@@ -148,10 +145,10 @@ public class ShipLoaderImpl implements ShipLoader {
      * @return An Optional of the ship or an empty Optional if there was any problem
      *         in the loading
      */
-    @SuppressWarnings("all")
     @Override
+    @SuppressWarnings("PMD.EmptyCatchBlock")
     public Optional<GameObject> loadShip(final String folder, final String id) {
-        try (InputStream inputStream = new FileInputStream(folder + SEPARATOR + id + YAML)) {
+        try (InputStream inputStream = getClass().getResourceAsStream(folder + id + YAML)) {
             final Yaml yaml = new Yaml();
             final ShipProp obj = yaml.loadAs(inputStream, ShipProp.class);
             final Map<Statistic, Integer> stats = new HashMap<>();
@@ -162,17 +159,16 @@ public class ShipLoaderImpl implements ShipLoader {
             temp.addAllComponent(fetchComponents(obj.getComponents(), temp));
             temp.getAllComponent().stream().forEach((c) -> c.start());
             return Optional.of(temp);
-        } catch (final Exception e) {
-            e.printStackTrace();
-            return Optional.empty();
+        } catch (final IOException e) {
         }
+        return Optional.empty();
     }
 
-    @SuppressWarnings("all")
+    @SuppressWarnings("PMD.EmptyCatchBlock")
     private List<Component> fetchComponents(final Map<String, List<Map<String, String>>> componentMap,
             final GameObject obj) {
         final List<Component> out = new ArrayList<>();
-        for (var name : componentMap.keySet()) {
+        for (final var name : componentMap.keySet()) {
             final var parameters = componentMap.get(name);
             final List<Object> fetchedParameters = parameters == null
                     ? List.of()
@@ -192,13 +188,14 @@ public class ShipLoaderImpl implements ShipLoader {
                 }
                 final Component component = (Component) c[0].newInstance(constructorParameters.toArray());
                 out.add(component);
-            } catch (final Exception e) {
+            } catch (final SecurityException | ClassNotFoundException | InstantiationException | IllegalAccessException
+                    | IllegalArgumentException | InvocationTargetException e) {
             }
         }
         return out;
     }
 
-    @SuppressWarnings("all")
+    @SuppressWarnings("PMD.EmptyCatchBlock")
     private Optional<Object> fetchParameter(final Map<String, String> parameter) {
         final ParameterTypes type = ParameterTypes.valueOf(parameter.get(TYPE));
         switch (type) {
@@ -207,7 +204,9 @@ public class ShipLoaderImpl implements ShipLoader {
                     final Class<?> parameterClass = Class.forName(parameter.get(VALUE));
                     final Object obj = parameterClass.getConstructor().newInstance();
                     return Optional.ofNullable(obj);
-                } catch (final Exception e) {
+                } catch (final SecurityException | ClassNotFoundException | InstantiationException
+                        | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+                        | NoSuchMethodException e) {
                 }
                 break;
             case DOUBLE:
@@ -220,7 +219,9 @@ public class ShipLoaderImpl implements ShipLoader {
                     final Method method = methodClass.getMethod(parameter.get(VALUE));
                     final Object obj = method.invoke(methodClass.getConstructor().newInstance());
                     return Optional.ofNullable(obj);
-                } catch (final Exception e) {
+                } catch (final ClassNotFoundException | SecurityException | IllegalAccessException
+                        | IllegalArgumentException | InvocationTargetException | InstantiationException
+                        | NoSuchMethodException e) {
                 }
                 break;
             case FACTORYMETHOD:
@@ -233,10 +234,10 @@ public class ShipLoaderImpl implements ShipLoader {
                         final Method factoryMethod = factoryClass.getMethod(parameter.get(VALUE));
                         return Optional.of(factoryMethod.invoke(factory.get()));
                     } else {
-                        throw new IllegalStateException();
+                        throw new IllegalArgumentException();
                     }
-                } catch (final Exception e) {
-                    e.printStackTrace();
+                } catch (final ClassNotFoundException | NoSuchMethodException | SecurityException
+                        | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
                 }
                 break;
             case STRING:
@@ -247,6 +248,25 @@ public class ShipLoaderImpl implements ShipLoader {
                 return Optional.of(HitboxComponent.Type.valueOf(parameter.get(VALUE)));
             default:
                 break;
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("PMD.EmptyCatchBlock")
+    public Optional<Map<Statistic, Integer>> loadStatsOf(final String resource) {
+        try (InputStream inputStream = getClass().getResourceAsStream(resource)) {
+            final Yaml yaml = new Yaml();
+            final ShipProp obj = yaml.loadAs(inputStream, ShipProp.class);
+            final Map<Statistic, Integer> stats = new HashMap<>();
+            for (final var s : obj.getStats().keySet()) {
+                stats.put(Statistic.valueOf(s), obj.getStats().get(s));
+            }
+            return Optional.of(stats);
+        } catch (final IOException e) {
         }
         return Optional.empty();
     }

@@ -1,6 +1,5 @@
 package it.unibo.alienenterprises.model;
 
-import java.io.File;
 import java.util.Optional;
 
 import it.unibo.alienenterprises.controller.ShipLoaderImpl;
@@ -17,9 +16,7 @@ import it.unibo.alienenterprises.model.impl.ProjectileSupplierFactoryImpl;
  */
 public class PlayerSpawnerImpl implements PlayerSpawner {
 
-    private static final String SEPARATOR = File.separator;
-    private static final String PLAYER_FOLDER = "src" + SEPARATOR + "main" + SEPARATOR + "resources" + SEPARATOR
-            + "ships" + SEPARATOR + "playerclasses";
+    private static final String PLAYER_FOLDER = "/ships/playerclasses/";
     private static final double RIGHT_ANGLE = 90;
 
     private final World world;

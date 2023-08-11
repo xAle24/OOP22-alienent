@@ -1,12 +1,11 @@
 package it.unibo.alienenterprises.view.controllers;
 
-import java.io.File;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
 import it.unibo.alienenterprises.controller.Controller;
-import it.unibo.alienenterprises.controller.api.ShipLoader;
+import it.unibo.alienenterprises.controller.ShipLoaderImpl;
 import it.unibo.alienenterprises.model.api.Statistic;
 import it.unibo.alienenterprises.view.ShipInfoLoader;
 import it.unibo.alienenterprises.view.ViewType;
@@ -20,9 +19,7 @@ import javafx.scene.image.Image;
  */
 public class PlayerControllerImpl implements PlayerController {
 
-    private static final String SEPARATOR = File.separator;
-    private static final String PLAYER_CLASS_PATH = "src" + SEPARATOR + "main" + SEPARATOR + "resources" + SEPARATOR
-            + "ships" + SEPARATOR + "playerclasses" + SEPARATOR;
+    private static final String PLAYER_CLASS_PATH = "/ships/playerclasses/";
     private static final String YAML = ".yml";
 
     private final ShipInfoLoader info;
@@ -58,8 +55,7 @@ public class PlayerControllerImpl implements PlayerController {
      */
     @Override
     public Optional<Map<Statistic, Integer>> getStats(final String id) {
-        return info.getShipIds().contains(id) ? ShipLoader.loadStatsOf(PLAYER_CLASS_PATH + id + YAML)
-                : Optional.empty();
+        return new ShipLoaderImpl().loadStatsOf(PLAYER_CLASS_PATH + id + YAML);
     }
 
     /**

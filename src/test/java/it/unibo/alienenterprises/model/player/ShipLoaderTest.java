@@ -1,5 +1,6 @@
 package it.unibo.alienenterprises.model.player;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -36,6 +37,8 @@ final class ShipLoaderTest {
     @Test
     void loadPlayersTest() {
         final var map = this.shipLoader.loadPlayerClasses();
+        assertFalse(this.playerIds.isEmpty());
+        assertFalse(map.isEmpty());
         for (final var ship : this.playerIds) {
             assertNotNull(map.get(ship), "the following ship didn't load: " + ship);
             assertTrue(!map.get(ship).getAllComponent().isEmpty(), "the components of" + ship + " didn't load");
@@ -48,6 +51,8 @@ final class ShipLoaderTest {
     @Test
     void loadEnemiesTest() {
         final var map = this.shipLoader.loadEnemyClasses();
+        assertFalse(this.enemyIds.isEmpty());
+        assertFalse(map.isEmpty());
         for (final var ship : this.enemyIds) {
             assertNotNull(map.get(ship), "the following ship didn't load: " + ship);
             assertTrue(!map.get(ship).getAllComponent().isEmpty(), "the components of" + ship + " didn't load");

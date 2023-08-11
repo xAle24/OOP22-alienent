@@ -1,15 +1,9 @@
 package it.unibo.alienenterprises.controller.api;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import org.yaml.snakeyaml.Yaml;
-
-import it.unibo.alienenterprises.controller.ShipProp;
 import it.unibo.alienenterprises.model.api.GameObject;
 import it.unibo.alienenterprises.model.api.Statistic;
 
@@ -57,23 +51,10 @@ public interface ShipLoader {
     /**
      * Load the stat map of the ship identified by the shipFileName.
      * 
-     * @param shipFileName
+     * @param resourceFile
      * @return An Optional of the stat map of the ship relative to the given file or
      *         an empty Optional if there were a problem whith the loading
      */
-    @SuppressWarnings("all")
-    static Optional<Map<Statistic, Integer>> loadStatsOf(final String shipFileName) {
-        try (InputStream inputStream = new FileInputStream(shipFileName)) {
-            final Yaml yaml = new Yaml();
-            final ShipProp obj = yaml.loadAs(inputStream, ShipProp.class);
-            final Map<Statistic, Integer> stats = new HashMap<>();
-            for (final var s : obj.getStats().keySet()) {
-                stats.put(Statistic.valueOf(s), obj.getStats().get(s));
-            }
-            return Optional.of(stats);
-        } catch (Exception e) {
-            return Optional.empty();
-        }
-    }
+    Optional<Map<Statistic, Integer>> loadStatsOf(String resourceFile);
 
 }
