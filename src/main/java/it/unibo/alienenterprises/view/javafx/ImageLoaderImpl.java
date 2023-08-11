@@ -1,7 +1,6 @@
 package it.unibo.alienenterprises.view.javafx;
 
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -21,10 +20,8 @@ import javafx.scene.image.Image;
  */
 public class ImageLoaderImpl implements ImageLoader {
 
-    private static final String SEPARATOR = File.separator;
-    private static final String SPRITE_PATH = SEPARATOR + "sprites" + SEPARATOR;
-    private static final String SPRITE_LIST_PATH = "src" + SEPARATOR + "main" + SEPARATOR + "resources" + SEPARATOR
-            + "sprites" + SEPARATOR + "spriteList.yml";
+    private static final String SPRITE_PATH = "/sprites/";
+    private static final String SPRITE_LIST_PATH = SPRITE_PATH + "spriteList.yml";
 
     private final Set<ImageProp> spriteList = new HashSet<>();
     private final Map<String, Image> imageMap = new HashMap<>();
@@ -34,16 +31,16 @@ public class ImageLoaderImpl implements ImageLoader {
      * It reads a file to create the images so is shold be created only one instance
      * for class or object.
      */
-    @SuppressWarnings("all")
+    @SuppressWarnings("PMD.EmptyCatchBlock")
     public ImageLoaderImpl() {
-        try (InputStream inputStream = new FileInputStream(SPRITE_LIST_PATH)) {
+        try (InputStream inputStream = getClass().getResourceAsStream(SPRITE_LIST_PATH)) {
             final Constructor constructor = new Constructor(ImageProp.class, new LoaderOptions());
             final Yaml yaml = new Yaml(constructor);
             final var it = yaml.loadAll(inputStream).iterator();
             while (it.hasNext()) {
                 this.spriteList.add((ImageProp) it.next());
             }
-        } catch (Exception e) {
+        } catch (final IOException e) {
         }
     }
 

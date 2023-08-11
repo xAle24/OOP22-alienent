@@ -1,7 +1,6 @@
 package it.unibo.alienenterprises.view.javafx;
 
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
@@ -19,11 +18,10 @@ import javafx.scene.image.Image;
  * Implementation of ShipInfoLoader that is used to load the information of the
  * players
  */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class PlayerInfoLoaderImpl implements ShipInfoLoader {
-    private static final String SEPARATOR = File.separator;
-    private static final String GAME_RESOURCES_PATH = "src" + SEPARATOR + "main" + SEPARATOR + "resources" + SEPARATOR
-            + "ships" + SEPARATOR;
-    private static final String DESCRIPTIONS_PATH = GAME_RESOURCES_PATH + "playerInfo" + SEPARATOR;
+    private static final String GAME_RESOURCES_PATH = "/ships/";
+    private static final String DESCRIPTIONS_PATH = GAME_RESOURCES_PATH + "playerInfo/";
     private static final String SHIP_LIST_FILE_PATH = GAME_RESOURCES_PATH + "shipList.yml";
     private static final String FILE_SUFFIX = "Info.yml";
     private static final String PLAYERS = "playerclasses";
@@ -37,13 +35,13 @@ public class PlayerInfoLoaderImpl implements ShipInfoLoader {
      * Create a new PlayerInfoLoaderImpl taking the id set from the playerclasses
      * section of the file shipList.
      */
-    @SuppressWarnings("all")
+    @SuppressWarnings("PMD.EmptyCatchBlock")
     public PlayerInfoLoaderImpl() {
-        try (InputStream inputStream = new FileInputStream(SHIP_LIST_FILE_PATH)) {
+        try (InputStream inputStream = getClass().getResourceAsStream(SHIP_LIST_FILE_PATH)) {
             final Yaml yaml = new Yaml();
             final Map<String, List<String>> map = yaml.load(inputStream);
             this.playerIds = Set.copyOf(map.get(PLAYERS));
-        } catch (final Exception e) {
+        } catch (final IOException e) {
         }
     }
 
@@ -60,16 +58,15 @@ public class PlayerInfoLoaderImpl implements ShipInfoLoader {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("all")
+    @SuppressWarnings("PMD.EmptyCatchBlock")
     public void load() {
         if (!this.isLoaded) {
             for (final var name : this.playerIds) {
-                try (InputStream inputStream = new FileInputStream(
-                        DESCRIPTIONS_PATH + name + FILE_SUFFIX)) {
+                try (InputStream inputStream = getClass().getResourceAsStream(DESCRIPTIONS_PATH + name + FILE_SUFFIX)) {
                     final Yaml yaml = new Yaml();
                     final PlayerClassInfo pInfo = yaml.loadAs(inputStream, PlayerClassInfoImpl.class);
                     this.infoMap.put(name, pInfo);
-                } catch (final Exception e) {
+                } catch (final IOException e) {
                 }
             }
             this.isLoaded = true;
