@@ -33,7 +33,7 @@ public class PlayerClassMenuImpl extends BorderPane implements PlayerClassMenu {
     private static final int SELECTION_IMAGE_SIZE = 75;
     private static final int SELECTION_BUTTON_SIZE = 125;
     private static final int EXIT_BUTTON_SIZE = 50;
-    private static final String CONFIRM_BUTTON = "Confirm Selection";
+    private static final String CONFIRM_BUTTON_TEXT = "Confirm Selection";
     private static final String FX_FONT_SIZE = "-fx-font-size: ";
 
     private static final String CSS_FILE = "/css/ShipSelectMenu.css";
@@ -44,6 +44,10 @@ public class PlayerClassMenuImpl extends BorderPane implements PlayerClassMenu {
     private static final String SELECTION_BUTTON = "button_selection";
     private static final String TITLE = "title";
     private static final String EXIT = "exit_button";
+    private static final String CONFIRM_BUTTON = "confirm_button";
+    private static final String DESCRIPTION_AREA = "description_area";
+    private static final String STAT_BOX = "stat_box";
+    private static final String STAT_CELL = "stat_cell";
     private final PlayerController controller;
 
     private final VBox left = new VBox();
@@ -92,7 +96,8 @@ public class PlayerClassMenuImpl extends BorderPane implements PlayerClassMenu {
 
         this.setCenter(container);
         final var confirmBox = new VBox();
-        final Button confirmButton = new Button(CONFIRM_BUTTON);
+        final Button confirmButton = new Button(CONFIRM_BUTTON_TEXT);
+        confirmButton.setId(CONFIRM_BUTTON);
         confirmBox.getChildren().add(confirmButton);
         confirmBox.setAlignment(Pos.CENTER);
         confirmButton.setOnAction((e) -> {
@@ -155,7 +160,10 @@ public class PlayerClassMenuImpl extends BorderPane implements PlayerClassMenu {
             img.setFitWidth(DESCRIPTION_IMAGE_SIZE);
             bottom.setLeft(img);
 
-            bottom.setCenter(new Text(controller.getDescription(id).get()));
+            final VBox txt = new VBox(new Text(controller.getDescription(id).get()));
+            txt.setAlignment(Pos.CENTER);
+            txt.setId(DESCRIPTION_AREA);
+            bottom.setCenter(txt);
 
             controller.select(id);
         });
@@ -163,10 +171,14 @@ public class PlayerClassMenuImpl extends BorderPane implements PlayerClassMenu {
 
     private void showStats(final Map<Statistic, Integer> stats) {
         final GridPane pane = new GridPane();
+        pane.setId(STAT_BOX);
         int t = 0;
         for (final var s : Statistic.values()) {
-            pane.add(new Text(s.toString()), 0, t);
-            pane.add(new Text(stats.get(s).toString()), 1, t);
+            final VBox cell = new VBox();
+            cell.setId(STAT_CELL);
+            cell.getChildren().add(new Text(s.toString()));
+            cell.getChildren().add(new Text(stats.get(s).toString()));
+            pane.add(cell, 0, t);
             t++;
         }
         left.getChildren().clear();

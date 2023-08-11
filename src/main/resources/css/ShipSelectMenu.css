@@ -45,6 +45,65 @@ palette{
     background-position: center;
 }
 
+#confirm_button{
+    -fx-background-color: #fca41c;
+    background-color: #fca41c;
+
+    -fx-font-size: 25px;
+    font-size: 25px;
+    -fx-padding-bottom: 3px;
+    padding-bottom: 3px;
+
+    -fx-border-width: 1px;
+    border-width: 1px;
+    -fx-border-style: solid;
+    border-style: solid;
+    -fx-border-color: black;
+    border-color: black;
+}
+
+#description_area{
+    -fx-background-color: #fca41c;
+    background-color: #fca41c;
+
+    -fx-font-size: 17px;
+    font-size: 17px;
+
+    -fx-border-width: 1px;
+    border-width: 1px;
+    -fx-border-style: solid;
+    border-style: solid;
+    -fx-border-color: black;
+    border-color: black;
+}
+
+#stat_box{
+    -fx-background-color: #fca41c;
+    background-color: #fca41c;
+
+    -fx-padding: 2px;
+    padding: 2px;
+
+    -fx-border-width: 1px;
+    border-width: 1px;
+    -fx-border-style: solid;
+    border-style: solid;
+    -fx-border-color: black;
+    border-color: black;
+}
+
+#stat_cell{
+    -fx-padding: 1px;
+    padding: 1px;
+
+    -fx-border-width: 1px;
+    border-width: 1px;
+    -fx-border-style: solid;
+    border-style: solid;
+    -fx-border-color: black;
+    border-color: black;
+}
+
 .scroll-pane{
     -fx-background-color: transparent;
     background-color: transparent;
