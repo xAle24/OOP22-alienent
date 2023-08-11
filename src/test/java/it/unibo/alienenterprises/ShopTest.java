@@ -42,8 +42,14 @@ import it.unibo.alienenterprises.view.controllers.InitController;
  */
 class ShopTest {
 
-    private static final String NICKNAME = "AccountTest";
-    private static final String PASSWORD = "AccountPass";
+    private static final String NICKNAME1 = "afidfhkhi";
+    private static final String PASSWORD1 = "T1";
+    private static final String NICKNAME2 = "oijawe";
+    private static final String PASSWORD2 = "T2";
+    private static final String NICKNAME3 = "pASASCO";
+    private static final String PASSWORD3 = "T3";
+    private static final String NICKNAME4 = "asclco";
+    private static final String PASSWORD4 = "T4";
     private static final int MONEY = 2_000_000;
     private static final int REMAINING_MONEY = 400_000;
     private static final String YAMLPASSWORD = "passwords";
@@ -62,8 +68,7 @@ class ShopTest {
     private static final String YML = ".yml";
 
     private final UserAccountHandlerImpl accountHandler = new UserAccountHandlerImpl();
-    private Optional<UserAccount> loadAccount;
-    private final UserAccount account;
+    private UserAccount account;
     private final Controller contr = new ControllerImpl(new View() {
 
         @Override
@@ -87,26 +92,16 @@ class ShopTest {
     private final Map<Statistic, Integer> stats = new LinkedHashMap<>();
 
     /**
-     * This costructor ensures that an account is created and its money are setted.
-     * Then it ensures that the file is deleted and so the password.
-     */
-    ShopTest() {
-        loadAccount = accountHandler.registration(NICKNAME, PASSWORD);
-        if (loadAccount.isEmpty()) {
-            loadAccount = accountHandler.login(NICKNAME, PASSWORD);
-        }
-        account = loadAccount.get();
-        account.setMoney(MONEY);
-        contr.setUserAccount(account);
-        delete();
-        removePassword();
-    }
-
-    /**
      * It tests if the shopController load the yaml file correctly.
      */
     @Test
     void testLoadPwu() {
+        account = accountHandler.registration(NICKNAME1, PASSWORD1).get();
+        account.setMoney(MONEY);
+        contr.setUserAccount(account);
+        delete(NICKNAME1);
+        removePassword(NICKNAME1, PASSWORD1);
+
         buildPwuList();
         this.shopController.loadPwuYaml();
 
@@ -127,6 +122,12 @@ class ShopTest {
      */
     @Test
     void testCheck() {
+        account = accountHandler.registration(NICKNAME2, PASSWORD2).get();
+        account.setMoney(MONEY);
+        contr.setUserAccount(account);
+        delete(NICKNAME2);
+        removePassword(NICKNAME2, PASSWORD2);
+
         this.shopController.loadPwuYaml();
         this.model.loadPwu(this.shopController.getPwu());
         assertEquals(Optional.of(-HEALTH_COST), model.check(HEALTH));
@@ -144,6 +145,12 @@ class ShopTest {
      */
     @Test
     void testUpdateShop() {
+        account = accountHandler.registration(NICKNAME3, PASSWORD3).get();
+        account.setMoney(MONEY);
+        contr.setUserAccount(account);
+        delete(NICKNAME3);
+        removePassword(NICKNAME3, PASSWORD3);
+
         this.shopController.loadPwuYaml();
         this.model.loadPwu(this.shopController.getPwu());
 
@@ -165,6 +172,11 @@ class ShopTest {
      */
     @Test
     void testBuy() {
+        account = accountHandler.registration(NICKNAME4, PASSWORD4).get();
+        account.setMoney(MONEY);
+        contr.setUserAccount(account);
+        delete(NICKNAME4);
+        removePassword(NICKNAME4, PASSWORD4);
         this.shopController.loadPwuYaml();
         controller.init(contr, null);
 
@@ -229,8 +241,8 @@ class ShopTest {
 
     // CPD-OFF
     @SuppressWarnings("CPD-START")
-    private void delete() {
-        final File deleteFile = new File(GAME_PATH + SEPARATOR + NICKNAME + YML);
+    private void delete(final String nickname) {
+        final File deleteFile = new File(GAME_PATH + SEPARATOR + nickname + YML);
         if (deleteFile.exists()) {
             deleteFile.delete();
         }
@@ -239,14 +251,16 @@ class ShopTest {
 
     @SuppressWarnings("all")
     // CPD-OFF
-    private void removePassword() {
+    private void removePassword(final String nickname, final String password) {
         try {
             final List<String> yamlLines = Files.readAllLines(Paths.get(GAME_PATH + SEPARATOR + YAMLPASSWORD + YML));
-            final String check = "--- {" + NICKNAME + ": " + PASSWORD + "}";
-            if (yamlLines.get(yamlLines.size() - 1).equals(check)) {
-                yamlLines.remove(yamlLines.size() - 1);
-                Files.write(Paths.get(GAME_PATH + SEPARATOR + YAMLPASSWORD + YML), yamlLines);
+            final String check = "--- {" + nickname + ": " + password + "}";
+            for (int i = 0; i < yamlLines.size(); i++) {
+                if (yamlLines.get(i).equals(check)) {
+                    yamlLines.remove(i);
+                }
             }
+            Files.write(Paths.get(GAME_PATH + SEPARATOR + YAMLPASSWORD + YML), yamlLines);
         } catch (IOException i) {
         }
 
