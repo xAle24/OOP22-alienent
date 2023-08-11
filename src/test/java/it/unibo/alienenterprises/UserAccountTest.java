@@ -9,7 +9,6 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -26,8 +25,14 @@ class UserAccountTest {
 
   private static final int MONEY = 5000;
   private static final int HIGHSCORE = 80_000;
-  private static final String NICKNAME = "AccountTest";
-  private static final String PASSWORD = "AccountPass";
+  private static final String NICKNAME1 = "barboadjas";
+  private static final String PASSWORD1 = "T1";
+  private static final String NICKNAME2 = "oasadkls";
+  private static final String PASSWORD2 = "T2";
+  private static final String NICKNAME3 = "awdsde";
+  private static final String PASSWORD3 = "T3";
+  private static final String NICKNAME4 = "pasljsas";
+  private static final String PASSWORD4 = "T4";
   private static final String YAMLPASSWORD = "passwords";
   private static final String HEALTH = "Health";
   private static final String DAMAGE = "Damage";
@@ -45,29 +50,18 @@ class UserAccountTest {
   private static final String YML = ".yml";
 
   private final UserAccountHandlerImpl accountHandler = new UserAccountHandlerImpl();
-  private Optional<UserAccount> loadAccount;
   private UserAccount account;
-
-  /**
-   * This costructor ensures that an account is created.
-   * Then it ensures that the file is deleted and so the password.
-   */
-  UserAccountTest() {
-    loadAccount = accountHandler.registration(NICKNAME, PASSWORD);
-    if (loadAccount.isEmpty()) {
-      loadAccount = accountHandler.login(NICKNAME, PASSWORD);
-    }
-    account = loadAccount.get();
-    delete();
-    removePassword();
-  }
 
   /**
    * Tests account registration.
    */
   @Test
   void testAccountRegistration() {
-    assertEquals(NICKNAME, account.getNickname());
+    account = accountHandler.registration(NICKNAME1, PASSWORD1).get();
+    delete(NICKNAME1);
+    removePassword(NICKNAME1, PASSWORD1);
+
+    assertEquals(NICKNAME1, account.getNickname());
     assertEquals(0, account.getMoney());
     assertEquals(0, account.getHighscore());
     assertEquals(new HashMap<>(), account.getInventory());
@@ -80,14 +74,12 @@ class UserAccountTest {
    */
   @Test
   void testSaveAndLogin() {
-    delete();
-    removePassword();
-    account = accountHandler.registration(NICKNAME, PASSWORD).get();
+    account = accountHandler.registration(NICKNAME2, PASSWORD2).get();
 
     accountBuilder();
     accountHandler.save(account);
 
-    final UserAccount secondAaccount = accountHandler.login(NICKNAME, PASSWORD).get();
+    final UserAccount secondAaccount = accountHandler.login(NICKNAME2, PASSWORD2).get();
 
     assertEquals(account.getNickname(), secondAaccount.getNickname());
     assertEquals(account.getMoney(), secondAaccount.getMoney());
@@ -96,8 +88,8 @@ class UserAccountTest {
     assertEquals(account.getToAddPwu(), secondAaccount.getToAddPwu());
     assertEquals(account.getCurrLevel(HEALTH), secondAaccount.getCurrLevel(HEALTH));
 
-    delete();
-    removePassword();
+    delete(NICKNAME2);
+    removePassword(NICKNAME2, PASSWORD2);
   }
 
   /**
@@ -106,6 +98,9 @@ class UserAccountTest {
    */
   @Test
   void testUpdateInventory() {
+    account = accountHandler.registration(NICKNAME3, PASSWORD3).get();
+    delete(NICKNAME3);
+    removePassword(NICKNAME3, PASSWORD3);
 
     accountBuilder();
     assertEquals(HEALTH_LEVEL, account.getCurrLevel(HEALTH));
@@ -123,6 +118,9 @@ class UserAccountTest {
    */
   @Test
   void testUpdateToAddPwu() {
+    account = accountHandler.registration(NICKNAME4, PASSWORD4).get();
+    delete(NICKNAME4);
+    removePassword(NICKNAME4, PASSWORD4);
     accountBuilder();
     account.setToAddPwu(new HashMap<Statistic, Integer>());
 
@@ -173,25 +171,30 @@ class UserAccountTest {
   }
 
   // CPD-OFF
-  private void delete() {
-    final File deleteFile = new File(GAME_PATH + SEPARATOR + NICKNAME + YML);
+  @SuppressWarnings("CPD-START")
+  private void delete(String nickname) {
+    final File deleteFile = new File(GAME_PATH + SEPARATOR + nickname + YML);
     if (deleteFile.exists()) {
       deleteFile.delete();
     }
   }
+  // CPD-ON
 
   @SuppressWarnings("all")
-  private void removePassword() {
+  // CPD-OFF
+  private void removePassword(String nickname, String password) {
     try {
       final List<String> yamlLines = Files.readAllLines(Paths.get(GAME_PATH + SEPARATOR + YAMLPASSWORD + YML));
-      final String check = "--- {" + NICKNAME + ": " + PASSWORD + "}";
-      if (yamlLines.get(yamlLines.size() - 1).equals(check)) {
-        yamlLines.remove(yamlLines.size() - 1);
-        Files.write(Paths.get(GAME_PATH + SEPARATOR + YAMLPASSWORD + YML), yamlLines);
+      final String check = "--- {" + nickname + ": " + password + "}";
+      for (int i = 0; i < yamlLines.size(); i++) {
+        if (yamlLines.get(i).equals(check)) {
+          yamlLines.remove(i);
+        }
       }
+      Files.write(Paths.get(GAME_PATH + SEPARATOR + YAMLPASSWORD + YML), yamlLines);
     } catch (IOException i) {
     }
-  }
 
+  }
   // CPD-ON
 }
