@@ -18,7 +18,7 @@ public final class ViewImpl implements View {
     private static final double MIN_WIDTH = 867.0;
     private static final double MIN_HEIGHT = 671.0;
     private static final String TITLE = "Alienent";
-    private static final String ICON_PATH = "/images/unlocked.png";
+    private static final String ICON_PATH = "/sprites/standard.png";
 
     private final Stage primaryStage;
     private SceneController sceneController;
